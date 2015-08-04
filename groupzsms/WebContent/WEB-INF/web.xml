@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>GroupzSMS</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description>Groupz SMS</description>
+    <servlet-name>grpzsms</servlet-name>
+    <servlet-class>com.groupz.sendsms.GroupzSmsService</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>grpzsms</servlet-name>
+    <url-pattern>/grpzsms</url-pattern>
+  </servlet-mapping>
+  
+  
+    <servlet>
+    <description>SMS Country Report</description>
+    <servlet-name>StartSmsCountryReport</servlet-name>
+    <servlet-class>com.groupz.sendsms.report.GetSMSCountryReport</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StartSmsCountryReport</servlet-name>
+    <url-pattern>/StartSmsCountryReport</url-pattern>
+  </servlet-mapping>
+  
+  
+      <servlet>
+    <description>Value Leaf Report</description>
+    <servlet-name>StartvalueLeafValuReport</servlet-name>
+    <servlet-class>com.groupz.sendsms.report.GetValueLeafReport</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StartvalueLeafValuReport</servlet-name>
+    <url-pattern>/StartvalueLeafValuReport</url-pattern>
+  </servlet-mapping>
+</web-app>

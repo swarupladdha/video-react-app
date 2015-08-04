@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="GetValueLeafReport" default="jar"> 
+
+	<path id="compile.classpath">         
+		<fileset dir="WebContent/WEB-INF/lib"> 
+           <include name="*.jar"/> 
+        </fileset> 
+   </path> 
+    
+	<target name="init"> 
+       	<mkdir dir="build/classes"/> 
+		<mkdir dir="dist" /> 
+    </target> 
+     
+ 
+    
+	<target name="compile" depends="init" > 
+		 <javac destdir="build/classes" debug="true" srcdir="src"> 
+			<classpath refid="compile.classpath"/>        
+		</javac> 
+  </target> 
+     
+	<copy todir="build/classes">
+	   <fileset dir="src" includes="**/*.properties"/>
+	</copy>
+	
+	<copy todir="build/classes">
+		   <fileset dir="src" includes="**/*.xml"/>
+		</copy>
+   
+	<target name="jar" depends="compile">  
+		<copy todir="dist">
+					<fileset dir="WebContent/WEB-INF/lib" includes="**/*.jar"/>
+				</copy>
+		<jar destfile="dist/GetValueLeafReport.jar" > 					
+			<fileset dir="build/classes" includes="**/*" />
+			<manifest>
+			    			<attribute name="Main-Class" value="com.groupz.sendsms.report.StartValueLeafReport"/>
+			    			<attribute name="Class-Path" value="activemq-all-5.6.0.jar  
+			 													activemq-all-5.4.1.jar
+			    												ActivemqClientServer.jar
+			    												apache-commons-lang.jar
+			    						    					com.thoughtworks.net.sf.jsonlibs_2.4.0.jar
+			    						    					json-lib-2.0-jdk15.jar
+			    						    					json-smart-1.0.9.jar
+			    						    					xom.jar
+			    												antlr-2.7.6.jar
+			    												aopalliance-1.0.jar
+			    												c3p0-0.9.1.jar
+			    							    				cglib-2.2.jar
+			    												commons-beanutils-1.7.jar
+			    							    				commons-collections-2.1.jar
+			    							    				commons-collections-3.1.jar
+			    							    				commons-collections-3.2.jar
+			    							    				commons-digester-1.7.jar
+			    							    				commons-logging-1.0.2.jar
+			    												commons-logging-1.1.1.jar
+			    												dom4j.jar
+			    							 					dom4j-1.6.1.jar
+			    							    				ehcache-1.5.0.jar
+			 													groupzbasedb.jar
+			 													hibernate-jpa-2.0-api-1.0.0.Final.jar
+			 													hibernate3.jar
+			 													infinispan-core-4.0.0.FINAL.jar
+			 													javassist-3.9.0.GA.jar
+			 													jbosscache-core-3.2.1.GA.jar
+			 													jcommon.jar
+			 													jdom.jar
+			    												jsmpp-2.1.0.jar
+			 													jta-1.1.jar
+																log4j-1.2.17.jar
+			    												log4j-1.2.14.jar
+			    												log4j-1.2.15.jar
+			 													mysql-connector-java-5.1.22-bin.jar
+			 													mysql-connector-java-3.0.17-ga-bin.jar
+			 													org.apache.commons.io.jar
+			    												org.osgi.core-4.1.0.jar
+			 													oscache-2.1.jar
+			 													proxool-0.8.3.jar
+			 													servlet-api.jar
+			 													slf4j-api-1.5.8.jar
+			    												slf4j-log4j12-1.4.3.jar
+			    												smpp.jar
+			 													swarmcache-1.0RC2.jar"/>
+			    			</manifest>
+			
+		</jar>    
+	</target> 
+	<target name="dist" depends="jar">
+		</target>
+     
+	<target name="clean">         
+		<delete dir="dist" /> 				
+		<delete dir="build" />     
+	</target> 
+     
+ 
+</project>
