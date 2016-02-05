@@ -1,0 +1,5 @@
+INSERT INTO MessagesInTable( MsgType, Address, Message, Attachment, Time, Date) VALUES(0,'<tolist><to><name>Sushma</name><email>sushma.rameshb@gmail.com</email></to><to><name>One More</name><email>sushma.katragunta@gmail.com</email></to></tolist><cclist><cc><name>Sushma Ramesh</name><email>sushma@infosoftjoin.in</email></cc></cclist><from><name>VInR</name><email>no-reply@beta.vinr.in</email></from>', '<subject>testing new xml format</subject><body>this is the content for testing new xml which definted attachment as well</body>', 'tomcat.gif', CURRENT_TIME, sysdate() ) ;
+
+
+
+INSERT INTO MessagesInTable( MsgType, Address, Message, Attachment, Time, Date) VALUES(0,'<tolist><to><name>Sushma</name><email>sushma.rameshb@gmail.com</email></to><to><name>One More</name><email>sushma.katragunta@gmail.com</email></to></tolist><from><name>VInR</name><email>no-reply@beta.vinr.in</email></from>', '<subject>testing new xml format</subject><body>this is the content for testing new xml which definted attachment as well</body>', 'tomcat.gif', CURRENT_TIME, sysdate() ) ;

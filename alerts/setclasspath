@@ -1,0 +1,16 @@
+export JAVA_HOME=/usr/lib/jvm/java-6-sun
+export VINR_CONFIG_FILE=$ALERTS_BASE/conf/databaseSetting.ini
+export SmsProvider_CONFIG_FILE=$ALERTS_BASE/conf/smsProviderClassNames.ini
+export DefaultSmsProvider_CONFIG_FILE=$ALERTS_BASE/conf/defaultProvider.ini
+export LOG_PROPERTIES_FILE=$ALERTS_BASE/conf/log4j.properties 
+echo "VINR_CONFIG_FILE = " $VINR_CONFIG_FILE
+echo "SmsProvider_CONFIG_FILE = " $SmsProvider_CONFIG_FILE
+echo "DefaultSmsProvider_CONFIG_FILE = " $DefaultSmsProvider_CONFIG_FILE
+echo "LOG_PROPERTIES_FILE = " $LOG_PROPERTIES_FILE
+CLASSPATH="."
+for i in `find $ALERTS_BASE -name *.jar`
+do
+CLASSPATH=$i:$CLASSPATH
+done
+export CLASSPATH
+echo $CLASSPATH    

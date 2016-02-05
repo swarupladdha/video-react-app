@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 14.0-b16 (Sun Microsystems Inc.)
+Main-Class: alerts.email.VinrEmailNotification
+Class-Path: /home/sushma/alerts14jul2010/alerts/lib/activation.jar /home/s
+ ushma/alerts14jul2010/alerts/lib/imap.jar /home/sushma/alerts14jul2010/a
+ lerts/lib/mailapi.jar /home/sushma/alerts14jul2010/alerts/lib/pop3.jar /h
+ ome/sushma/alerts14jul2010/alerts/lib/dsn.jar /home/sushma/alerts14jul201
+ 0/alerts/lib/mail-1.3.2.jar /home/sushma/alerts14jul2010/alerts/lib/mysql
+ -connector-java-5.1.7-bin.jar /home/sushma/alerts14jul2010/alerts/lib/smt
+ p.jar /home/sushma/alerts/lib/log4j-1.2.16.jar /home/sushma/alerts14jul20
+ 10alerts/lib/DBPool-5.0.jar
