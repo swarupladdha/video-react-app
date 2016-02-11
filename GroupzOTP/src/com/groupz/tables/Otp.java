@@ -15,8 +15,7 @@ import com.gpzhibernate.DontPersistWhenSerializing;
 
 @Entity
 @Table(name = "otp")
-public class Otp extends BaseDatabaseObject implements Serializable{
-
+public class Otp extends BaseDatabaseObject implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,71 +34,58 @@ public class Otp extends BaseDatabaseObject implements Serializable{
 	@Column(name = "Otp")
 	private String otp;
 
+	@Column(name = "CreatedTime")
+	private Date createdTime;
 
-	@Column(name = "Time")
-	private Date time;
-
-
-	@Column(name = "LapsTime")
-	private Date lapstime;
-
+	@Column(name = "LapseTime")
+	private Date lapsetime;
 
 	public long getId() {
 		return id;
 	}
 
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
 
 	public String getCountrycode() {
 		return countrycode;
 	}
 
-
 	public void setCountrycode(String countrycode) {
 		this.countrycode = countrycode;
 	}
-
 
 	public String getMobile() {
 		return mobile;
 	}
 
-
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-
 
 	public String getOtp() {
 		return otp;
 	}
 
-
 	public void setOtp(String otp) {
 		this.otp = otp;
 	}
 
-
-	public Date getTime() {
-		return time;
+	public Date getCreatedTime() {
+		return createdTime;
 	}
 
-
-	public void setTime(Date time) {
-		this.time = time;
+	public void setCreatedTime(Date createdTime) {
+		this.createdTime = createdTime;
 	}
 
-
-	public Date getLapstime() {
-		return lapstime;
+	public Date getLapsetime() {
+		return lapsetime;
 	}
 
-
-	public void setLapstime(Date lapstime) {
-		this.lapstime = lapstime;
+	public void setLapsetime(Date lapsetime) {
+		this.lapsetime = lapsetime;
 	}
+
 }

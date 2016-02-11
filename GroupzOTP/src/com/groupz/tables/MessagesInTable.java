@@ -16,8 +16,8 @@ import com.gpzhibernate.BaseDatabaseObject;
 import com.gpzhibernate.DontPersistWhenSerializing;
 
 @Entity
-@Table(name = "MessagesinTable")
-public class MessagesinTable extends BaseDatabaseObject implements Serializable {
+@Table(name = "MessagesInTable")
+public class MessagesInTable extends BaseDatabaseObject implements Serializable {
 
 	private static final long serialVersionUID = -6606640260934134100L;
 
@@ -52,6 +52,29 @@ public class MessagesinTable extends BaseDatabaseObject implements Serializable 
 
 	@Column(name = "CustomData", length = 1024)
 	private String customData;
+	
+	@Column(name = "Version")
+	private String version;
+	
+	@Column(name = "Provider")
+	private String provider;
+
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public String getProvider() {
+		return provider;
+	}
+
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
 
 	public String getCustomData() {
 		return customData;

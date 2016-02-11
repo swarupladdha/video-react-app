@@ -28,7 +28,7 @@
 		<!-- Drop and re-create the database schema on startup -->
 		<property name="hbm2ddl.auto">update</property>
 		<mapping class="com.groupz.tables.Otp" />
-		<mapping class="com.groupz.tables.MessagesinTable" />
+		<mapping class="com.groupz.tables.MessagesInTable" />
 
 	</session-factory>
 </hibernate-configuration>

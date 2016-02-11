@@ -10,4 +10,14 @@
     <servlet-name>GenerateOTP</servlet-name>
     <url-pattern>/GenerateOTP</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ValidateOTP</display-name>
+    <servlet-name>ValidateOTP</servlet-name>
+    <servlet-class>com.groupz.servlets.ValidateOTP</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ValidateOTP</servlet-name>
+    <url-pattern>/ValidateOTP</url-pattern>
+  </servlet-mapping>
 </web-app>

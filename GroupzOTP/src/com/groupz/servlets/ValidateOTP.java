@@ -1,39 +1,41 @@
 package com.groupz.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ValidateOTP
- */
+import com.groupz.manager.OtpManager;
+
 public class ValidateOTP extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ValidateOTP() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	static {
+		System.setProperty("Hibernate-Url", ValidateOTP.class.getResource("/config/hibernate.cfg.xml").toString());
+		System.out.println("Hibernate Initialization : " + System.getProperty("Hibernate-Url"));
+		System.out.println(System.getProperties());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
 	}
 
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String otpRequest = request.getParameter("request");
+
+		System.out.println("The request is : " + otpRequest);
+		OtpManager otp = new OtpManager();
+		// String otpResponse = "";
+		String otpResponse = otp.validateOTP(otpRequest);
+		System.out.println("The response is : " + otpResponse);
+
+		response.setContentType("application/json; charset=UTF-8");
+		PrintWriter writer = response.getWriter();
+		writer.append(otpResponse);
+	}
 }

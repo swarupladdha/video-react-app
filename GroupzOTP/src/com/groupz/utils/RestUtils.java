@@ -2,9 +2,15 @@ package com.groupz.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.CharacterIterator;
-import java.text.StringCharacterIterator;
 
+import java.text.CharacterIterator;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.text.StringCharacterIterator;
+import java.util.Date;
+import java.util.TimeZone;
+
+import antlr.Utils;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -120,6 +126,37 @@ public class RestUtils {
 		return result.toString();
 	}
 
+	public static Date StringDateToDate(String StrDate) {
+		String DATEFORMAT = "yyyy-MM-dd HH:mm:ss";
+		Date dateToReturn = null;
+		SimpleDateFormat dateFormat = new SimpleDateFormat(DATEFORMAT);
+		try {
+			dateToReturn = (Date) dateFormat.parse(StrDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return dateToReturn;
+	}
+
+	public Date getLastSynchTime() {
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+		f.setTimeZone(TimeZone.getTimeZone("UTC"));
+		String utcTime = f.format(new Date());
+		System.out.println("String date:" + utcTime);
+		Date lastSynch = StringDateToDate(utcTime);
+		System.out.println("Date :" + lastSynch);
+		return lastSynch;
+	}
+
+	/*
+	 * // get latest synch time public String getLatestSynchTime() {
+	 * SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	 * f.setTimeZone(TimeZone.getTimeZone("UTC")); String utcTime = f.format(new
+	 * Date()); // System.out.println("String date:"+utcTime); Date lastSynch =
+	 * StringDateToDate(utcTime); String lastSynchTime =
+	 * getFormattedDateStr(lastSynch); return lastSynchTime.trim(); }
+	 */
+
 	public String processError(String statusCode, String message) {
 		String errorJSONString = new String();
 		JSONObject errorJSON = new JSONObject();
@@ -136,25 +173,24 @@ public class RestUtils {
 
 	// process success
 	public String processSucess(String dataText, Object Obj) {
-		System.out.println("Data text:"+dataText);
-		System.out.println("Data Obj:"+Obj);
+		System.out.println("Data text:" + dataText);
+		System.out.println("Data Obj:" + Obj);
 		JSONObject sucessJSON = new JSONObject();
 		JSONObject sucessRespJSON = new JSONObject();
-		JSONObject contentJSON = new JSONObject();		
+		JSONObject contentJSON = new JSONObject();
 		contentJSON.put("statuscode", PropertiesUtil.getProperty("statuscodesuccessvalue"));
 		contentJSON.put("statusmessage", PropertiesUtil.getProperty("statusmessagesuccessvalue"));
-		if(Obj instanceof JSONArray){
+		if (Obj instanceof JSONArray) {
 			contentJSON.put(dataText, Obj);
-		}else if(Obj instanceof JSONObject){
+		} else if (Obj instanceof JSONObject) {
 			contentJSON.put(dataText, Obj);
-		}else{
+		} else {
 			contentJSON.put(dataText, Obj);
 		}
-		System.out.println("Content JSON:"+contentJSON.toString());
+		System.out.println("Content JSON:" + contentJSON.toString());
 		sucessRespJSON.put("response", contentJSON);
 		sucessJSON.put("json", sucessRespJSON);
 		return sucessJSON.toString();
 
 	}
-
 }

@@ -16,8 +16,7 @@ public class SmsMessage {
 		toAddress += "</to>";
 		String toStr = getAddressAsXml(toAddress);
 
-		this.fromAddress = "<from><name>" + "" + "</name><number>" + ""
-				+ "</number></from>";
+		this.fromAddress = "<from><name>" + "pavan" + "</name><number>" + "123" + "</number></from>";
 
 		String Address = toStr + fromAddress;
 		return Address;
@@ -57,13 +56,14 @@ public class SmsMessage {
 	private String constructToXmlTagsForPerson(String number, String name) {
 
 		String ret = "";
-		ret += "<contactpersonname>" + RestUtils.encode(name)
-				+ "</contactpersonname>";
-		ret += "<name>" + "" + "</name><email>" + "" + "</email>";
-		ret += "<number>" + RestUtils.encode(number) + "</number>";
-		ret += "<prefix>" + "" + "</prefix>";
 
-		ret += "<contactpersonprefix>" + "" + "</contactpersonprefix>";
+		ret += "<name>" + "varun" + "</name>";
+		ret += "<contactpersonname>" + RestUtils.encode(name) + "</contactpersonname>";
+		ret += "<number>" + "+91."+ RestUtils.encode(number) + "</number>";
+		ret += "<email>" + "abc@aaa.in" + "</email>";
+		ret += "<prefix>" + "mr." + "</prefix>";
+
+		ret += "<contactpersonprefix>" + "mr." + "</contactpersonprefix>";
 
 		return ret;
 	}
