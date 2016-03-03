@@ -1,20 +1,21 @@
 package com.groupz.manager;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.groupz.message.EmailAndSmsManager;
-import com.groupz.operations.OTPOperations;
-import com.groupz.tables.Otp;
-import com.groupz.utils.PropertiesUtil;
-import com.groupz.utils.RestUtils;
+import org.hibernate.HibernateException;
 
 import net.sf.json.JSONObject;
 
-public class OtpManager {
+import com.groupz.message.EmailAndSmsManager;
+import com.groupz.operations.OTPOperations;
+import com.groupz.utils.PropertiesUtil;
+import com.groupz.utils.RestUtils;
+import com.jobztop.tables.Otp;
+import com.jobztop.utils.DBConnect;
 
+public class OtpManager {
+	OTPOperations oppop = new OTPOperations();
 	RestUtils utils = new RestUtils();
 	String response = "";
 
@@ -23,52 +24,77 @@ public class OtpManager {
 
 		try {
 			// Json check
-
+			DBConnect dbConnect = new DBConnect();
+			System.out.println("Trying to connect hiberate in jobztop");
+			dbConnect.establishConnection();
+			System.out.println("Connected to jobztop db");
 			JSONObject jsonreq = new JSONObject();
 			jsonreq = JSONObject.fromObject(req);
 			System.out.println("json request is :" + jsonreq);
 
-			Otp otp = new Otp();
-			String mobile = jsonreq.getJSONObject("json").getJSONObject("request").getJSONObject("mobile")
+			Otp otpActions = new Otp();
+			String mobile = jsonreq.getJSONObject("json")
+					.getJSONObject("request").getJSONObject("mobile")
 					.getString("mobilenumber");
-			String countrycode = jsonreq.getJSONObject("json").getJSONObject("request").getJSONObject("mobile")
+			String countrycode = jsonreq.getJSONObject("json")
+					.getJSONObject("request").getJSONObject("mobile")
 					.getString("countrycode");
 
-			if (utils.isEmpty(mobile) == false && utils.isEmpty(countrycode) == false) {
-				if ((utils.isNumber(mobile) == true) && (utils.isNumber(countrycode) == true)) {
-					otp.setMobile(utils.encrypt(mobile));
+			if (utils.isEmpty(mobile) == false
+					&& utils.isEmpty(countrycode) == false) {
+				if ((utils.isNumber(mobile) == true)
+						&& (utils.isNumber(countrycode) == true)) {
+					otpActions.setMobile(utils.encrypt(mobile));
 
 					if (countrycode.equalsIgnoreCase("91") == true) {
-						otp.setCountrycode(utils.encrypt(countrycode));
+						otpActions.setCountrycode(utils.encrypt(countrycode));
 						String genOtp = utils.generateOTP();
 						System.out.println("One Time Password is: " + genOtp);
-						otp.setOtp(utils.encrypt(genOtp));
+						otpActions.setOtp(utils.encrypt(genOtp));
 
-						otp.setCreatedTime(utils.getLastSynchTime());
+						otpActions.setCreatedTime(utils.getLastSynchTime());
 						Calendar cal = Calendar.getInstance();
 						cal.setTime(utils.getLastSynchTime());
 						cal.add(Calendar.MINUTE, 30);
 						// Date date1 = otpop.StringDateToDate(date);
-						System.out.println("proper format :" + utils.getLastSynchTime());
+						System.out.println("proper format :"
+								+ utils.getLastSynchTime());
 						Date lapps_time = cal.getTime();
-						otp.setLapsetime(lapps_time);
-						otp.save();
+						otpActions.setLapsetime(lapps_time);
+						System.out.println("OTP trying to save");
+						try {
+							System.out.println("OTP SAVED IN TRY BLOCK");
+							otpActions.save();
+						} catch (HibernateException ef) {
+							System.out
+									.println("OTP EXCEPTION IN HIBERNATE CATCH");
+							ef.printStackTrace();
+						} catch (Exception e) {
+							System.out.println("OTP EXCEPTION IN FINAL CATCH");
+							e.printStackTrace();
+						}
 						EmailAndSmsManager sms = new EmailAndSmsManager();
 						sms.sendSms(genOtp, mobile);
 						response = utils.processSucess("otp", genOtp);
 						return response;
 					} else {
-						response = utils.processError(PropertiesUtil.getProperty("countrycode_invalid_code"),
-								PropertiesUtil.getProperty("countrycode_invalid_message"));
+						response = utils
+								.processError(
+										PropertiesUtil
+												.getProperty("countrycode_invalid_code"),
+										PropertiesUtil
+												.getProperty("countrycode_invalid_message"));
 						return response;
 					}
 				} else {
-					response = utils.processError(PropertiesUtil.getProperty("mobile_invalid_code"),
-							PropertiesUtil.getProperty("mobile_invalid_message"));
+					response = utils.processError(PropertiesUtil
+							.getProperty("mobile_invalid_code"), PropertiesUtil
+							.getProperty("mobile_invalid_message"));
 					return response;
 				}
 			} else {
-				response = utils.processError(PropertiesUtil.getProperty("mobile_invalid_code"),
+				response = utils.processError(
+						PropertiesUtil.getProperty("mobile_invalid_code"),
 						PropertiesUtil.getProperty("mobile_invalid_message"));
 				return response;
 			}
@@ -76,7 +102,8 @@ public class OtpManager {
 
 		{
 			e.printStackTrace();
-			response = utils.processError(PropertiesUtil.getProperty("Json_invalid_code"),
+			response = utils.processError(
+					PropertiesUtil.getProperty("Json_invalid_code"),
 					PropertiesUtil.getProperty("Json_invalid_message"));
 			return response;
 
@@ -88,36 +115,43 @@ public class OtpManager {
 	public String validateOTP(String request) {
 		String response = "";
 		try {
+			DBConnect dbConnect = new DBConnect();
+			System.out.println("Trying to connect hiberate in jobztop");
+			dbConnect.establishConnection();
 			JSONObject jsonreq = new JSONObject();
 			jsonreq = JSONObject.fromObject(request);
 
 			System.out.println("json request is :" + jsonreq);
 			// JSONObject dataObj = jsonreq.getJSONObject("data");
-			String countryCode = jsonreq.getJSONObject("json").getJSONObject("request").getJSONObject("mobile")
+			String countryCode = jsonreq.getJSONObject("json")
+					.getJSONObject("request").getJSONObject("mobile")
 					.getString("countrycode");
 
-			String mobileNumber = jsonreq.getJSONObject("json").getJSONObject("request").getJSONObject("mobile")
+			String mobileNumber = jsonreq.getJSONObject("json")
+					.getJSONObject("request").getJSONObject("mobile")
 					.getString("mobilenumber");
 
-			String otp = jsonreq.getJSONObject("json").getJSONObject("request").getString("otp");
-			OTPOperations otpop = new OTPOperations();
+			String otp = jsonreq.getJSONObject("json").getJSONObject("request")
+					.getString("otp");
 
-			Otp isExist = otpop.checkmobileExists(utils.encrypt(countryCode), utils.encrypt(mobileNumber),
-					utils.encrypt(otp));
+			Otp isExist = oppop.checkmobileExists(utils.encrypt(countryCode),
+					utils.encrypt(mobileNumber), utils.encrypt(otp));
 			if (isExist != null) {
 
 				if (utils.getLastSynchTime().before(isExist.getLapsetime())) {
 					response = utils.processSucess("otp", true);
 					return response;
 				} else {
-					response = utils.processError(PropertiesUtil.getProperty("otp_invalid_code"),
+					response = utils.processError(
+							PropertiesUtil.getProperty("otp_invalid_code"),
 							PropertiesUtil.getProperty("otp_invalid_message"));
 					return response;
 				}
 
 				// return response;
 			} else {
-				response = utils.processError(PropertiesUtil.getProperty("otp_invalid_code"),
+				response = utils.processError(
+						PropertiesUtil.getProperty("otp_invalid_code"),
 						PropertiesUtil.getProperty("otp_invalid_message"));
 				return response;
 			}
@@ -127,7 +161,8 @@ public class OtpManager {
 		{
 			e.printStackTrace();
 			e.printStackTrace();
-			response = utils.processError(PropertiesUtil.getProperty("Json_invalid_code"),
+			response = utils.processError(
+					PropertiesUtil.getProperty("Json_invalid_code"),
 					PropertiesUtil.getProperty("Json_invalid_message"));
 			return response;
 

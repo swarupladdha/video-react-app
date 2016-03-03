@@ -14,18 +14,13 @@ public class ValidateOTP extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	static {
-		System.setProperty("Hibernate-Url", ValidateOTP.class.getResource("/config/hibernate.cfg.xml").toString());
-		System.out.println("Hibernate Initialization : " + System.getProperty("Hibernate-Url"));
-		System.out.println(System.getProperties());
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String otpRequest = request.getParameter("request");
 
 		System.out.println("The request is : " + otpRequest);

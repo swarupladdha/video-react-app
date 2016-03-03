@@ -31,6 +31,7 @@
 		<pathelement path="libs/org-apache-commons-logging.jar"/>
 		<pathelement path="libs/oscache-2.1.jar"/>
 		<pathelement path="libs/standard.jar"/>
+		<pathelement path="libs/JobzTop.jar"/>
 		
 		<pathelement path="libs/groupzbasedb.jar"/>
 		<pathelement path="libs/javax.servlet-api.jar"/>
