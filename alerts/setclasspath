@@ -1,4 +1,4 @@
-export JAVA_HOME=/usr/lib/jvm/java-6-sun
+export JAVA_HOME=/usr/lib/jvm/jdk1.6.0_24
 export VINR_CONFIG_FILE=$ALERTS_BASE/conf/databaseSetting.ini
 export SmsProvider_CONFIG_FILE=$ALERTS_BASE/conf/smsProviderClassNames.ini
 export DefaultSmsProvider_CONFIG_FILE=$ALERTS_BASE/conf/defaultProvider.ini
