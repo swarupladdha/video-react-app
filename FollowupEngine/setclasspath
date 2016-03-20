@@ -1,0 +1,10 @@
+export JAVA_HOME=/usr/lib/jvm/jdk1.6.0_24
+export LOG_PROPERTIES_FILE=$FE_BASE/conf/log4j.properties 
+export FE_CONFIG_FILE=$FE_BASE/conf/db.properties 
+CLASSPATH="."
+for i in `find $FE_BASE -name *.jar`
+do
+CLASSPATH=$i:$CLASSPATH
+done
+export CLASSPATH
+echo $CLASSPATH    

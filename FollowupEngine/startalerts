@@ -1,0 +1,5 @@
+source setclasspath
+nohup java alerts.email.VinrEmailNotification > /home/groupz/alerts/tmp/vinr.alerts.log &
+#sleep 5
+#export VINR_CONFIG_FILE=/home/groupz/alerts/conf/crmDB.ini
+#java alerts.email.VinrEmailNotification > /home/groupz/alerts/tmp/crm.alerts.log &
