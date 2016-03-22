@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.groupz.followup.database.ConnectDatabase;
 import com.groupz.message.Message;
 
 public class FollowupManager {

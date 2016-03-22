@@ -1,46 +1,72 @@
 <project name="FollowupEngine" default="dist" basedir=".">
-    <description>
-        vinr alerts build file
+	<description>
+        Follow up engine build file
     </description>
-  <!-- set global properties for this build -->
-  <property name="src" location="src"/>
-  <property name="build" location="build"/>
-  <property name="dist"  location="dist"/>
-  <!-- property name="lib"  location="/home/vinr/alerts/lib"/ -->
+	<!-- set global properties for this build -->
+	<property environment="env" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.5" />
+	<property name="source" value="1.5" />
+	<!-- property name="lib"  location="/home/vinr/alerts/lib"/ -->
 
-  <target name="init">
-    <!-- Create the time stamp -->
-    <delete dir="${build}"/>
-    <delete dir="${dist}"/>
-    <tstamp/>
-    <!-- Create the build directory structure used by compile -->
-    <mkdir dir="${build}"/>
-  </target>
+	<path id="FollowupEngine.classpath">
+		<pathelement path="libs/commons-beanutils.jar" />
+		<pathelement path="libs/commons-collections.jar" />
+		<pathelement path="libs/commons-lang.jar" />
+		<pathelement path="libs/commons-logging-1.1.1.jar" />
+		<pathelement path="libs/ezmorph.jar" />
+		<pathelement path="libs/json-lib-2.2.2-jdk15.jar" />
+		<pathelement path="libs/json-smart-1.0.8.jar" />
+		<pathelement path="libs/xom-1.2.10.jar" />
+		<pathelement path="libs/mysql-connector-java-5.1.38-bin.jar" />
+		<pathelement path="libs/commons-logging-1.0.2.jar" />
+		<pathelement path="libs/commons-logging-1.1.1.jar" />
+		<pathelement path="libs/log4j-1.2.16.jar" />
+	</path>
 
-  <target name="compile" depends="init"
-        description="compile the source " >
-    <!-- Compile the java code from ${src} into ${build} -->
-    <javac srcdir="${src}" destdir="${build}" deprecation="on" debug="true" nowarn="off" />
-  </target>
+	<target name="init">
+		<mkdir dir="build/web" />
+		<mkdir dir="build/classes" />
+		<mkdir dir="build/classes/META-INF" />
+		<mkdir dir="dist" />
 
-  <target name="dist" depends="compile"
-        description="generate the distribution" >
-    <!-- Create the distribution directory -->
-    <mkdir dir="${dist}/lib"/>
+		<copy includeemptydirs="false" todir="build/classes">
+			<fileset dir="src" includes="**/*.properties,**/*.xml" />
+		</copy>
+		<copy includeemptydirs="false" todir="build/classes/META-INF">
+			<fileset dir="src" includes="**/*.xml,**/*.MF" />
+		</copy>
+	</target>
+	<target name="clean">
+		<delete dir="build/" />
+		<delete dir="dist/" />
+	</target>
+	<target depends="clean" name="cleanall" />
+	<target depends="init" name="build">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac target="${target}" debug="true" destdir="build/classes" debuglevel="${debuglevel}" source="${source}" includeAntRuntime="false">
+			<src path="src" />
+			<classpath refid="FollowupEngine.classpath" />
+		</javac>
 
-    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-    <jar jarfile="${dist}/lib/FollowupEngine.jar" basedir="${build}">
-	<manifest>
-		<attribute name="Main-Class" value="com.groupz.followup.database.ConnectDatabase"/>
-		<!-- attribute name="Class-path" value="${lib}/activation.jar ${lib}/imap.jar ${lib}/mailapi.jar ${lib}/pop3.jar ${lib}/dsn.jar ${lib}/mail-1.3.2.jar ${lib}/mysql-connector-java-5.1.7-bin.jar ${lib}/smtp.jar" / --> 
-	</manifest>
-    </jar>
-  </target>
+	</target>
+	<target depends="build" name="jar">
+		<jar destfile="dist/FollowupEngine.jar" basedir="build/classes">
 
-  <target name="clean"
-        description="clean up" >
-    <!-- Delete the ${build} and ${dist} directory trees -->
-    <delete dir="${build}"/>
-    <delete dir="${dist}"/>
-  </target>
-</project>         
+
+			<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+
+			<manifest>
+				<attribute name="Main-Class" value="com.groupz.followup.database.ConnectDatabase"/>
+				<attribute name="Class-path" value="${libs}/commons-beanutils-1.7.jar
+			${libs}/commons-collections.jar ${libs}/commons-lang.jar
+			${libs}/commons-logging-1.1.1.jar ${libs}/ezmorph.jar 
+			${libs}/json-lib-2.2.2-jdk15.jar ${libs}/json-smart-1.0.8.jar 
+			${libs}/xom-1.2.10.jar 
+			${libs}/mysql-connector-java-5.1.38-bin.jar 
+			${libs}/commons-logging-1.0.2.jar ${libs}/commons-logging-1.1.1.jar " />
+			</manifest>
+		</jar>
+	</target>
+
+</project>
