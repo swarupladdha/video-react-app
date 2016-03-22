@@ -6,124 +6,144 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import com.groupz.followup.database.ConnectDatabase;
 import com.groupz.message.Message;
 
 public class FollowupManager {
-	
+	static final Logger logger = Logger.getLogger(FollowupManager.class);
+
 	static String followupSQL = "select gbfollowup.id, groupzbaseid,noofdays,roleid, "
 			+ "FollowupApprovedMailText, FollowupApprovedMailTitle, "
 			+ "SmsProviderCode, SmsProviderPassword, SmsProviderUserName, "
 			+ "FollowupApprovedSMSText from gbfollowup, builder "
-			+ "where followupsent=false and builder.id = gbfollowup.groupzbaseid" ;
+			+ "where followupsent=false and builder.id = gbfollowup.groupzbaseid";
 
-	static String updateFollowupSQL = "update gbfollowup set followupsent=true where Id=%s" ;
+	static String updateFollowupSQL = "update gbfollowup set followupsent=true where Id=%s";
 
-	static String contactsListSQL = "select f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  "
-			+ "from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s "
+	static String contactsListSQL = "select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  "
+			+ "from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r "
 			+ "where DATE(DATE_ADD(f.approvaldate, INTERVAL %s DAY) ) = CURRENT_DATE and "
 			+ "f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and "
-			+ "u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and " 
-			+ "f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = %s and ufm.roleid = %s";
+			+ "u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and "
+			+ "f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = %s and r.gbroleid = %s";
 
+	private List<Message> getTargetList(Connection c, int baseid, int days,
+			int roleid) {
+		try {
+			Statement stmt = c.createStatement();
+			List<Message> theFinalList = new ArrayList<Message>();
 
-	private List<Message> getTargetList( Connection c, int baseid, int days, int roleid ){
-        try {
-            Statement stmt = c.createStatement();		                	
-        	List<Message> theFinalList = new ArrayList<Message>() ;
+			String QueryString = String.format(contactsListSQL, days, baseid,
+					roleid);
 
-            String QueryString = String.format(contactsListSQL, days, baseid, roleid ) ;	                	
+			System.out.println(QueryString);
 
-            System.out.println(QueryString) ;
+			ResultSet rs = stmt.executeQuery(QueryString);
+			while (rs.next()) {
+				int ufmId = rs.getInt("ufm.id");
+				String groupzCode = rs.getString("a.societycode");
+				int memid = rs.getInt("f.id");
+				String mob = rs.getString("p.mobile");
+				String email = rs.getString("u.email");
+				String name = rs.getString("p.name");
+				String gender = rs.getString("p.gender");
+				String fromEmail = rs.getString("s.senderemail");
+				String fromMob = rs.getString("a.mobile");
+				String senderid = rs.getString("s.sendersms");
+				String groupz = rs.getString("a.name");
+				String contactName = name;
+				String namePrefix;
+				String contactPrefix;
+				if (gender != null && gender.trim().equalsIgnoreCase("male")) {
+					namePrefix = "Mr.";
+				} else {
+					namePrefix = "Ms.";
+				}
+				contactPrefix = namePrefix;
 
-            ResultSet rs = stmt.executeQuery(QueryString);
-            while( rs.next()){
-            	int memid = rs.getInt("f.id") ;
-            	String mob = rs.getString("p.mobile") ;
-            	String email = rs.getString("u.email") ;
-            	String name = rs.getString("p.name") ;
-            	String gender = rs.getString("p.gender") ;	            	
-            	String fromEmail = rs.getString("s.senderemail") ;
-            	String fromMob = rs.getString("a.mobile") ;
-            	String senderid = rs.getString("s.sendersms") ;
-            	String groupz = rs.getString("a.name") ;
-            	String contactName = name ;
-            	String namePrefix ;
-            	String contactPrefix ;
-            	if( gender != null && gender.trim().equalsIgnoreCase("male")){
-            		namePrefix = "Mr." ;
-            	}else{
-            		namePrefix = "Ms." ;
-            	}
-            	contactPrefix = namePrefix ;
-            	
-            	Message m = new Message() ;
-            	m.setToName(name); ;
-            	m.setToContactName(contactName);
-            	m.setNamePrefix(namePrefix);
-            	m.setContactPrefix(contactPrefix);
-            	m.setMobNumber(mob);
-            	m.setEmail(email);
-            	m.setSenderId(senderid);
-            	m.setFromEmail(fromEmail);
-            	m.setFromMobile(fromMob);
-            	m.setGroupzName(groupz);
-            	theFinalList.add(m) ;
-            	System.out.println("Sending...." + memid + "  " + mob + "  -  " + email) ;            	
-            }
+				Message m = new Message();
+				m.setToName(name);
+				;
+				m.setToContactName(contactName);
+				m.setNamePrefix(namePrefix);
+				m.setContactPrefix(contactPrefix);
+				m.setMobNumber(mob);
+				m.setEmail(email);
+				m.setSenderId(senderid);
+				m.setFromEmail(fromEmail);
+				m.setFromMobile(fromMob);
+				m.setGroupzName(groupz);
+				m.setGroupzCode(groupzCode);
+				m.setMemberId(ufmId);
+				theFinalList.add(m);
+				System.out.println("Sending...." + memid + "  " + mob + "  -  "
+						+ email);
+			}
 			stmt.close();
-			return theFinalList ;
-        } catch(Exception e){
-        	e.printStackTrace();
-        	return null ;
-        }		
+			return theFinalList;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
-	private void sendEmailFollowup( int baseid, int days, String emailText ){
-		System.out.println(" Email sent : " + emailText) ;
+	private void sendEmailFollowup(int baseid, int days, String emailText) {
+		System.out.println(" Email sent : " + emailText);
 	}
 
-	private void followupDone( Connection c, int id){
-		try{
-			String updateSQL = String.format(updateFollowupSQL, id ) ;
-			Statement stmt = c.createStatement() ;
-			stmt.executeUpdate(updateSQL) ;
+	private void followupDone(Connection c, int id) {
+		try {
+			String updateSQL = String.format(updateFollowupSQL, id);
+			Statement stmt = c.createStatement();
+			stmt.executeUpdate(updateSQL);
 			stmt.close();
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void run(  Connection dbConnection){
-        try {
-            Statement stmt = dbConnection.createStatement();		                	
 
-            String QueryString = followupSQL;	                	
+	public void run(Connection dbConnection) {
+		try {
+			Statement stmt = dbConnection.createStatement();
 
-            ResultSet rs = stmt.executeQuery(QueryString);
-            while( rs.next()){
-            	int id = rs.getInt("gbfollowup.id") ;
-            	int gbid = rs.getInt("groupzbaseid") ;
-            	int days = rs.getInt("noofdays") ;
-            	int roleid = rs.getInt("roleid") ;
-            	String smsText = rs.getString("FollowupApprovedSMSText") ;
-            	String providercode = rs.getString("SmsProviderCode") ;
-            	String userid = rs.getString("SmsProviderUserName") ;
-            	String password = rs.getString("SmsProviderPassword") ;
-            	
-            	System.out.println("Sending...." + id + "  " + gbid + "  -  " + days) ;            	
-            	List<Message> targetList = getTargetList(dbConnection, gbid, days, roleid);            	
-            	if( smsText != null && smsText.trim().isEmpty() == false){
-                	for( Message msg : targetList){
-                		msg.sendMessage(dbConnection, providercode, userid, password, smsText, null) ;
-                	}
-            	}
-            	followupDone( dbConnection, id ) ;
-            }
+			String QueryString = followupSQL;
+
+			ResultSet rs = stmt.executeQuery(QueryString);
+			while (rs.next()) {
+				int id = rs.getInt("gbfollowup.id");
+				int gbid = rs.getInt("groupzbaseid");
+				int days = rs.getInt("noofdays");
+				int roleid = rs.getInt("roleid");
+				String smsText = rs.getString("FollowupApprovedSMSText");
+				String providercode = rs.getString("SmsProviderCode");
+				String userid = rs.getString("SmsProviderUserName");
+				String password = rs.getString("SmsProviderPassword");
+
+				System.out.println("Sending...." + id + "  " + gbid + "  -  "
+						+ days);
+				List<Message> targetList = getTargetList(dbConnection, gbid,
+						days, roleid);
+				System.out.println("Target List:"+targetList.size());
+				//if (smsText != null && smsText.trim().isEmpty() == false) {
+					
+					for (Message msg : targetList) {
+						// msg.sendMessage(dbConnection, providercode, userid,
+						// password, smsText, null) ;
+						System.out.println("Follow up id:"+id +" and gpzCode:"+msg.getGroupzCode()+" and memId:"+msg.getMemberId());
+						boolean followUpStatus = msg.sendFollowupinURL(id,
+								msg.getGroupzCode(), msg.getMemberId());
+						logger.debug("Follow up status through URL:"+followUpStatus);
+					}
+				//}
+				followupDone(dbConnection, id);
+			}
 			stmt.close();
-        } catch(Exception e){
-        	e.printStackTrace();
-        }
-		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
