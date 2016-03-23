@@ -71,7 +71,7 @@ public class ConnectDatabase {
         }
     }
 
-public static  void main(String args[]){
+public static  void main(String args[]) throws InterruptedException{
     	ConnectDatabase cd = new ConnectDatabase() ;
     	Connection c = cd.establishConnection() ;
     	FollowupManager fm = new FollowupManager() ;
@@ -79,6 +79,7 @@ public static  void main(String args[]){
     	if ( c != null){
     		cd.closeConnection(c);
     	}
+	Thread.sleep(5000) ;
     	return ;
     }
 

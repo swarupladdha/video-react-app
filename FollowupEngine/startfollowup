@@ -1,0 +1,6 @@
+source setclasspath
+nohup java com.groupz.followup.database.ConnectDatabase > /home/groupz/Interfaces/FollowupEngine/Followup.log &
+
+#sleep 5
+#export VINR_CONFIG_FILE=/home/groupz/alerts/conf/crmDB.ini
+#java alerts.email.VinrEmailNotification > /home/groupz/alerts/tmp/crm.alerts.log &
