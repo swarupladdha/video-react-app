@@ -1,14 +1,15 @@
 package ivr.tables;
 
 import java.io.Serializable;
-
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import com.gpzhibernate.BaseDatabaseObject;
 import com.gpzhibernate.DBCommonOpertion;
 import com.gpzhibernate.DontPersistWhenSerializing;
@@ -33,16 +34,10 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 	private String url;
 
 
-
-	@Column(name = "recordselectedList")
-	private String recordselectedList;
-	
 	@Column(name = "ipAddress")
 	private String ipAddress;
 
-	@Column(name = "recordMainMenudisplayList")
-	private String recordMainMenudisplayList;
-
+	
 	@Column(name = "contextdisplayList")
 	private String contextdisplayList;
 
@@ -54,19 +49,6 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 
 	@Column(name = "subMenuFlag")
 	private boolean subMenuFlag;
-
-	@Column(name = "recordFlag")
-	private boolean recordFlag;
-
-
-
-
-
-	@Column(name = "selectedrecordlang")
-	private String selectedrecordlang;
-
-	@Column(name = "isRecMultiLangSelectionFlag")
-	private boolean isRecMultiLangSelectionFlag;
 
 	@Column(name = "publishUrlList")
 	private String publishUrlList;
@@ -85,12 +67,6 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 
 	@Column(name = "multigrpzWelcomeNotes")
 	private String multigrpzWelcomeNotes;
-
-	@Column(name = "newInquiryselectionList")
-	private String newInquiryselectionList;
-
-	@Column(name = "newInquiryDisplayList")
-	private String newInquiryDisplayList;
 
 	@Column(name = "ivrNumber")
 	private String ivrNumber;
@@ -113,19 +89,6 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 	@Column(name = "groupzId")
 	private String groupzId;
 	
-	@Column(name = "recordreferenceIdList")
-	private String recordreferenceIdList;
-	
-	
-
-	public String getrecordreferenceIdList() {
-		return recordreferenceIdList;
-	}
-
-	public void setrecordreferenceIdList(String recordreferenceIdList) {
-		this.recordreferenceIdList = recordreferenceIdList;
-	}
-
 	@Column(name = "languageSelected")
 	private String languageSelected;
 
@@ -140,23 +103,9 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 
 	@Column(name = "globalFlag")
 	private boolean globalFlag;
-	
-	@Column(name = "endOfMsgs")
-	private boolean endOfMsgs;
-
-	public boolean isEndOfMsgs() {
-		return endOfMsgs;
-	}
-
-	public void setEndOfMsgs(boolean endOfMsgs) {
-		this.endOfMsgs = endOfMsgs;
-	}
 
 	@Column(name = "contactFlag")
 	private boolean contactFlag;
-
-	@Column(name = "selectedinqOption")
-	private String selectedinqOption;
 
 	@Column(name = "regionalLanguageFlag")
 	private boolean regionalLanguageFlag;
@@ -164,38 +113,14 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 	@Column(name = "multiLanguageFlag")
 	private boolean multiLanguageFlag;
 
-	@Column(name = "detailedInqFlag")
-	private boolean detailedInqFlag;	
-
 	@Column(name = "moreSubMenuFlag")
 	private boolean moreSubMenuFlag;
 	
 	@Column(name = "multisubMenulevelFlag")
 	private boolean multisubMenulevelFlag;
+
 	
-	@Column(name = "messgSummaryFlag")
-	private boolean messgSummaryFlag;
 	
-	@Column(name = "messgTraverseFlag")
-	private boolean messgTraverseFlag;	
-	
-
-	public boolean isMessgSummaryFlag() {
-		return messgSummaryFlag;
-	}
-
-	public void setMessgSummaryFlag(boolean messgSummaryFlag) {
-		this.messgSummaryFlag = messgSummaryFlag;
-	}
-
-	public boolean isMessgTraverseFlag() {
-		return messgTraverseFlag;
-	}
-
-	public void setMessgTraverseFlag(boolean messgTraverseFlag) {
-		this.messgTraverseFlag = messgTraverseFlag;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -251,14 +176,6 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 
 	public void setlanguageSelected(String languageSelected) {
 		this.languageSelected = languageSelected;
-	}
-
-	public String getselectedgeneralinqOption() {
-		return selectedinqOption;
-	}
-
-	public void setselectedgeneralinqOption(String selectedinqOption) {
-		this.selectedinqOption = selectedinqOption;
 	}
 
 	public String getgroupzCode() {
@@ -389,14 +306,6 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 		this.contactFlag = contactFlag;
 	}
 
-	public boolean getdetailedInqFlag() {
-		return detailedInqFlag;
-	}
-
-	public void setdetailedInqFlag(boolean detailedInqFlag) {
-		this.detailedInqFlag = detailedInqFlag;
-	}
-
 	public String getglobalcategorywelcomeNotes() {
 		return globalcategorywelcomeNotes;
 	}
@@ -413,38 +322,12 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 		this.mainMenuFlag = mainMenuFlag;
 	}
 
-	public boolean getisRecMultiLangSelectionFlag() {
-		return isRecMultiLangSelectionFlag;
-	}
-
-	public void setisRecMultiLangSelectionFlag(
-			boolean isRecMultiLangSelectionFlag) {
-		this.isRecMultiLangSelectionFlag = isRecMultiLangSelectionFlag;
-	}
-
 	public boolean getsubMenuFlag() {
 		return subMenuFlag;
 	}
 
 	public void setsubMenuFlag(boolean subMenuFlag) {
 		this.subMenuFlag = subMenuFlag;
-	}
-
-
-	public boolean getrecordFlag() {
-		return recordFlag;
-	}
-
-	public void setrecordFlag(boolean recordFlag) {
-		this.recordFlag = recordFlag;
-	}
-
-	public String getrecordselectedList() {
-		return recordselectedList;
-	}
-
-	public void setrecordselectedList(String recordselectedList) {
-		this.recordselectedList = recordselectedList;
 	}
 
 	public String getpublishUrlList() {
@@ -462,16 +345,6 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 	public void setmainMenuSelection(String mainMenuSelection) {
 		this.mainMenuSelection = mainMenuSelection;
 	}
-
-	public String getrecordMainMenudisplayList() {
-		return recordMainMenudisplayList;
-	}
-
-	public void setrecordMainMenudisplayList(String recordMainMenudisplayList) {
-		this.recordMainMenudisplayList = recordMainMenudisplayList;
-	}
-
-
 
 
 	public boolean getmoreSubMenuFlag() {
@@ -496,14 +369,6 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 
 	}
 
-	public String getselectedrecordlang() {
-		return selectedrecordlang;
-	}
-
-	public void setselectedrecordlang(String selectedrecordlang) {
-		this.selectedrecordlang = selectedrecordlang;
-	}
-
 	public void seturl(String url) {
 		this.url = url;
 	}
@@ -512,39 +377,29 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 		return url;
 	}
 
-	public String getnewInquiryDisplayList() {
-		return newInquiryDisplayList;
-	}
+	
 
-	public void setnewInquiryDisplayList(String newInquiryDisplayList) {
-		this.newInquiryDisplayList = newInquiryDisplayList;
-	}
-
-	public String getnewInquiryselectionList() {
-		return newInquiryselectionList;
-	}
-
-	public void setnewInquiryselectionList(String newInquiryselectionList) {
-		this.newInquiryselectionList = newInquiryselectionList;
-	}
-
-	public static ContextMapping getSingleContext(String callSessionId) {
+	public static ContextMapping getSingleContext(String callSessionId)
+	{
 		String queryCond = "  ";
-		if (callSessionId == null) {
+		
+		if (callSessionId == null)
+		{
 			return null;
 		}
+		
 		queryCond = " callSessionId = '" + callSessionId + "'";
-		try {
-			System.out.println("The query condition is : " + queryCond);
-			ContextMapping contxtResult = (ContextMapping) DBCommonOpertion
-					.getSingleDatabaseObject(ContextMapping.class, queryCond);
-
+		
+		try
+		{
+			System.out.println("The query condition in context is : " + queryCond);
+			ContextMapping contxtResult = (ContextMapping) DBCommonOpertion.getSingleDatabaseObject(ContextMapping.class, queryCond);
 			return contxtResult;
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 			return null;
 		}
 	}
-
-
 }
