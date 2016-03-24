@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- Database connection settings -->
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://127.0.0.1:3306/ivr</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">password</property>
+
+		<property name="c3p0.min_size">5</property>
+		<property name="c3p0.max_size">20</property>
+		<property name="c3p0.timeout">5000</property>
+		<property name="c3p0.max_statements">100</property>
+		<property name="c3p0.autoCommitOnClose">true</property>
+
+		<!-- SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+		<!-- Enable Hibernate's automatic session context management -->
+		<property name="current_session_context_class">thread</property>
+
+		<!-- To disable cache, make this as "org.hibernate.cache.NoCacheProvider" -->
+		<property name="cache.provider_class">org.hibernate.cache.OSCacheProvider</property>
+
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">false</property>
+		<!-- Drop and re-create the database schema on startup -->
+		<property name="hbm2ddl.auto">update</property>
+		<mapping class="ivr.tables.ContextMapping"/>		
+		<mapping class="ivr.tables.IvrGroupzMapping"/>	
+		<mapping class="ivr.tables.IvrGroupzBaseMapping"/>
+		<mapping class="ivr.tables.CallHistory"/>
+		<mapping class="ivr.tables.PhoneCodesList"/>
+	</session-factory>
+</hibernate-configuration>
