@@ -43,8 +43,8 @@ public class IvrGroupzBaseMapping extends BaseDatabaseObject implements Serializ
 	@Column(name = "selectionEndUrl")
 	private String selectionEndUrl;
 
-	@Column(name = "errornotes")
-	private String errornotes;
+	@Column(name = "errorNotes")
+	private String errorNotes;
 
 	@Column(name = "audioSelectionHangupUrl")
 	private String audioSelectionHangupUrl;
@@ -160,11 +160,11 @@ public class IvrGroupzBaseMapping extends BaseDatabaseObject implements Serializ
 		this.generalHangupNotes = generalHangupNotes;
 	}
 
-	public String getAudiogeneralHangupUrl() {
+	public String getaudiogeneralHangupUrl() {
 		return generalHangupUrl;
 	}
 
-	public void setAudiogeneralHangupUrl(String generalHangupUrl) {
+	public void setaudiogeneralHangupUrl(String generalHangupUrl) {
 		this.generalHangupUrl = generalHangupUrl;
 	}
 
@@ -272,19 +272,19 @@ public class IvrGroupzBaseMapping extends BaseDatabaseObject implements Serializ
 		this.memberWelcomeNotes = memberWelcomeNotes;
 	}
 
-	public String getErrornotes() {
-		return errornotes;
+	public String geterrorNotes() {
+		return errorNotes;
 	}
 
-	public void setErrornotes(String errornotes) {
-		this.errornotes = errornotes;
+	public void seterrornotes(String errornotes) {
+		this.errorNotes = errornotes;
 	}
 
-	public String getAudioerrorUrl() {
+	public String getaudioerrorUrl() {
 		return audioerrorUrl;
 	}
 
-	public void setAudioerrorUrl(String audioerrorUrl) {
+	public void setaudioerrorUrl(String audioerrorUrl) {
 		this.audioerrorUrl = audioerrorUrl;
 	}
 

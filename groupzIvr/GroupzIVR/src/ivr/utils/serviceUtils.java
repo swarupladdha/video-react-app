@@ -424,7 +424,7 @@ public class serviceUtils
 		{
 			if (ivrnummap != null)
 			{
-				dedicatedaudioHangupUrl = ivrnummap.getAudiogeneralHangupUrl();
+				dedicatedaudioHangupUrl = ivrnummap.getaudiogeneralHangupUrl();
 				dedicatedaudioHangupText = ivrnummap.getgeneralHangupNotes();
 				multiLanguageFlag = ivrnummap.getmultiLanguageFlag();
 			}

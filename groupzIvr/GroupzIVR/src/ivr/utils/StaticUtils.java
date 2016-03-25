@@ -491,8 +491,8 @@ public class StaticUtils
 			
 			if (ivrnummap != null)
 			{
-				dedicatedText = ivrnummap.getErrornotes();
-				dedicatedUrl = ivrnummap.getAudioerrorUrl();
+				dedicatedText = ivrnummap.geterrorNotes();
+				dedicatedUrl = ivrnummap.getaudioerrorUrl();
 				playspeed = ivrnummap.getplayspeed();
 				multiLangFlag = ivrnummap.getmultiLanguageFlag();
 			}
@@ -595,7 +595,7 @@ public class StaticUtils
 		//String multiGrpzWelcomeNotes = null;
 		String numberListUrlsStr = null;
 		String selectionmultigrpzhangupurl = null;
-		String selectionmultigrpzhangupnotes = null;
+		//String selectionmultigrpzhangupnotes = null;
 		String numberListUrls = null;
 		JSONObject selectedUrllist = null;
 		
