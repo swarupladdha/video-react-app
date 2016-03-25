@@ -26,17 +26,50 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 	@DontPersistWhenSerializing
 	private int id;
 
+	@Column(name = "callerId")
+	private String callerId;
+	
+	@Column(name = "ivrNumber")
+	private String ivrNumber;
+
 	@Column(name = "callSessionId")
 	private String callSessionId;
 	
+	@Column(name = "groupzCode")
+	private String groupzCode;
+
+	@Column(name = "groupzId")
+	private String groupzId;
 	
-	@Column(name = "url")
-	private String url;
+	@Column(name = "memberId")
+	private int memberId;
+	
+	@Column(name = "memberCode")
+	private String memberCode;
+	
+	@Column(name = "multiGrpzFlag")
+	private boolean multiGrpzFlag;
 
+	@Column(name = "multiMemberFlag")
+	private boolean multiMemberFlag;
+	
+	@Column(name = "multiMembSelectlist")
+	private String multiMembSelectlist;
 
-	@Column(name = "ipAddress")
-	private String ipAddress;
+	@Column(name = "multigrpzselectlist")
+	private String multigrpzselectlist;
 
+	@Column(name = "multimembWelcomeNotes")
+	private String multimembWelcomeNotes;
+
+	@Column(name = "multigrpzWelcomeNotes")
+	private String multigrpzWelcomeNotes;
+	
+	@Column(name = "globalFlag")
+	private boolean globalFlag;
+	
+	@Column(name = "globalcategorywelcomeNotes")
+	private String globalcategorywelcomeNotes;
 	
 	@Column(name = "contextdisplayList")
 	private String contextdisplayList;
@@ -56,53 +89,11 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 	@Column(name = "contextselectionList")
 	private String contextselectionList;
 
-	@Column(name = "multiMembSelectlist")
-	private String multiMembSelectlist;
-
-	@Column(name = "multigrpzselectlist")
-	private String multigrpzselectlist;
-
-	@Column(name = "multimembWelcomeNotes")
-	private String multimembWelcomeNotes;
-
-	@Column(name = "multigrpzWelcomeNotes")
-	private String multigrpzWelcomeNotes;
-
-	@Column(name = "ivrNumber")
-	private String ivrNumber;
-
-	@Column(name = "callerId")
-	private String callerId;
-
-	@Column(name = "memberId")
-	private int memberId;
-	
-	@Column(name = "memberCode")
-	private String memberCode;
-
 	@Column(name = "lastupdatetime")
 	private Date lastupdatetime;
 
-	@Column(name = "groupzCode")
-	private String groupzCode;
-
-	@Column(name = "groupzId")
-	private String groupzId;
-	
 	@Column(name = "languageSelected")
 	private String languageSelected;
-
-	@Column(name = "globalcategorywelcomeNotes")
-	private String globalcategorywelcomeNotes;
-
-	@Column(name = "multiGrpzFlag")
-	private boolean multiGrpzFlag;
-
-	@Column(name = "multiMemberFlag")
-	private boolean multiMemberFlag;
-
-	@Column(name = "globalFlag")
-	private boolean globalFlag;
 
 	@Column(name = "contactFlag")
 	private boolean contactFlag;
@@ -119,7 +110,11 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 	@Column(name = "multisubMenulevelFlag")
 	private boolean multisubMenulevelFlag;
 
-	
+	@Column(name = "url")
+	private String url;
+
+	@Column(name = "ipAddress")
+	private String ipAddress;
 	
 	public int getId() {
 		return id;
@@ -129,37 +124,12 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 		this.id = id;
 	}
 	
-
-	public int getmemberId() {
-		return memberId;
+	public String getCallerId() {
+		return callerId;
 	}
 
-	public void setmemberId(int memberId) {
-		this.memberId = memberId;
-	}
-	
-	public String getmemberCode() {
-		return memberCode;
-	}
-
-	public void setmemberCode(String memberCode) {
-		this.memberCode = memberCode;
-	}
-
-	public String getgroupzId() {
-		return groupzId;
-	}
-
-	public void setgroupzId(String groupzId) {
-		this.groupzId = groupzId;
-	}
-	
-	public String getipAddress() {
-		return ipAddress;
-	}
-
-	public void setipAddress(String ipAddress) {
-		this.ipAddress = ipAddress;
+	public void setCallerId(String callerId) {
+		this.callerId = callerId;
 	}
 
 	public String getIvrNumber() {
@@ -170,12 +140,12 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 		this.ivrNumber = ivrNumber;
 	}
 
-	public String getlanguageSelected() {
-		return languageSelected;
+	public String getCallSessionId() {
+		return callSessionId;
 	}
 
-	public void setlanguageSelected(String languageSelected) {
-		this.languageSelected = languageSelected;
+	public void setCallSessionId(String callSessionId) {
+		this.callSessionId = callSessionId;
 	}
 
 	public String getgroupzCode() {
@@ -185,45 +155,45 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 	public void setgroupzCode(String groupzCode) {
 		this.groupzCode = groupzCode;
 	}
-
-	public String getmultimembWelcomeNotes() {
-		return multimembWelcomeNotes;
+	
+	public String getgroupzId() {
+		return groupzId;
 	}
 
-	public void setmultimembWelcomeNotes(String multimembWelcomeNotes) {
-		this.multimembWelcomeNotes = multimembWelcomeNotes;
+	public void setgroupzId(String groupzId) {
+		this.groupzId = groupzId;
+	}
+	
+	public int getmemberId() {
+		return memberId;
 	}
 
-	public String getmultigrpzWelcomeNotes() {
-		return multigrpzWelcomeNotes;
+	public void setmemberId(int memberId) {
+		this.memberId = memberId;
 	}
 
-	public void setmultigrpzWelcomeNotes(String multigrpzWelcomeNotes) {
-		this.multigrpzWelcomeNotes = multigrpzWelcomeNotes;
+	public String getmemberCode() {
+		return memberCode;
 	}
 
-	public String getCallSessionId() {
-		return callSessionId;
+	public void setmemberCode(String memberCode) {
+		this.memberCode = memberCode;
+	}
+	
+	public boolean getmultiGrpzFlag() {
+		return multiGrpzFlag;
 	}
 
-	public void setCallSessionId(String callSessionId) {
-		this.callSessionId = callSessionId;
+	public void setmultiGrpzFlag(boolean multiGrpzFlag) {
+		this.multiGrpzFlag = multiGrpzFlag;
 	}
 
-	public String getcontextselectionList() {
-		return contextselectionList;
+	public boolean getmultiMemberFlag() {
+		return multiMemberFlag;
 	}
 
-	public void setcontextselectionList(String contextselectionList) {
-		this.contextselectionList = contextselectionList;
-	}
-
-	public String getcontextdisplayList() {
-		return contextdisplayList;
-	}
-
-	public void setcontextdisplayList(String contextdisplayList) {
-		this.contextdisplayList = contextdisplayList;
+	public void setmultiMemberFlag(boolean multiMemberFlag) {
+		this.multiMemberFlag = multiMemberFlag;
 	}
 
 	public String getmultiMembSelectlist() {
@@ -242,52 +212,24 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 		this.multigrpzselectlist = multigrpzselectlist;
 	}
 
-	public String getCallerId() {
-		return callerId;
+	public String getMultimembWelcomeNotes() {
+		return multimembWelcomeNotes;
 	}
 
-	public void setCallerId(String callerId) {
-		this.callerId = callerId;
+	public String getmultimembWelcomeNotes() {
+		return multimembWelcomeNotes;
 	}
 
-	public boolean getmultiGrpzFlag() {
-		return multiGrpzFlag;
+	public void setmultimembWelcomeNotes(String multimembWelcomeNotes) {
+		this.multimembWelcomeNotes = multimembWelcomeNotes;
 	}
 
-	public void setmultiGrpzFlag(boolean multiGrpzFlag) {
-		this.multiGrpzFlag = multiGrpzFlag;
+	public String getmultigrpzWelcomeNotes() {
+		return multigrpzWelcomeNotes;
 	}
 
-	public boolean getmultiMemberFlag() {
-		return multiMemberFlag;
-	}
-
-	public void setmultiMemberFlag(boolean multiMemberFlag) {
-		this.multiMemberFlag = multiMemberFlag;
-	}
-
-	public boolean getregionalLanguageFlag() {
-		return regionalLanguageFlag;
-	}
-
-	public void setregionalLanguageFlag(boolean regionalLanguageFlag) {
-		this.regionalLanguageFlag = regionalLanguageFlag;
-	}
-
-	public boolean getmultiLanguageFlag() {
-		return multiLanguageFlag;
-	}
-
-	public void setmultiLanguageFlag(boolean multiLanguageFlag) {
-		this.multiLanguageFlag = multiLanguageFlag;
-	}
-
-	public Date getLastupdatetime() {
-		return lastupdatetime;
-	}
-
-	public void setLastupdatetime(Date lastupdatetime) {
-		this.lastupdatetime = lastupdatetime;
+	public void setmultigrpzWelcomeNotes(String multigrpzWelcomeNotes) {
+		this.multigrpzWelcomeNotes = multigrpzWelcomeNotes;
 	}
 
 	public boolean getglobalFlag() {
@@ -298,20 +240,28 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 		this.globalFlag = globalFlag;
 	}
 
-	public boolean getcontactFlag() {
-		return contactFlag;
-	}
-
-	public void setcontactFlag(boolean contactFlag) {
-		this.contactFlag = contactFlag;
-	}
-
 	public String getglobalcategorywelcomeNotes() {
 		return globalcategorywelcomeNotes;
 	}
 
 	public void setglobalcategorywelcomeNotes(String globalcategorywelcomeNotes) {
 		this.globalcategorywelcomeNotes = globalcategorywelcomeNotes;
+	}
+
+	public String getcontextdisplayList() {
+		return contextdisplayList;
+	}
+
+	public void setcontextdisplayList(String contextdisplayList) {
+		this.contextdisplayList = contextdisplayList;
+	}
+
+	public String getmainMenuSelection() {
+		return mainMenuSelection;
+	}
+
+	public void setmainMenuSelection(String mainMenuSelection) {
+		this.mainMenuSelection = mainMenuSelection;
 	}
 
 	public boolean getmainMenuFlag() {
@@ -338,14 +288,53 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 		this.publishUrlList = publishUrlList;
 	}
 
-	public String getmainMenuSelection() {
-		return mainMenuSelection;
+	public String getcontextselectionList() {
+		return contextselectionList;
 	}
 
-	public void setmainMenuSelection(String mainMenuSelection) {
-		this.mainMenuSelection = mainMenuSelection;
+	public void setcontextselectionList(String contextselectionList) {
+		this.contextselectionList = contextselectionList;
 	}
 
+	public Date getLastupdatetime() {
+		return lastupdatetime;
+	}
+
+	public void setLastupdatetime(Date lastupdatetime) {
+		this.lastupdatetime = lastupdatetime;
+	}
+
+	public String getlanguageSelected() {
+		return languageSelected;
+	}
+
+	public void setlanguageSelected(String languageSelected) {
+		this.languageSelected = languageSelected;
+	}
+
+	public boolean getcontactFlag() {
+		return contactFlag;
+	}
+
+	public void setcontactFlag(boolean contactFlag) {
+		this.contactFlag = contactFlag;
+	}
+
+	public boolean getregionalLanguageFlag() {
+		return regionalLanguageFlag;
+	}
+
+	public void setregionalLanguageFlag(boolean regionalLanguageFlag) {
+		this.regionalLanguageFlag = regionalLanguageFlag;
+	}
+
+	public boolean getmultiLanguageFlag() {
+		return multiLanguageFlag;
+	}
+
+	public void setmultiLanguageFlag(boolean multiLanguageFlag) {
+		this.multiLanguageFlag = multiLanguageFlag;
+	}
 
 	public boolean getmoreSubMenuFlag() {
 		return moreSubMenuFlag;
@@ -358,7 +347,6 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 	}
 
 
-	
 	public void setmultisubMenulevelFlag(boolean multisubMenulevelFlag) {
 		this.multisubMenulevelFlag = multisubMenulevelFlag;
 
@@ -368,7 +356,6 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 		return multisubMenulevelFlag;
 
 	}
-
 	public void seturl(String url) {
 		this.url = url;
 	}
@@ -377,7 +364,13 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 		return url;
 	}
 
-	
+	public String getipAddress() {
+		return ipAddress;
+	}
+
+	public void setipAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
 
 	public static ContextMapping getSingleContext(String callSessionId)
 	{

@@ -38,16 +38,13 @@ public class IvrGroupzMapping extends BaseDatabaseObject implements Serializable
 
 	@Column(name = "selectionlist")
 	private String selectionlist;
+	
+	@Column(name = "selectionlistUrl")
+	private String selectionlistUrl;
 
 	@Column(name = "groupzNameUrl")
 	private String groupzNameUrl;
 	
-	@Column(name = "endDate")
-	private Date endDate;
-	
-	@Column(name = "address")
-	private String address;
-
 	@Column(name = "multiLanguageFlag")
 	private boolean multiLanguageFlag;
 	
@@ -56,16 +53,76 @@ public class IvrGroupzMapping extends BaseDatabaseObject implements Serializable
 
 	@Column(name = "recmultilanguageSelectionWelcomeURL")
 	private String recmultilanguageSelectionWelcomeURL;
-
+	
+	@Column(name = "endDate")
+	private Date endDate;
+	
+	@Column(name = "address")
+	private String address;
 
 	
-	public String getrecmultilanguageSelectionWelcomeURL() {
-		return recmultilanguageSelectionWelcomeURL;
+
+	public int getId() {
+		return id;
 	}
 
-	public void setrecmultilanguageSelectionWelcomeURL(
-			String recmultilanguageSelectionWelcomeURL) {
-		this.recmultilanguageSelectionWelcomeURL = recmultilanguageSelectionWelcomeURL;
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getgroupzCode() {
+		return groupzCode;
+	}
+
+	public void setgroupzCode(String groupzCode) {
+		this.groupzCode = groupzCode;
+	}
+	public String getwelcomeNotes() {
+		return welcomeNotes;
+	}
+
+	public void setwelcomeNotes(String welcomeNotes) {
+		this.welcomeNotes = welcomeNotes;
+	}
+
+	public String getaudioWelcomeUrl() {
+		return audioWelcomeUrl;
+	}
+
+	public void setaudioWelcomeUrl(String audioWelcomeUrl) {
+		this.audioWelcomeUrl = audioWelcomeUrl;
+	}
+
+	public String getselectionlist() {
+		return selectionlist;
+	}
+
+	public void setselectionlist(String selectionlist) {
+		this.selectionlist = selectionlist;
+	}
+
+	public String getselectionlistUrl() {
+		return selectionlistUrl;
+	}
+
+	public void setselectionlistUrl(String selectionlistUrl) {
+		this.selectionlistUrl = selectionlistUrl;
+	}
+
+	public String getgroupzNameUrl() {
+		return groupzNameUrl;
+	}
+
+	public void setgroupzNameUrl(String groupzNameUrl) {
+		this.groupzNameUrl = groupzNameUrl;
+	}
+
+	public boolean getmultiLanguageFlag() {
+		return multiLanguageFlag;
+	}
+
+	public void setmultiLanguageFlag(boolean multiLanguageFlag) {
+		this.multiLanguageFlag = multiLanguageFlag;
 	}
 
 	public String getrecmultilanguageSelectionList() {
@@ -77,23 +134,15 @@ public class IvrGroupzMapping extends BaseDatabaseObject implements Serializable
 		this.recmultilanguageSelectionList = recmultilanguageSelectionList;
 	}
 
-	
-	public boolean getmultiLanguageFlag() {
-		return multiLanguageFlag;
+	public String getrecmultilanguageSelectionWelcomeURL() {
+		return recmultilanguageSelectionWelcomeURL;
 	}
 
-	public void setmultiLanguageFlag(boolean multiLanguageFlag) {
-		this.multiLanguageFlag = multiLanguageFlag;
-	}
-		
-	public String getAddress() {
-		return address;
+	public void setrecmultilanguageSelectionWelcomeURL(
+			String recmultilanguageSelectionWelcomeURL) {
+		this.recmultilanguageSelectionWelcomeURL = recmultilanguageSelectionWelcomeURL;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	
 	public Date getendDate() {
 		return endDate;
 	}
@@ -102,54 +151,12 @@ public class IvrGroupzMapping extends BaseDatabaseObject implements Serializable
 		this.endDate = endDate;
 	}
 
-	public int getId() {
-		return id;
+	public String getaddress() {
+		return address;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-
-	public void setWelcomeNotes(String welcomeNotes) {
-		this.welcomeNotes = welcomeNotes;
-	}
-
-	public String getWelcomeNotes() {
-		return welcomeNotes;
-	}
-
-	public void setgroupzNameUrl(String groupzNameUrl) {
-		this.groupzNameUrl = groupzNameUrl;
-	}
-
-	public String getgroupzNameUrl() {
-		return groupzNameUrl;
-	}
-
-	public String getAudioWelcomeUrl() {
-		return audioWelcomeUrl;
-	}
-
-	public void setAudioWelcomeUrl(String audioWelcomeUrl) {
-		this.audioWelcomeUrl = audioWelcomeUrl;
-	}
-
-	public String getselectionlist() {
-		return selectionlist;
-	}
-
-	public void setselectionlist(String selectionlist) {
-		this.selectionlist = selectionlist;
-	}
-	
-	public String getGroupzCode() {
-		return groupzCode;
-	}
-
-	public void setGroupzCode(String groupzCode) {
-		this.groupzCode = groupzCode;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public static List<IvrGroupzMapping> getListivrSourceMap(String ivrNubmer)

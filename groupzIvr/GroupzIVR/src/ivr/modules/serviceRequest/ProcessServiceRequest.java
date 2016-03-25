@@ -299,7 +299,7 @@ public class ProcessServiceRequest
 						System.out.println(allsrcmap);
 						for (IvrGroupzMapping smp : allsrcmap)
 						{
-							String grpzcde = smp.getGroupzCode();
+							String grpzcde = smp.getgroupzCode();
 							srcgrpzcodeList.add(grpzcde);
 						}
 					}
@@ -561,7 +561,7 @@ public class ProcessServiceRequest
 				while (iterator.hasNext())
 				{
 					sm = iterator.next();
-					String grpzCode = sm.getGroupzCode();
+					String grpzCode = sm.getgroupzCode();
 					String grpzNameUrl = sm.getgroupzNameUrl();
 					ivrgrpzcodeList.add(grpzCode);
 					groupzcodeNamMap.put(grpzCode, grpzNameUrl); //mapping grpzurl for each grpzcode identically

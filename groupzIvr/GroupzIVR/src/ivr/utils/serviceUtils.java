@@ -142,7 +142,7 @@ public class serviceUtils
 		boolean multiLangFlag = false;
 		String starUrl = null;
 		String starData = null;
-		String audioUrl = sm.getAudioWelcomeUrl();
+		String audioUrl = sm.getaudioWelcomeUrl();
 		String selectionList = sm.getselectionlist();
 		cm.setcontextselectionList(selectionList);
 		cm.save();
@@ -172,7 +172,7 @@ public class serviceUtils
 
 		if (audioUrl == null || audioUrl.trim().isEmpty() == true)
 		{
-			String wnotes = sm.getWelcomeNotes();
+			String wnotes = sm.getwelcomeNotes();
 
 			if (wnotes != null && wnotes.trim().isEmpty() == false && selectionList != null && selectionList.trim().isEmpty() == false)
 			{
