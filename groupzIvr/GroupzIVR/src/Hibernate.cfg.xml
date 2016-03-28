@@ -4,7 +4,7 @@
 	<session-factory>
 		<!-- Database connection settings -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost:3306/groupzivr</property>
+		<property name="connection.url">jdbc:mysql://127.0.0.1:3306/groupzivr</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">password</property>
 
@@ -32,6 +32,5 @@
 		<mapping class="ivr.tables.IvrGroupzBaseMapping"/>
 		<mapping class="ivr.tables.CallHistory"/>
 		<mapping class="ivr.tables.PhoneCodesList"/>
-		<mapping class="ivr.tables.RecordTransactions"/>
 	</session-factory>
 </hibernate-configuration>

@@ -12,7 +12,6 @@ import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 
-import com.groupz.followup.manager.FollowupManager;
 import com.groupz.followup.utils.ConnectionUtils;
 
 public class Message {

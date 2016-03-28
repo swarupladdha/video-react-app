@@ -1,1 +1,330 @@
+BOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOBOB
+:wq
+
 Error: Could not find or load main class com.groupz.followup.database.ConnectDatabase
+Error: Could not find or load main class com.groupz.followup.database.ConnectDatabase
+Error: Could not find or load main class com.groupz.followup.database.ConnectDatabase
+log4j:WARN No appenders could be found for logger (com.groupz.followup.database.ConnectDatabase).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Sending....2  4  -  4
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 4 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 1
+Target List:0
+Sending....5  4  -  2
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 2 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 1
+Target List:0
+Sending....7  4  -  25
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 25 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 1
+Target List:0
+Sending....8  4  -  5
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 5 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 4
+Sending....1046  +91.4534543  -  rtyuin@rt.in
+Target List:1
+Follow up id:8 and gpzCode:SN and memId:1012
+Final JSON:{"json":{"request":{"servicetype":"21","functiontype":"2027","groupzcode":"SN","memberid":1012,"followupid":8}}}
+URL FINAL : http://localhost:8080/GroupzMobileApp/SendFollowup?request=%7B%22json%22%3A%7B%22request%22%3A%7B%22servicetype%22%3A%2221%22%2C%22functiontype%22%3A%222027%22%2C%22groupzcode%22%3A%22SN%22%2C%22memberid%22%3A1012%2C%22followupid%22%3A8%7D%7D%7D
+URL FINAL22 : http://localhost:8080/GroupzMobileApp/SendFollowup?request=%7B%22json%22%3A%7B%22request%22%3A%7B%22servicetype%22%3A%2221%22%2C%22functiontype%22%3A%222027%22%2C%22groupzcode%22%3A%22SN%22%2C%22memberid%22%3A1012%2C%22followupid%22%3A8%7D%7D%7D
+Response JSON:{"json":{"response":{"servicetype":"21","functiontype":"2027","statuscode":"0","statusmessage":"Success"}}}
+Sending....9  4  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 14
+Target List:0
+log4j:WARN No appenders could be found for logger (com.groupz.followup.database.ConnectDatabase).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Sending....2  4  -  4
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 4 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 1
+Target List:0
+Sending....5  4  -  2
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 2 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 1
+Target List:0
+Sending....7  4  -  25
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 25 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 1
+Target List:0
+Sending....8  4  -  5
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 5 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 4
+Sending....1046  +91.4534543  -  rtyuin@rt.in
+Target List:1
+Follow up id:8 and gpzCode:SN and memId:1012
+Final JSON:{"json":{"request":{"servicetype":"21","functiontype":"2027","groupzcode":"SN","memberid":1012,"followupid":8}}}
+URL FINAL : http://localhost:8080/GroupzMobileApp/SendFollowup?request=%7B%22json%22%3A%7B%22request%22%3A%7B%22servicetype%22%3A%2221%22%2C%22functiontype%22%3A%222027%22%2C%22groupzcode%22%3A%22SN%22%2C%22memberid%22%3A1012%2C%22followupid%22%3A8%7D%7D%7D
+URL FINAL22 : http://localhost:8080/GroupzMobileApp/SendFollowup?request=%7B%22json%22%3A%7B%22request%22%3A%7B%22servicetype%22%3A%2221%22%2C%22functiontype%22%3A%222027%22%2C%22groupzcode%22%3A%22SN%22%2C%22memberid%22%3A1012%2C%22followupid%22%3A8%7D%7D%7D
+Response JSON:{"json":{"response":{"servicetype":"21","functiontype":"2027","statuscode":"0","statusmessage":"Success"}}}
+Sending....9  4  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 14
+Target List:0
+log4j:WARN No appenders could be found for logger (com.groupz.followup.database.ConnectDatabase).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Sending....2  4  -  4
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 4 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 1
+Target List:0
+Sending....5  4  -  2
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 2 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 1
+Target List:0
+Sending....7  4  -  25
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 25 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 1
+Target List:0
+Sending....8  4  -  5
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 5 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 4
+Sending....1046  +91.4534543  -  rtyuin@rt.in
+Target List:1
+Follow up id:8 and gpzCode:SN and memId:1012
+Final JSON:{"json":{"request":{"servicetype":"21","functiontype":"2027","groupzcode":"SN","memberid":1012,"followupid":8}}}
+URL FINAL : http://localhost:8080/GroupzMobileApp/SendFollowup?request=%7B%22json%22%3A%7B%22request%22%3A%7B%22servicetype%22%3A%2221%22%2C%22functiontype%22%3A%222027%22%2C%22groupzcode%22%3A%22SN%22%2C%22memberid%22%3A1012%2C%22followupid%22%3A8%7D%7D%7D
+URL FINAL22 : http://localhost:8080/GroupzMobileApp/SendFollowup?request=%7B%22json%22%3A%7B%22request%22%3A%7B%22servicetype%22%3A%2221%22%2C%22functiontype%22%3A%222027%22%2C%22groupzcode%22%3A%22SN%22%2C%22memberid%22%3A1012%2C%22followupid%22%3A8%7D%7D%7D
+Response JSON:{"json":{"response":{"servicetype":"21","functiontype":"2027","statuscode":"0","statusmessage":"Success"}}}
+Sending....9  4  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 14
+Target List:0
+log4j:WARN No appenders could be found for logger (com.groupz.followup.database.ConnectDatabase).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Sending....2  4  -  4
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 4 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 1
+Target List:0
+Sending....5  4  -  2
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 2 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 1
+Target List:0
+Sending....7  4  -  25
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 25 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 1
+Target List:0
+Sending....8  4  -  5
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 5 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 4
+Sending....1046  +91.4534543  -  rtyuin@rt.in
+Target List:1
+Follow up id:8 and gpzCode:SN and memId:1012
+Final JSON:{"json":{"request":{"servicetype":"21","functiontype":"2027","groupzcode":"SN","memberid":1012,"followupid":8}}}
+URL FINAL : http://localhost:8080/GroupzMobileApp/SendFollowup?request=%7B%22json%22%3A%7B%22request%22%3A%7B%22servicetype%22%3A%2221%22%2C%22functiontype%22%3A%222027%22%2C%22groupzcode%22%3A%22SN%22%2C%22memberid%22%3A1012%2C%22followupid%22%3A8%7D%7D%7D
+URL FINAL22 : http://localhost:8080/GroupzMobileApp/SendFollowup?request=%7B%22json%22%3A%7B%22request%22%3A%7B%22servicetype%22%3A%2221%22%2C%22functiontype%22%3A%222027%22%2C%22groupzcode%22%3A%22SN%22%2C%22memberid%22%3A1012%2C%22followupid%22%3A8%7D%7D%7D
+Response JSON:{"json":{"response":{"servicetype":"21","functiontype":"2027","statuscode":"0","statusmessage":"Success"}}}
+Sending....9  4  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 4 and r.gbroleid = 14
+Target List:0
+log4j:WARN No appenders could be found for logger (com.groupz.followup.database.ConnectDatabase).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Sending....4  44  -  4
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 4 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 44 and r.gbroleid = 36
+Target List:0
+Sending....5  44  -  2
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 2 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 44 and r.gbroleid = 37
+Target List:0
+Sending....6  40  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....7  40  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....8  40  -  11
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 11 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+Sending....9  40  -  1
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 1 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....10  40  -  1
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 1 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....11  40  -  222
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 222 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+Sending....12  40  -  5
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 5 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+log4j:WARN No appenders could be found for logger (com.groupz.followup.database.ConnectDatabase).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Sending....4  44  -  4
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 4 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 44 and r.gbroleid = 36
+Target List:0
+Sending....5  44  -  2
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 2 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 44 and r.gbroleid = 37
+Target List:0
+Sending....6  40  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....7  40  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....8  40  -  11
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 11 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+Sending....9  40  -  1
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 1 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....10  40  -  1
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 1 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....11  40  -  222
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 222 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+Sending....12  40  -  5
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 5 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+log4j:WARN No appenders could be found for logger (com.groupz.followup.database.ConnectDatabase).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Sending....4  44  -  4
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 4 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 44 and r.gbroleid = 36
+Target List:0
+Sending....5  44  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 44 and r.gbroleid = 37
+Sending....24426  +91.9944085085  -  vsunil40@gmail.com
+Target List:1
+Follow up id:5 and gpzCode:GRPOFF and memId:24430
+Final JSON:{"json":{"request":{"servicetype":"21","functiontype":"2027","groupzcode":"GRPOFF","memberid":24430,"followupid":5}}}
+URL FINAL : http://prod1.groupz.in/GroupzMobileApp/SendFollowup?request=%7B%22json%22%3A%7B%22request%22%3A%7B%22servicetype%22%3A%2221%22%2C%22functiontype%22%3A%222027%22%2C%22groupzcode%22%3A%22GRPOFF%22%2C%22memberid%22%3A24430%2C%22followupid%22%3A5%7D%7D%7D
+URL FINAL22 : http://prod1.groupz.in/GroupzMobileApp/SendFollowup?request=%7B%22json%22%3A%7B%22request%22%3A%7B%22servicetype%22%3A%2221%22%2C%22functiontype%22%3A%222027%22%2C%22groupzcode%22%3A%22GRPOFF%22%2C%22memberid%22%3A24430%2C%22followupid%22%3A5%7D%7D%7D
+Response JSON:{"json":{"response":{"servicetype":"21","functiontype":"2027","statuscode":"0","statusmessage":"Success"}}}
+Sending....6  40  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....7  40  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....8  40  -  11
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 11 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+Sending....9  40  -  1
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 1 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....10  40  -  1
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 1 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....11  40  -  222
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 222 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+Sending....12  40  -  5
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 5 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+log4j:WARN No appenders could be found for logger (com.groupz.followup.database.ConnectDatabase).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Sending....4  44  -  4
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 4 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 44 and r.gbroleid = 36
+Target List:0
+Sending....5  44  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 44 and r.gbroleid = 37
+Sending....24426  +91.9944085085  -  vsunil40@gmail.com
+Target List:1
+Follow up id:5 and gpzCode:GRPOFF and memId:24430
+Final JSON:{"json":{"request":{"servicetype":"21","functiontype":"2027","groupzcode":"GRPOFF","memberid":24430,"followupid":5}}}
+URL FINAL : http://prod1.groupz.in/GroupzMobileApp/SendFollowup?request=%7B%22json%22%3A%7B%22request%22%3A%7B%22servicetype%22%3A%2221%22%2C%22functiontype%22%3A%222027%22%2C%22groupzcode%22%3A%22GRPOFF%22%2C%22memberid%22%3A24430%2C%22followupid%22%3A5%7D%7D%7D
+URL FINAL22 : http://prod1.groupz.in/GroupzMobileApp/SendFollowup?request=%7B%22json%22%3A%7B%22request%22%3A%7B%22servicetype%22%3A%2221%22%2C%22functiontype%22%3A%222027%22%2C%22groupzcode%22%3A%22GRPOFF%22%2C%22memberid%22%3A24430%2C%22followupid%22%3A5%7D%7D%7D
+Response JSON:{"json":{"response":{"servicetype":"21","functiontype":"2027","statuscode":"0","statusmessage":"Success"}}}
+Sending....6  40  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....7  40  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....8  40  -  11
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 11 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+Sending....9  40  -  1
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 1 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....10  40  -  1
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 1 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....11  40  -  222
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 222 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+Sending....12  40  -  5
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 5 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+log4j:WARN No appenders could be found for logger (com.groupz.followup.database.ConnectDatabase).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Sending....4  44  -  4
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 4 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 44 and r.gbroleid = 36
+Target List:0
+Sending....6  40  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....7  40  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....8  40  -  11
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 11 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+Sending....9  40  -  1
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 1 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....10  40  -  1
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 1 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....11  40  -  222
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 222 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+Sending....12  40  -  5
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 5 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+log4j:WARN No appenders could be found for logger (com.groupz.followup.database.ConnectDatabase).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Sending....4  44  -  4
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 4 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 44 and r.gbroleid = 36
+Target List:0
+Sending....5  44  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 44 and r.gbroleid = 37
+Sending....24426  +91.9944085085  -  vsunil40@gmail.com
+Target List:1
+Follow up id:5 and gpzCode:GRPOFF and memId:24430
+Final JSON:{"json":{"request":{"servicetype":"21","functiontype":"2027","groupzcode":"GRPOFF","memberid":24430,"followupid":5}}}
+URL FINAL : http://prod1.groupz.in/GroupzMobileApp/SendFollowup?request=%7B%22json%22%3A%7B%22request%22%3A%7B%22servicetype%22%3A%2221%22%2C%22functiontype%22%3A%222027%22%2C%22groupzcode%22%3A%22GRPOFF%22%2C%22memberid%22%3A24430%2C%22followupid%22%3A5%7D%7D%7D
+URL FINAL22 : http://prod1.groupz.in/GroupzMobileApp/SendFollowup?request=%7B%22json%22%3A%7B%22request%22%3A%7B%22servicetype%22%3A%2221%22%2C%22functiontype%22%3A%222027%22%2C%22groupzcode%22%3A%22GRPOFF%22%2C%22memberid%22%3A24430%2C%22followupid%22%3A5%7D%7D%7D
+Response JSON:{"json":{"response":{"servicetype":"21","functiontype":"2027","statuscode":"0","statusmessage":"Success"}}}
+Sending....6  40  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....7  40  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....8  40  -  11
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 11 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+Sending....9  40  -  1
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 1 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....10  40  -  1
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 1 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....11  40  -  222
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 222 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+Sending....12  40  -  5
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 5 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+log4j:WARN No appenders could be found for logger (com.groupz.followup.database.ConnectDatabase).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+log4j:WARN No appenders could be found for logger (com.groupz.followup.database.ConnectDatabase).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Sending....4  44  -  4
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 4 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 44 and r.gbroleid = 36
+Target List:0
+Sending....5  44  -  4
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 4 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 44 and r.gbroleid = 37
+Target List:0
+Sending....6  40  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....7  40  -  3
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 3 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....8  40  -  11
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 11 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+Sending....9  40  -  1
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 1 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....10  40  -  1
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 1 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 16
+Target List:0
+Sending....11  40  -  222
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 222 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0
+Sending....12  40  -  5
+select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r where DATE(DATE_ADD(f.approvaldate, INTERVAL 5 DAY) ) = CURRENT_DATE and f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = 40 and r.gbroleid = 17
+Target List:0

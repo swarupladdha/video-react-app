@@ -141,7 +141,7 @@ public class CallHistory extends BaseDatabaseObject implements
 
 			queryCond = " migrationStatus = " + status + " LIMIT "+start + ","+noRecs;
 
-			System.out.println("The query condition is : " + queryCond);
+			System.out.println("The query condition in call history is : " + queryCond);
 
 			List<CallHistory> statusResult = (List<CallHistory>) DBCommonOpertion
 					.getDatabaseObjects(CallHistory.class, queryCond);
@@ -163,7 +163,7 @@ public class CallHistory extends BaseDatabaseObject implements
 
 			queryCond = " id in (" + listStr + ")";
 
-			System.out.println("The query condition is : " + queryCond);
+			System.out.println("The query condition in callhistory is : " + queryCond);
 
 			List<CallHistory> statusResult = (List<CallHistory>) DBCommonOpertion
 					.getDatabaseObjects(CallHistory.class, queryCond);
@@ -181,7 +181,7 @@ public class CallHistory extends BaseDatabaseObject implements
 		
 		queryCond = " id = " + idval;
 		try {
-			System.out.println("The query condition is : " + queryCond);
+			System.out.println("The query condition in callhistory is : " + queryCond);
 			CallHistory result = (CallHistory) DBCommonOpertion
 					.getSingleDatabaseObject(CallHistory.class, queryCond);
 

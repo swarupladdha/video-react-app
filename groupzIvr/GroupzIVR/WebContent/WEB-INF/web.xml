@@ -8,15 +8,6 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	<servlet>
-		<description>for Ivr Inquiry</description>
-		<servlet-name>Inquiry</servlet-name>
-		<servlet-class>ivr.servlets.Inquiry</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Inquiry</servlet-name>
-		<url-pattern>/Inquiry</url-pattern>
-	</servlet-mapping>
-	<servlet>
 		<description>for Ivr Service Requests</description>
 		<servlet-name>ServiceRequest</servlet-name>
 		<servlet-class>ivr.servlets.ServiceRequest</servlet-class>
@@ -26,16 +17,6 @@
 		<url-pattern>/ServiceRequest</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<description>Record Request</description>
-		<servlet-name>Record</servlet-name>
-		<servlet-class>ivr.servlets.RecordCallServlet</servlet-class>
-		 <load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Record</servlet-name>
-		<url-pattern>/Record</url-pattern>
-	</servlet-mapping>
-	<servlet>
 		<description>for Maintenance</description>
 		<servlet-name>Maintenance</servlet-name>
 		<servlet-class>ivr.servlets.SetMaintenance</servlet-class>
@@ -43,26 +24,5 @@
 	<servlet-mapping>
 		<servlet-name>Maintenance</servlet-name>
 		<url-pattern>/Maintenance</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<description></description>
-		<display-name>GetInquiryDetailsList</display-name>
-		<servlet-name>GetInquiryDetailsList</servlet-name>
-		<servlet-class>ivr.servlets.GetInquiryDetailsList</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>GetInquiryDetailsList</servlet-name>
-		<url-pattern>/GetInquiryDetailsList</url-pattern>
-	</servlet-mapping>
-	
-		<servlet>
-		<description></description>
-		<display-name>GetRecordedAudio</display-name>
-		<servlet-name>GetRecordedAudio</servlet-name>
-		<servlet-class>ivr.servlets.GetRecordedAudioServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>GetRecordedAudio</servlet-name>
-		<url-pattern>/GetRecordedAudio</url-pattern>
 	</servlet-mapping>
 </web-app>

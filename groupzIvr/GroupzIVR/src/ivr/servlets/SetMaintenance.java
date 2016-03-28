@@ -9,49 +9,44 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class SetMaintenance
  */
-public class SetMaintenance extends HttpServlet {
+public class SetMaintenance extends HttpServlet
+{
 	private static final long serialVersionUID = 1L;
 
-	public SetMaintenance() {
+	public SetMaintenance()
+	{
 		super();
 
 	}
 
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		String maintencVal = request.getParameter("value");
 		String className = request.getParameter("className");
-
 		System.out.println(maintencVal);
+		System.out.println("Before value bool :" + ServiceRequest.maintenanceFlag);
 
-		System.out.println("Before value bool :"
-				+ ServiceRequest.maintenanceFlag);
-
-		if (className.equals("ServiceRequest")) {
-
-			if (maintencVal.equals("true")) {
-
+		if (className.equals("ServiceRequest"))
+		{
+			if (maintencVal.equals("true"))
+			{
 				ServiceRequest.maintenanceFlag = true;
 			}
-
 		}
+//		else
+//		{
+//			if (maintencVal.equals("true"))
+//		{
+//
+//				Inquiry.maintenanceFlag = true;
+//			}
+//		}
 
-		else {
-			if (maintencVal.equals("true")) {
-
-				Inquiry.maintenanceFlag = true;
-			}
-		}
-
-		System.out.println("after value bool :"
-				+ ServiceRequest.maintenanceFlag);
-
+		System.out.println("after value bool :" + ServiceRequest.maintenanceFlag);
 	}
 
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		doGet(request, response);
 	}
-
 }
