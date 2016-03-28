@@ -128,6 +128,7 @@ public class ProcessServiceRequest
 
 	public static String processDetailedNewCall(String callerID, String ivrNumber, String callSessionId)
 	{
+		System.out.println("++++++++++++ Insde the function call processDetailedNewCall ++++++++++");
 		Response kkResponse = new Response();
 		String groupzCode = null;
 		landlineFlag = false;
@@ -764,6 +765,7 @@ public class ProcessServiceRequest
 			}
 
 			loggerServ.info("The data received is " + data + "session id is : " + callSessionId);
+			System.out.println("The data received is +++++" + data + "session id is : " + callSessionId);
 			boolean repeatFlag = false;
 
 			if (StaticUtils.isEmptyOrNull(callSessionId) == true)
@@ -774,7 +776,7 @@ public class ProcessServiceRequest
 				return kkResponse.getXML();
 			}
 			co = ContextMapping.getSingleContext(callSessionId);
-
+			System.out.println("The ContextMapping received is +++++" + co );
 			if (co == null)
 			{
 				loggerServ.info("The context does not exists in the context table");
@@ -801,7 +803,7 @@ public class ProcessServiceRequest
 			formattednumber = co.getCallerId();
 			ivrNumber = co.getIvrNumber();
 			ivrnummap = IvrGroupzBaseMapping.getSingleivrnumberMap(ivrNumber);
-
+			System.out.println("The ivrnummap received is +++++" + ivrnummap );
 			if (ivrnummap != null)
 			{
 				playspeed = ivrnummap.getplayspeed();
@@ -832,18 +834,21 @@ public class ProcessServiceRequest
 			{
 				if (selectionList != null && selectionList.isEmpty() == false)
 				{
+					System.out.println("The data selectionList is +++++" + selectionList + "+++++++++++++");
 					JSONObject selectObj = (JSONObject) JSONSerializer.toJSON(selectionList);
 					JSONObject selectionListObj = (JSONObject) selectObj.get("selectionList");
-
+					System.out.println("The selectionListObj is +++++" + selectionListObj + "+++++++++++++");
+					 
 					if (selectionListObj.containsKey(data))
 					{
 						containsKey = true;
-
+						System.out.println("####################################");
 						if (multiLanguageFlag)
 						{	
 							String selectedOption = null;
 							selectedOption = selectionListObj.getString(data);
-
+							System.out.println("*********** processDetailedNewCall ************");
+							
 							if (StaticUtils.isEmptyOrNull(selectedOption) == false)
 							{
 								co.setmultiLanguageFlag(false);
@@ -1032,7 +1037,9 @@ public class ProcessServiceRequest
 									if (ivrnummap != null)
 									{
 										dedicatedaudioHangupUrl = ivrnummap.getaudioSelectionHangupUrl();
+										System.out.println("dedicatedaudioHangupUrl:     &&&&& " + dedicatedaudioHangupUrl);
 										dedicatedaudioHangupText = ivrnummap.getselectionHangupNotes();
+										System.out.println("dedicatedaudioHangupText:     &&&&& " + dedicatedaudioHangupText);
 										multiLanguageFlag = ivrnummap.getmultiLanguageFlag();
 									}
 								}
@@ -1054,6 +1061,7 @@ public class ProcessServiceRequest
 
 				if (data.trim().equalsIgnoreCase(hangupCode))
 				{
+					System.out.println("hangupCode");
 					kkResponse = serviceUtils.hangUpProcess(ivrnummap, globalFlag, playspeed, co);
 				}
 				else if (data.trim().equalsIgnoreCase(previousMenucode))
@@ -1068,13 +1076,17 @@ public class ProcessServiceRequest
 					}
 					else if (multimembFalg == true)
 					{
+						System.out.println("multimembFalg == true");
 						String multiGroupzWelNotes = co.getmultigrpzWelcomeNotes();
+						System.out.println("multiGroupzWelNotes  ::: "+multiGroupzWelNotes);
 
 						if (multiGroupzWelNotes != null && multiGroupzWelNotes.isEmpty() == false)
 						{
 							co.setmultiGrpzFlag(true);
 							String displayList = co.getmultigrpzWelcomeNotes();
+							System.out.println("displayList  ::: "+displayList);
 							String selectList = co.getmultigrpzselectlist();
+							System.out.println("selectList  ::: "+selectList);
 							
 							co.setcontextdisplayList(displayList);
 							co.setcontextselectionList(selectList);
@@ -1092,6 +1104,8 @@ public class ProcessServiceRequest
 					}
 					else if (multigrpzFalg == false && multimembFalg == false && multiLanguageFlag == false)
 					{
+						
+						System.out.println("multigrpzFalg == false");
 						String multiMemberWelNotes = co.getmultimembWelcomeNotes();
 						String multiGroupzWelNotes = co.getmultigrpzWelcomeNotes();
 

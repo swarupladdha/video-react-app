@@ -595,7 +595,7 @@ public class StaticUtils
 		//String multiGrpzWelcomeNotes = null;
 		String numberListUrlsStr = null;
 		String selectionmultigrpzhangupurl = null;
-		//String selectionmultigrpzhangupnotes = null;
+		String selectionmultigrpzhangupnotes = null;
 		String numberListUrls = null;
 		JSONObject selectedUrllist = null;
 		
@@ -784,6 +784,7 @@ public class StaticUtils
 	public static String createMemberlistString(String callSessionId, List<GroupzMemberInfo> memberList, ContextMapping cm, String ivrNumber)
 	{
 		String multiGroupzWelcomenotes = cm.getmultigrpzWelcomeNotes();
+		System.out.println("||*||*||*||                    multiGroupzWelcomenotes    " + multiGroupzWelcomenotes + "    ||*||*||*||  ");
 		GroupzMemberInfo grpzmem = null;
 		Iterator<GroupzMemberInfo> grpzmemiter = memberList.iterator();
 		int i = 1;
@@ -819,14 +820,33 @@ public class StaticUtils
 		IvrGroupzBaseMapping inm = IvrGroupzBaseMapping.getSingleivrnumberMap(ivrNumber);
 
 		String memberwelcome = null;
+		String memberwelcomeUrl = null;
 		String selectionendNote = null;
+		String selectionendUrl = null;
 		String starselectNotes = null;
+		String starselectUrl = null;
 
 		if (inm != null)
 		{
 			memberwelcome = inm.getmemberWelcomeNotes();
+			System.out.println();
+			System.out.println("memberwelcome " + memberwelcome);
+			memberwelcomeUrl = inm.getaudioMemberWelcomeUrl();
+			System.out.println();
+			System.out.println("memberwelcomeUrl " + memberwelcomeUrl);
 			selectionendNote = inm.getselectionEndNotes();
+			System.out.println();
+			System.out.println("selectionendNote " + selectionendNote);
+			selectionendUrl = inm.getselectionEndUrl();
+			System.out.println();
+			System.out.println("selectionendUrl " + selectionendUrl);
 			starselectNotes = inm.getpreviousMenuSelectNotes();
+			System.out.println();
+			System.out.println("starselectNotes " + starselectNotes);
+			starselectUrl = inm.getpreviousMenuSelectUrl();
+			System.out.println();
+			System.out.println("starselectUrl " + starselectUrl);
+			
 		}
 
 		if (starselectNotes == null || starselectNotes.isEmpty() == true)
@@ -846,11 +866,13 @@ public class StaticUtils
 
 		ArrayList<String> memberWelcomeArray = new ArrayList<String>();
 
-		memberWelcomeArray = StaticUtils.createJSONdataArray(memberwelcome);
+//		memberWelcomeArray = StaticUtils.createJSONdataArray(memberwelcome);
+		memberWelcomeArray = StaticUtils.createJSONdataArray(memberwelcomeUrl);
 
 		ArrayList<String> memberSelectionEndArray = new ArrayList<String>();
 
-		memberSelectionEndArray = StaticUtils.createJSONdataArray(selectionendNote);
+//		memberSelectionEndArray = StaticUtils.createJSONdataArray(selectionendNote);
+		memberSelectionEndArray = StaticUtils.createJSONdataArray(selectionendUrl);
 		memberWelcomeArray.addAll(multiMemberDataArray);
 		memberWelcomeArray.addAll(memberSelectionEndArray);
 
@@ -858,7 +880,8 @@ public class StaticUtils
 		{
 			ArrayList<String> starDataArray = new ArrayList<String>();
 
-			starDataArray = StaticUtils.createJSONdataArray(starselectNotes);
+//			starDataArray = StaticUtils.createJSONdataArray(starselectNotes);
+			starDataArray = StaticUtils.createJSONdataArray(starselectUrl);
 			memberWelcomeArray.addAll(starDataArray);
 		}
 

@@ -142,7 +142,8 @@ public class serviceUtils
 		boolean multiLangFlag = false;
 		String starUrl = null;
 		String starData = null;
-		String audioUrl = sm.getaudioWelcomeUrl();
+		String audioUrl = sm.getselectionlistUrl();
+		System.out.println("audioUrl  +++++++++++++" + audioUrl);
 		String selectionList = sm.getselectionlist();
 		cm.setcontextselectionList(selectionList);
 		cm.save();
