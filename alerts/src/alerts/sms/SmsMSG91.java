@@ -56,36 +56,36 @@ public class SmsMSG91 implements SMSProvider {
 	    
 
 		    for ( TargetUser tUser : numbersList ) {
+
 		    	mobile = tUser.getMobileNumber() ;
 		    	
 		    	if ( mobile != null && mobile.isEmpty() == false) {	    	
-		    		String personalizedSMS = tUser.personalizeMessage(textMessage) ;
-		    		String replacedMessage = personalizedSMS ; //Utils.replaceCharacterWithSpacesAround( personalizedSMS, '&', 'n') ; 
+		    		String replacedMessage = tUser.personalizeMessage(textMessage) ;
+		    		//String replacedMessage = personalizedSMS ; //Utils.replaceCharacterWithSpacesAround( personalizedSMS, '&', 'n') ; 
 		    		//replacedMessage = Utils.replaceCharacterWithWord( replacedMessage, '@', new String("(at)")) ; 
 		    		message = URLEncoder.encode( replacedMessage, "UTF-8" ) ;
-		    	}
-		    	StringBuilder sbPostData= new StringBuilder(mainURL);
-		    	sbPostData.append("authkey="+authKey); 
-		    	sbPostData.append("&mobiles="+mobile);
-		    	sbPostData.append("&message="+message);
-		    	sbPostData.append("&route="+route);
-		    	sbPostData.append("&sender="+senderId);
+			    	StringBuilder sbPostData= new StringBuilder(mainURL);
+			    	sbPostData.append("authkey="+authKey); 
+			    	sbPostData.append("&mobiles="+mobile);
+			    	sbPostData.append("&message="+message);
+			    	sbPostData.append("&route="+route);
+			    	sbPostData.append("&sender="+senderId);
+		
+			    	//final string
+			    	mainURL = sbPostData.toString();
 	
-		    	//final string
-		    	mainURL = sbPostData.toString();
-
-		        URL url = new URL(mainURL);
-		        URLConnection conn = url.openConnection();
-		        conn.setDoOutput(true);
-		        conn.connect();
-		        BufferedReader reader= new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		        String response ;
-		        while( (response = reader.readLine()) != null)
-		        	response += response ;
-
-	            reader.close();         
-	            System.out.println("The value of responseId in VinrSMSCountry CLASS IS ----========------> " + response);                
-		    }		    	
+			        URL url = new URL(mainURL);
+			        URLConnection conn = url.openConnection();
+			        conn.setDoOutput(true);
+			        conn.connect();
+			        BufferedReader reader= new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			        String response ;
+			        while( (response = reader.readLine()) != null)
+			        	response += response ;
+		            reader.close();         
+		            System.out.println("The value of responseId in MSG91 CLASS IS ----========------> " + response);                
+			    }		    	
+		    }
 		    return Constants.SUCCESS_STRING;			
 	        } catch(Exception e) {
 	            e.printStackTrace();
