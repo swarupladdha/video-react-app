@@ -150,7 +150,11 @@ public class serviceUtils
 
 		if (inm != null)
 		{
-			starUrl = inm.getpreviousMenuSelectUrl();
+			String selectionhangupurl = inm.getpreviousMenuSelectUrl();
+			ArrayList<String> selectiongrpzhangupurl = new ArrayList<String>();
+			selectiongrpzhangupurl = StaticUtils.createJSONdataArray(selectionhangupurl);
+			starUrl = selectiongrpzhangupurl.get(0);
+			System.out.println("previousMenuSelectUrl +++++   " + starUrl);
 			starData = inm.getpreviousMenuSelectNotes();
 			multiLangFlag = inm.getmultiLanguageFlag();
 		}
