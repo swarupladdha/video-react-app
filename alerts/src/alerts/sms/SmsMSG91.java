@@ -1,27 +1,18 @@
 package alerts.sms;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.List;
 
 import alerts.utils.TargetUser;
 import alerts.utils.Utils ;
 
-import org.w3c.dom.Node;
 import org.apache.log4j.Logger;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import alerts.email.VinrMessagesSentTable;
-import alerts.email.VinrMessagesInTable;
 import alerts.email.VinrMessageParser;
 import alerts.utils.Constants;
 
@@ -43,12 +34,11 @@ public class SmsMSG91 implements SMSProvider {
 
         	String userId = (String) providerParams.get(VinrMessageParser.PRIMARY_PROVIDER_USERID);
         	String mainURL = (String) providerParams.get(VinrMessageParser.PRIMARY_PROIVDER_URL) ;
-        	String numbersString = new String() ;
     	    String password = (String) providerParams.get( VinrMessageParser.PRIMARY_PROIVDER_PASSWORD);
 	    
 	    
 		    String authKey = Utils.decrypt( userId ) ;
-		    String senderId = (String) providerParams.get(VinrMessageParser.PRIMARY_PROIVDER_SID);int count = 1  ;
+		    String senderId = (String) providerParams.get(VinrMessageParser.PRIMARY_PROIVDER_SID);
 		    String route = Utils.decrypt(password) ;
 		    String mobile = null;
 		    String message = null ;
@@ -59,7 +49,8 @@ public class SmsMSG91 implements SMSProvider {
 
 		    	mobile = tUser.getMobileNumber() ;
 		    	
-		    	if ( mobile != null && mobile.isEmpty() == false) {	    	
+		    	if ( mobile != null && mobile.isEmpty() == false && 
+		    			textMessage != null && textMessage.isEmpty() == false) {	    	
 		    		String replacedMessage = tUser.personalizeMessage(textMessage) ;
 		    		//String replacedMessage = personalizedSMS ; //Utils.replaceCharacterWithSpacesAround( personalizedSMS, '&', 'n') ; 
 		    		//replacedMessage = Utils.replaceCharacterWithWord( replacedMessage, '@', new String("(at)")) ; 
@@ -72,9 +63,9 @@ public class SmsMSG91 implements SMSProvider {
 			    	sbPostData.append("&sender="+senderId);
 		
 			    	//final string
-			    	mainURL = sbPostData.toString();
+			    	String finalURL = sbPostData.toString();
 	
-			        URL url = new URL(mainURL);
+			        URL url = new URL(finalURL);
 			        URLConnection conn = url.openConnection();
 			        conn.setDoOutput(true);
 			        conn.connect();
@@ -84,6 +75,7 @@ public class SmsMSG91 implements SMSProvider {
 			        	response += response ;
 		            reader.close();         
 		            System.out.println("The value of responseId in MSG91 CLASS IS ----========------> " + response);                
+		            
 			    }		    	
 		    }
 		    return Constants.SUCCESS_STRING;			
