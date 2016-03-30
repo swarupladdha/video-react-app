@@ -150,7 +150,11 @@ public class serviceUtils
 
 		if (inm != null)
 		{
-			starUrl = inm.getpreviousMenuSelectUrl();
+			String selectionhangupurl = inm.getpreviousMenuSelectUrl();
+			ArrayList<String> selectiongrpzhangupurl = new ArrayList<String>();
+			selectiongrpzhangupurl = StaticUtils.createJSONdataArray(selectionhangupurl);
+			starUrl = selectiongrpzhangupurl.get(0);
+			System.out.println("previousMenuSelectUrl +++++   " + starUrl);
 			starData = inm.getpreviousMenuSelectNotes();
 			multiLangFlag = inm.getmultiLanguageFlag();
 		}
@@ -244,12 +248,14 @@ public class serviceUtils
 			else
 			{
 				dataArraywelcomedisplay.add(audioUrl.trim());
+				System.out.println("dataArraywelcomedisplay   url trim ::: " + dataArraywelcomedisplay);
 			}
 		}
 
 		String displayListString = StaticUtils.createJSONString(dataArraywelcomedisplay);
 		cm.setcontextselectionList(selectionList);
 		cm.setcontextdisplayList(displayListString);
+		System.out.println(" displayListString +++++++     " +displayListString);
 		cm.save();
 
 		kkResponse = StaticUtils.processUrlOrTextMultiList(displayListString, playspeed, timeout);

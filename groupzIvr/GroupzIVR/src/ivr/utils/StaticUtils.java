@@ -595,7 +595,7 @@ public class StaticUtils
 		//String multiGrpzWelcomeNotes = null;
 		String numberListUrlsStr = null;
 		String selectionmultigrpzhangupurl = null;
-		String selectionmultigrpzhangupnotes = null;
+//		String selectionmultigrpzhangupnotes = null;
 		String numberListUrls = null;
 		JSONObject selectedUrllist = null;
 		
@@ -605,10 +605,13 @@ public class StaticUtils
 			multilangFlag = ivrnummap.getmultiLanguageFlag();
 			multiGrpzWelcomeUrl = ivrnummap.getaudioGrpzWelcomeUrl();
 			//multiGrpzWelcomeNotes = ivrnummap.getgrpzWelcomeNotes();
-			selectionmultigrpzhangupurl = ivrnummap.getselectionEndUrl();
-			//selectionmultigrpzhangupnotes = ivrnummap.getselectionEndNotes();
-			numberListUrls = ivrnummap.getnumbersUrlList();
+			String selectionhangupurl = ivrnummap.getselectionEndUrl();
+						
+			ArrayList<String> memberWelcomeArray = new ArrayList<String>();
+			memberWelcomeArray = StaticUtils.createJSONdataArray(selectionhangupurl);
+			selectionmultigrpzhangupurl = memberWelcomeArray.get(0);
 			
+			numberListUrls = ivrnummap.getnumbersUrlList();
 			JSONObject dataObj = (JSONObject) JSONSerializer.toJSON(numberListUrls);
 			JSONObject numberurlsListObj = dataObj.getJSONObject("urlList");
 			System.out.println("check : " + numberurlsListObj);
@@ -868,11 +871,13 @@ public class StaticUtils
 
 //		memberWelcomeArray = StaticUtils.createJSONdataArray(memberwelcome);
 		memberWelcomeArray = StaticUtils.createJSONdataArray(memberwelcomeUrl);
-
+		System.out.println("member welcome Url :::  "+memberWelcomeArray);
+		
 		ArrayList<String> memberSelectionEndArray = new ArrayList<String>();
 
 //		memberSelectionEndArray = StaticUtils.createJSONdataArray(selectionendNote);
 		memberSelectionEndArray = StaticUtils.createJSONdataArray(selectionendUrl);
+		System.out.println("selection Hangup Url :::  "+memberSelectionEndArray);
 		memberWelcomeArray.addAll(multiMemberDataArray);
 		memberWelcomeArray.addAll(memberSelectionEndArray);
 
@@ -882,6 +887,7 @@ public class StaticUtils
 
 //			starDataArray = StaticUtils.createJSONdataArray(starselectNotes);
 			starDataArray = StaticUtils.createJSONdataArray(starselectUrl);
+			System.out.println("previousmenu selection url   :::  " + starDataArray);
 			memberWelcomeArray.addAll(starDataArray);
 		}
 
