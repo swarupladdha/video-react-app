@@ -248,7 +248,6 @@ public class serviceUtils
 			else
 			{
 				dataArraywelcomedisplay.add(audioUrl.trim());
-				dataArraywelcomedisplay.add(starUrl.trim());
 				System.out.println("dataArraywelcomedisplay   url trim ::: " + dataArraywelcomedisplay);
 			}
 		}
