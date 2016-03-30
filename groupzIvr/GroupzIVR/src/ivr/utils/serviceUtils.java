@@ -248,12 +248,15 @@ public class serviceUtils
 			else
 			{
 				dataArraywelcomedisplay.add(audioUrl.trim());
+				dataArraywelcomedisplay.add(starUrl.trim());
+				System.out.println("dataArraywelcomedisplay   url trim ::: " + dataArraywelcomedisplay);
 			}
 		}
 
 		String displayListString = StaticUtils.createJSONString(dataArraywelcomedisplay);
 		cm.setcontextselectionList(selectionList);
 		cm.setcontextdisplayList(displayListString);
+		System.out.println(" displayListString +++++++     " +displayListString);
 		cm.save();
 
 		kkResponse = StaticUtils.processUrlOrTextMultiList(displayListString, playspeed, timeout);
