@@ -56,20 +56,21 @@ public class PhoneCodesList extends BaseDatabaseObject implements Serializable {
 		this.areacodes = areacodes;
 	}
 
-	public static List<PhoneCodesList> getListofPhoneCodes() {
+	public static List<PhoneCodesList> getListofPhoneCodes()
+	{
 		String queryCond = "";
 
-		try {
-			System.out.println("The query condition is : " + queryCond);
-			List<PhoneCodesList> sourceResult = (List<PhoneCodesList>) DBCommonOpertion
-					.getDatabaseObjectsWithoutWhere(PhoneCodesList.class,
-							queryCond);
-System.out.println("phonelist  "+sourceResult);
+		try
+		{
+			System.out.println("The query condition in phone codes is : " + queryCond);
+			List<PhoneCodesList> sourceResult = (List<PhoneCodesList>) DBCommonOpertion.getDatabaseObjectsWithoutWhere(PhoneCodesList.class, queryCond);
+			System.out.println("phonelist  "+sourceResult);
 			return sourceResult;
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 			return null;
 		}
 	}
-
 }

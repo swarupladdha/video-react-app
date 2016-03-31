@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import com.gpzhibernate.BaseDatabaseObject;
 import com.gpzhibernate.DBCommonOpertion;
 import com.gpzhibernate.DontPersistWhenSerializing;
@@ -29,82 +30,6 @@ public class IvrGroupzBaseMapping extends BaseDatabaseObject implements Serializ
 
 	@Column(name = "grpzWelcomeNotes")
 	private String grpzWelcomeNotes;
-	
-	@Column(name = "newRecordMsgTitleText")
-	private String newRecordMsgTitleText;
-	
-	@Column(name = "listOfnumbersRecordMsgText")
-	private String listOfnumbersRecordMsgText;
-	
-	@Column(name = "nextRecordedMsgOptionText")
-	private String nextRecordedMsgOptionText;
-	
-	
-	public String getNextRecordedMsgOptionText() {
-		return nextRecordedMsgOptionText;
-	}
-
-	public void setNextRecordedMsgOptionText(String nextRecordedMsgOptionText) {
-		this.nextRecordedMsgOptionText = nextRecordedMsgOptionText;
-	}
-
-	public String getListOfnumbersRecordMsgText() {
-		return listOfnumbersRecordMsgText;
-	}
-
-	public void setListOfnumbersRecordMsgText(String listOfnumbersRecordMsgText) {
-		this.listOfnumbersRecordMsgText = listOfnumbersRecordMsgText;
-	}
-
-
-
-	@Column(name = "noRecMessages")
-	private String noRecMessages;
-	
-	
-
-	public String getNoRecMessages() {
-		return noRecMessages;
-	}
-
-	public void setNoRecMessages(String noRecMessages) {
-		this.noRecMessages = noRecMessages;
-	}
-
-
-
-	@Column(name = "noNewmessagesText")
-	private String noNewmessagesText;
-	
-	@Column(name = "oldRecordMsgTitleText")
-	private String oldRecordMsgTitleText;
-	
-
-	public String getNewRecordMsgTitleText() {
-		return newRecordMsgTitleText;
-	}
-
-	public void setNewRecordMsgTitleText(String newRecordMsgTitleText) {
-		this.newRecordMsgTitleText = newRecordMsgTitleText;
-	}
-
-	public String getNoNewmessagesText() {
-		return noNewmessagesText;
-	}
-
-	public void setNoNewmessagesText(String noNewmessagesText) {
-		this.noNewmessagesText = noNewmessagesText;
-	}
-
-	public String getOldRecordMsgTitleText() {
-		return oldRecordMsgTitleText;
-	}
-
-	public void setOldRecordMsgTitleText(String oldRecordMsgTitleText) {
-		this.oldRecordMsgTitleText = oldRecordMsgTitleText;
-	}
-
-
 
 	@Column(name = "audioGrpzWelcomeUrl")
 	private String audioGrpzWelcomeUrl;
@@ -118,8 +43,8 @@ public class IvrGroupzBaseMapping extends BaseDatabaseObject implements Serializ
 	@Column(name = "selectionEndUrl")
 	private String selectionEndUrl;
 
-	@Column(name = "errornotes")
-	private String errornotes;
+	@Column(name = "errorNotes")
+	private String errorNotes;
 
 	@Column(name = "audioSelectionHangupUrl")
 	private String audioSelectionHangupUrl;
@@ -235,11 +160,11 @@ public class IvrGroupzBaseMapping extends BaseDatabaseObject implements Serializ
 		this.generalHangupNotes = generalHangupNotes;
 	}
 
-	public String getAudiogeneralHangupUrl() {
+	public String getaudiogeneralHangupUrl() {
 		return generalHangupUrl;
 	}
 
-	public void setAudiogeneralHangupUrl(String generalHangupUrl) {
+	public void setaudiogeneralHangupUrl(String generalHangupUrl) {
 		this.generalHangupUrl = generalHangupUrl;
 	}
 
@@ -347,19 +272,19 @@ public class IvrGroupzBaseMapping extends BaseDatabaseObject implements Serializ
 		this.memberWelcomeNotes = memberWelcomeNotes;
 	}
 
-	public String getErrornotes() {
-		return errornotes;
+	public String geterrorNotes() {
+		return errorNotes;
 	}
 
-	public void setErrornotes(String errornotes) {
-		this.errornotes = errornotes;
+	public void seterrornotes(String errornotes) {
+		this.errorNotes = errornotes;
 	}
 
-	public String getAudioerrorUrl() {
+	public String getaudioerrorUrl() {
 		return audioerrorUrl;
 	}
 
-	public void setAudioerrorUrl(String audioerrorUrl) {
+	public void setaudioerrorUrl(String audioerrorUrl) {
 		this.audioerrorUrl = audioerrorUrl;
 	}
 
@@ -382,22 +307,28 @@ public class IvrGroupzBaseMapping extends BaseDatabaseObject implements Serializ
 
 
 
-	public static IvrGroupzBaseMapping getSingleivrnumberMap(String ivrNubmer) {
+	public static IvrGroupzBaseMapping getSingleivrnumberMap(String ivrNubmer)
+	{
 		String queryCond = "  ";
-		if (ivrNubmer == null) {
+		
+		if (ivrNubmer == null)
+		{
 			return null;
 		}
+		
 		queryCond = " ivrnumber = '" + ivrNubmer + "'";
-		try {
-			System.out.println("The query condition is : " + queryCond);
-			IvrGroupzBaseMapping sourceResult = (IvrGroupzBaseMapping) DBCommonOpertion
-					.getSingleDatabaseObject(IvrGroupzBaseMapping.class, queryCond);
-
+		
+		try
+		{
+			System.out.println("The query condition in ivrgroupzbase is : " + queryCond);
+			IvrGroupzBaseMapping sourceResult = (IvrGroupzBaseMapping) DBCommonOpertion.getSingleDatabaseObject(IvrGroupzBaseMapping.class, queryCond); 
+			// used to check ivrnumber with ivrgroupzbase table
 			return sourceResult;
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 			return null;
 		}
 	}
-
 }
