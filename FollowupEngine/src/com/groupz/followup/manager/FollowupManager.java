@@ -21,11 +21,11 @@ public class FollowupManager {
 
 	static String updateFollowupSQL = "update gbfollowup set followupsent=true where Id=%s";
 
-	static String contactsListSQL = "select ufm.id,a.societycode,f.id, p.mobile, a.mobile, a.name, s.senderemail, s.sendersms, u.email, p.name, p.gender  "
-			+ "from flat f, userflatmapping ufm, user u, person p , apartment a, apartment_settings s,roledefinition r "
+	static String contactsListSQL = "select ufm.id,a.societycode,f.id, a.mobile, a.name, s.senderemail, s.sendersms, u.email,   "
+			+ "from flat f, userflatmapping ufm, user u,  apartment a, apartment_settings s,roledefinition r "
 			+ "where DATE(DATE_ADD(f.approvaldate, INTERVAL %s DAY) ) = CURRENT_DATE and "
 			+ "f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and "
-			+ "u.id = ufm.userid and u.enabled = true  and p.flatid = f.id and ufm.roleid=r.id and "
+			+ "u.id = ufm.userid and u.enabled = true  and  ufm.roleid=r.id and "
 			+ "f.apartmentid = a.id and a.enabled = true and s.apartmentid = a.id and a.builderid = %s and r.gbroleid = %s";
 
 	private List<Message> getTargetList(Connection c, int baseid, int days,
