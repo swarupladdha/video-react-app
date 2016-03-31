@@ -233,7 +233,6 @@ public class serviceUtils
 					else
 					{
 						dataArraywelcomedisplay.add(audioUrl.trim());
-						dataArraywelcomedisplay.add(starUrl.trim());
 					}
 				}
 				if (inm == null || ((starData == null || starData.isEmpty() == true) && (starUrl == null || starUrl .isEmpty())))
