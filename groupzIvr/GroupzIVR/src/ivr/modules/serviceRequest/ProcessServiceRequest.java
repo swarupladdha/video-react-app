@@ -337,32 +337,45 @@ public class ProcessServiceRequest
 							ArrayList<String> welcomedataArray = new ArrayList<String>();
 							ArrayList<String> enddataArray = new ArrayList<String>();
 
+							JSONObject listObj = new JSONObject();
+							JSONObject sellistObj = new JSONObject();
+							
 							for (String grpzcode : regisgrpzcodeList)
 							{
+
 								String grpzString = groupzinfoMap.get(grpzcode);
+
 								String[] grpzinfo = grpzString.split(",");
+
 								String groupzID = grpzinfo[0];
 								String groupzName = grpzinfo[1];
 
-								JSONObject sellistObj = new JSONObject();
-								JSONObject listObj = new JSONObject();
+								
+								
 								JSONObject seldataObj = new JSONObject();
 
 								seldataObj.put("grpzcode", grpzcode);
 								seldataObj.put("groupzID", groupzID);
 								seldataObj.put("groupzName", groupzName);
-								
+
 								sellistObj.put(i + "", seldataObj);
-								listObj.put("selectionList", sellistObj);
-								selectionListmsg = listObj.toString();
+
+					
+
+								//selectionListmsg = listObj.toString();
 
 								String pressStr = "Press " + i + " for ";
 
 								displaydataArray.add(pressStr);
 								displaydataArray.add(groupzName);
+
 								i++;
+
 							}
-							selectionListmsg = selectionListmsg.substring(0, selectionListmsg.length() - 1);
+							listObj.put("selectionList", sellistObj);
+							selectionListmsg = listObj.toString();
+							selectionListmsg = selectionListmsg.substring(0,
+									selectionListmsg.length() - 1);
 							
 							String finaldisplayListText = null;
 							String finalSelctHangupNotes = null;
@@ -393,6 +406,7 @@ public class ProcessServiceRequest
 							
 							cm.setIvrNumber(ivrNumber);
 							cm.setmultigrpzselectlist(selectionListmsg);
+							System.out.println("selectionListmsg  "+selectionListmsg);
 							cm.setCallerId(formattedNumber);
 							cm.setLastupdatetime(new Date());
 							cm.setmultiGrpzFlag(true);
