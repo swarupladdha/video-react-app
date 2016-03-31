@@ -21,7 +21,7 @@ public class FollowupManager {
 
 	static String updateFollowupSQL = "update gbfollowup set followupsent=true where Id=%s";
 
-	static String contactsListSQL = "select ufm.id,a.societycode,f.id, a.mobile, a.name, s.senderemail, s.sendersms, u.email,   "
+	static String contactsListSQL = "select ufm.id,a.societycode,f.id, a.mobile, a.name, s.senderemail, s.sendersms, u.email   "
 			+ "from flat f, userflatmapping ufm, user u,  apartment a, apartment_settings s,roledefinition r "
 			+ "where DATE(DATE_ADD(f.approvaldate, INTERVAL %s DAY) ) = CURRENT_DATE and "
 			+ "f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and "
@@ -44,31 +44,30 @@ public class FollowupManager {
 				int ufmId = rs.getInt("ufm.id");
 				String groupzCode = rs.getString("a.societycode");
 				int memid = rs.getInt("f.id");
-				String mob = rs.getString("p.mobile");
+				//String mob = rs.getString("p.mobile");
 				String email = rs.getString("u.email");
-				String name = rs.getString("p.name");
-				String gender = rs.getString("p.gender");
+				//String name = rs.getString("p.name");
+				//String gender = rs.getString("p.gender");
 				String fromEmail = rs.getString("s.senderemail");
 				String fromMob = rs.getString("a.mobile");
 				String senderid = rs.getString("s.sendersms");
 				String groupz = rs.getString("a.name");
-				String contactName = name;
+				//String contactName = name;
 				String namePrefix;
 				String contactPrefix;
-				if (gender != null && gender.trim().equalsIgnoreCase("male")) {
+				/*if (gender != null && gender.trim().equalsIgnoreCase("male")) {
 					namePrefix = "Mr.";
 				} else {
 					namePrefix = "Ms.";
-				}
-				contactPrefix = namePrefix;
+				}*/
+				//contactPrefix = namePrefix;
 
 				Message m = new Message();
-				m.setToName(name);
-				;
-				m.setToContactName(contactName);
-				m.setNamePrefix(namePrefix);
-				m.setContactPrefix(contactPrefix);
-				m.setMobNumber(mob);
+				//m.setToName(name);				
+				//m.setToContactName(contactName);
+				//m.setNamePrefix(namePrefix);
+				//m.setContactPrefix(contactPrefix);
+				//m.setMobNumber(mob);
 				m.setEmail(email);
 				m.setSenderId(senderid);
 				m.setFromEmail(fromEmail);
@@ -77,8 +76,8 @@ public class FollowupManager {
 				m.setGroupzCode(groupzCode);
 				m.setMemberId(ufmId);
 				theFinalList.add(m);
-				System.out.println("Sending...." + memid + "  " + mob + "  -  "
-						+ email);
+				/*System.out.println("Sending...." + memid + "  " + mob + "  -  "
+						+ email);*/
 			}
 			stmt.close();
 			return theFinalList;
@@ -124,9 +123,9 @@ public class FollowupManager {
 						+ days);
 				List<Message> targetList = getTargetList(dbConnection, gbid,
 						days, roleid);
-				System.out.println("Target List:"+targetList.size());
+			//	System.out.println("Target List:"+targetList.size());
 				//if (smsText != null && smsText.trim().isEmpty() == false) {
-					
+					if(targetList!=null && targetList.size()>0){
 					for (Message msg : targetList) {
 						// msg.sendMessage(dbConnection, providercode, userid,
 						// password, smsText, null) ;
@@ -134,6 +133,7 @@ public class FollowupManager {
 						boolean followUpStatus = msg.sendFollowupinURL(id,
 								msg.getGroupzCode(), msg.getMemberId());
 						logger.debug("Follow up status through URL:"+followUpStatus);
+					}
 					}
 				//}
 				followupDone(dbConnection, id);
