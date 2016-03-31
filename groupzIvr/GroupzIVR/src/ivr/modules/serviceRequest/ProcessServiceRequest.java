@@ -219,8 +219,8 @@ public class ProcessServiceRequest
 
 					sucessFlagStr = grpzLandLineDetails.get(0);
 
-					if (sucessFlagStr.equals("true"))
-					{
+//					if (sucessFlagStr.equals("true"))
+//					{
 						grpzInfoxmlString = grpzLandLineDetails.get(1);
 						groupzList = StaticUtils.getGroupzInfoList(grpzInfoxmlString);
 
@@ -230,22 +230,24 @@ public class ProcessServiceRequest
 						}
 						else
 						{
+							System.out.println("else condition not reg");
 							loggerServ.info("The GroupzList is empty, you are not registered to any groups.:" + callSessionId);
 							kkResponse = StaticUtils.sendNotRegGrupzResp(ivrnummap, cm);
 							kkResponse.setSid(callSessionId);
 							kkResponse.addHangup();
 							return kkResponse.getXML();
 						}
-					}
-					else
-					{
-						loggerServ.info("There is error code in response while geting groupz list while checking for landline" + callSessionId
-										+ "number : " + callerID + "IVRnumber :" + ivrNumber);
-						kkResponse = StaticUtils.senderrorResp(callSessionId, ivrNumber, cm);
-						kkResponse.setSid(callSessionId);
-						kkResponse.addHangup();
-						return kkResponse.getXML();
-					}
+//					}
+//					else
+//					{
+//						System.out.println("else condition not groupz");
+//						loggerServ.info("There is error code in response while geting groupz list while checking for landline" + callSessionId
+//										+ "number : " + callerID + "IVRnumber :" + ivrNumber);
+//						kkResponse = StaticUtils.senderrorResp(callSessionId, ivrNumber, cm);
+//						kkResponse.setSid(callSessionId);
+//						kkResponse.addHangup();
+//						return kkResponse.getXML();
+//					}
 				}
 			/*}
 			else
@@ -812,18 +814,24 @@ public class ProcessServiceRequest
 			}
 			else
 			{
+				System.out.println("ivrnum is null ");
 				String playspeedstr = prop.getProperty("playspeed");
 				playspeed = Integer.parseInt(playspeedstr);
 				String timestr = prop.getProperty("settimeout");
 				timeout = Integer.parseInt(timestr);
 			}
-
+			
 			String repeatCode = prop.getProperty("repeatCode");
+			System.out.println("repeatCode   "  + repeatCode);
 			String hangupCode = prop.getProperty("hangupCode");
+			System.out.println("hangupCode   "  + hangupCode);
 			String previousMenucode = prop.getProperty("previousMenucode");
+			System.out.println("previousMenucode   "  + previousMenucode);
 			
 			String selectionList = co.getcontextselectionList();
+			System.out.println("selectionList   "  + selectionList);
 			String welcomeNote = co.getcontextdisplayList();
+			System.out.println("welcomeNote   "  + welcomeNote);
 
 			if (data == null || data.isEmpty() == true)
 			{
@@ -1144,6 +1152,7 @@ public class ProcessServiceRequest
 			if (repeatFlag || data.trim().equals(repeatCode) || (containsKey == false && !(data.trim().equals(previousMenucode)
 					|| data.trim().equals(hangupCode))))
 			{
+				System.out.println("repeatFlag data trim");
 				if (multiLanguageFlag)
 				{
 					kkResponse = StaticUtils.playURL(languageWelcomeUrl, timeout);
