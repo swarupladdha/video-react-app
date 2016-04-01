@@ -453,7 +453,7 @@ public class serviceUtils
 		try
 		{
 			String servicetype = prop.getProperty("servicetype");
-			String urltoinvoke = prop.getProperty("serviceRequestUrl");
+			String urltoinvoke = prop.getProperty("registerRequestUrl");
 			String moduleCOde = prop.getProperty("serviceReqModulecode");
 			String functionType = prop.getProperty("serviceIssuePlaceFunType");
 			String title = prop.getProperty("issueplacingTitle");
