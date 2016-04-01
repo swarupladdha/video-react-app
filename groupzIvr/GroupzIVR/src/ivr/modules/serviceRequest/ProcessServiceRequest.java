@@ -423,7 +423,10 @@ public class ProcessServiceRequest
 					}
 					else
 					{
-						kkResponse = serviceUtils.sendNoGlobalGrupzResp();
+						kkResponse = StaticUtils.sendNotRegGrupzResp(ivrnummap, cm);
+						kkResponse.setSid(callSessionId);
+						kkResponse.addHangup();
+						return kkResponse.getXML();
 					}
 				}
 				else if (size == 1)
@@ -435,7 +438,10 @@ public class ProcessServiceRequest
 					
 					if (smp != null)
 					{
-						kkResponse = serviceUtils.sendNoGlobalGrupzResp();
+						kkResponse = StaticUtils.sendNotRegGrupzResp(ivrnummap, cm);
+						kkResponse.setSid(callSessionId);
+						kkResponse.addHangup();
+						return kkResponse.getXML();
 					}
 					else
 					{
