@@ -444,7 +444,7 @@ public class serviceUtils
 		return kkResponse;
 	}
 
-	public static boolean placeGroupzIssueWithSourceType(String grpzId, String memberid, String category, String callerID, String callSessionID)
+	public static boolean placeGroupzIssueWithSourceType(String grpzId, String memberid, String category, String callerID, String callSessionID,String groupzcode)
 	{
 
 		boolean statusFlag = false;
@@ -462,7 +462,24 @@ public class serviceUtils
 			String sourceType = prop.getProperty("issuePlacesourceType");
 			String issuetype = prop.getProperty("issuetype");
 			String scopetype = prop.getProperty("issuescopetype");
+			
+			 JSONObject dataJson = new JSONObject();
+             JSONObject selectedData = new JSONObject();
+             JSONObject requestJson = new JSONObject();
+             JSONObject requestfinalJson = new JSONObject();
 
+             selectedData.put("type", issuetype);
+             selectedData.put("category", category);
+             selectedData.put("title", title);
+             
+             dataJson.put("memberid", memberid);
+             dataJson.put("groupzcode", groupzcode);
+             dataJson.put("servicetype", servicetype);
+             dataJson.put("functiontype", functionType);
+             dataJson.put("data", selectedData);
+             requestJson.put("request", dataJson);
+             requestfinalJson.put("json", requestJson);
+/*
 			JSONObject dataJson = new JSONObject();
 			JSONObject requestJson = new JSONObject();
 
@@ -478,21 +495,39 @@ public class serviceUtils
 			dataJson.put("sourceType", sourceType);
 			dataJson.put("issuetype", issuetype);
 			dataJson.put("scopetype", scopetype);
-			requestJson.put("request", dataJson);
+			requestJson.put("request", dataJson);*/
 
-			XMLSerializer serializer = new XMLSerializer();
+			//XMLSerializer serializer = new XMLSerializer();
 
-			JSON jsonadd = JSONSerializer.toJSON(requestJson);
-			serializer.setRootName("xml");
-			serializer.setTypeHintsEnabled(false);
+			//JSON jsonadd = JSONSerializer.toJSON(requestJson);
+			//serializer.setRootName("xml");
+			//serializer.setTypeHintsEnabled(false);
 
-			String xmlsmsString = serializer.write(jsonadd);
+			//String xmlsmsString = serializer.write(jsonadd);
+			
+			String xmlsmsString=requestfinalJson.toString();
+			
+			System.out.println("ISSUE REQUEST "+xmlsmsString);
 
 			responsexmlString = StaticUtils.ConnectAndGetResponse(urltoinvoke, xmlsmsString);
 
 			if (StaticUtils.isEmptyOrNull(responsexmlString) == false)
+				
+				
 			{
-				statusFlag = StaticUtils.getStatusCode(responsexmlString);
+				JSONObject joobj = (JSONObject)JSONSerializer.toJSON(responsexmlString);
+						
+						
+						
+				
+				JSONObject jores =  joobj.getJSONObject("json");
+				JSONObject joresponse=  jores.getJSONObject("response");
+				String statusCode = joresponse.getString("statuscode");
+				String statusMessage=joresponse.getString("statusmessage");
+
+				if(statusCode.equals("0")){
+				statusFlag = true; //StaticUtils.getStatusCode(responsexmlString);
+				}
 			}
 		}
 		catch (Exception e)

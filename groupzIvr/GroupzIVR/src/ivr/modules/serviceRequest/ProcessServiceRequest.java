@@ -206,8 +206,8 @@ public class ProcessServiceRequest
 			
 //   SuccessFlagStr = false, it means calling number is not a mobile number. So the below if and else condition is commented.
 			
-//			if (sucessFlagStr.equals("true"))
-//			{
+		if (sucessFlagStr.equals("true"))
+			{
 				grpzInfoxmlString = grpzMobileDetails.get(1);
 				groupzList = StaticUtils.getGroupzInfoList(grpzInfoxmlString);
 
@@ -219,8 +219,8 @@ public class ProcessServiceRequest
 
 					sucessFlagStr = grpzLandLineDetails.get(0);
 
-//					if (sucessFlagStr.equals("true"))
-//					{
+			if (sucessFlagStr.equals("true"))
+				{
 						grpzInfoxmlString = grpzLandLineDetails.get(1);
 						groupzList = StaticUtils.getGroupzInfoList(grpzInfoxmlString);
 
@@ -237,19 +237,19 @@ public class ProcessServiceRequest
 							kkResponse.addHangup();
 							return kkResponse.getXML();
 						}
-//					}
-//					else
-//					{
-//						System.out.println("else condition not groupz");
-//						loggerServ.info("There is error code in response while geting groupz list while checking for landline" + callSessionId
-//										+ "number : " + callerID + "IVRnumber :" + ivrNumber);
-//						kkResponse = StaticUtils.senderrorResp(callSessionId, ivrNumber, cm);
-//						kkResponse.setSid(callSessionId);
-//						kkResponse.addHangup();
-//						return kkResponse.getXML();
-//					}
 				}
-			/*}
+				else
+					{
+						System.out.println("else condition not groupz");
+						loggerServ.info("There is error code in response while geting groupz list while checking for landline" + callSessionId
+										+ "number : " + callerID + "IVRnumber :" + ivrNumber);
+						kkResponse = StaticUtils.senderrorResp(callSessionId, ivrNumber, cm);
+						kkResponse.setSid(callSessionId);
+						kkResponse.addHangup();
+						return kkResponse.getXML();
+					}
+				}
+			}
 			else
 			{
 				loggerServ.info("There is errorcode in reponse while geting groupz list while checking for mobile" + callSessionId
@@ -258,7 +258,7 @@ public class ProcessServiceRequest
 				kkResponse.setSid(callSessionId);
 				kkResponse.addHangup();
 				return kkResponse.getXML();
-			}*/
+			}
 
 			// end validation
 
@@ -374,8 +374,8 @@ public class ProcessServiceRequest
 							}
 							listObj.put("selectionList", sellistObj);
 							selectionListmsg = listObj.toString();
-							selectionListmsg = selectionListmsg.substring(0,
-									selectionListmsg.length() - 1);
+							//selectionListmsg = selectionListmsg.substring(0,
+							//		selectionListmsg.length() - 1);
 							
 							String finaldisplayListText = null;
 							String finalSelctHangupNotes = null;
@@ -408,6 +408,8 @@ public class ProcessServiceRequest
 							cm.setmultigrpzselectlist(selectionListmsg);
 							System.out.println("selectionListmsg  "+selectionListmsg);
 							cm.setCallerId(formattedNumber);
+							cm.setcontextdisplayList(displayGroupzList);
+							cm.setcontextselectionList(selectionListmsg);
 							cm.setLastupdatetime(new Date());
 							cm.setmultiGrpzFlag(true);
 							cm.setmemberId(memberId);
@@ -905,7 +907,7 @@ public class ProcessServiceRequest
 
 							IvrGroupzMapping sm = IvrGroupzMapping.getSingleivrSourceMapwithGroupzCode(ivrNumber, groupzcode);
 
-							if (sm != null)
+							/*if (sm != null)
 							{
 								selectionList = sm.getselectionlist();
 							}
@@ -917,7 +919,7 @@ public class ProcessServiceRequest
 								kkResponse = StaticUtils.senderrorResp(callSessionId, ivrNumber, co);
 								kkResponse.setSid(callSessionId);
 								return kkResponse.getXML();
-							}
+							}*/
 
 							List<GroupzMemberInfo> memberList = null;
 
@@ -1044,10 +1046,11 @@ public class ProcessServiceRequest
 							int memid = co.getmemberId();
 							String memberIDStr = Integer.toString(memid);
 							String groupzId = co.getgroupzId();
+							String groupzcode=co.getgroupzCode();
 							String category = selectionListObj.getString(data);
 
 							boolean statusFlag = serviceUtils.placeGroupzIssueWithSourceType(groupzId, memberIDStr, category,
-											formattednumber, callSessionId);
+											formattednumber, callSessionId,groupzcode);
 
 							if (statusFlag)
 							{

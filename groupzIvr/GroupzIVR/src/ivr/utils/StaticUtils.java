@@ -607,9 +607,10 @@ public class StaticUtils
 			//multiGrpzWelcomeNotes = ivrnummap.getgrpzWelcomeNotes();
 			String selectionhangupurl = ivrnummap.getselectionEndUrl();
 						
-			ArrayList<String> memberWelcomeArray = new ArrayList<String>();
-			memberWelcomeArray = StaticUtils.createJSONdataArray(selectionhangupurl);
-			selectionmultigrpzhangupurl = memberWelcomeArray.get(0);
+			ArrayList<String> selectiongrpzhangupurl = new ArrayList<String>();
+			selectiongrpzhangupurl = StaticUtils.createJSONdataArray(selectionhangupurl);
+			selectionmultigrpzhangupurl = selectiongrpzhangupurl.get(0);
+			System.out.println("selectionmultigrpzhangupurl     ***  " + selectionmultigrpzhangupurl);
 			
 			numberListUrls = ivrnummap.getnumbersUrlList();
 			JSONObject dataObj = (JSONObject) JSONSerializer.toJSON(numberListUrls);
@@ -710,6 +711,7 @@ public class StaticUtils
 			finaldisplayListUrlText = multiGrpzWelcomeUrl;
 			dataArraywelcomedisplay.add(finaldisplayListUrlText);
 			finalSelctEndUrlNotes = selectionmultigrpzhangupurl;
+			System.out.println("finalSelctEndUrlNotes ++++++" +finalSelctEndUrlNotes);
 			dataArrayhangUP.add(finalSelctEndUrlNotes);
 						
 //			String finaldisplayListNotesText = null;
@@ -977,6 +979,8 @@ public class StaticUtils
 			String xmlsmsString = serializer.write(jsonadd);
 
 			responsexmlString = StaticUtils.ConnectAndGetResponse(urltoinvoke, xmlsmsString);
+			
+			System.out.println("INVALID "+ responsexmlString);
 		}
 		catch (Exception e)
 		{
@@ -1072,6 +1076,7 @@ public class StaticUtils
 				responseStr.append(inputLine);
 			}
 			in.close();
+		
 			resultString = responseStr.toString();
 		}
 		catch (Exception e)
@@ -1239,6 +1244,10 @@ public class StaticUtils
 
 		try
 		{
+			
+			String invalidmobilenumber = prop.getProperty("invalidmobilenumber");
+			String invalidlandlinenumber = prop.getProperty("invalidlandlinenumber");
+			
 			XMLSerializer xmlSerializer = new XMLSerializer();
 			JSON json = xmlSerializer.read(xmlString);
 			JSONObject jo = (JSONObject) JSONSerializer.toJSON(json);
@@ -1246,7 +1255,7 @@ public class StaticUtils
 			String statusCode = jores.getString("statuscode");
 			String statusMessage=jores.getString("statusmessage");
 
-			if (statusCode.equals("0"))
+			if (statusCode.equals("0")||statusCode.equals(invalidmobilenumber)||statusCode.equals(invalidlandlinenumber))
 			{
 				sucessflag = true;
 			}
