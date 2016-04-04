@@ -878,7 +878,7 @@ public class StaticUtils
 		}
 		else
 		{
-			memberWelcomeArray = StaticUtils.createJSONdataArray(memberwelcome);
+			memberWelcomeArray = StaticUtils.createJSONdataArray(multiGroupzWelcomenotes);
 			System.out.println("member welcome notes :::  "+memberWelcomeArray);
 		}
 		
@@ -888,7 +888,7 @@ public class StaticUtils
 		if(memberwelcomeUrl != null)
 		{
 			memberSelectionEndArray = StaticUtils.createJSONdataArray(selectionendUrl);
-			System.out.println("selection Hangup Url :::  "+memberSelectionEndArray);
+			System.out.println("member Selection Url :::  "+memberSelectionEndArray);
 		}
 		else
 		{
@@ -900,14 +900,23 @@ public class StaticUtils
 //		System.out.println("selection Hangup Url :::  "+memberSelectionEndArray);
 		memberWelcomeArray.addAll(multiMemberDataArray);
 		memberWelcomeArray.addAll(memberSelectionEndArray);
-
+		
 		if (multiGroupzWelcomenotes != null && multiGroupzWelcomenotes.isEmpty() == false)
 		{
 			ArrayList<String> starDataArray = new ArrayList<String>();
 
-//			starDataArray = StaticUtils.createJSONdataArray(starselectNotes);
-			starDataArray = StaticUtils.createJSONdataArray(starselectUrl);
-			System.out.println("previousmenu selection url   :::  " + starDataArray);
+			if(starselectUrl != null)
+			{
+				starDataArray = StaticUtils.createJSONdataArray(starselectUrl);
+				System.out.println("previousmenu selection url   :::  " + starDataArray);
+			}
+			else
+			{
+				starDataArray = StaticUtils.createJSONdataArray(starselectNotes);
+				System.out.println("previousmenu selection notes   :::  " + starDataArray);
+			}
+			
+			
 			memberWelcomeArray.addAll(starDataArray);
 		}
 

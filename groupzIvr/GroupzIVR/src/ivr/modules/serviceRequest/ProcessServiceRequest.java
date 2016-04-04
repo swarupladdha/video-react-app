@@ -1,17 +1,20 @@
 package ivr.modules.serviceRequest;
 
 import java.io.InputStream;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+
 import org.apache.log4j.Logger;
+
 import com.ozonetel.kookoo.Response;
+
 import ivr.servlets.ServiceRequest;
 import ivr.tables.ContextMapping;
 import ivr.tables.IvrGroupzMapping;
@@ -512,6 +515,7 @@ public class ProcessServiceRequest
 
 					if (memberList != null && memberList.size() > 0)
 					{
+						
 						int memblistSize = memberList.size();
 
 						if (memblistSize > 1)
@@ -687,10 +691,13 @@ public class ProcessServiceRequest
 							{
 								int memblistSize = memberList.size();
 								System.out.println("member id %%%" + memblistSize);
-
+								String multiwelcomeNote = null;
+								multiwelcomeNote = ivrnummap.getgrpzWelcomeNotes();
+															
 								if (memblistSize > 1)
 								{
-									cm.setIvrNumber(ivrNumber);
+									cm.setIvrNumber(ivrNumber);							
+									cm.setmultigrpzWelcomeNotes(multiwelcomeNote);
 									cm.setCallerId(formattedNumber);
 									cm.setLastupdatetime(new Date());
 									cm.setmultiGrpzFlag(false);
@@ -701,6 +708,7 @@ public class ProcessServiceRequest
 									cm.setcontextselectionList(smap.getselectionlist());
 									cm.save();
 
+									System.out.println("multigrpzWelcomeNotes "+ multiwelcomeNote);
 									String displayMemberList = StaticUtils.createMemberlistString(callSessionId, memberList, cm, 
 											ivrNumber);
 

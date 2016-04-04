@@ -198,7 +198,9 @@ public class serviceUtils
 							if (starData != null && starData.isEmpty() == false)
 							{
 								ArrayList<String> datalistObj = StaticUtils.createJSONdataArray(starData);
+								System.out.println("datalistObj    " + datalistObj);
 								dataArraywelcomedisplay.addAll(datalistObj);
+								System.out.println("if dataArraywelcomedisplay  " + dataArraywelcomedisplay);
 							}
 						}
 						else
@@ -232,6 +234,7 @@ public class serviceUtils
 						
 							ArrayList<String> datalistObj = StaticUtils.createJSONdataArray(starData);
 							dataArraywelcomedisplay.addAll(datalistObj);
+							System.out.println("else dataArraywelcomedisplay  " + dataArraywelcomedisplay);
 						}
 					}
 					else
