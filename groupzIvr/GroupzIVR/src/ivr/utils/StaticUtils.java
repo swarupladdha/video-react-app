@@ -871,15 +871,33 @@ public class StaticUtils
 
 		ArrayList<String> memberWelcomeArray = new ArrayList<String>();
 
-//		memberWelcomeArray = StaticUtils.createJSONdataArray(memberwelcome);
-		memberWelcomeArray = StaticUtils.createJSONdataArray(memberwelcomeUrl);
-		System.out.println("member welcome Url :::  "+memberWelcomeArray);
+		if(memberwelcomeUrl != null)
+		{
+			memberWelcomeArray = StaticUtils.createJSONdataArray(memberwelcomeUrl);
+			System.out.println("member welcome Url :::  "+memberWelcomeArray);
+		}
+		else
+		{
+			memberWelcomeArray = StaticUtils.createJSONdataArray(memberwelcome);
+			System.out.println("member welcome notes :::  "+memberWelcomeArray);
+		}
+		
 		
 		ArrayList<String> memberSelectionEndArray = new ArrayList<String>();
 
+		if(memberwelcomeUrl != null)
+		{
+			memberSelectionEndArray = StaticUtils.createJSONdataArray(selectionendUrl);
+			System.out.println("selection Hangup Url :::  "+memberSelectionEndArray);
+		}
+		else
+		{
+			memberSelectionEndArray = StaticUtils.createJSONdataArray(selectionendNote);
+			System.out.println("member selectionend notes :::  "+memberSelectionEndArray);
+		}
 //		memberSelectionEndArray = StaticUtils.createJSONdataArray(selectionendNote);
-		memberSelectionEndArray = StaticUtils.createJSONdataArray(selectionendUrl);
-		System.out.println("selection Hangup Url :::  "+memberSelectionEndArray);
+//		memberSelectionEndArray = StaticUtils.createJSONdataArray(selectionendUrl);
+//		System.out.println("selection Hangup Url :::  "+memberSelectionEndArray);
 		memberWelcomeArray.addAll(multiMemberDataArray);
 		memberWelcomeArray.addAll(memberSelectionEndArray);
 
@@ -1247,9 +1265,11 @@ public class StaticUtils
 			
 			String invalidmobilenumber = prop.getProperty("invalidmobilenumber");
 			String invalidlandlinenumber = prop.getProperty("invalidlandlinenumber");
-			
+			System.out.println("xmlString  "+xmlString);
 			XMLSerializer xmlSerializer = new XMLSerializer();
+			
 			JSON json = xmlSerializer.read(xmlString);
+			
 			JSONObject jo = (JSONObject) JSONSerializer.toJSON(json);
 			JSONObject jores =  jo.getJSONObject("response");
 			String statusCode = jores.getString("statuscode");
@@ -1589,6 +1609,7 @@ public class StaticUtils
 	{		
 		JSONObject dataObj = (JSONObject) JSONSerializer.toJSON(welcomeNotes);
 		JSONArray jsndatalistObj = dataObj.getJSONArray("welcomenotesList");
+		
 		int datasize = jsndatalistObj.size();
 
 			ArrayList<String> dataarrayList = new ArrayList<String>();
