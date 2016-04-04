@@ -150,11 +150,12 @@ public class serviceUtils
 
 		if (inm != null)
 		{
-			String selectionhangupurl = inm.getpreviousMenuSelectUrl();
-			ArrayList<String> selectiongrpzhangupurl = new ArrayList<String>();
-			selectiongrpzhangupurl = StaticUtils.createJSONdataArray(selectionhangupurl);
-			starUrl = selectiongrpzhangupurl.get(0);
-			System.out.println("previousMenuSelectUrl +++++   " + starUrl);
+//			String selectionhangupurl = inm.getpreviousMenuSelectUrl();
+//			ArrayList<String> selectiongrpzhangupurl = new ArrayList<String>();
+//			selectiongrpzhangupurl = StaticUtils.createJSONdataArray(selectionhangupurl);
+//			starUrl = selectiongrpzhangupurl.get(0);
+			starUrl = inm.getpreviousMenuSelectUrl();
+//			System.out.println("previousMenuSelectUrl +++++   " + starUrl);
 			starData = inm.getpreviousMenuSelectNotes();
 			multiLangFlag = inm.getmultiLanguageFlag();
 		}
@@ -178,11 +179,14 @@ public class serviceUtils
 		if (audioUrl == null || audioUrl.trim().isEmpty() == true)
 		{
 			String wnotes = sm.getwelcomeNotes();
+			System.out.println("wnotes  " + wnotes );
 
 			if (wnotes != null && wnotes.trim().isEmpty() == false && selectionList != null && selectionList.trim().isEmpty() == false)
 			{
 				String endNotes = inm.getselectionEndNotes();
+				System.out.println("endNotes " +endNotes);
 				dataArraywelcomedisplay = StaticUtils.createivrselectionMenuList(wnotes, selectionList,endNotes);
+				
 
 				if ((multiGrpzwelcome != null && multiGrpzwelcome.isEmpty() == false) 
 						|| (multiMembwelcome != null && multiMembwelcome.isEmpty() == false))
