@@ -1601,7 +1601,7 @@ public class StaticUtils
 		return finaljsonString;
 	}
 	
-	public static ArrayList<String> createivrselectionMenuList(String welcomeNotes,String selectionList,String endNotes)
+	public static ArrayList<String> createivrselectionMenuList(String welcomeNotes,String selectionList,String endNotes, String groupzname)
 	{		
 		JSONObject dataObj = (JSONObject) JSONSerializer.toJSON(welcomeNotes);
 		JSONArray jsndatalistObj = dataObj.getJSONArray("welcomenotesList");
@@ -1610,6 +1610,9 @@ public class StaticUtils
 
 			ArrayList<String> dataarrayList = new ArrayList<String>();
 
+			String groupznamewelcomenote = "welcome to ";
+			dataarrayList.add(groupznamewelcomenote);
+			dataarrayList.add(groupzname);
 			for (int i = 0; i < datasize; i++)
 			{
 				String dataStr = jsndatalistObj.getString(i);

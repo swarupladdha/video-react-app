@@ -45,6 +45,7 @@ public class serviceUtils
 		
 		try
 		{
+			System.out.println("Inside getCategoryList");
 			String servicetype = prop.getProperty("servicetype");
 			String functiontype = prop.getProperty("categoryListFunctype");
 			String urltoinvoke = prop.getProperty("serviceRequestUrl");
@@ -71,11 +72,13 @@ public class serviceUtils
 
 			if (StaticUtils.isEmptyOrNull(responsexmlString))
 			{
+				System.out.println("responsexmlString is empty");
 				loggerServ.info("categoryList xml response is empty for callerID and ivrnumber " + callerID + "  " + ivrnumber);
 				categoryList = null;
 			}
 			else
 			{
+				System.out.println("getStatusCode");
 				boolean sucessFlag = StaticUtils.getStatusCode(responsexmlString);
 				
 				if (sucessFlag)
@@ -88,6 +91,7 @@ public class serviceUtils
 				
 					if (statusCode.equals("0"))
 					{
+						System.out.println("statusCode.equals 0");
 						Object obj = jores.get("servicerequestcategories");
 
 						if (obj instanceof JSONArray)
@@ -100,6 +104,7 @@ public class serviceUtils
 								JSONObject jogrpz = jsnlistarry.getJSONObject(i);
 								String category = jogrpz.getString("category");
 								categoryList.add(category);
+								System.out.println("categoryList "+categoryList);
 							}
 						}
 						else
@@ -108,6 +113,7 @@ public class serviceUtils
 							JSONObject jogele = jogrpz.getJSONObject("element");
 							String category = jogele.getString("category");
 							categoryList.add(category);
+							System.out.println("categoryList else  "+categoryList);
 						}
 					}
 				}
@@ -115,6 +121,7 @@ public class serviceUtils
 				{
 					loggerServ.info("categoryList  empty for groupzid, callerID and ivrnumber  " + grpzid + "  " + callerID + "  " + ivrnumber);
 					categoryList = null;
+					System.out.println("categoryList null");
 				}
 			}
 		}
@@ -143,6 +150,7 @@ public class serviceUtils
 		String starUrl = null;
 		String starData = null;
 		String audioUrl = sm.getselectionlistUrl();
+		String groupzname = sm.getgroupzNameUrl();
 		System.out.println("audioUrl  +++++++++++++" + audioUrl);
 		String selectionList = sm.getselectionlist();
 		cm.setcontextselectionList(selectionList);
@@ -180,7 +188,7 @@ public class serviceUtils
 			{
 				String endNotes = inm.getselectionEndNotes();
 				System.out.println("endNotes " +endNotes);
-				dataArraywelcomedisplay = StaticUtils.createivrselectionMenuList(wnotes, selectionList,endNotes);
+				dataArraywelcomedisplay = StaticUtils.createivrselectionMenuList(wnotes, selectionList,endNotes, groupzname);
 				
 
 				if ((multiGrpzwelcome != null && multiGrpzwelcome.isEmpty() == false) 
@@ -287,19 +295,24 @@ public class serviceUtils
 		String callSessionId = cm.getCallSessionId();
 
 		List<String> categoryList = serviceUtils.getCategoryList(groupzId, formattednumber, ivrNumber);
+		System.out.println("categoryList Global NewCall Response    " +categoryList);
 		
 		//creating xml and connectingAndGettingResponse and also getting status using getCategoryList
 
 		if (categoryList == null || categoryList.isEmpty())
 		{
+			System.out.println("categoryList == null || categoryList.isEmpty");
 			loggerServ.info("The category list for global number is empty : session ID &  number" + callSessionId + " : " + formattednumber);
 			kkResponse = StaticUtils.senderrorResp(callSessionId, ivrNumber, cm);
+			return kkResponse;
 		}
 
 		String wn = serviceUtils.createWelcomeNotesForContext(categoryList);
+		System.out.println("wn for global category list "+wn);
 		// To create category list for context table using createWelcomeNotesForContext
 		
 		String selectionList = serviceUtils.createCategorySelectionList(categoryList);
+		System.out.println("selectionList for global category list "+selectionList);
 		//To create that no grpz for global ivr selected using createCategorySelectionList()
 
 		cm.setglobalcategorywelcomeNotes(wn);

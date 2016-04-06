@@ -905,6 +905,7 @@ public class ProcessServiceRequest
 
 						if (multigrpzFalg == true)
 						{
+							System.out.println("multigrpzFalg == true");
 							JSONObject grpzselectionListObj = selectionListObj.getJSONObject(data);
 
 							String groupzcode = grpzselectionListObj.getString("grpzcode");
@@ -940,6 +941,7 @@ public class ProcessServiceRequest
 
 								if (sucessFlagStr.equals("true"))
 								{
+									System.out.println("sucessFlagStr.equals(\"true\")");
 									membXmlInfo = memberDetails.get(1);
 									memberList = StaticUtils.getMemberInfoList(membXmlInfo);
 								}
@@ -948,6 +950,7 @@ public class ProcessServiceRequest
 									loggerServ.info(" error code in get memberList xml for mobile information from Rest API : "
 											+ "sessionID - " + callSessionId + "number : " + formattednumber);
 
+									System.out.println("errorresp");
 									kkResponse = StaticUtils.senderrorResp(callSessionId, ivrNumber, co);
 									kkResponse.setSid(callSessionId);
 									kkResponse.addHangup();
