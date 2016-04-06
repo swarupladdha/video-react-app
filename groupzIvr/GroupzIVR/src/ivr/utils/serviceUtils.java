@@ -150,12 +150,7 @@ public class serviceUtils
 
 		if (inm != null)
 		{
-//			String selectionhangupurl = inm.getpreviousMenuSelectUrl();
-//			ArrayList<String> selectiongrpzhangupurl = new ArrayList<String>();
-//			selectiongrpzhangupurl = StaticUtils.createJSONdataArray(selectionhangupurl);
-//			starUrl = selectiongrpzhangupurl.get(0);
 			starUrl = inm.getpreviousMenuSelectUrl();
-//			System.out.println("previousMenuSelectUrl +++++   " + starUrl);
 			starData = inm.getpreviousMenuSelectNotes();
 			multiLangFlag = inm.getmultiLanguageFlag();
 		}
@@ -461,14 +456,15 @@ public class serviceUtils
 		{
 			String servicetype = prop.getProperty("servicetype");
 			String urltoinvoke = prop.getProperty("registerRequestUrl");
-			String moduleCOde = prop.getProperty("serviceReqModulecode");
+			String moduleCode = prop.getProperty("serviceReqModulecode");
 			String functionType = prop.getProperty("serviceIssuePlaceFunType");
 			String title = prop.getProperty("issueplacingTitle");
 			String description = prop.getProperty("issuePlacedescription");
 			String preferredTime = prop.getProperty("issuePlacepreferredTime");
 			String sourceType = prop.getProperty("issuePlacesourceType");
 			String issuetype = prop.getProperty("issuetype");
-			String scopetype = prop.getProperty("issuescopetype");
+			String scopeType = prop.getProperty("issuescopetype");
+			String priority = prop.getProperty("issuepriority");
 			
 			 JSONObject dataJson = new JSONObject();
              JSONObject selectedData = new JSONObject();
@@ -478,9 +474,13 @@ public class serviceUtils
              selectedData.put("type", issuetype);
              selectedData.put("category", category);
              selectedData.put("title", title);
+             selectedData.put("scope", scopeType);
+             selectedData.put("priority", priority);
              
              dataJson.put("memberid", memberid);
              dataJson.put("groupzcode", groupzcode);
+             dataJson.put("sourcetype", sourceType);
+             
              dataJson.put("servicetype", servicetype);
              dataJson.put("functiontype", functionType);
              dataJson.put("data", selectedData);

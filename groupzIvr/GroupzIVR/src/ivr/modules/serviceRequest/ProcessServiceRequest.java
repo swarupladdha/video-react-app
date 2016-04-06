@@ -691,13 +691,10 @@ public class ProcessServiceRequest
 							{
 								int memblistSize = memberList.size();
 								System.out.println("member id %%%" + memblistSize);
-								String multiwelcomeNote = null;
-								multiwelcomeNote = ivrnummap.getgrpzWelcomeNotes();
-															
+																							
 								if (memblistSize > 1)
 								{
 									cm.setIvrNumber(ivrNumber);							
-									cm.setmultigrpzWelcomeNotes(multiwelcomeNote);
 									cm.setCallerId(formattedNumber);
 									cm.setLastupdatetime(new Date());
 									cm.setmultiGrpzFlag(false);
@@ -708,9 +705,7 @@ public class ProcessServiceRequest
 									cm.setcontextselectionList(smap.getselectionlist());
 									cm.save();
 
-									System.out.println("multigrpzWelcomeNotes "+ multiwelcomeNote);
-									String displayMemberList = StaticUtils.createMemberlistString(callSessionId, memberList, cm, 
-											ivrNumber);
+									String displayMemberList = StaticUtils.createMemberlistString(callSessionId, memberList, cm, ivrNumber);
 
 									kkResponse = StaticUtils.processUrlOrTextMultiList(displayMemberList, playspeed, timeout);
 								}
@@ -1063,8 +1058,7 @@ public class ProcessServiceRequest
 							String groupzcode=co.getgroupzCode();
 							String category = selectionListObj.getString(data);
 
-							boolean statusFlag = serviceUtils.placeGroupzIssueWithSourceType(groupzId, memberIDStr, category,
-											formattednumber, callSessionId,groupzcode);
+							boolean statusFlag = serviceUtils.placeGroupzIssueWithSourceType(groupzId, memberIDStr, category, formattednumber, callSessionId,groupzcode);
 
 							if (statusFlag)
 							{

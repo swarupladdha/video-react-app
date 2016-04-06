@@ -592,56 +592,39 @@ public class StaticUtils
 		Response kkResponse = new Response();
 		boolean multilangFlag = false;
 		String multiGrpzWelcomeUrl = null;
-		//String multiGrpzWelcomeNotes = null;
-		String numberListUrlsStr = null;
+		String nummberListUrlsStr = null;
 		String selectionmultigrpzhangupurl = null;
-//		String selectionmultigrpzhangupnotes = null;
-		String numberListUrls = null;
+		String nummberListUrls = null;
 		JSONObject selectedUrllist = null;
 		
 		if (ivrnummap != null)
 		{
-
 			multilangFlag = ivrnummap.getmultiLanguageFlag();
 			multiGrpzWelcomeUrl = ivrnummap.getaudioGrpzWelcomeUrl();
-			//multiGrpzWelcomeNotes = ivrnummap.getgrpzWelcomeNotes();
-			String selectionhangupurl = ivrnummap.getselectionEndUrl();
-						
-			ArrayList<String> selectiongrpzhangupurl = new ArrayList<String>();
-			selectiongrpzhangupurl = StaticUtils.createJSONdataArray(selectionhangupurl);
-			selectionmultigrpzhangupurl = selectiongrpzhangupurl.get(0);
-			System.out.println("selectionmultigrpzhangupurl     ***  " + selectionmultigrpzhangupurl);
-			
-			numberListUrls = ivrnummap.getnumbersUrlList();
-			JSONObject dataObj = (JSONObject) JSONSerializer.toJSON(numberListUrls);
+			selectionmultigrpzhangupurl = ivrnummap.getselectionEndUrl();
+			nummberListUrls = ivrnummap.getnumbersUrlList();
+
+			JSONObject dataObj = (JSONObject) JSONSerializer.toJSON(nummberListUrls);
+
 			JSONObject numberurlsListObj = dataObj.getJSONObject("urlList");
+
 			System.out.println("check : " + numberurlsListObj);
 
 			if (multilangFlag)
 			{
-
 				if (StaticUtils.isEmptyOrNull(multiGrpzWelcomeUrl) == false)
 				{
 					multiGrpzWelcomeUrl = StaticUtils.getSelectedLangUrl(multiGrpzWelcomeUrl, cm, multilangFlag);
 				}
-//				if (StaticUtils.isEmptyOrNull(multiGrpzWelcomeNotes) == false)
-//				{
-//					multiGrpzWelcomeNotes = StaticUtils.getSelectedLangUrl(multiGrpzWelcomeNotes, cm, multilangFlag);
-//				}
 
 				if (StaticUtils.isEmptyOrNull(selectionmultigrpzhangupurl) == false)
 				{
 					selectionmultigrpzhangupurl = StaticUtils.getSelectedLangUrl(selectionmultigrpzhangupurl, cm, multilangFlag);
 				}
-//				if (StaticUtils.isEmptyOrNull(selectionmultigrpzhangupnotes) == false)
-//				{
-//					selectionmultigrpzhangupnotes = StaticUtils.getSelectedLangUrl(selectionmultigrpzhangupnotes, cm, multilangFlag);
-//				}
 
-				if (StaticUtils.isEmptyOrNull(numberListUrls) == false)
+				if (StaticUtils.isEmptyOrNull(nummberListUrls) == false)
 				{
 					String languageSelected = null;
-				
 					if (cm != null)
 					{
 						languageSelected = cm.getlanguageSelected();
@@ -652,6 +635,7 @@ public class StaticUtils
 			}
 
 			Iterator<String> grpzItr = ivrgrpzcodeList.iterator();
+
 			int i = 1;
 
 			ArrayList<String> grpzNameListinfo = new ArrayList<String>();
@@ -662,6 +646,7 @@ public class StaticUtils
 			ArrayList<String> displayGroupzList = new ArrayList<String>();
 
 			JSONObject numlistObj = new JSONObject();
+
 			JSONObject listObj = new JSONObject();
 
 			while (grpzItr.hasNext())
@@ -672,35 +657,51 @@ public class StaticUtils
 				if (groupzinfoMap != null)
 				{
 					String groupzID = groupzinfoMap.get(grpzcode);
+
 					JSONObject setObj = new JSONObject();
+
 					setObj.put("grpzcode", grpzcode);
 					setObj.put("groupzID", groupzID);
 					setObj.put("groupzName", groupzNameDisplay);
+
 					numlistObj.put(i + "", setObj);
+
 					listObj.put("selectionList", numlistObj);
-				}
+				} 
+
 				grpzNameListinfo.add(groupzNameDisplay);
 				i++;
 			}
+
 			selectionListmsg = listObj.toString();
 
 			ArrayList<String> grpzNameListinfonew = new ArrayList<String>();
 
 			if (multilangFlag)
 			{
-
 				for (String multilanggrpznameurl : grpzNameListinfo)
 				{
-					String selectedgrpznameurl = StaticUtils.getSelectedLangUrl(multilanggrpznameurl, cm, multilangFlag);
+
+					String selectedgrpznameurl = StaticUtils
+							.getSelectedLangUrl(multilanggrpznameurl, cm,
+									multilangFlag);
+
 					grpzNameListinfonew.add(selectedgrpznameurl);
+
 				}
-				numberListUrlsStr = selectedUrllist.toString();
-				displayGroupzList = StaticUtils.numberUrlsDisplayString(numberListUrlsStr, grpzNameListinfonew, regionalLanguage);
-			}
-			else
-			{
-				numberListUrlsStr = numberurlsListObj.toString();	
-				displayGroupzList = StaticUtils.numberUrlsDisplayString(numberListUrlsStr, grpzNameListinfo, regionalLanguage);
+
+				nummberListUrlsStr = selectedUrllist.toString();
+
+				displayGroupzList = StaticUtils.numberUrlsDisplayString(
+						nummberListUrlsStr, grpzNameListinfonew,
+						regionalLanguage);
+
+			} else {
+
+				nummberListUrlsStr = numberurlsListObj.toString();
+				
+				displayGroupzList = StaticUtils.numberUrlsDisplayString(
+						nummberListUrlsStr, grpzNameListinfo, regionalLanguage);
 			}
 
 			ArrayList<String> dataArraywelcomedisplay = new ArrayList<String>();
@@ -708,72 +709,54 @@ public class StaticUtils
 
 			String finaldisplayListUrlText = null;
 			String finalSelctEndUrlNotes = null;
+
 			finaldisplayListUrlText = multiGrpzWelcomeUrl;
 			dataArraywelcomedisplay.add(finaldisplayListUrlText);
 			finalSelctEndUrlNotes = selectionmultigrpzhangupurl;
-			System.out.println("finalSelctEndUrlNotes ++++++" +finalSelctEndUrlNotes);
 			dataArrayhangUP.add(finalSelctEndUrlNotes);
-						
-//			String finaldisplayListNotesText = null;
-//			String finalSelctEndNotes = null;
-//			finaldisplayListNotesText = multiGrpzWelcomeNotes;
-//			dataArraywelcomedisplay.add(finaldisplayListNotesText);
-//			finalSelctEndNotes = selectionmultigrpzhangupnotes;
-//			dataArrayhangUP.add(finalSelctEndNotes);
-			
-			if (ivrnummap != null)
-			{
-				if (finaldisplayListUrlText == null	|| finaldisplayListUrlText.isEmpty() == true)
-				{
+			if (ivrnummap != null) {
+
+				if (finaldisplayListUrlText == null
+						|| finaldisplayListUrlText.isEmpty() == true) {
 					finaldisplayListUrlText = ivrnummap.getgrpzWelcomeNotes();
-					dataArraywelcomedisplay = StaticUtils.createJSONdataArray(finaldisplayListUrlText);
+					dataArraywelcomedisplay = StaticUtils
+							.createJSONdataArray(finaldisplayListUrlText);
 				}
-//				if (finaldisplayListNotesText == null	|| finaldisplayListNotesText.isEmpty() == true)
-//				{
-//					finaldisplayListNotesText = ivrnummap.getgrpzWelcomeNotes();
-//					dataArraywelcomedisplay = StaticUtils.createJSONdataArray(finaldisplayListNotesText);
-//				}
 
-				if (finalSelctEndUrlNotes == null || finalSelctEndUrlNotes.isEmpty() == true)
-				{
-					finalSelctEndUrlNotes = ivrnummap.getselectionEndNotes();
-					dataArrayhangUP = StaticUtils.createJSONdataArray(finalSelctEndUrlNotes);
+				if (finalSelctEndUrlNotes == null
+						|| finalSelctEndUrlNotes.isEmpty() == true) {
+					finalSelctEndUrlNotes = ivrnummap
+							.getselectionEndNotes();
+					dataArrayhangUP = StaticUtils
+							.createJSONdataArray(finalSelctEndUrlNotes);
 				}
-//				if (finalSelctEndNotes == null || finalSelctEndNotes.isEmpty() == true)
-//				{
-//					finalSelctEndNotes = ivrnummap.getselectionEndNotes();
-//					dataArrayhangUP = StaticUtils.createJSONdataArray(finalSelctEndNotes);
-//				}
 			}
 
-			if (finaldisplayListUrlText == null || finaldisplayListUrlText.isEmpty() == true)
-			{
-				String defualtgrpzSelect = prop.getProperty("ivrMultigrpzWelcomeNotes");
+			if (finaldisplayListUrlText == null
+					|| finaldisplayListUrlText.isEmpty() == true) {
+				String defualtgrpzSelect = prop
+						.getProperty("ivrMultigrpzWelcomeNotes");
 				finaldisplayListUrlText = defualtgrpzSelect;
-				dataArraywelcomedisplay = StaticUtils.createJSONdataArray(finaldisplayListUrlText);
+
+				dataArraywelcomedisplay = StaticUtils
+						.createJSONdataArray(finaldisplayListUrlText);
 			}
-//			if (finaldisplayListNotesText == null || finaldisplayListNotesText.isEmpty() == true)
-//			{
-//				String defualtgrpzSelect = prop.getProperty("ivrMultigrpzWelcomeNotes");
-//				finaldisplayListNotesText = defualtgrpzSelect;
-//				dataArraywelcomedisplay = StaticUtils.createJSONdataArray(finaldisplayListNotesText);
-//			}
-			
-			if (finalSelctEndUrlNotes == null || finalSelctEndUrlNotes.isEmpty() == true)
-			{
-				String defualtSect = prop.getProperty("ivrselectionHangupNotes");
+			if (finalSelctEndUrlNotes == null
+					|| finalSelctEndUrlNotes.isEmpty() == true) {
+
+				String defualtSect = prop
+						.getProperty("ivrselectionHangupNotes");
+
 				finalSelctEndUrlNotes = defualtSect;
-				dataArrayhangUP = StaticUtils.createJSONdataArray(finalSelctEndUrlNotes);
+
+				dataArrayhangUP = StaticUtils
+						.createJSONdataArray(finalSelctEndUrlNotes);
 			}
-//			if (finalSelctEndNotes == null || finalSelctEndNotes.isEmpty() == true)
-//			{
-//				String defualtSect = prop.getProperty("ivrselectionHangupNotes");
-//				finalSelctEndNotes = defualtSect;
-//				dataArrayhangUP = StaticUtils.createJSONdataArray(finalSelctEndNotes);
-//			}
 			dataArraywelcomedisplay.addAll(displayGroupzList);
 			dataArraywelcomedisplay.addAll(dataArrayhangUP);
-			String displayMultiGroupzList = StaticUtils.createJSONString(dataArraywelcomedisplay);
+			String displayMultiGroupzList = StaticUtils
+					.createJSONString(dataArraywelcomedisplay);
+
 			cm.setmultigrpzselectlist(selectionListmsg);
 			cm.setmultigrpzWelcomeNotes(displayMultiGroupzList);
 			cm.setcontextdisplayList(displayMultiGroupzList);
@@ -781,9 +764,13 @@ public class StaticUtils
 			cm.setmultiGrpzFlag(true);
 			cm.save();
 
-			kkResponse = StaticUtils.processUrlOrTextMultiList(displayMultiGroupzList, playspeed, timeout);
+			kkResponse = StaticUtils.processUrlOrTextMultiList(
+					displayMultiGroupzList, playspeed, timeout);
+
 		}
+
 		return kkResponse;
+
 	}
 	
 	public static String createMemberlistString(String callSessionId, List<GroupzMemberInfo> memberList, ContextMapping cm, String ivrNumber)
@@ -878,7 +865,7 @@ public class StaticUtils
 		}
 		else
 		{
-			memberWelcomeArray = StaticUtils.createJSONdataArray(multiGroupzWelcomenotes);
+			memberWelcomeArray = StaticUtils.createJSONdataArray(memberwelcome);
 			System.out.println("member welcome notes :::  "+memberWelcomeArray);
 		}
 		
