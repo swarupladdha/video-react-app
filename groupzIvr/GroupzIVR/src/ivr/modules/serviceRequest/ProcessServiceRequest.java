@@ -1,17 +1,20 @@
 package ivr.modules.serviceRequest;
 
 import java.io.InputStream;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+
 import org.apache.log4j.Logger;
+
 import com.ozonetel.kookoo.Response;
+
 import ivr.servlets.ServiceRequest;
 import ivr.tables.ContextMapping;
 import ivr.tables.IvrGroupzMapping;
@@ -206,8 +209,8 @@ public class ProcessServiceRequest
 			
 //   SuccessFlagStr = false, it means calling number is not a mobile number. So the below if and else condition is commented.
 			
-//			if (sucessFlagStr.equals("true"))
-//			{
+		if (sucessFlagStr.equals("true"))
+			{
 				grpzInfoxmlString = grpzMobileDetails.get(1);
 				groupzList = StaticUtils.getGroupzInfoList(grpzInfoxmlString);
 
@@ -219,8 +222,8 @@ public class ProcessServiceRequest
 
 					sucessFlagStr = grpzLandLineDetails.get(0);
 
-//					if (sucessFlagStr.equals("true"))
-//					{
+			if (sucessFlagStr.equals("true"))
+				{
 						grpzInfoxmlString = grpzLandLineDetails.get(1);
 						groupzList = StaticUtils.getGroupzInfoList(grpzInfoxmlString);
 
@@ -237,19 +240,19 @@ public class ProcessServiceRequest
 							kkResponse.addHangup();
 							return kkResponse.getXML();
 						}
-//					}
-//					else
-//					{
-//						System.out.println("else condition not groupz");
-//						loggerServ.info("There is error code in response while geting groupz list while checking for landline" + callSessionId
-//										+ "number : " + callerID + "IVRnumber :" + ivrNumber);
-//						kkResponse = StaticUtils.senderrorResp(callSessionId, ivrNumber, cm);
-//						kkResponse.setSid(callSessionId);
-//						kkResponse.addHangup();
-//						return kkResponse.getXML();
-//					}
 				}
-			/*}
+				else
+					{
+						System.out.println("else condition not groupz");
+						loggerServ.info("There is error code in response while geting groupz list while checking for landline" + callSessionId
+										+ "number : " + callerID + "IVRnumber :" + ivrNumber);
+						kkResponse = StaticUtils.senderrorResp(callSessionId, ivrNumber, cm);
+						kkResponse.setSid(callSessionId);
+						kkResponse.addHangup();
+						return kkResponse.getXML();
+					}
+				}
+			}
 			else
 			{
 				loggerServ.info("There is errorcode in reponse while geting groupz list while checking for mobile" + callSessionId
@@ -258,7 +261,7 @@ public class ProcessServiceRequest
 				kkResponse.setSid(callSessionId);
 				kkResponse.addHangup();
 				return kkResponse.getXML();
-			}*/
+			}
 
 			// end validation
 
@@ -337,32 +340,45 @@ public class ProcessServiceRequest
 							ArrayList<String> welcomedataArray = new ArrayList<String>();
 							ArrayList<String> enddataArray = new ArrayList<String>();
 
+							JSONObject listObj = new JSONObject();
+							JSONObject sellistObj = new JSONObject();
+							
 							for (String grpzcode : regisgrpzcodeList)
 							{
+
 								String grpzString = groupzinfoMap.get(grpzcode);
+
 								String[] grpzinfo = grpzString.split(",");
+
 								String groupzID = grpzinfo[0];
 								String groupzName = grpzinfo[1];
 
-								JSONObject sellistObj = new JSONObject();
-								JSONObject listObj = new JSONObject();
+								
+								
 								JSONObject seldataObj = new JSONObject();
 
 								seldataObj.put("grpzcode", grpzcode);
 								seldataObj.put("groupzID", groupzID);
 								seldataObj.put("groupzName", groupzName);
-								
+
 								sellistObj.put(i + "", seldataObj);
-								listObj.put("selectionList", sellistObj);
-								selectionListmsg = listObj.toString();
+
+					
+
+								//selectionListmsg = listObj.toString();
 
 								String pressStr = "Press " + i + " for ";
 
 								displaydataArray.add(pressStr);
 								displaydataArray.add(groupzName);
+
 								i++;
+
 							}
-							selectionListmsg = selectionListmsg.substring(0, selectionListmsg.length() - 1);
+							listObj.put("selectionList", sellistObj);
+							selectionListmsg = listObj.toString();
+							//selectionListmsg = selectionListmsg.substring(0,
+							//		selectionListmsg.length() - 1);
 							
 							String finaldisplayListText = null;
 							String finalSelctHangupNotes = null;
@@ -393,7 +409,10 @@ public class ProcessServiceRequest
 							
 							cm.setIvrNumber(ivrNumber);
 							cm.setmultigrpzselectlist(selectionListmsg);
+							System.out.println("selectionListmsg  "+selectionListmsg);
 							cm.setCallerId(formattedNumber);
+							cm.setcontextdisplayList(displayGroupzList);
+							cm.setcontextselectionList(selectionListmsg);
 							cm.setLastupdatetime(new Date());
 							cm.setmultiGrpzFlag(true);
 							cm.setmemberId(memberId);
@@ -407,7 +426,10 @@ public class ProcessServiceRequest
 					}
 					else
 					{
-						kkResponse = serviceUtils.sendNoGlobalGrupzResp();
+						kkResponse = StaticUtils.sendNotRegGrupzResp(ivrnummap, cm);
+						kkResponse.setSid(callSessionId);
+						kkResponse.addHangup();
+						return kkResponse.getXML();
 					}
 				}
 				else if (size == 1)
@@ -419,7 +441,10 @@ public class ProcessServiceRequest
 					
 					if (smp != null)
 					{
-						kkResponse = serviceUtils.sendNoGlobalGrupzResp();
+						kkResponse = StaticUtils.sendNotRegGrupzResp(ivrnummap, cm);
+						kkResponse.setSid(callSessionId);
+						kkResponse.addHangup();
+						return kkResponse.getXML();
 					}
 					else
 					{
@@ -490,6 +515,7 @@ public class ProcessServiceRequest
 
 					if (memberList != null && memberList.size() > 0)
 					{
+						
 						int memblistSize = memberList.size();
 
 						if (memblistSize > 1)
@@ -665,10 +691,10 @@ public class ProcessServiceRequest
 							{
 								int memblistSize = memberList.size();
 								System.out.println("member id %%%" + memblistSize);
-
+																							
 								if (memblistSize > 1)
 								{
-									cm.setIvrNumber(ivrNumber);
+									cm.setIvrNumber(ivrNumber);							
 									cm.setCallerId(formattedNumber);
 									cm.setLastupdatetime(new Date());
 									cm.setmultiGrpzFlag(false);
@@ -679,8 +705,7 @@ public class ProcessServiceRequest
 									cm.setcontextselectionList(smap.getselectionlist());
 									cm.save();
 
-									String displayMemberList = StaticUtils.createMemberlistString(callSessionId, memberList, cm, 
-											ivrNumber);
+									String displayMemberList = StaticUtils.createMemberlistString(callSessionId, memberList, cm, ivrNumber);
 
 									kkResponse = StaticUtils.processUrlOrTextMultiList(displayMemberList, playspeed, timeout);
 								}
@@ -880,6 +905,7 @@ public class ProcessServiceRequest
 
 						if (multigrpzFalg == true)
 						{
+							System.out.println("multigrpzFalg == true");
 							JSONObject grpzselectionListObj = selectionListObj.getJSONObject(data);
 
 							String groupzcode = grpzselectionListObj.getString("grpzcode");
@@ -891,7 +917,7 @@ public class ProcessServiceRequest
 
 							IvrGroupzMapping sm = IvrGroupzMapping.getSingleivrSourceMapwithGroupzCode(ivrNumber, groupzcode);
 
-							if (sm != null)
+							/*if (sm != null)
 							{
 								selectionList = sm.getselectionlist();
 							}
@@ -903,7 +929,7 @@ public class ProcessServiceRequest
 								kkResponse = StaticUtils.senderrorResp(callSessionId, ivrNumber, co);
 								kkResponse.setSid(callSessionId);
 								return kkResponse.getXML();
-							}
+							}*/
 
 							List<GroupzMemberInfo> memberList = null;
 
@@ -915,6 +941,7 @@ public class ProcessServiceRequest
 
 								if (sucessFlagStr.equals("true"))
 								{
+									System.out.println("sucessFlagStr.equals(\"true\")");
 									membXmlInfo = memberDetails.get(1);
 									memberList = StaticUtils.getMemberInfoList(membXmlInfo);
 								}
@@ -923,6 +950,7 @@ public class ProcessServiceRequest
 									loggerServ.info(" error code in get memberList xml for mobile information from Rest API : "
 											+ "sessionID - " + callSessionId + "number : " + formattednumber);
 
+									System.out.println("errorresp");
 									kkResponse = StaticUtils.senderrorResp(callSessionId, ivrNumber, co);
 									kkResponse.setSid(callSessionId);
 									kkResponse.addHangup();
@@ -1030,10 +1058,10 @@ public class ProcessServiceRequest
 							int memid = co.getmemberId();
 							String memberIDStr = Integer.toString(memid);
 							String groupzId = co.getgroupzId();
+							String groupzcode=co.getgroupzCode();
 							String category = selectionListObj.getString(data);
 
-							boolean statusFlag = serviceUtils.placeGroupzIssueWithSourceType(groupzId, memberIDStr, category,
-											formattednumber, callSessionId);
+							boolean statusFlag = serviceUtils.placeGroupzIssueWithSourceType(groupzId, memberIDStr, category, formattednumber, callSessionId,groupzcode);
 
 							if (statusFlag)
 							{

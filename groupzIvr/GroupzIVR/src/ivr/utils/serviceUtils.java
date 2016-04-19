@@ -45,6 +45,7 @@ public class serviceUtils
 		
 		try
 		{
+			System.out.println("Inside getCategoryList");
 			String servicetype = prop.getProperty("servicetype");
 			String functiontype = prop.getProperty("categoryListFunctype");
 			String urltoinvoke = prop.getProperty("serviceRequestUrl");
@@ -71,11 +72,13 @@ public class serviceUtils
 
 			if (StaticUtils.isEmptyOrNull(responsexmlString))
 			{
+				System.out.println("responsexmlString is empty");
 				loggerServ.info("categoryList xml response is empty for callerID and ivrnumber " + callerID + "  " + ivrnumber);
 				categoryList = null;
 			}
 			else
 			{
+				System.out.println("getStatusCode");
 				boolean sucessFlag = StaticUtils.getStatusCode(responsexmlString);
 				
 				if (sucessFlag)
@@ -88,6 +91,7 @@ public class serviceUtils
 				
 					if (statusCode.equals("0"))
 					{
+						System.out.println("statusCode.equals 0");
 						Object obj = jores.get("servicerequestcategories");
 
 						if (obj instanceof JSONArray)
@@ -100,6 +104,7 @@ public class serviceUtils
 								JSONObject jogrpz = jsnlistarry.getJSONObject(i);
 								String category = jogrpz.getString("category");
 								categoryList.add(category);
+								System.out.println("categoryList "+categoryList);
 							}
 						}
 						else
@@ -108,6 +113,7 @@ public class serviceUtils
 							JSONObject jogele = jogrpz.getJSONObject("element");
 							String category = jogele.getString("category");
 							categoryList.add(category);
+							System.out.println("categoryList else  "+categoryList);
 						}
 					}
 				}
@@ -115,6 +121,7 @@ public class serviceUtils
 				{
 					loggerServ.info("categoryList  empty for groupzid, callerID and ivrnumber  " + grpzid + "  " + callerID + "  " + ivrnumber);
 					categoryList = null;
+					System.out.println("categoryList null");
 				}
 			}
 		}
@@ -143,6 +150,7 @@ public class serviceUtils
 		String starUrl = null;
 		String starData = null;
 		String audioUrl = sm.getselectionlistUrl();
+		String groupzname = sm.getgroupzNameUrl();
 		System.out.println("audioUrl  +++++++++++++" + audioUrl);
 		String selectionList = sm.getselectionlist();
 		cm.setcontextselectionList(selectionList);
@@ -150,11 +158,7 @@ public class serviceUtils
 
 		if (inm != null)
 		{
-			String selectionhangupurl = inm.getpreviousMenuSelectUrl();
-			ArrayList<String> selectiongrpzhangupurl = new ArrayList<String>();
-			selectiongrpzhangupurl = StaticUtils.createJSONdataArray(selectionhangupurl);
-			starUrl = selectiongrpzhangupurl.get(0);
-			System.out.println("previousMenuSelectUrl +++++   " + starUrl);
+			starUrl = inm.getpreviousMenuSelectUrl();
 			starData = inm.getpreviousMenuSelectNotes();
 			multiLangFlag = inm.getmultiLanguageFlag();
 		}
@@ -178,11 +182,14 @@ public class serviceUtils
 		if (audioUrl == null || audioUrl.trim().isEmpty() == true)
 		{
 			String wnotes = sm.getwelcomeNotes();
+			System.out.println("wnotes  " + wnotes );
 
 			if (wnotes != null && wnotes.trim().isEmpty() == false && selectionList != null && selectionList.trim().isEmpty() == false)
 			{
 				String endNotes = inm.getselectionEndNotes();
-				dataArraywelcomedisplay = StaticUtils.createivrselectionMenuList(wnotes, selectionList,endNotes);
+				System.out.println("endNotes " +endNotes);
+				dataArraywelcomedisplay = StaticUtils.createivrselectionMenuList(wnotes, selectionList,endNotes, groupzname);
+				
 
 				if ((multiGrpzwelcome != null && multiGrpzwelcome.isEmpty() == false) 
 						|| (multiMembwelcome != null && multiMembwelcome.isEmpty() == false))
@@ -194,7 +201,9 @@ public class serviceUtils
 							if (starData != null && starData.isEmpty() == false)
 							{
 								ArrayList<String> datalistObj = StaticUtils.createJSONdataArray(starData);
+								System.out.println("datalistObj    " + datalistObj);
 								dataArraywelcomedisplay.addAll(datalistObj);
+								System.out.println("if dataArraywelcomedisplay  " + dataArraywelcomedisplay);
 							}
 						}
 						else
@@ -228,12 +237,12 @@ public class serviceUtils
 						
 							ArrayList<String> datalistObj = StaticUtils.createJSONdataArray(starData);
 							dataArraywelcomedisplay.addAll(datalistObj);
+							System.out.println("else dataArraywelcomedisplay  " + dataArraywelcomedisplay);
 						}
 					}
 					else
 					{
 						dataArraywelcomedisplay.add(audioUrl.trim());
-						dataArraywelcomedisplay.add(starUrl.trim());
 					}
 				}
 				if (inm == null || ((starData == null || starData.isEmpty() == true) && (starUrl == null || starUrl .isEmpty())))
@@ -286,19 +295,24 @@ public class serviceUtils
 		String callSessionId = cm.getCallSessionId();
 
 		List<String> categoryList = serviceUtils.getCategoryList(groupzId, formattednumber, ivrNumber);
+		System.out.println("categoryList Global NewCall Response    " +categoryList);
 		
 		//creating xml and connectingAndGettingResponse and also getting status using getCategoryList
 
 		if (categoryList == null || categoryList.isEmpty())
 		{
+			System.out.println("categoryList == null || categoryList.isEmpty");
 			loggerServ.info("The category list for global number is empty : session ID &  number" + callSessionId + " : " + formattednumber);
 			kkResponse = StaticUtils.senderrorResp(callSessionId, ivrNumber, cm);
+			return kkResponse;
 		}
 
 		String wn = serviceUtils.createWelcomeNotesForContext(categoryList);
+		System.out.println("wn for global category list "+wn);
 		// To create category list for context table using createWelcomeNotesForContext
 		
 		String selectionList = serviceUtils.createCategorySelectionList(categoryList);
+		System.out.println("selectionList for global category list "+selectionList);
 		//To create that no grpz for global ivr selected using createCategorySelectionList()
 
 		cm.setglobalcategorywelcomeNotes(wn);
@@ -445,7 +459,7 @@ public class serviceUtils
 		return kkResponse;
 	}
 
-	public static boolean placeGroupzIssueWithSourceType(String grpzId, String memberid, String category, String callerID, String callSessionID)
+	public static boolean placeGroupzIssueWithSourceType(String grpzId, String memberid, String category, String callerID, String callSessionID,String groupzcode)
 	{
 
 		boolean statusFlag = false;
@@ -454,16 +468,38 @@ public class serviceUtils
 		try
 		{
 			String servicetype = prop.getProperty("servicetype");
-			String urltoinvoke = prop.getProperty("serviceRequestUrl");
-			String moduleCOde = prop.getProperty("serviceReqModulecode");
+			String urltoinvoke = prop.getProperty("registerRequestUrl");
+			String moduleCode = prop.getProperty("serviceReqModulecode");
 			String functionType = prop.getProperty("serviceIssuePlaceFunType");
 			String title = prop.getProperty("issueplacingTitle");
 			String description = prop.getProperty("issuePlacedescription");
 			String preferredTime = prop.getProperty("issuePlacepreferredTime");
 			String sourceType = prop.getProperty("issuePlacesourceType");
 			String issuetype = prop.getProperty("issuetype");
-			String scopetype = prop.getProperty("issuescopetype");
+			String scopeType = prop.getProperty("issuescopetype");
+			String priority = prop.getProperty("issuepriority");
+			
+			 JSONObject dataJson = new JSONObject();
+             JSONObject selectedData = new JSONObject();
+             JSONObject requestJson = new JSONObject();
+             JSONObject requestfinalJson = new JSONObject();
 
+             selectedData.put("type", issuetype);
+             selectedData.put("category", category);
+             selectedData.put("title", title);
+             selectedData.put("scope", scopeType);
+             selectedData.put("priority", priority);
+             
+             dataJson.put("memberid", memberid);
+             dataJson.put("groupzcode", groupzcode);
+             dataJson.put("sourcetype", sourceType);
+             
+             dataJson.put("servicetype", servicetype);
+             dataJson.put("functiontype", functionType);
+             dataJson.put("data", selectedData);
+             requestJson.put("request", dataJson);
+             requestfinalJson.put("json", requestJson);
+/*
 			JSONObject dataJson = new JSONObject();
 			JSONObject requestJson = new JSONObject();
 
@@ -479,21 +515,39 @@ public class serviceUtils
 			dataJson.put("sourceType", sourceType);
 			dataJson.put("issuetype", issuetype);
 			dataJson.put("scopetype", scopetype);
-			requestJson.put("request", dataJson);
+			requestJson.put("request", dataJson);*/
 
-			XMLSerializer serializer = new XMLSerializer();
+			//XMLSerializer serializer = new XMLSerializer();
 
-			JSON jsonadd = JSONSerializer.toJSON(requestJson);
-			serializer.setRootName("xml");
-			serializer.setTypeHintsEnabled(false);
+			//JSON jsonadd = JSONSerializer.toJSON(requestJson);
+			//serializer.setRootName("xml");
+			//serializer.setTypeHintsEnabled(false);
 
-			String xmlsmsString = serializer.write(jsonadd);
+			//String xmlsmsString = serializer.write(jsonadd);
+			
+			String xmlsmsString=requestfinalJson.toString();
+			
+			System.out.println("ISSUE REQUEST "+xmlsmsString);
 
 			responsexmlString = StaticUtils.ConnectAndGetResponse(urltoinvoke, xmlsmsString);
 
 			if (StaticUtils.isEmptyOrNull(responsexmlString) == false)
+				
+				
 			{
-				statusFlag = StaticUtils.getStatusCode(responsexmlString);
+				JSONObject joobj = (JSONObject)JSONSerializer.toJSON(responsexmlString);
+						
+						
+						
+				
+				JSONObject jores =  joobj.getJSONObject("json");
+				JSONObject joresponse=  jores.getJSONObject("response");
+				String statusCode = joresponse.getString("statuscode");
+				String statusMessage=joresponse.getString("statusmessage");
+
+				if(statusCode.equals("0")){
+				statusFlag = true; //StaticUtils.getStatusCode(responsexmlString);
+				}
 			}
 		}
 		catch (Exception e)
