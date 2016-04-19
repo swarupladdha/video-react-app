@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -71,16 +72,24 @@ public class ConnectDatabase {
         }
     }
 
-public static  void main(String args[]) throws InterruptedException{
-    	ConnectDatabase cd = new ConnectDatabase() ;
-    	Connection c = cd.establishConnection() ;
-    	FollowupManager fm = new FollowupManager() ;
-    	fm.run(c) ;
-    	if ( c != null){
-    		cd.closeConnection(c);
-    	}
-	Thread.sleep(5000) ;
-    	return ;
-    }
+	public static void main(String args[]) throws InterruptedException {
+		ConnectDatabase cd = new ConnectDatabase();			
+		FollowupManager fm = new FollowupManager();
+		System.out.println("followup alert started");
+		logger.info("followup alert started");
+		Connection c = cd.establishConnection();
+		while (true) {
+			System.out.println("runs every 2 minutes:"+new Date());
+			logger.debug("runs every 2 minutes");			
+			fm.run(c);	
+			System.out.println("=============================================");
+			Thread.sleep(120000);
+		}
+		/*if (c != null) {
+			cd.closeConnection(c);
+		}*/
+		
+		// return;
+	}
 
 }
