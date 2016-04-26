@@ -2,6 +2,7 @@ package com.groupz.followup.manager;
 
 import java.sql.ResultSet;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,9 @@ public class FollowupManager {
 
 	private List<Message> getTargetList(Connection c, int baseid, int days,
 			int roleid) {
+		Statement stmt =null;
 		try {
-			Statement stmt = c.createStatement();
+			stmt = c.createStatement();
 			List<Message> theFinalList = new ArrayList<Message>();
 
 			String QueryString = String.format(contactsListSQL, days, baseid,
@@ -83,6 +85,14 @@ public class FollowupManager {
 			return theFinalList;
 		} catch (Exception e) {
 			e.printStackTrace();
+			if(stmt!=null){
+				try {
+					stmt.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();					
+				}
+			}
 			return null;
 		}
 	}
@@ -92,19 +102,29 @@ public class FollowupManager {
 	}
 
 	private void followupDone(Connection c, int id) {
+		Statement stmt=null;
 		try {
 			String updateSQL = String.format(updateFollowupSQL, id);
-			Statement stmt = c.createStatement();
+			 stmt = c.createStatement();
 			stmt.executeUpdate(updateSQL);
 			stmt.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+			if(stmt!=null){
+				try {
+					stmt.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
 		}
 	}
 
 	public void run(Connection dbConnection) {
+		Statement stmt=null;
 		try {
-			Statement stmt = dbConnection.createStatement();
+			 stmt = dbConnection.createStatement();
 
 			String QueryString = followupSQL;
 			System.out.println("Followup Sql:"+QueryString);
@@ -137,14 +157,23 @@ public class FollowupManager {
 						logger.debug("Follow up status through URL:"
 								+ followUpStatus);
 					}
-					followupDone(dbConnection, id);
+					
 				}
+				followupDone(dbConnection, id);
 				// }
 				
 			}
 			stmt.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+			if(stmt!=null){
+				try {
+					stmt.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
 		}
 
 	}
