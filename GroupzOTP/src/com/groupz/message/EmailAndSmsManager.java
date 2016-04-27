@@ -24,9 +24,9 @@ public class EmailAndSmsManager {
 	}
 
 	public void sendSms(String Message, String toAddress) {
-		String fromNumber = "12345";
+		String fromNumber = "00000";
 		String toName = "";
-		String toMessage = "Your one time password is " + Message;
+		String toMessage = "One Time Password(OTP) is " + Message;
 		MessagesinTable mit = new MessagesinTable();
 		SmsMessage sms = new SmsMessage();
 		String toAdd = sms.addAddress(toAddress, toName, fromNumber);

@@ -2,7 +2,6 @@ package com.groupz.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
 import java.text.CharacterIterator;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,7 +9,6 @@ import java.text.StringCharacterIterator;
 import java.util.Date;
 import java.util.TimeZone;
 
-import antlr.Utils;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -18,7 +16,8 @@ public class RestUtils {
 
 	// checking null
 	public boolean isEmpty(String test) {
-		if (test == null || test.trim().isEmpty() == true || test.equalsIgnoreCase("[]") || test == "") {
+		if (test == null || test.trim().isEmpty() == true
+				|| test.equalsIgnoreCase("[]") || test == "") {
 			return true;
 		}
 		return false;
@@ -89,7 +88,8 @@ public class RestUtils {
 			byte[] bytes = md.digest();
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < bytes.length; i++) {
-				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16)
+						.substring(1));
 			}
 			generatedPassword = sb.toString();
 		} catch (NoSuchAlgorithmException e) {
@@ -173,21 +173,14 @@ public class RestUtils {
 
 	// process success
 	public String processSucess(String dataText, Object Obj) {
-		System.out.println("Data text:" + dataText);
-		System.out.println("Data Obj:" + Obj);
+
 		JSONObject sucessJSON = new JSONObject();
 		JSONObject sucessRespJSON = new JSONObject();
 		JSONObject contentJSON = new JSONObject();
-		contentJSON.put("statuscode", PropertiesUtil.getProperty("statuscodesuccessvalue"));
-		contentJSON.put("statusmessage", PropertiesUtil.getProperty("statusmessagesuccessvalue"));
-		if (Obj instanceof JSONArray) {
-			contentJSON.put(dataText, Obj);
-		} else if (Obj instanceof JSONObject) {
-			contentJSON.put(dataText, Obj);
-		} else {
-			contentJSON.put(dataText, Obj);
-		}
-		System.out.println("Content JSON:" + contentJSON.toString());
+		contentJSON.put("statuscode",
+				PropertiesUtil.getProperty("statuscodesuccessvalue"));
+		contentJSON.put("statusmessage",
+				PropertiesUtil.getProperty("statusmessagesuccessvalue"));
 		sucessRespJSON.put("response", contentJSON);
 		sucessJSON.put("json", sucessRespJSON);
 		return sucessJSON.toString();

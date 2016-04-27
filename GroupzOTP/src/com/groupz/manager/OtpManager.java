@@ -23,10 +23,8 @@ public class OtpManager {
 		String response = "";
 
 		try {
-			// Json check
-			DBConnect dbConnect = new DBConnect();
 			System.out.println("Trying to connect hiberate in jobztop");
-			dbConnect.establishConnection();
+			DBConnect.establishConnection();
 			System.out.println("Connected to jobztop db");
 			JSONObject jsonreq = new JSONObject();
 			jsonreq = JSONObject.fromObject(req);
@@ -49,28 +47,22 @@ public class OtpManager {
 					if (countrycode.equalsIgnoreCase("91") == true) {
 						otpActions.setCountrycode(utils.encrypt(countrycode));
 						String genOtp = utils.generateOTP();
-						System.out.println("One Time Password is: " + genOtp);
 						otpActions.setOtp(utils.encrypt(genOtp));
-
 						otpActions.setCreatedTime(utils.getLastSynchTime());
 						Calendar cal = Calendar.getInstance();
 						cal.setTime(utils.getLastSynchTime());
 						cal.add(Calendar.MINUTE, 30);
-						// Date date1 = otpop.StringDateToDate(date);
-						System.out.println("proper format :"
-								+ utils.getLastSynchTime());
 						Date lapps_time = cal.getTime();
 						otpActions.setLapsetime(lapps_time);
-						System.out.println("OTP trying to save");
+
 						try {
-							System.out.println("OTP SAVED IN TRY BLOCK");
+
 							otpActions.save();
 						} catch (HibernateException ef) {
-							System.out
-									.println("OTP EXCEPTION IN HIBERNATE CATCH");
+
 							ef.printStackTrace();
 						} catch (Exception e) {
-							System.out.println("OTP EXCEPTION IN FINAL CATCH");
+
 							e.printStackTrace();
 						}
 						EmailAndSmsManager sms = new EmailAndSmsManager();
@@ -115,9 +107,8 @@ public class OtpManager {
 	public String validateOTP(String request) {
 		String response = "";
 		try {
-			DBConnect dbConnect = new DBConnect();
-			System.out.println("Trying to connect hiberate in jobztop");
-			dbConnect.establishConnection();
+
+			DBConnect.establishConnection();
 			JSONObject jsonreq = new JSONObject();
 			jsonreq = JSONObject.fromObject(request);
 
@@ -140,6 +131,7 @@ public class OtpManager {
 
 				if (utils.getLastSynchTime().before(isExist.getLapsetime())) {
 					response = utils.processSucess("otp", true);
+					System.err.println("OTP sent successfully");
 					return response;
 				} else {
 					response = utils.processError(
