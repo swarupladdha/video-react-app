@@ -1,0 +1,219 @@
+
+.gray-bg{
+		background: #f0f5f5;
+	}
+	
+	.img-edit:hover {
+		background-color: #3385ff;
+	}
+	
+	.l_font {
+		font-size:12px;
+	}
+	
+   .myprofile{
+         
+		padding-left:70px;
+		top:10em;	
+		
+		}
+        
+        .education{
+           
+          float:left;
+        }
+		
+	
+        
+    
+      
+
+@media only screen and (max-width : 480px) {
+		#profile_pic
+	{
+		height:100px;
+		width:100px;
+	}
+
+	#mt > tbody > tr > td, #mt > tbody > tr > th, #mt > tfoot > tr > td, #mt > tfoot > tr > th, #mt > thead > tr > td, #mt > thead > tr > th
+	{
+		padding:1px;
+	}
+
+}
+   /*new this is for hedear color*/   
+	.top-color{
+		
+		background:	#000;
+		height:5em;
+	}
+    
+      
+    
+
+    
+	
+   @media screen and (max-width: 1090px) {
+           div span.labelClass {
+            display: inline-block;
+            height: 35px;
+          }
+          
+      }
+      @media screen and (max-width: 775px) {
+           img.logoClass {
+            width: 58.1563px;/*new this is for hedear image width*/ 
+            height:58.0938px;/*new this is for hedear image height*/ 
+            float: right;/*new this is for image float*/ 
+
+          }
+          
+      }
+	  @media screen and (max-width: 765px) {
+           div.subNav {
+            
+            height:500px;    
+          }
+          
+      }
+      @media screen and (min-width:768px) and (max-width: 1340px) {
+           nav.navClass {
+            width:95px;
+            padding-left:2px; 	
+          }    
+      }
+	  
+	  
+	   @media screen and (min-width:100px) and (max-width: 768px) {
+           nav.sidenav {
+            width:100%;
+            position:fixed;
+			
+          } 
+		nav#fixednav {
+			top: 93px;	
+		}
+		.body_down {
+		padding-top:70px;
+		}
+		.top-color{
+		
+		background:	#000;
+		height:7em;
+	}
+		
+      }
+	  
+	   
+     
+  
+	
+	.navbar-head {
+      margin-bottom: 0px;
+      border-radius: 0;
+	  height:6em;
+	  position: fixed;/*new this is for hedear to fixed the position*/ 
+	  
+	  }
+	  
+	/*new this is for hedear width*/   
+	.top_head {
+		width:100%;
+	}  
+	
+	/*new this is for down the container */ 
+	.body_down {
+		top:80px;
+	}
+	
+    
+	
+	
+    
+   
+	
+	
+	.nav-tabs li.active a {
+		border-left-color: gainsboro;
+		border-right-color: gainsboro;
+		border-top-color: gainsboro;
+	}
+	
+	.nav-tabs li.active a:after {
+		background-color: #55a747;
+		border-radius: 1px 1px 0px 0px;
+		content: '';
+		display: block;
+		height: 2px;
+		left: -1px;
+		position: absolute;
+		right: -1px;
+		top: -1px;
+   }
+	
+	.vheight6 {
+		top:6em;
+		}
+		.vheight5 {
+		top:5em;
+		}
+		.vheight4 {
+		top:4em;
+		}
+		.vheight3 {
+		top:3em;
+		}
+		.vheight2 {
+		top:2em;
+		}
+		.vheight1 {
+		top:1em;
+		}
+	
+	.white-bg {
+	background:#ffffff;
+	}
+	.htext {
+	color:  #3352A3;
+	font-weight:600;
+	font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+	}     
+	
+#mask1  {
+	margin-left:10px;
+	
+}	
+	
+#mask2 {
+	margin-left:40px;
+	
+}
+
+#sub_but1 {
+	margin-left:20em;
+}
+
+#sub_but2 {
+	margin-left:5em;
+}
+
+
+
+#myTable {
+	font-weight: normal;
+}
+
+#myTable tbody tr td{
+	
+    padding-top: 15px;
+}
+
+#myTable tbody tr td a{
+	text-decoration:none;
+	color:blue;	
+}
+
+.uD h5 a {
+	text-decoration:none;
+	color:blue;
+}

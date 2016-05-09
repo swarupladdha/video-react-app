@@ -1,0 +1,411 @@
+COMMENTS:
+--------
+URL:  prod1.groupz.in:7070/GroupzIVRAdmin/IVRgroupzbaseAdminService?request={JSONRequest}
+----
+1.Add Comments: (Insert)
+---------------
+* In response empty or null values cannot be retrieved from database.
+
+request:
+--------
+{
+  "json": {
+    "request": {
+      "servicetype": "31",
+      "functiontype": "1004",
+      "sourcetype": "ivr",
+      "data": {
+        "scope": "admin service",
+        "type": "personal",
+        "ivrnumber": "918030860701",
+        "grpzWelcomeNotes": {
+          "dataList": [
+            "Welcome to Adityavani facitlity services",
+            "please select from the following"
+          ]
+        },
+        "audioGrpzWelcomeUrl": "http://groupz.in/audio/akshaya/AkshayaHomesWelcomeNote.wav ",
+        "selectionHangupNotes": {
+          dataList: [
+            "Your request has been registered",
+            " We will get back to you shortly"
+          ]
+        },
+        "audioSelectionHangupUrl": {
+          "dataList": [
+            "http://www.groupz.in/audio/avfs/SelectionHangUp.wav"
+          ]
+        },
+        "selectionEndNotes": {
+          "dataList": [
+            "Press 9 to repeat the Menu",
+            "Press hash to Hang up the call"
+          ]
+        },
+        "selectionEndUrl": "http://www.groupz.in/audio/avfs/HangUp.wav ",
+        "errorNotes": {
+          "dataList": [
+            "Sorry",
+            " we have encountered a problem",
+            "Please try after sometime"
+          ]
+        },
+        "audioerrorUrl": "http://www.groupz.in/audio/avfs/Error.wav ",
+        "memberWelcomeNotes": {
+          "dataList": [
+            "Thanks for calling us",
+            "Please select from the following list"
+          ]
+        },
+        "audioMemberWelcomeUrl": {
+          "dataList": [
+            "http://groupz.in/audio/akshaya/OldAudio2/GrpzWelcomeNote.wav"
+          ]
+        },
+        "notRegGroupzNotes": {
+          "dataList": [
+            "Thanks for calling us",
+            "You are not registered"
+          ]
+        },
+        "notRegGroupzUrl": "http://groupz.in/audio/akshaya/NotRegUser.wav ",
+        "maintenanceNotes": {
+          "dataList": [
+            "Thanks for calling us",
+            "System is under service"
+          ]
+        },
+        "maintenanceUrl": {
+          "urlList": [
+            "http://www.groupz.in/audio_ivrs/maintanaceEnglish.wav"
+          ]
+        },
+        "generalHangupNotes": {
+          "dataList": [
+            "Thanks for calling us"
+          ]
+        },
+        "generalHangupUrl": "http://groupz.in/audio/akshaya/GenHangUp.wav ",
+        "numbersUrllist": {
+          "urlList": {
+            "3": "http://www.press3.wav",
+            "2": "http://www.press2.wav",
+            "1": "http://www.press1.wav",
+            "7": "http://www.press7.wav",
+            "6": "http://www.press6.wav",
+            "5": "http://www.press5.wav",
+            "4": "http://www.press4.wav",
+            "8": "http://www.press8.wav"
+          }
+        },
+        "previousMenuSelectNotes": {
+          "dataList": [
+            "Press star for previous menu"
+          ]
+        },
+        "previousMenuSelectUrl": {
+          "dataList": [
+            "http://groupz.in/audio/akshaya/StarSelection.wav"
+          ]
+        },
+        "playspeed": "5",
+        "settimeout": "6000",
+        "multiLanguageFlag": "0",
+        "languageSelectionList": {
+          "selectionList": {
+            "2": "kannada",
+            "1": "english"
+          }
+        },
+        "languageWelcomeURL": {
+          "urlList": [
+            "http://english.wav",
+            "http://kannada.wav"
+          ]
+        },
+        "groupzBase": "ANURAP"
+      }
+    }
+  }
+}
+
+response:
+---------
+
+{
+  "json": {
+    "response": {
+      "statuscode": "0",
+      "statusmessage": "Successfully Inserted"
+    }
+  }
+}
+
+         ====================================================================================================                     ====================================================================================================
+
+
+2.GET Comments: (Select or View)
+---------------
+* For listing entire data from database then "data" should be empty ([]) as below request
+
+=========================
+For getting entire data from database
+==========================
+
+request:
+-------
+
+{
+  "json": {
+    "request": {
+      "servicetype": "31",
+      "functiontype": "1004"
+    }
+  }
+}
+
+response:
+--------
+
+{
+  "json": {
+    "response": {
+      "statuscode": "0",
+      "statusmessage": "Success",
+      "data": [
+        {
+          "ivrnumber": "918041179117",
+          "grpzWelcomeNotes": [
+            "Welcome to Adityavani Facility Services Pvt Ltd Head Office",
+            "Please select from the following"
+          ],
+          "audioGrpzWelcomeUrl": "",
+          "selectionHangupNotes": [
+            "Your request has been registered",
+            "We will get back to you shortly"
+          ],
+          "audioSelectionHangupUrl": "",
+          "selectionEndNotes": [
+            "Press 9 to repeat the Menu",
+            "Press hash to Hang up the call"
+          ],
+          "selectionEndUrl": "",
+          "errorNotes": [
+            "Sorry",
+            "we have encountered a problem",
+            "Please try after sometime"
+          ],
+          "audioerrorUrl": "",
+          "memberWelcomeNotes": [
+            "Thank you",
+            "Please select from the following members list"
+          ],
+          "audioMemberWelcomeUrl": "",
+          "notRegGroupzNotes": [
+            "Thanks for calling us",
+            "You are not registered"
+          ],
+          "notRegGroupzUrl": "",
+          "maintenanceNotes": "",
+          "maintenanceUrl": "",
+          "generalHangupNotes": [
+            "Thanks for calling us"
+          ],
+          "generalHangupUrl": "",
+          "numbersUrllist": {
+            "3": "http://www.press3.wav",
+            "2": "http://www.press2.wav",
+            "1": "http://www.press1.wav",
+            "7": "http://www.press7.wav",
+            "6": "http://www.press6.wav",
+            "5": "http://www.press5.wav",
+            "4": "http://www.press4.wav",
+            "8": "http://www.press8.wav"
+          },
+          "previousMenuSelectNotes": [
+            "Press star for previous menu"
+          ],
+          "previousMenuSelectUrl": "",
+          "playspeed": 5,
+          "settimeout": 6000,
+          "multiLanguageFlag": 0,
+          "languageSelectionList": {
+            "2": "kannada",
+            "1": "english"
+          },
+          "languageWelcomeURL": ""
+        },
+        {
+          "ivrnumber": "918030860701",
+          "grpzWelcomeNotes": [
+            "Welcome to Adityavani Facility Services Pvt Ltd Head Office",
+            "Please select from the following"
+          ],
+          "audioGrpzWelcomeUrl": "NULL",
+          "selectionHangupNotes": [
+            "Your request has been registered",
+            "We will get back to you shortly"
+          ],
+          "audioSelectionHangupUrl": "NULL",
+          "selectionEndNotes": [
+            "Press 9 to repeat the Menu",
+            "Press hash to Hang up the call"
+          ],
+          "selectionEndUrl": "NULL",
+          "errorNotes": [
+            "Sorry",
+            "we have encountered a problem",
+            "Please try after sometime"
+          ],
+          "audioerrorUrl": "NULL",
+          "memberWelcomeNotes": [
+            "Thank you",
+            "Please select from the following members list"
+          ],
+          "audioMemberWelcomeUrl": "NULL",
+          "notRegGroupzNotes": [
+            "Thanks for calling us",
+            "You are not registered"
+          ],
+          "notRegGroupzUrl": "NULL",
+          "maintenanceNotes": "NULL",
+          "maintenanceUrl": "NULL",
+          "generalHangupNotes": [
+            "Thanks for calling us"
+          ],
+          "generalHangupUrl": "NULL",
+          "numbersUrllist": {
+            "3": "http://www.press3.wav",
+            "2": "http://www.press2.wav",
+            "1": "http://www.press1.wav",
+            "7": "http://www.press7.wav",
+            "6": "http://www.press6.wav",
+            "5": "http://www.press5.wav",
+            "4": "http://www.press4.wav",
+            "8": "http://www.press8.wav"
+          },
+          "previousMenuSelectNotes": [
+            "Press star for previous menu"
+          ],
+          "previousMenuSelectUrl": "NULL",
+          "playspeed": 5,
+          "settimeout": 6000,
+          "multiLanguageFlag": 0,
+          "languageSelectionList": {
+            "2": "kannada",
+            "1": "english"
+          },
+          "languageWelcomeURL": "NULL"
+        },
+        {
+          "ivrnumber": "918030860701",
+          "grpzWelcomeNotes": {
+            "dataList": [
+              "Welcome to Adityavani facitlity services",
+              "please select from the following"
+            ]
+          },
+          "audioGrpzWelcomeUrl": "http://groupz.in/audio/akshaya/AkshayaHomesWelcomeNote.wav",
+          "selectionHangupNotes": {
+            "dataList": [
+              "Your request has been registered",
+              " We will get back to you shortly"
+            ]
+          },
+          "audioSelectionHangupUrl": {
+            "dataList": [
+              "http://www.groupz.in/audio/avfs/SelectionHangUp.wav"
+            ]
+          },
+          "selectionEndNotes": {
+            "dataList": [
+              "Press 9 to repeat the Menu",
+              "Press hash to Hang up the call"
+            ]
+          },
+          "selectionEndUrl": "http://www.groupz.in/audio/avfs/HangUp.wav",
+          "errorNotes": {
+            "dataList": [
+              "Sorry",
+              " we have encountered a problem",
+              "Please try after sometime"
+            ]
+          },
+          "audioerrorUrl": "http://www.groupz.in/audio/avfs/Error.wav",
+          "memberWelcomeNotes": {
+            "dataList": [
+              "Thanks for calling us",
+              "Please select from the following list"
+            ]
+          },
+          "audioMemberWelcomeUrl": {
+            "dataList": [
+              "http://groupz.in/audio/akshaya/OldAudio2/GrpzWelcomeNote.wav"
+            ]
+          },
+          "notRegGroupzNotes": {
+            "dataList": [
+              "Thanks for calling us",
+              "You are not registered"
+            ]
+          },
+          "notRegGroupzUrl": "http://groupz.in/audio/akshaya/NotRegUser.wav",
+          "maintenanceNotes": {
+            "dataList": [
+              "Thanks for calling us",
+              "System is under service"
+            ]
+          },
+          "maintenanceUrl": {
+            "urlList": [
+              "http://www.groupz.in/audio_ivrs/maintanaceEnglish.wav"
+            ]
+          },
+          "generalHangupNotes": {
+            "dataList": [
+              "Thanks for calling us"
+            ]
+          },
+          "generalHangupUrl": "http://groupz.in/audio/akshaya/GenHangUp.wav",
+          "numbersUrllist": {
+            "urlList": {
+              "3": "http://www.press3.wav",
+              "2": "http://www.press2.wav",
+              "1": "http://www.press1.wav",
+              "7": "http://www.press7.wav",
+              "6": "http://www.press6.wav",
+              "5": "http://www.press5.wav",
+              "4": "http://www.press4.wav",
+              "8": "http://www.press8.wav"
+            }
+          },
+          "previousMenuSelectNotes": {
+            "dataList": [
+              "Press star for previous menu"
+            ]
+          },
+          "previousMenuSelectUrl": {
+            "dataList": [
+              "http://groupz.in/audio/akshaya/StarSelection.wav"
+            ]
+          },
+          "playspeed": 5,
+          "settimeout": 6000,
+          "multiLanguageFlag": 0,
+          "languageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          },
+          "languageWelcomeURL": {
+            "urlList": [
+              "http://english.wav",
+              "http://kannada.wav"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

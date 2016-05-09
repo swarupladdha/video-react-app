@@ -1,0 +1,808 @@
+COMMENTS:
+--------
+URL:  prod1.groupz.in:7070/GroupzIVRAdmin/IVRgroupzAdminService?request={JSONRequest}
+----
+1.Add Comments: (Insert)
+---------------
+* In response empty or null values cannot be retrieved from database.
+
+request:
+--------
+{
+  "json": {
+    "request": {
+      "servicetype": "31",
+      "functiontype": "2001",
+      "sourcetype": "ivr",
+      "data": {
+        "scope": "admin service",
+        "type": "personal",
+        "ivrnumber": "918030860779",
+        "groupzCode": "SHUBAP",
+        "welcomeNotes": {
+          "welcomenotesList": [
+            "Please select from the following categories"
+          ]
+        },
+        "audioWelcomeUrl": "http://groupz.in/audio/akshaya/AkshayaHomesWelcomeNote.wav",
+        "selectionlist": {
+          "selectionList": {
+            "5": "EntireApartment",
+            "4": "CommonArea",
+            "3": "Painting",
+            "2": "Plumbing",
+            "1": " Electrical "
+          }
+        },
+        "selectionlistUrl": "http://groupz.in/audio/akshaya/AdenaWelcomeNote.wav",
+        "groupzNameUrl": "http: //groupz.in/audio/akshaya/AdenaName.wav",
+        "multiLanguageFlag": "0",
+        "recmultilanguageSelectionList": {
+          "selectionList": {
+            "2": "kannada",
+            "1": "english"
+          }
+        },
+        "recmultilanguageSelectionWelcomeURL": {
+          "urlList": [
+            "http://english.wav",
+            "http://kannada.wav"
+          ]
+        },
+        "endDate": "",
+        "address": ""
+      }
+    }
+  }
+}
+response:
+---------
+{
+  "json": {
+    "response": {
+      "statuscode": "0",
+      "statusmessage": "Success",
+      "data": [
+        {
+          "ivrnumber": "918030860779",
+          "groupZCode": "SHUBAP",
+          "welcomeNotes": {
+            "dataList": {
+              "welcomenotesList": [
+                "Please select from the following categories"
+              ]
+            }
+          },
+          "selectionlist": {
+            "selectionList": {
+              "6": "Others",
+              "5": "Security",
+              "4": "Carpentry",
+              "3": "Electrical",
+              "2": "Civil",
+              "1": "Plumbing"
+            }
+          },
+          "selectionlistUrl": "http://groupz.in/audio/akshaya/AdenaWelcomeNote.wav",
+          "groupzNameUrl": "Ascend Services",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+         ====================================================================================================                     ====================================================================================================
+
+
+2.GET Comments: (Select or View)
+---------------
+* mandatory fields are using to list the values from database then mandatory field value should not be NULL or empty
+* For listing entire data from database then "data" should be empty ([]) as below request
+* If want to list all the fields from table using ivrnumber and groupzcode, then ivrnumber and groupzcode only mandatory in "data" as below
+
+=========================================================
+For getting only selected data with the combination of ivrnumber and groupzCode
+=========================================================
+
+* data should contain only ivrnumber and groupzCode
+request:
+-------
+{
+  "json": {
+    "request": {
+      "servicetype": "31",
+      "functiontype": "2004",
+      "sourcetype": "ivr",
+      "data": {
+        "ivrnumber": "918030860779",
+        "groupzCode": "SHUBAP"
+      }
+    }
+  }
+}
+response:
+--------
+{
+  "json": {
+    "response": {
+      "statuscode": "0",
+      "statusmessage": "Success",
+      "data": {
+        "ivrnumber": "918030860779",
+        "groupZCode": "SHUBAP",
+        "welcomeNotes": {
+          "welcomenotesList": [
+            "Please select from the following categories"
+          ]
+        },
+        "selectionlist": {
+          "selectionList": {
+            "5": "EntireApartment",
+            "4": "CommonArea",
+            "3": "Painting",
+            "2": "Plumbing",
+            "1": " Electrical "
+          }
+        },
+        "multiLanguageFlag": 0,
+        "recmultilanguageSelectionList": {
+          "selectionList": {
+            "2": "kannada",
+            "1": "english"
+          }
+        },
+        "groupzNameUrl": "http: //groupz.in/audio/akshaya/AdenaName.wav",
+        "selectionlistUrl": "http://groupz.in/audio/akshaya/AdenaWelcomeNote.wav"
+      }
+    }
+  }
+}
+
+
+=========================
+For getting entire data from database
+==========================
+
+* data should be empty as below request
+
+request:
+-------
+
+{
+  "json": {
+    "request": {
+      "servicetype": "31",
+      "functiontype": "2004",
+      "sourcetype": "ivr",
+      "data": {
+        
+      }
+    }
+  }
+}
+
+response:
+--------
+
+{
+  "json": {
+    "response": {
+      "statuscode": "0",
+      "statusmessage": "Success",
+      "data": [
+        {
+          "ivrnumber": "918025149702",
+          "groupZCode": "ANURAP2",
+          "welcomeNotes": {
+            "dataList": {
+              "welcomenotesList": [
+                "Please select from the following categories"
+              ]
+            }
+          },
+          "selectionlist": {
+            "selectionList": {
+              "6": "Others",
+              "5": "Security",
+              "4": "Carpentry",
+              "3": "Electrical",
+              "2": "Civil",
+              "1": "Plumbing"
+            }
+          },
+          "selectionlistUrl": "http://groupz.in/audio/akshaya/AdenaWelcomeNote.wav",
+          "groupzNameUrl": "Ascend Services",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          }
+        },
+        {
+          "ivrnumber": "918030860779",
+          "groupZCode": "AVFSHO",
+          "welcomeNotes": {
+            "welcomenotesList": [
+              "Please select from the following categories"
+            ]
+          },
+          "selectionlist": {
+            "selectionList": {
+              "6": "Others",
+              "5": "Marketing",
+              "4": "Administration",
+              "3": "Finance",
+              "2": "Operations",
+              "1": "HR"
+            }
+          },
+          "groupzNameUrl": "Adityavani",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          }
+        },
+        {
+          "ivrnumber": "918067947027",
+          "groupZCode": "CRPLSAR",
+          "welcomeNotes": {
+            "welcomenotesList": [
+              "Please select from the following categories"
+            ]
+          },
+          "selectionlist": {
+            "selectionList": {
+              "5": "Others",
+              "4": "Carpentry",
+              "3": "Electrical",
+              "2": "Civil",
+              "1": "Plumbing"
+            }
+          },
+          "groupzNameUrl": "Century Real estate",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          }
+        },
+        {
+          "ivrnumber": "9180251497011",
+          "groupZCode": "MANSAR",
+          "welcomeNotes": {
+            "welcomenotesList": [
+              "Please select from the following categories"
+            ]
+          },
+          "selectionlist": {
+            "selectionList": {
+              "6": "Others",
+              "5": "Security",
+              "4": "Carpentry",
+              "3": "Electrical",
+              "2": "Civil",
+              "1": "Plumbing"
+            }
+          },
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          }
+        },
+        {
+          "ivrnumber": "918030860747",
+          "groupZCode": "AVFSHO",
+          "welcomeNotes": {
+            "welcomenotesList": [
+              "Please select from the following categories"
+            ]
+          },
+          "selectionlist": {
+            "selectionList": {
+              "6": "Others",
+              "5": "Marketing",
+              "4": "Administration",
+              "3": "Finance",
+              "2": "Operations",
+              "1": "HR"
+            }
+          },
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          }
+        },
+        {
+          "ivrnumber": "918049202422",
+          "groupZCode": "CRPLSAR",
+          "welcomeNotes": {
+            "welcomenotesList": [
+              "Please select from the following categories"
+            ]
+          },
+          "selectionlist": {
+            "selectionList": {
+              "5": "Others",
+              "4": "Carpentry",
+              "3": "Electrical",
+              "2": "Civil",
+              "1": "Plumbing"
+            }
+          },
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          }
+        },
+        {
+          "ivrnumber": "918067947027",
+          "groupZCode": "SHUBAP",
+          "welcomeNotes": {
+            "welcomenotesList": [
+              "Please select from the following categories"
+            ]
+          },
+          "selectionlist": {
+            "selectionList": {
+              "5": "EntireApartment",
+              "4": "CommonArea",
+              "3": "Painting",
+              "2": "Plumbing",
+              "1": "Electrical"
+            }
+          },
+          "groupzNameUrl": "Shubiksha",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "2": "kannada",
+            "1": "english"
+          }
+        },
+        {
+          "ivrnumber": "918030860779",
+          "groupZCode": "SHUBAP",
+          "welcomeNotes": [
+            "Welcome to Shubiksha Facility Services",
+            "Please select from the following list"
+          ],
+          "audioWelcomeUrl": "http://groupz.in/audio/akshaya/AkshayaHomesWelcomeNote.wav",
+          "selectionlist": {
+            "5": "EntireApartment",
+            "4": "CommonArea",
+            "3": "Painting",
+            "2": "Plumbing",
+            "1": "Electrical"
+          },
+          "selectionlistUrl": "http://groupz.in/audio/akshaya/AdenaWelcomeNote.wav",
+          "groupzNameUrl": "http: //groupz.in/audio/akshaya/AdenaName.wav",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "2": "kannada",
+            "1": "english"
+          },
+          "recmultilanguageSelectionWelcomeURL": [
+            "http://english.wav",
+            "http://kannada.wav"
+          ]
+        },
+        {
+          "ivrnumber": "918030860778",
+          "groupZCode": "SHUBAP",
+          "welcomeNotes": [
+            "Welcome to Shubiksha Facility Services",
+            "Please select from the following list"
+          ],
+          "audioWelcomeUrl": "http://groupz.in/audio/akshaya/AkshayaHomesWelcomeNote.wav",
+          "selectionlist": {
+            "5": "EntireApartment",
+            "4": "CommonArea",
+            "3": "Painting",
+            "2": "Plumbing",
+            "1": "Electrical"
+          },
+          "groupzNameUrl": "http: //groupz.in/audio/akshaya/AdenaName.wav",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "2": "kannada",
+            "1": "english"
+          },
+          "recmultilanguageSelectionWelcomeURL": [
+            "http://english.wav",
+            "http://kannada.wav"
+          ]
+        },
+        {
+          "ivrnumber": "918080808080",
+          "groupZCode": "SHUBAP",
+          "welcomeNotes": {
+            "welcomenotesList": [
+              "Please select from the following categories"
+            ]
+          },
+          "audioWelcomeUrl": "http://groupz.in/audio/akshaya/AkshayaHomesWelcomeNote.wav",
+          "selectionlist": {
+            "selectionList": {
+              "5": "EntireApartment",
+              "4": "CommonArea",
+              "3": "Painting",
+              "2": "Plumbing",
+              "1": " Electrical "
+            }
+          },
+          "selectionlistUrl": "http://groupz.in/audio/akshaya/AdenaWelcomeNote.wav",
+          "groupzNameUrl": "http: //groupz.in/audio/akshaya/AdenaName.wav",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          },
+          "recmultilanguageSelectionWelcomeURL": {
+            "urlList": [
+              "http://english.wav",
+              "http://kannada.wav"
+            ]
+          }
+        },
+        {
+          "ivrnumber": "919090909090",
+          "groupZCode": "SHUBAP",
+          "welcomeNotes": {
+            "welcomenotesList": [
+              "Please select from the following categories"
+            ]
+          },
+          "selectionlist": {
+            "selectionList": {
+              "5": "EntireApartment",
+              "4": "CommonArea",
+              "3": "Painting",
+              "2": "Plumbing",
+              "1": " Electrical "
+            }
+          },
+          "selectionlistUrl": "http://groupz.in/audio/akshaya/AdenaWelcomeNote.wav",
+          "groupzNameUrl": "http: //groupz.in/audio/akshaya/AdenaName.wav",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          }
+        }
+      ]
+    }
+  }
+}{
+  "json": {
+    "response": {
+      "statuscode": "0",
+      "statusmessage": "Success",
+      "data": [
+        {
+          "ivrnumber": "918025149702",
+          "groupZCode": "ANURAP2",
+          "welcomeNotes": {
+            "dataList": {
+              "welcomenotesList": [
+                "Please select from the following categories"
+              ]
+            }
+          },
+          "selectionlist": {
+            "selectionList": {
+              "6": "Others",
+              "5": "Security",
+              "4": "Carpentry",
+              "3": "Electrical",
+              "2": "Civil",
+              "1": "Plumbing"
+            }
+          },
+          "selectionlistUrl": "http://groupz.in/audio/akshaya/AdenaWelcomeNote.wav",
+          "groupzNameUrl": "Ascend Services",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          }
+        },
+        {
+          "ivrnumber": "918030860779",
+          "groupZCode": "AVFSHO",
+          "welcomeNotes": {
+            "welcomenotesList": [
+              "Please select from the following categories"
+            ]
+          },
+          "selectionlist": {
+            "selectionList": {
+              "6": "Others",
+              "5": "Marketing",
+              "4": "Administration",
+              "3": "Finance",
+              "2": "Operations",
+              "1": "HR"
+            }
+          },
+          "groupzNameUrl": "Adityavani",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          }
+        },
+        {
+          "ivrnumber": "918067947027",
+          "groupZCode": "CRPLSAR",
+          "welcomeNotes": {
+            "welcomenotesList": [
+              "Please select from the following categories"
+            ]
+          },
+          "selectionlist": {
+            "selectionList": {
+              "5": "Others",
+              "4": "Carpentry",
+              "3": "Electrical",
+              "2": "Civil",
+              "1": "Plumbing"
+            }
+          },
+          "groupzNameUrl": "Century Real estate",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          }
+        },
+        {
+          "ivrnumber": "9180251497011",
+          "groupZCode": "MANSAR",
+          "welcomeNotes": {
+            "welcomenotesList": [
+              "Please select from the following categories"
+            ]
+          },
+          "selectionlist": {
+            "selectionList": {
+              "6": "Others",
+              "5": "Security",
+              "4": "Carpentry",
+              "3": "Electrical",
+              "2": "Civil",
+              "1": "Plumbing"
+            }
+          },
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          }
+        },
+        {
+          "ivrnumber": "918030860747",
+          "groupZCode": "AVFSHO",
+          "welcomeNotes": {
+            "welcomenotesList": [
+              "Please select from the following categories"
+            ]
+          },
+          "selectionlist": {
+            "selectionList": {
+              "6": "Others",
+              "5": "Marketing",
+              "4": "Administration",
+              "3": "Finance",
+              "2": "Operations",
+              "1": "HR"
+            }
+          },
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          }
+        },
+        {
+          "ivrnumber": "918049202422",
+          "groupZCode": "CRPLSAR",
+          "welcomeNotes": {
+            "welcomenotesList": [
+              "Please select from the following categories"
+            ]
+          },
+          "selectionlist": {
+            "selectionList": {
+              "5": "Others",
+              "4": "Carpentry",
+              "3": "Electrical",
+              "2": "Civil",
+              "1": "Plumbing"
+            }
+          },
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          }
+        },
+        {
+          "ivrnumber": "918067947027",
+          "groupZCode": "SHUBAP",
+          "welcomeNotes": {
+            "welcomenotesList": [
+              "Please select from the following categories"
+            ]
+          },
+          "selectionlist": {
+            "selectionList": {
+              "5": "EntireApartment",
+              "4": "CommonArea",
+              "3": "Painting",
+              "2": "Plumbing",
+              "1": "Electrical"
+            }
+          },
+          "groupzNameUrl": "Shubiksha",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "2": "kannada",
+            "1": "english"
+          }
+        },
+        {
+          "ivrnumber": "918030860779",
+          "groupZCode": "SHUBAP",
+          "welcomeNotes": [
+            "Welcome to Shubiksha Facility Services",
+            "Please select from the following list"
+          ],
+          "audioWelcomeUrl": "http://groupz.in/audio/akshaya/AkshayaHomesWelcomeNote.wav",
+          "selectionlist": {
+            "5": "EntireApartment",
+            "4": "CommonArea",
+            "3": "Painting",
+            "2": "Plumbing",
+            "1": "Electrical"
+          },
+          "selectionlistUrl": "http://groupz.in/audio/akshaya/AdenaWelcomeNote.wav",
+          "groupzNameUrl": "http: //groupz.in/audio/akshaya/AdenaName.wav",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "2": "kannada",
+            "1": "english"
+          },
+          "recmultilanguageSelectionWelcomeURL": [
+            "http://english.wav",
+            "http://kannada.wav"
+          ]
+        },
+        {
+          "ivrnumber": "918030860778",
+          "groupZCode": "SHUBAP",
+          "welcomeNotes": [
+            "Welcome to Shubiksha Facility Services",
+            "Please select from the following list"
+          ],
+          "audioWelcomeUrl": "http://groupz.in/audio/akshaya/AkshayaHomesWelcomeNote.wav",
+          "selectionlist": {
+            "5": "EntireApartment",
+            "4": "CommonArea",
+            "3": "Painting",
+            "2": "Plumbing",
+            "1": "Electrical"
+          },
+          "groupzNameUrl": "http: //groupz.in/audio/akshaya/AdenaName.wav",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "2": "kannada",
+            "1": "english"
+          },
+          "recmultilanguageSelectionWelcomeURL": [
+            "http://english.wav",
+            "http://kannada.wav"
+          ]
+        },
+        {
+          "ivrnumber": "918080808080",
+          "groupZCode": "SHUBAP",
+          "welcomeNotes": {
+            "welcomenotesList": [
+              "Please select from the following categories"
+            ]
+          },
+          "audioWelcomeUrl": "http://groupz.in/audio/akshaya/AkshayaHomesWelcomeNote.wav",
+          "selectionlist": {
+            "selectionList": {
+              "5": "EntireApartment",
+              "4": "CommonArea",
+              "3": "Painting",
+              "2": "Plumbing",
+              "1": " Electrical "
+            }
+          },
+          "selectionlistUrl": "http://groupz.in/audio/akshaya/AdenaWelcomeNote.wav",
+          "groupzNameUrl": "http: //groupz.in/audio/akshaya/AdenaName.wav",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          },
+          "recmultilanguageSelectionWelcomeURL": {
+            "urlList": [
+              "http://english.wav",
+              "http://kannada.wav"
+            ]
+          }
+        },
+        {
+          "ivrnumber": "919090909090",
+          "groupZCode": "SHUBAP",
+          "welcomeNotes": {
+            "welcomenotesList": [
+              "Please select from the following categories"
+            ]
+          },
+          "selectionlist": {
+            "selectionList": {
+              "5": "EntireApartment",
+              "4": "CommonArea",
+              "3": "Painting",
+              "2": "Plumbing",
+              "1": " Electrical "
+            }
+          },
+          "selectionlistUrl": "http://groupz.in/audio/akshaya/AdenaWelcomeNote.wav",
+          "groupzNameUrl": "http: //groupz.in/audio/akshaya/AdenaName.wav",
+          "multiLanguageFlag": 0,
+          "recmultilanguageSelectionList": {
+            "selectionList": {
+              "2": "kannada",
+              "1": "english"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
