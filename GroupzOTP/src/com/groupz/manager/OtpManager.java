@@ -43,11 +43,14 @@ public class OtpManager {
 				if ((utils.isNumber(mobile) == true)
 						&& (utils.isNumber(countrycode) == true)) {
 					otpActions.setMobile(utils.encrypt(mobile));
+					// otpActions.setMobile(mobile);
 
 					if (countrycode.equalsIgnoreCase("91") == true) {
 						otpActions.setCountrycode(utils.encrypt(countrycode));
+						// otpActions.setCountrycode(countrycode);
 						String genOtp = utils.generateOTP();
 						otpActions.setOtp(utils.encrypt(genOtp));
+						// otpActions.setOtp(genOtp);
 						otpActions.setCreatedTime(utils.getLastSynchTime());
 						Calendar cal = Calendar.getInstance();
 						cal.setTime(utils.getLastSynchTime());
@@ -127,10 +130,15 @@ public class OtpManager {
 
 			Otp isExist = oppop.checkmobileExists(utils.encrypt(countryCode),
 					utils.encrypt(mobileNumber), utils.encrypt(otp));
+
+			// Otp isExist = oppop.checkmobileExists(countryCode, mobileNumber,
+			// otp);
 			if (isExist != null) {
+				System.out.println("OTP matches");
 
 				if (utils.getLastSynchTime().before(isExist.getLapsetime())) {
 					response = utils.processSucess("otp", true);
+					System.out.println("OTP matches with in time ");
 					System.err.println("OTP sent successfully");
 					return response;
 				} else {
