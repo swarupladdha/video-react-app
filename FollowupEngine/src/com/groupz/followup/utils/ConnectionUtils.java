@@ -17,8 +17,7 @@ public class ConnectionUtils {
 			System.out.println("URL FINAL : " + urlString);
 
 			InputStream stream = null;
-			URL url = new URL(urlString);
-			System.out.println("URL FINAL22 : " + url);
+			URL url = new URL(urlString);		
 			URLConnection connection = url.openConnection();
 			HttpURLConnection httpConnection = (HttpURLConnection) connection;
 			httpConnection.setRequestMethod("POST");

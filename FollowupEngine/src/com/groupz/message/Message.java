@@ -127,7 +127,7 @@ public class Message {
 			reqObj.put("request", dataObj);
 			jsonObj.put("json", reqObj);
 			System.out.println("Final JSON:" + jsonObj.toString());
-			String followUpURL = p.getProperty("followupURL")
+			String followUpURL = p.getProperty("contactfollowup_URL")
 					+ URLEncoder.encode(jsonObj.toString());
 			logger.debug("Followup URL:" + followUpURL);
 			ConnectionUtils connectionUtils = new ConnectionUtils();

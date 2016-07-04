@@ -1,0 +1,63 @@
+[DEBUG] 34:29 (ConnectDatabase.java:establishConnection:51)
+In ConnectDatabase.java : The url and dbname is : jdbc:mysql://localhost:3306/apartment
+
+[DEBUG] 34:29 (ConnectDatabase.java:establishConnection:52)
+Connected to the database
+
+[DEBUG] 34:29 (ConnectDatabase.java:closeConnection:66)
+Disconnected from database
+
+[DEBUG] 35:17 (ConnectDatabase.java:establishConnection:51)
+In ConnectDatabase.java : The url and dbname is : jdbc:mysql://localhost:3306/apartment
+
+[DEBUG] 35:17 (ConnectDatabase.java:establishConnection:52)
+Connected to the database
+
+[DEBUG] 35:18 (ConnectDatabase.java:closeConnection:66)
+Disconnected from database
+
+[DEBUG] 37:47 (ConnectDatabase.java:establishConnection:51)
+In ConnectDatabase.java : The url and dbname is : jdbc:mysql://localhost:3306/apartment
+
+[DEBUG] 37:47 (ConnectDatabase.java:establishConnection:52)
+Connected to the database
+
+[DEBUG] 37:47 (ConnectDatabase.java:closeConnection:66)
+Disconnected from database
+
+[DEBUG] 38:00 (ConnectDatabase.java:establishConnection:51)
+In ConnectDatabase.java : The url and dbname is : jdbc:mysql://localhost:3306/apartment
+
+[DEBUG] 38:00 (ConnectDatabase.java:establishConnection:52)
+Connected to the database
+
+[DEBUG] 38:00 (Message.java:sendFollowupinURL:132)
+Followup URL:http://prod1.groupz.in/GroupzMobileApp/SendFollowup?request=%7B%22json%22%3A%7B%22request%22%3A%7B%22servicetype%22%3A%2221%22%2C%22functiontype%22%3A%222027%22%2C%22groupzcode%22%3A%22SN%22%2C%22memberid%22%3A1012%2C%22followupid%22%3A8%7D%7D%7D
+
+[DEBUG] 38:00 (FollowupManager.java:run:136)
+Follow up status through URL:false
+
+[DEBUG] 38:00 (ConnectDatabase.java:closeConnection:66)
+Disconnected from database
+
+[DEBUG] 40:09 (ConnectDatabase.java:establishConnection:51)
+In ConnectDatabase.java : The url and dbname is : jdbc:mysql://localhost:3306/apartment
+
+[DEBUG] 40:09 (ConnectDatabase.java:establishConnection:52)
+Connected to the database
+
+[DEBUG] 40:10 (Message.java:sendFollowupinURL:132)
+Followup URL:http://localhost:8080/GroupzMobileApp/SendFollowup?request=%7B%22json%22%3A%7B%22request%22%3A%7B%22servicetype%22%3A%2221%22%2C%22functiontype%22%3A%222027%22%2C%22groupzcode%22%3A%22SN%22%2C%22memberid%22%3A1012%2C%22followupid%22%3A8%7D%7D%7D
+
+[DEBUG] 40:15 (Message.java:sendFollowupinURL:143)
+Status code:0
+
+[DEBUG] 40:15 (Message.java:sendFollowupinURL:147)
+Status code:Success
+
+[DEBUG] 40:15 (FollowupManager.java:run:136)
+Follow up status through URL:true
+
+[DEBUG] 40:15 (ConnectDatabase.java:closeConnection:66)
+Disconnected from database
+
