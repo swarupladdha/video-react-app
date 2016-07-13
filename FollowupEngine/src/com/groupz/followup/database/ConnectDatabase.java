@@ -148,7 +148,7 @@ public class ConnectDatabase {
 				}
 			}
 		};
-	//	cacheUpdateFollowUp.start();
+		cacheUpdateFollowUp.start();
 	
 		//new code
 		int THREAD_POOL_SIZE = Integer.parseInt(PropertiesUtil
