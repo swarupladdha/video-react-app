@@ -2,20 +2,13 @@ package com.groupz.followup.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpServletRequest;
-
-import src.followupconfig.PropertiesUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
-import net.sf.json.xml.XMLSerializer;
+import src.followupconfig.PropertiesUtil;
 
 
 public class FollowUpUtils {
