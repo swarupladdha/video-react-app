@@ -6,11 +6,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
 
+
+
+
+import src.followupconfig.PropertiesUtil;
+
 import com.groupz.followup.manager.CacheManager;
 import com.groupz.followup.manager.FollowupManager;
+import com.groupz.followup.manager.FollowupRefreshQueueExceute;
 
 public class ConnectDatabase {
 
@@ -140,7 +148,24 @@ public class ConnectDatabase {
 				}
 			}
 		};
-		cacheUpdateFollowUp.start();
+	//	cacheUpdateFollowUp.start();
+	
+		//new code
+		int THREAD_POOL_SIZE = Integer.parseInt(PropertiesUtil
+				.getProperty("THREAD_POOL"));
+		ExecutorService refreshQueueExecSvc = Executors
+				.newFixedThreadPool(THREAD_POOL_SIZE);
+		for (int i = 0; i < THREAD_POOL_SIZE; i++) {
+			refreshQueueExecSvc
+					.execute(new FollowupRefreshQueueExceute(i,c));
+		}
+		refreshQueueExecSvc.shutdown();	
+		
+		
+		
+		
+		
+		
 		/*
 		 * while (true) { System.out.println("runs every 2 minutes:"+new
 		 * Date()); logger.debug("runs every 2 minutes"); //fm.run(c);
