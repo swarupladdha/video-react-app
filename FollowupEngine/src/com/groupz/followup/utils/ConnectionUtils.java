@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Statement;
 
 public class ConnectionUtils {
 
@@ -54,4 +55,21 @@ public class ConnectionUtils {
 		}
 		return connectRecieveResponse;
 	}
+	
+	public static void close(Statement stmt) {
+		try
+		{
+			if (stmt!=null) {
+				stmt.close();
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
 }
