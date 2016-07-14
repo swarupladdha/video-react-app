@@ -26,10 +26,13 @@ public class CacheManager {
 	static String cacheTableSQL = "SELECT ID,LASTUPDATEDDATE from CACHEHEARTBEATUPDATE";
 
 	static String updateCacheTableSQL = "UPDATE CACHEHEARTBEATUPDATE SET ID= %s , LASTUPDATEDDATE='%s'";
-
+	
 	static String heartBeatListSQL = "SELECT ID,GROUPZID,GROUPZCODE,MODULETYPE,UPDATEDDATE FROM "
-			+ " UPDATEMODULEACTIVITIES WHERE ((UPDATEDDATE>='  %s ' and ID!= %s ) or (UPDATEDDATE>'  %s ' and ID= %s)) ORDER BY UPDATEDDATE ASC";
+			+ " UPDATEMODULEACTIVITIES WHERE UPDATEDDATE>'  %s ' ";
 
+	/*static String heartBeatListSQL = "SELECT ID,GROUPZID,GROUPZCODE,MODULETYPE,UPDATEDDATE FROM "
+			+ " UPDATEMODULEACTIVITIES WHERE ((UPDATEDDATE>='  %s ' and ID!= %s ) or (UPDATEDDATE>'  %s ' and ID= %s)) ORDER BY UPDATEDDATE ASC";
+*/
 	private void updateCacheTime(Connection c,String updatedId,String updatedTime) {
 		Statement stmt = null;
 		try {
@@ -70,8 +73,9 @@ public class CacheManager {
 			}
 				System.out.println("Checking.... lastupdateddate-->"
 						+ cacheUpdateTime);
-				String cacheListSQL = String.format(heartBeatListSQL,
-						cacheUpdateTime,cacheUpdatedId,cacheUpdateTime,cacheUpdatedId);
+				/*String cacheListSQL = String.format(heartBeatListSQL,
+						cacheUpdateTime,cacheUpdatedId,cacheUpdateTime,cacheUpdatedId);*/
+				String cacheListSQL = String.format(heartBeatListSQL,cacheUpdateTime);
 				System.out.println("Cache update list sql:" + cacheListSQL);
 				ResultSet cacheUpdateSet = stmt.executeQuery(cacheListSQL);
 				JSONArray dataArray = new JSONArray();
@@ -100,6 +104,7 @@ public class CacheManager {
 						(lastUpdatedDate!=null && lastUpdatedDate.length()>0 && lastUpdatedDate.equalsIgnoreCase("")==false)){
 				updateCacheTime(dbConnection,lastUpdatedId,lastUpdatedDate);
 				boolean cacheStatus = sendCacheupdate(dataArray);
+				System.out.println("Cache DB  status through URL:"+cacheStatus);
 				logger.debug("Cache DB  status through URL:" + cacheStatus);	
 				}
 			stmt.close();
