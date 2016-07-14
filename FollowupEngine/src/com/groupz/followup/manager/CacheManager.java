@@ -28,10 +28,10 @@ public class CacheManager {
 	static String updateCacheTableSQL = "UPDATE CACHEHEARTBEATUPDATE SET ID= %s , LASTUPDATEDDATE='%s'";
 	
 	static String heartBeatListSQL = "SELECT ID,GROUPZID,GROUPZCODE,MODULETYPE,UPDATEDDATE FROM "
-			+ " UPDATEMODULEACTIVITIES WHERE UPDATEDDATE>'  %s ' ";
+			+ " UPDATEMODULEACTIVITIES WHERE UPDATEDDATE>'%s' ORDER BY UPDATEDDATE ASC";
 
 	/*static String heartBeatListSQL = "SELECT ID,GROUPZID,GROUPZCODE,MODULETYPE,UPDATEDDATE FROM "
-			+ " UPDATEMODULEACTIVITIES WHERE ((UPDATEDDATE>='  %s ' and ID!= %s ) or (UPDATEDDATE>'  %s ' and ID= %s)) ORDER BY UPDATEDDATE ASC";
+			+ " UPDATEMODULEACTIVITIES WHERE ((UPDATEDDATE>='%s' and ID!= %s ) or (UPDATEDDATE>'%s' and ID= %s)) ORDER BY UPDATEDDATE ASC";
 */
 	private void updateCacheTime(Connection c,String updatedId,String updatedTime) {
 		Statement stmt = null;
