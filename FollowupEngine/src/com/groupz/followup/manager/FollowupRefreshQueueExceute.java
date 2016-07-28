@@ -29,7 +29,7 @@ public class FollowupRefreshQueueExceute implements Runnable {
 		this.connection = c;
 
 	}
-	static String getLatestReportsQuery = "select * from UpdateModuleActivities where Id MOD %s= %s and UpdatedDate >=  '%s'";
+	 String getLatestReportsQuery = "select * from UpdateModuleActivities where Id MOD %s= %s and UpdatedDate >=  '%s'";
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	String date = getAnalyticsBackupDate();
 

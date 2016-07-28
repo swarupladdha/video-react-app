@@ -31,7 +31,7 @@ public class Message {
 
 	static final Logger logger = Logger.getLogger(Message.class);
 
-	static String messageInsertSQL = "insert into messagesintable (customdata, date, provider, time, msgtype, address, message) values "
+	 String messageInsertSQL = "insert into messagesintable (customdata, date, provider, time, msgtype, address, message) values "
 			+ "( '0,0' , now(), '%s', now(), '%s',  '%s', '%s' )";
 
 	String encode(String s) {

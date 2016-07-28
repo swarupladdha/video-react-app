@@ -9,16 +9,16 @@ import com.groupz.followup.utils.ConnectionUtils;
 
 public class FollowUpGraphOperations {
 
-	static String deleteFollowUpGraphDataQuery = "delete from followupgraph where year = %s and month = %s and apartmentId=%s";
+	 String deleteFollowUpGraphDataQuery = "delete from followupgraph where year = %s and month = %s and apartmentId=%s";
 
-	static String getFollowupData = "select f.id, f.apartmentid,r.id as roleid,f.followupcount,f.createddate,f.approvaldate,f.contact, "
+	 String getFollowupData = "select f.id, f.apartmentid,r.id as roleid,f.followupcount,f.createddate,f.approvaldate,f.contact, "
 			+ " case when Contact = 0 then 1 else 0 end as user "
 			+ " from  flat f,userflatmapping ufm,roledefinition r,apartment_settings aptset  where ufm.roleid=r.id and ufm.flatid=f.id "
 			+ " and(  YEAR(f.CreatedDate) = %s AND MONTH(f.CreatedDate) = %s )  and f.ApartmentId =%s "
 			+ " and f.CreatedDate between aptset.TransactionStartDate and aptset.TransactionEndDate "
 			+ " group by f.createdDate";
 
-	static String saveFollowUpGraphDataQuery = "insert into followupgraph (flatid,apartmentid,roleid,followupcount,createddate,approvaldate,"
+	 String saveFollowUpGraphDataQuery = "insert into followupgraph (flatid,apartmentid,roleid,followupcount,createddate,approvaldate,"
 			+ "contact,user,month,year)values(%s,%s,%s,%s,'%s','%s',%s,%s,%s,%s)";
 
 	public void deleteFollowUpGraphData(Connection connection, int groupzId,

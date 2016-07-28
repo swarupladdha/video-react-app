@@ -14,14 +14,20 @@ import com.groupz.message.Message;
 public class FollowupManager {
 	static final Logger logger = Logger.getLogger(FollowupManager.class);
 
-	static String followupSQL = "select gbfollowup.id, groupzbaseid,noofdays,roleid,followuptime,lastsenttime "
+	 String followupSQL = "select gbfollowup.id, groupzbaseid,noofdays,roleid,followuptime,lastsenttime "
 			+ " from gbfollowup, builder "
-			+ "where STR_TO_DATE(gbfollowup.followuptime,'%H:%i')<CURTIME() and gbfollowup.lastsenttime<CURDATE() "
-			+ "  and builder.id = gbfollowup.groupzbaseid";
+			+ " where gbfollowup.Id MOD %s = %s and"
+			+ " (EXTRACT(HOUR FROM gbfollowup.FollowupTime) and EXTRACT(MINUTE FROM gbfollowup.FollowupTime) )<CURTIME()"
+			+ " and gbfollowup.lastsenttime<CURDATE() and builder.id = gbfollowup.groupzbaseid";
 
-	static String updateFollowupSQL = "update gbfollowup set LastSentTime=NOW() where Id=%s";
+	 /*String followupSQL = "select gbfollowup.id, groupzbaseid,noofdays,roleid,followuptime,lastsenttime "
+				+ " from gbfollowup, builder "
+				+ " and STR_TO_DATE(gbfollowup.followuptime,'%H:%i')<CURTIME() and gbfollowup.lastsenttime<CURDATE() "
+				+ " and builder.id = gbfollowup.groupzbaseid";*/
+	 
+	 String updateFollowupSQL = "update gbfollowup set LastSentTime=NOW() where Id=%s";
 
-	static String contactsListSQL = "select ufm.id,a.societycode,f.id, a.mobile, a.name, s.senderemail, s.sendersms, u.email   "
+	 String contactsListSQL = "select ufm.id,a.societycode,f.id, a.mobile, a.name, s.senderemail, s.sendersms, u.email   "
 			+ "from flat f, userflatmapping ufm, user u,  apartment a, apartment_settings s,roledefinition r "
 			+ "where DATE(DATE_ADD(f.approvaldate, INTERVAL %s DAY) ) = CURRENT_DATE and "
 			+ "f.contact = true and ufm.flatid = f.id  and ufm.enabled = true and "
@@ -121,12 +127,18 @@ public class FollowupManager {
 		}
 	}
 
-	public void run(Connection dbConnection) {
+	public void run(int threadId, int followUpThread_POOL_SIZE, Connection dbConnection) {
 		Statement stmt=null;
 		try {
 			 stmt = dbConnection.createStatement();
 
-			String QueryString = followupSQL;
+			
+			 String poolSize=String.valueOf(followUpThread_POOL_SIZE);
+			 String threadid=String.valueOf(threadId);
+			 System.out.println(poolSize);
+			 System.out.println(threadid);
+	
+			String QueryString = String.format(followupSQL,poolSize,threadid);
 			System.out.println("Followup Sql:"+QueryString);
 			ResultSet rs = stmt.executeQuery(QueryString);
 			while (rs.next()) {

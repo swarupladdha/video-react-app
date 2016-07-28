@@ -17,14 +17,14 @@ public class HeadCountOperations {
 	private JSONObject jsonDivisionObject = new JSONObject();
 	private ResultSet selectedRole = null;
 
-	static String deleteHeadCountQuery = "delete from headcount where GroupzId = %s ";
+	 String deleteHeadCountQuery = "delete from headcount where GroupzId = %s ";
 
-	static String getRoleList = "select * from roledefinition where GBROLEID IS NOT NULL and SocietyId=%s";
+	 String getRoleList = "select * from roledefinition where GBROLEID IS NOT NULL and SocietyId=%s";
 
-	static String saveHeadCountQuery = "insert into headcount (ContactCount,Division,GroupzId,MaxCount,RoleId,"
+	 String saveHeadCountQuery = "insert into headcount (ContactCount,Division,GroupzId,MaxCount,RoleId,"
 			+ "RoleName,subDivision,UserCount)values(%s,'%s',%s,%s,%s,'%s','%s',%s)";
 
-	static String headCountValueQuery = "select count( userflatmapping.id) from userflatmapping,flat,roledefinition,user"
+	 String headCountValueQuery = "select count( userflatmapping.id) from userflatmapping,flat,roledefinition,user"
 			+ " where userflatmapping.userid=user.id and userflatmapping.flatid=flat.id and userflatmapping.roleid=roledefinition.id"
 			+ " and flat.apartmentid=roledefinition.societyid and flat.apartmentid= '%s'"
 			+ " and  user.enabled=true and userflatmapping.enabled=true and flat.contact= '%s'"

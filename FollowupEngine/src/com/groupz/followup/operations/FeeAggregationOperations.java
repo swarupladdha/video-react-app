@@ -13,7 +13,7 @@ public class FeeAggregationOperations {
 	
 
 	
-	static String getFeeAggregationQuery = " SELECT Division,SubDivision,"
+	 String getFeeAggregationQuery = " SELECT Division,SubDivision,"
 			+ "case   when paymentType  = 0 then 'cash'"
 			+ "   when paymentType  = 1 then 'cheque'"
 			+ "   when paymentType  = 2 then 'online'"
@@ -30,9 +30,9 @@ public class FeeAggregationOperations {
 			+ "ApartmentId = '%s'"
 			+ " group by paymentType,statusPayment,bounce,cleared,cancelled";
 
-	static String deleteFeeAggregationQuery = "delete from feeaggregation where year = %s and month = %s and apartmentId=%s";
+	 String deleteFeeAggregationQuery = "delete from feeaggregation where year = %s and month = %s and apartmentId=%s";
 
-	static String addFeeAggregationQuery = "insert into feeaggregation "
+	 String addFeeAggregationQuery = "insert into feeaggregation "
 			+ "(amount,apartmentId,division,month,paymentStatus,paymentType,subDivision,year)"
 			+ "values(%s,%s,%s,%s,'%s','%s','%s',%s)";
 

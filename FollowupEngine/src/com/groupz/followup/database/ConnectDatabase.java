@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,12 +12,11 @@ import org.apache.log4j.Logger;
 
 
 
-
 import src.followupconfig.PropertiesUtil;
 
-import com.groupz.followup.manager.CacheManager;
-import com.groupz.followup.manager.FollowupManager;
 import com.groupz.followup.manager.FollowupRefreshQueueExceute;
+import com.groupz.followup.threads.CacheUpdateThread;
+import com.groupz.followup.threads.FollowUpThread;
 
 public class ConnectDatabase {
 
@@ -35,16 +33,7 @@ public class ConnectDatabase {
 			String password = null;
 
 			try {
-				/*String fileName = System.getenv("FE_CONFIG_FILE");
-				if (fileName == null) {
-					logger.debug("Env. Variable FE is not set, using default file vinralerts.properties");
-					fileName = "conf/db.properties";
-				}
-
-				// Properties p = new Properties(System.getProperties());
-				//FileInputStream propFile = new FileInputStream(fileName);
-				//p.load(propFile);
-*/				url = p.getProperty("url");
+				url = p.getProperty("url");
 				dbName = p.getProperty("dbName");
 				driver = p.getProperty("driver");
 				userName = p.getProperty("userName");
@@ -70,17 +59,6 @@ public class ConnectDatabase {
 		return myConnection;
 	}
 
-	public void closeConnection(Connection connection) {
-
-		try {
-			connection.close();
-			logger.debug("Disconnected from database");
-		} catch (SQLException sqlException) {
-			sqlException.printStackTrace();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
-	}
 
 	public static void main(String args[]) throws InterruptedException {
 		ConnectDatabase cd = new ConnectDatabase();
@@ -98,86 +76,54 @@ public class ConnectDatabase {
 			logger.debug("Error opening properties file." + e);
 			e.printStackTrace();
 		}
-		final int contactFollowUpTimeout = Integer.parseInt(p
-				.getProperty("contactfollowup_db_timeout"));
-		final int cacheUpdateTimeout = Integer.parseInt(p
-				.getProperty("cachefollowup_db_timeout"));
+		final int contactFollowUpTimeout = Integer.parseInt(p.getProperty("contactfollowup_db_timeout"));
+		final int cacheUpdateTimeout = Integer.parseInt(p.getProperty("cachefollowup_db_timeout"));
 		System.out.println("followup alert started");
 		logger.info("followup alert started");
 		final Connection c = cd.establishConnection(p);
-		// contact Follow up thread
-		Thread contactFollowUp = new Thread() {
-			FollowupManager fm = new FollowupManager();
 
-			@Override
-			public void run() {
-				while (true) {
-					System.out
-							.println("Contact Follow up thread started every 2 minutes:"
-									+ new Date());
-					logger.debug("Contact Follow up runs every 2 minutes");
-					fm.run(c);
-					try {
-						Thread.sleep(contactFollowUpTimeout);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-		};
-		contactFollowUp.start();
-		// cache Follow up thread
-		Thread cacheUpdateFollowUp = new Thread() {
-			CacheManager cm = new CacheManager();
+		//followupthread
+	//	FollowUpThread followupthread = new FollowUpThread(c,contactFollowUpTimeout);
+	//	followupthread.startFollowUpThread(followupthread);
+		
+		int followUpThread_POOL_SIZE = Integer.parseInt(PropertiesUtil
+				.getProperty("FollowUpThread_POOL"));
+		ExecutorService followupthreadExecSvc = Executors
+				.newFixedThreadPool(followUpThread_POOL_SIZE);
+		for (int threadId = 0; threadId < followUpThread_POOL_SIZE; threadId++) {
+		
+			followupthreadExecSvc.execute(new FollowUpThread(followUpThread_POOL_SIZE,threadId,c,contactFollowUpTimeout));
 
-			@Override
-			public void run() {
-				while (true) {
-					System.out
-							.println("Cache Update thread started every half a second:"
-									+ new Date());
-					logger.debug("Cache Update runs every half a second");
-					cm.run(c);
-					try {
-						Thread.sleep(cacheUpdateTimeout);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-		};
-		cacheUpdateFollowUp.start();
-	
-		//new code
-		int THREAD_POOL_SIZE = Integer.parseInt(PropertiesUtil
+		}
+		followupthreadExecSvc.shutdown();
+		
+		//cacheupdatethread
+	//	CacheUpdateThread cache = new CacheUpdateThread(c,cacheUpdateTimeout);
+
+		int cache_POOL_SIZE = Integer.parseInt(PropertiesUtil
+				.getProperty("CacheUpdateThread_POOL"));
+		ExecutorService cacheExecSvc = Executors
+				.newFixedThreadPool(cache_POOL_SIZE);
+		for (int threadId = 0; threadId < cache_POOL_SIZE; threadId++) {
+		
+		//	cacheExecSvc.execute(new CacheUpdateThread(cache_POOL_SIZE,threadId,c,cacheUpdateTimeout));
+
+		}
+		followupthreadExecSvc.shutdown();
+		//cache.startCacheThread(cache);
+		
+		// feeAggragation and headcount analytics 
+	/*	int THREAD_POOL_SIZE = Integer.parseInt(PropertiesUtil
 				.getProperty("THREAD_POOL"));
 		ExecutorService refreshQueueExecSvc = Executors
 				.newFixedThreadPool(THREAD_POOL_SIZE);
 		for (int i = 0; i < THREAD_POOL_SIZE; i++) {
-			refreshQueueExecSvc
-					.execute(new FollowupRefreshQueueExceute(i,c));
+			refreshQueueExecSvc.execute(new FollowupRefreshQueueExceute(i, c));
+			
 		}
-		refreshQueueExecSvc.shutdown();	
+		refreshQueueExecSvc.shutdown();
+*/
 		
-		
-		
-		
-		
-		
-		/*
-		 * while (true) { System.out.println("runs every 2 minutes:"+new
-		 * Date()); logger.debug("runs every 2 minutes"); //fm.run(c);
-		 * cm.run(c);
-		 * System.out.println("=============================================");
-		 * Thread.sleep(120000); }
-		 */
-		/*
-		 * if (c != null) { cd.closeConnection(c); }
-		 */
-
-		// return;
 	}
 
 }

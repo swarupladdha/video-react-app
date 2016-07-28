@@ -23,11 +23,11 @@ public class CacheManager {
 
 	static final Logger logger = Logger.getLogger(CacheManager.class);
 
-	static String cacheTableSQL = "SELECT ID,LASTUPDATEDDATE from CACHEHEARTBEATUPDATE";
+	 String cacheTableSQL = "SELECT ID,LASTUPDATEDDATE from CACHEHEARTBEATUPDATE where Id MOD %s = %s";
 
-	static String updateCacheTableSQL = "UPDATE CACHEHEARTBEATUPDATE SET ID= %s , LASTUPDATEDDATE='%s'";
+	 String updateCacheTableSQL = "UPDATE CACHEHEARTBEATUPDATE SET ID= %s , LASTUPDATEDDATE='%s'";
 	
-	static String heartBeatListSQL = "SELECT ID,GROUPZID,GROUPZCODE,MODULETYPE,UPDATEDDATE FROM "
+	 String heartBeatListSQL = "SELECT ID,GROUPZID,GROUPZCODE,MODULETYPE,UPDATEDDATE FROM "
 			+ " UPDATEMODULEACTIVITIES WHERE UPDATEDDATE>'%s' ORDER BY UPDATEDDATE ASC";
 
 	/*static String heartBeatListSQL = "SELECT ID,GROUPZID,GROUPZCODE,MODULETYPE,UPDATEDDATE FROM "
@@ -55,12 +55,12 @@ public class CacheManager {
 		}
 	}
 
-	public void run(Connection dbConnection) {
+	public void run(Connection dbConnection, int cachePoolSize, int threadId) {
 		Statement stmt = null;
 		try {
 			stmt = dbConnection.createStatement();
 
-			String QueryString = cacheTableSQL;
+			String QueryString = String.format(cacheTableSQL,cachePoolSize,threadId);
 			System.out.println("Cache Update Sql:" + QueryString);
 			ResultSet rs = stmt.executeQuery(QueryString);	
 			String cacheUpdateTime="";String cacheUpdatedId="";
