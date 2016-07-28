@@ -10,8 +10,6 @@ import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
 
-
-
 import src.followupconfig.PropertiesUtil;
 
 import com.groupz.followup.manager.FollowupRefreshQueueExceute;
@@ -106,14 +104,14 @@ public class ConnectDatabase {
 				.newFixedThreadPool(cache_POOL_SIZE);
 		for (int threadId = 0; threadId < cache_POOL_SIZE; threadId++) {
 		
-		//	cacheExecSvc.execute(new CacheUpdateThread(cache_POOL_SIZE,threadId,c,cacheUpdateTimeout));
+		cacheExecSvc.execute(new CacheUpdateThread(cache_POOL_SIZE,threadId,c,cacheUpdateTimeout));
 
 		}
 		followupthreadExecSvc.shutdown();
-		//cache.startCacheThread(cache);
+		
 		
 		// feeAggragation and headcount analytics 
-	/*	int THREAD_POOL_SIZE = Integer.parseInt(PropertiesUtil
+		int THREAD_POOL_SIZE = Integer.parseInt(PropertiesUtil
 				.getProperty("THREAD_POOL"));
 		ExecutorService refreshQueueExecSvc = Executors
 				.newFixedThreadPool(THREAD_POOL_SIZE);
@@ -122,7 +120,7 @@ public class ConnectDatabase {
 			
 		}
 		refreshQueueExecSvc.shutdown();
-*/
+
 		
 	}
 
