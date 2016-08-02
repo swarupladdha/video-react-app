@@ -14,17 +14,11 @@ import com.groupz.message.Message;
 public class FollowupManager {
 	static final Logger logger = Logger.getLogger(FollowupManager.class);
 
-	 String followupSQL = "select id,"
-	 		+ "case"
-	 		+ " when (LevelOneEscalationDate < current_time() and STR_TO_DATE(LevelOneEscalationDate,'%H:%i')<CURTIME() "
-	 		+ " and CurrentEscalationLevel <= 1) then 'LevelOneEscalationDate'"
-	 		+ " when (LevelTwoEscalationDate < current_time() and STR_TO_DATE(LevelTwoEscalationTime,'%H:%i')<CURTIME() "
-	 		+ " and CurrentEscalationLevel = 2)  then 'LevelTwoEscalationDate'"
-	 		+ " when (LevelThreeEscalationDate < current_time() and STR_TO_DATE(LevelThreeEscalationTime ,'%H:%i')<CURTIME() "
-	 		+ "and CurrentEscalationLevel =3)then 'LevelThreeEscalationDate'"
-	 		+ "   else 'none'"
-	 		+ "end as escalationLevel , CurrentEscalationLevel from issueassignment"
-	 		+ " where enddate is  null and LevelFourEscalationDate!=4";
+	 String followupSQL ="  select gbfollowup.id, groupzbaseid,noofdays,roleid,followuptime,lastsenttime "
+			 			+"	from gbfollowup, builder where gbfollowup.id MOD %s= %s and "
+			 			+"	STR_TO_DATE(gbfollowup.followuptime,extract(hour from gbfollowup.FollowupTime) "
+			 			+"	and extract(minute from gbfollowup.FollowupTime))<CURTIME() "
+			 			+"	and gbfollowup.lastsenttime<CURDATE() and builder.id = gbfollowup.groupzbaseid ";
 
 	 /*String followupSQL = "select gbfollowup.id, groupzbaseid,noofdays,roleid,followuptime,lastsenttime "
 				+ " from gbfollowup, builder "
@@ -141,8 +135,8 @@ public class FollowupManager {
 			
 			 String poolSize=String.valueOf(followUpThread_POOL_SIZE);
 			 String threadid=String.valueOf(threadId);
-			 System.out.println(poolSize);
-			 System.out.println(threadid);
+		//	 System.out.println(poolSize);
+		//   System.out.println(threadid);
 	
 			String QueryString = String.format(followupSQL,poolSize,threadid);
 			System.out.println("Followup Sql:"+QueryString);

@@ -22,13 +22,16 @@ public class ServiceRequestManager {
 	
 	Collection<String> stringList = new ArrayList<String>();
 	String getServiceRequestsList="select id,"
-			+ "case "
-			+ "  when (LevelOneEscalationDate < current_time()  and CurrentEscalationLevel <= 1) then 'LevelOneEscalationDate'"
-			+ "  when (LevelTwoEscalationDate < current_time() and CurrentEscalationLevel = 2)  then 'LevelTwoEscalationDate'"
-			+ "  when (LevelThreeEscalationDate < current_time() and CurrentEscalationLevel = 3)then 'LevelThreeEscalationDate'"
-			
-			+ "else 'none'"			
-			+ "end as escalationLevel ,CurrentEscalationLevel from issueassignment ";
+	 		+ "case"
+	 		+ " when (LevelOneEscalationDate < current_time() and STR_TO_DATE(LevelOneEscalationDate,'%H:%i')<CURTIME() "
+	 		+ " and CurrentEscalationLevel <= 1) then 'LevelOneEscalationDate'"
+	 		+ " when (LevelTwoEscalationDate < current_time() and STR_TO_DATE(LevelTwoEscalationTime,'%H:%i')<CURTIME() "
+	 		+ " and CurrentEscalationLevel = 2)  then 'LevelTwoEscalationDate'"
+	 		+ " when (LevelThreeEscalationDate < current_time() and STR_TO_DATE(LevelThreeEscalationTime ,'%H:%i')<CURTIME() "
+	 		+ "and CurrentEscalationLevel =3)then 'LevelThreeEscalationDate'"
+	 		+ "   else 'none'"
+	 		+ "end as escalationLevel , CurrentEscalationLevel from issueassignment"
+	 		+ " where enddate is  null and LevelFourEscalationDate!=4";
 //select * from issueassignment where enddate is null and levelthreeescalationdate  < currenttime() and curesclevel < 3;		
 		
 		String updateServiceRequest="update issueassignment set CurrentEscalationLevel = %s , LastEscalationTime=CURTIME()"
