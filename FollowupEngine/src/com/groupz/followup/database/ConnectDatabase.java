@@ -15,6 +15,7 @@ import src.followupconfig.PropertiesUtil;
 import com.groupz.followup.manager.FollowupRefreshQueueExceute;
 import com.groupz.followup.threads.CacheUpdateThread;
 import com.groupz.followup.threads.FollowUpThread;
+import com.groupz.followup.threads.serviceRequestThread;
 
 public class ConnectDatabase {
 
@@ -76,14 +77,13 @@ public class ConnectDatabase {
 		}
 		final int contactFollowUpTimeout = Integer.parseInt(p.getProperty("contactfollowup_db_timeout"));
 		final int cacheUpdateTimeout = Integer.parseInt(p.getProperty("cachefollowup_db_timeout"));
+		final int serviceRequestTimeout = Integer.parseInt(p.getProperty("serviceRequest_db_timeout"));
 		System.out.println("followup alert started");
 		logger.info("followup alert started");
 		final Connection c = cd.establishConnection(p);
 
 		//followupthread
-	//	FollowUpThread followupthread = new FollowUpThread(c,contactFollowUpTimeout);
-	//	followupthread.startFollowUpThread(followupthread);
-		
+
 		int followUpThread_POOL_SIZE = Integer.parseInt(PropertiesUtil
 				.getProperty("FollowUpThread_POOL"));
 		ExecutorService followupthreadExecSvc = Executors
@@ -96,19 +96,28 @@ public class ConnectDatabase {
 		followupthreadExecSvc.shutdown();
 		
 		//cacheupdatethread
-	//	CacheUpdateThread cache = new CacheUpdateThread(c,cacheUpdateTimeout);
-
 		int cache_POOL_SIZE = Integer.parseInt(PropertiesUtil
 				.getProperty("CacheUpdateThread_POOL"));
 		ExecutorService cacheExecSvc = Executors
 				.newFixedThreadPool(cache_POOL_SIZE);
 		for (int threadId = 0; threadId < cache_POOL_SIZE; threadId++) {
 		
-		cacheExecSvc.execute(new CacheUpdateThread(cache_POOL_SIZE,threadId,c,cacheUpdateTimeout));
+			cacheExecSvc.execute(new CacheUpdateThread(cache_POOL_SIZE,threadId,c,cacheUpdateTimeout));
 
 		}
 		followupthreadExecSvc.shutdown();
 		
+		//service request thread
+		int serviceRequest_POOL_SIZE = Integer.parseInt(PropertiesUtil
+				.getProperty("serviceRequestThread_POOL"));
+		ExecutorService srExecSvc = Executors
+				.newFixedThreadPool(cache_POOL_SIZE);
+		for (int threadId = 0; threadId < serviceRequest_POOL_SIZE; threadId++) {
+		
+			cacheExecSvc.execute(new serviceRequestThread(serviceRequest_POOL_SIZE,threadId,c,serviceRequestTimeout));
+
+		}
+		followupthreadExecSvc.shutdown();
 		
 		// feeAggragation and headcount analytics 
 		int THREAD_POOL_SIZE = Integer.parseInt(PropertiesUtil
