@@ -44,7 +44,7 @@ public class FollowupManager {
 			String QueryString = String.format(contactsListSQL, days, baseid,
 					roleid);
 
-			System.out.println(QueryString);
+			logger.debug(QueryString);
 
 			ResultSet rs = stmt.executeQuery(QueryString);
 			while (rs.next()) {
@@ -83,7 +83,7 @@ public class FollowupManager {
 				m.setMemberId(ufmId);
 				theFinalList.add(m);
 				/*
-				 * System.out.println("Sending...." + memid + "  " + mob +
+				 * logger.debug("Sending...." + memid + "  " + mob +
 				 * "  -  " + email);
 				 */
 			}
@@ -104,7 +104,7 @@ public class FollowupManager {
 	}
 
 	private void sendEmailFollowup(int baseid, int days, String emailText) {
-		System.out.println(" Email sent : " + emailText);
+		logger.debug(" Email sent : " + emailText);
 	}
 
 	private void followupDone(Connection c, int id) {
@@ -135,11 +135,11 @@ public class FollowupManager {
 			
 			 String poolSize=String.valueOf(followUpThread_POOL_SIZE);
 			 String threadid=String.valueOf(threadId);
-		//	 System.out.println(poolSize);
-		//   System.out.println(threadid);
+		//	 logger.debug(poolSize);
+		//   logger.debug(threadid);
 	
 			String QueryString = String.format(followupSQL,poolSize,threadid);
-			System.out.println("Followup Sql:"+QueryString);
+			logger.debug("Followup Sql:"+QueryString);
 			ResultSet rs = stmt.executeQuery(QueryString);
 			while (rs.next()) {
 				int id = rs.getInt("gbfollowup.id");
@@ -151,17 +151,17 @@ public class FollowupManager {
 				//String userid = rs.getString("SmsProviderUserName");
 				//String password = rs.getString("SmsProviderPassword");
 
-				System.out.println("Sending.... FollowupId-->" + id + " For GroupzbaseId-->  " + gbid + "  and No.OfDays-->  "
+				logger.debug("Sending.... FollowupId-->" + id + " For GroupzbaseId-->  " + gbid + "  and No.OfDays-->  "
 						+ days);
 				List<Message> targetList = getTargetList(dbConnection, gbid,
 						days, roleid);
-				// System.out.println("Target List:"+targetList.size());
+				// logger.debug("Target List:"+targetList.size());
 				// if (smsText != null && smsText.trim().isEmpty() == false) {
 				if (targetList != null && targetList.size() > 0) {
 					for (Message msg : targetList) {
 						// msg.sendMessage(dbConnection, providercode, userid,
 						// password, smsText, null) ;
-						System.out.println("Follow up id:" + id
+						logger.debug("Follow up id:" + id
 								+ " and gpzCode:" + msg.getGroupzCode()
 								+ " and memId:" + msg.getMemberId());
 						boolean followUpStatus = msg.sendFollowupinURL(id,

@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import com.groupz.followup.database.ConnectDatabase;
+
 
 
 public class ServiceRequestManager {
@@ -18,6 +22,7 @@ public class ServiceRequestManager {
 		
 	}
 	
+	static final Logger logger = Logger.getLogger(ServiceRequestManager.class);
 	
 	
 	Collection<String> stringList = new ArrayList<String>();
@@ -58,7 +63,7 @@ public class ServiceRequestManager {
 			updateEscalationsQuery =updateToLevelFourEscalations;
 			res = stmt.executeUpdate(updateEscalationsQuery);
 			
-			System.out.println("getServiceRequestsList Sql:"+res);
+			logger.debug("getServiceRequestsList Sql:"+res);
 			
 			
 		

@@ -78,14 +78,16 @@ public class ConnectDatabase {
 		final int contactFollowUpTimeout = Integer.parseInt(p.getProperty("contactfollowup_db_timeout"));
 		final int cacheUpdateTimeout = Integer.parseInt(p.getProperty("cachefollowup_db_timeout"));
 		final int serviceRequestTimeout = Integer.parseInt(p.getProperty("serviceRequest_db_timeout"));
-		System.out.println("followup alert started");
+		final int THREAD_POOL_SIZE = Integer.parseInt(PropertiesUtil.getProperty("THREAD_POOL"));
+		final int cache_POOL_SIZE = Integer.parseInt(PropertiesUtil.getProperty("CacheUpdateThread_POOL"));
+		final int followUpThread_POOL_SIZE = Integer.parseInt(PropertiesUtil.getProperty("FollowUpThread_POOL"));
+		logger.debug("followup alert started");
 		logger.info("followup alert started");
 		final Connection c = cd.establishConnection(p);
 
 		//followupthread
 
-		int followUpThread_POOL_SIZE = Integer.parseInt(PropertiesUtil
-				.getProperty("FollowUpThread_POOL"));
+		
 		ExecutorService followupthreadExecSvc = Executors
 				.newFixedThreadPool(followUpThread_POOL_SIZE);
 		for (int threadId = 0; threadId < followUpThread_POOL_SIZE; threadId++) {
@@ -96,8 +98,7 @@ public class ConnectDatabase {
 		followupthreadExecSvc.shutdown();
 		
 		//cacheupdatethread
-		int cache_POOL_SIZE = Integer.parseInt(PropertiesUtil
-				.getProperty("CacheUpdateThread_POOL"));
+		
 		ExecutorService cacheExecSvc = Executors
 				.newFixedThreadPool(cache_POOL_SIZE);
 		for (int threadId = 0; threadId < cache_POOL_SIZE; threadId++) {
@@ -108,8 +109,7 @@ public class ConnectDatabase {
 		followupthreadExecSvc.shutdown();
 		
 		//service request thread
-		int serviceRequest_POOL_SIZE = Integer.parseInt(PropertiesUtil
-				.getProperty("serviceRequestThread_POOL"));
+		
 	
 		
 		serviceRequestThread sr = new serviceRequestThread(c,serviceRequestTimeout);
@@ -117,8 +117,7 @@ public class ConnectDatabase {
 		
 		
 		// feeAggragation and headcount analytics 
-		int THREAD_POOL_SIZE = Integer.parseInt(PropertiesUtil
-				.getProperty("THREAD_POOL"));
+		
 		ExecutorService refreshQueueExecSvc = Executors
 				.newFixedThreadPool(THREAD_POOL_SIZE);
 		for (int i = 0; i < THREAD_POOL_SIZE; i++) {

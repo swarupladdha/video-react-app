@@ -38,7 +38,7 @@ public class CacheManager {
 		try {
 			String updateSQL = String.format(updateCacheTableSQL,updatedId,
 					updatedTime);
-			System.out.println("Update cache time sql:" + updateSQL);
+			logger.debug("Update cache time sql:" + updateSQL);
 			stmt = c.createStatement();
 			stmt.executeUpdate(updateSQL);
 			stmt.close();
@@ -61,7 +61,7 @@ public class CacheManager {
 			stmt = dbConnection.createStatement();
 
 			String QueryString = String.format(cacheTableSQL,cachePoolSize,threadId);
-			System.out.println("Cache Update Sql:" + QueryString);
+			logger.debug("Cache Update Sql:" + QueryString);
 			ResultSet rs = stmt.executeQuery(QueryString);	
 			String cacheUpdateTime="";String cacheUpdatedId="";
 			if (rs.next()) {
@@ -71,12 +71,12 @@ public class CacheManager {
 				cacheUpdateTime = "0000-00-00 00:00:00";
 				cacheUpdatedId = "-1";
 			}
-				System.out.println("Checking.... lastupdateddate-->"
+				logger.debug("Checking.... lastupdateddate-->"
 						+ cacheUpdateTime);
 				/*String cacheListSQL = String.format(heartBeatListSQL,
 						cacheUpdateTime,cacheUpdatedId,cacheUpdateTime,cacheUpdatedId);*/
 				String cacheListSQL = String.format(heartBeatListSQL,cacheUpdateTime);
-				System.out.println("Cache update list sql:" + cacheListSQL);
+				logger.debug("Cache update list sql:" + cacheListSQL);
 				ResultSet cacheUpdateSet = stmt.executeQuery(cacheListSQL);
 				JSONArray dataArray = new JSONArray();
 				String lastUpdatedDate="";String lastUpdatedId="";
@@ -87,7 +87,7 @@ public class CacheManager {
 					String moduleType = cacheUpdateSet.getString("MODULETYPE");
 					String updatedDate = cacheUpdateSet
 							.getString("UPDATEDDATE");
-					System.out.println("Groupz Id:" + groupzId
+					logger.debug("Groupz Id:" + groupzId
 							+ " and groupz code:" + groupzCode
 							+ " and module type:" + moduleType
 							+ " and updateddate:" + updatedDate);
@@ -104,8 +104,8 @@ public class CacheManager {
 						(lastUpdatedDate!=null && lastUpdatedDate.length()>0 && lastUpdatedDate.equalsIgnoreCase("")==false)){
 				updateCacheTime(dbConnection,lastUpdatedId,lastUpdatedDate);
 				boolean cacheStatus = sendCacheupdate(dataArray);
-				System.out.println("Cache DB  status through URL:"+cacheStatus);
-				logger.debug("Cache DB  status through URL:" + cacheStatus);	
+				logger.debug("Cache DB  status through URL:"+cacheStatus);
+				
 				}
 			stmt.close();
 		} catch (Exception e) {
@@ -148,7 +148,7 @@ public class CacheManager {
 			dataObj.put("LastUpdatedDate", updatedDate);*/
 			reqObj.put("request", dataObj);
 			jsonObj.put("json", reqObj);
-			System.out.println("Final JSON:" + jsonObj.toString());
+			logger.debug("Final JSON:" + jsonObj.toString());
 			String cacheDBURL = p.getProperty("cachefollowup_URL")
 					+ URLEncoder.encode(jsonObj.toString());
 			logger.debug("Cache DB URL:" + cacheDBURL);
@@ -161,7 +161,7 @@ public class CacheManager {
 				try {
 					JSONObject respJSON = JSONObject
 							.fromObject(cacheDBResponse);
-					System.out.println("Response JSON:" + respJSON.toString());
+					logger.debug("Response JSON:" + respJSON.toString());
 					logger.debug("Status code:"
 							+ respJSON.getJSONObject("json")
 									.getJSONObject("response")
@@ -190,7 +190,7 @@ public class CacheManager {
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		f.setTimeZone(TimeZone.getTimeZone("UTC"));
 		String utcTime = f.format(new Date());
-		// System.out.println("String date:"+utcTime);
+		// logger.debug("String date:"+utcTime);
 		Date lastSynch = StringDateToDate(utcTime);
 		String lastSynchTime = getFormattedDateStr(lastSynch);
 		return lastSynchTime.trim();
