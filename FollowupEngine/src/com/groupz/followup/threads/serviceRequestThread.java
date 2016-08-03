@@ -17,25 +17,26 @@ public class serviceRequestThread implements Runnable {
 	ServiceRequestManager srm = new ServiceRequestManager();
 	static final Logger logger = Logger.getLogger(serviceRequestThread.class);
 	
-	public serviceRequestThread() {
+	public serviceRequestThread( Connection connection, int serviceRequestTimeout) {
 		// TODO Auto-generated constructor stub
-		
+		this.connection=connection;
+		this.serviceRequestTimeout=serviceRequestTimeout;
 	}
-	public serviceRequestThread(int sRPoolSize, int threadId, Connection connection, int serviceRequestTimeout) {
+/*	public serviceRequestThread(int sRPoolSize, int threadId, Connection connection, int serviceRequestTimeout) {
 		this.threadId=threadId;
 		this.connection=connection;
 		this.serviceRequestTimeout=serviceRequestTimeout;
 		this.sRPoolSize=sRPoolSize;
-		}
+		}*/
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		while (true) {
 			System.out
-					.println("Service Request thread started every 2 mins :"
-							+ new Date());
+					.println("Service Request thread started every half second :"
+							+ new Date()+connection);
 			logger.debug("Service Request runs every 2 mins ");
-			srm.run(this.connection,this.sRPoolSize,this.threadId);
+			srm.run(this.connection);
 			try {
 				Thread.sleep(serviceRequestTimeout);
 			} catch (InterruptedException e) {
@@ -46,4 +47,10 @@ public class serviceRequestThread implements Runnable {
 
 	}
 
+	public void startFollowUpThread(serviceRequestThread sr) {
+		Thread srThread = new Thread(sr);
+		
+		srThread.start();
+	
+	}
 }

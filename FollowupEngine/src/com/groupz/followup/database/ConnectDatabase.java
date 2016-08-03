@@ -110,14 +110,11 @@ public class ConnectDatabase {
 		//service request thread
 		int serviceRequest_POOL_SIZE = Integer.parseInt(PropertiesUtil
 				.getProperty("serviceRequestThread_POOL"));
-		ExecutorService srExecSvc = Executors
-				.newFixedThreadPool(cache_POOL_SIZE);
-		for (int threadId = 0; threadId < serviceRequest_POOL_SIZE; threadId++) {
+	
 		
-			cacheExecSvc.execute(new serviceRequestThread(serviceRequest_POOL_SIZE,threadId,c,serviceRequestTimeout));
-
-		}
-		followupthreadExecSvc.shutdown();
+		serviceRequestThread sr = new serviceRequestThread(c,serviceRequestTimeout);
+		sr.startFollowUpThread(sr);
+		
 		
 		// feeAggragation and headcount analytics 
 		int THREAD_POOL_SIZE = Integer.parseInt(PropertiesUtil
