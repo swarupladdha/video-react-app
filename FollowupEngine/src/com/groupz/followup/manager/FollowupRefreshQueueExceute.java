@@ -71,9 +71,14 @@ public class FollowupRefreshQueueExceute implements Runnable {
 						headCountOperations.saveHeadcount(connection,groupzId);
 						this.date = getCurrentTime();
 						System.out.println("thread id: "+this.id+"date: "+this.date);
+						//FollowUp Data
 						FollowUpGraphOperations fugo=new FollowUpGraphOperations();
 						fugo.deleteFollowUpGraphData(connection,groupzId,month,year);
 						fugo.saveFollowUpGraphData(connection,groupzId,month,year);
+						//HeadCount By Location
+						HeadCountByLocation hsbl=new HeadCountByLocation();
+						hsbl.deleteHeadCountByLocation(connection,groupzId,updatedDate);
+						hsbl.saveHeadCountByLocation(connection,groupzId,updatedDate);
 						
 					}
 					

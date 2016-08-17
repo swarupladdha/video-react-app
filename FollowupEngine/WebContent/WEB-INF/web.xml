@@ -30,4 +30,6 @@
     <servlet-name>ValidateOTP</servlet-name>
     <url-pattern>/ValidateOTP</url-pattern>
   </servlet-mapping>
+  
+  
 </web-app>
