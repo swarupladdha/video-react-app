@@ -36,9 +36,9 @@ public class HeadCountByLocation {
 
 	String headCountValueQuery = "select count( userflatmapping.id) from userflatmapping,flat,roledefinition,user"
 			+ " where userflatmapping.userid=user.id and userflatmapping.flatid=flat.id and userflatmapping.roleid=roledefinition.id"
-			+ " and flat.apartmentid=roledefinition.societyid and flat.apartmentid= '%s'"
-			+ " and  user.enabled=true and userflatmapping.enabled=true and flat.contact= '%s'"
-			+ " and roledefinition.id= '%s'"
+			+ " and flat.apartmentid=roledefinition.societyid and flat.apartmentid= %s"
+			+ " and  user.enabled=true and userflatmapping.enabled=true and flat.contact= %s"
+			+ " and roledefinition.id= %s"
 			+ " and flat.block_streetdetails= '%s'"
 			+ " and flat.subdivision= '%s'";
 	
@@ -122,11 +122,13 @@ public class HeadCountByLocation {
 
 							String RoleId = getRoleListSet.getString("ID");
 							String RoleName = getRoleListSet.getString("RoleName");
+							String grpId=getRoleListSet.getString("SocietyId");
+							int grpId1=Integer.parseInt(grpId);
 
 							JSONObject roleInfoJSON = JSONObject.fromObject(getRoleListSet.getString("roleInformation"));
 							int maxCount = getTargetCount(roleInfoJSON, div,subDiv);
-							int userCount = getHeadCountValue(groupzId, RoleId, div, subDiv, false, connection);
-							int contactCount = getHeadCountValue(groupzId, RoleId, div, subDiv, true, connection);
+							int userCount = getHeadCountValue(grpId1, RoleId, div, subDiv, false, connection);
+							int contactCount = getHeadCountValue(grpId1, RoleId, div, subDiv, true, connection);
 							// System.out.println("----->"+userCount+""+contactCount);
 							if (userCount != -1) {
 								userCount = userCount;
