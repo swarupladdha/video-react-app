@@ -16,6 +16,8 @@ import net.sf.json.JSONObject;
 public class HeadCountOperations {
 	private JSONObject jsonDivisionObject = new JSONObject();
 	private ResultSet selectedRole = null;
+	
+	 String getApartmentById="select * from apartment where id = %s";
 
 	 String deleteHeadCountQuery = "delete from headcount where GroupzId = %s ";
 
@@ -26,9 +28,9 @@ public class HeadCountOperations {
 
 	 String headCountValueQuery = "select count( userflatmapping.id) from userflatmapping,flat,roledefinition,user"
 			+ " where userflatmapping.userid=user.id and userflatmapping.flatid=flat.id and userflatmapping.roleid=roledefinition.id"
-			+ " and flat.apartmentid=roledefinition.societyid and flat.apartmentid= '%s'"
-			+ " and  user.enabled=true and userflatmapping.enabled=true and flat.contact= '%s'"
-			+ " and roledefinition.id= '%s'"
+			+ " and flat.apartmentid=roledefinition.societyid and flat.apartmentid= %s"
+			+ " and  user.enabled=true and userflatmapping.enabled=true and flat.contact= %s"
+			+ " and roledefinition.id= %s"
 			+ " and flat.block_streetdetails= '%s'"
 			+ " and flat.subdivision= '%s'";
 
@@ -56,55 +58,61 @@ public class HeadCountOperations {
 
 	public void saveHeadcount(Connection connection, int groupzId) {
 		Statement stmt = null;
+		
 		try {
 			stmt = connection.createStatement();
 			String getRoleListQuery = String.format(getRoleList, groupzId);
 			ResultSet getRoleListSet = stmt.executeQuery(getRoleListQuery);
+			System.out.println(getRoleListSet);
+			stmt = connection.createStatement();
+			String getapt = String.format(getApartmentById, groupzId);
+			ResultSet apt = stmt.executeQuery(getapt);
 			
-			System.out.println("Inside saveHeadcount() of HeadCountOperations inserting from head count...");
-			while (getRoleListSet.next()) {
-				getRoleInfo(getRoleListSet);
+			
+			if (apt != null) {
+				
+				while(getRoleListSet.next()) {
+					getRoleInfo(getRoleListSet);
+					 
+					List<String> divList = getdivisionlist();
+					if (divList != null && divList.size() > 0) {
+						for (String div : divList) {
+							List<String> subDivList = getSubivisionList(div);
+							for (String subDiv : subDivList) {
+								String RoleId = getRoleListSet.getString("ID");
+								String RoleName = getRoleListSet.getString("RoleName");
+								String grpId=getRoleListSet.getString("SocietyId");
+								int grpId1=Integer.parseInt(grpId);
+								
+								JSONObject roleInfoJSON = JSONObject.fromObject(getRoleListSet.getString("roleInformation"));
+								System.out.println("roleInfoJSON"+roleInfoJSON);
+								int maxCount = getTargetCount(roleInfoJSON, div,subDiv);
+								int userCount = getHeadCountValue(grpId1, RoleId, div, subDiv, false, connection);
+								int contactCount = getHeadCountValue(grpId1, RoleId, div, subDiv, true, connection);
+								// System.out.println("----->"+userCount+""+contactCount);
+								if (userCount != -1) {
+									userCount = userCount;
+									// System.out.println("usercount"+userCount);
+								}
+								if (contactCount != -1) {
+									contactCount = contactCount;
+									// System.out.println("contactCount"+contactCount);
+								}
 
-				List<String> divList = getdivisionlist();
-				// System.out.println(divList);
-				if (divList != null && divList.size() > 0) {
-					for (String div : divList) {
-						List<String> subDivList = getSubivisionList(div);
-						for (String subDiv : subDivList) {
-
-						//	String GroupzId = getRoleListSet.getString(groupzId);
-
-							String RoleId = getRoleListSet.getString("ID");
-							String RoleName = getRoleListSet.getString("RoleName");
-
-							JSONObject roleInfoJSON = JSONObject.fromObject(getRoleListSet.getString("roleInformation"));
-							int maxCount = getTargetCount(roleInfoJSON, div,subDiv);
-							int userCount = getHeadCountValue(groupzId, RoleId, div, subDiv, false, connection);
-							int contactCount = getHeadCountValue(groupzId, RoleId, div, subDiv, true, connection);
-							// System.out.println("----->"+userCount+""+contactCount);
-							if (userCount != -1) {
-								userCount = userCount;
-								// System.out.println("usercount"+userCount);
+								stmt = connection.createStatement();
+								String getsaveHeadCountQuery = String.format(saveHeadCountQuery, contactCount, div, grpId,
+										maxCount, RoleId, RoleName,subDiv, userCount);
+			
+								System.out.println(getsaveHeadCountQuery);
+								boolean saveHeadCountSet = stmt.execute(getsaveHeadCountQuery);
+													
+								// System.out.println(saveHeadCountSet);
 							}
-							if (contactCount != -1) {
-								contactCount = contactCount;
-								// System.out.println("contactCount"+contactCount);
-							}
-
-							stmt = connection.createStatement();
-							String getsaveHeadCountQuery = String.format(saveHeadCountQuery, contactCount, div, groupzId,
-									maxCount, RoleId, RoleName,subDiv, userCount);
-		
-							System.out.println(getsaveHeadCountQuery);
-							boolean saveHeadCountSet = stmt.execute(getsaveHeadCountQuery);
-												
-							// System.out.println(saveHeadCountSet);
 						}
 					}
+
 				}
-			}	
-			ConnectionUtils.close(stmt);
-			System.out.println("Inside saveHeadcount() of HeadCountOperations inserted into head count...");
+			}
 		} catch (SQLException e) {
 			ConnectionUtils.close(stmt);
 			// TODO Auto-generated catch block
@@ -120,10 +128,11 @@ public class HeadCountOperations {
 		int getHeadCountValue = 0;
 		String getRoleListQuery = String.format(headCountValueQuery, groupzId, b, roleId, div, subDiv);
 		ResultSet headCountValueSet = stmt.executeQuery(getRoleListQuery);
+		System.out.println(getRoleListQuery);
 		if (headCountValueSet.first())			
 		{
 			getHeadCountValue = headCountValueSet.getInt(1);
-			// System.out.println("=====>"+headCountValueSet.getInt(1));
+			System.out.println("=====>"+headCountValueSet.getInt(1));
 		}
 		ConnectionUtils.close(stmt);
 		return getHeadCountValue;
