@@ -22,17 +22,17 @@ public class HeadCountByLocation {
 	
 	String deleteHeadCount="delete from headcount_by_location where GroupzId = %s"; 
 	
-	String saveHeadCount="insert  into headcount_by_location (GroupzId,UserCount,ContactCount,groupzbasekey,"
-			+ "location_id,RoleId,month,Division,subdiv)"
-			+ "	  values (%s,%s,%s,'%s',%s,%s,'%s','%s','%s')" ;
+	String saveHeadCount="insert  into headcount_by_location (GroupzId,UserCount,ContactCount,groupzbaseid,"
+			+ "location_id,RoleId,Division,subdiv)"
+			+ "	  values (%s,%s,%s,'%s',%s,%s,'%s','%s')" ;
 	
 	String getHeadCount="select * from headcount where groupzId=%s";
 	
 	String getRoleList = "select * from roledefinition where GBROLEID IS NOT NULL and SocietyId=%s";
 	
-	String getLocationId="select id  from apartment_regions_table where groupzId= %s ";
+	String getLocationId="select LocationId  from apartment where id= %s ";
 	
-	String getGroupzBaseUniqueKey="select GroupzBaseUniqueKey from builder where id = (select Builderid from apartment where id = %s)";
+	String getgroupzBaseId="select id from builder where id = (select Builderid from apartment where id = %s)";
 
 	String headCountValueQuery = "select count( userflatmapping.id) from userflatmapping,flat,roledefinition,user"
 			+ " where userflatmapping.userid=user.id and userflatmapping.flatid=flat.id and userflatmapping.roleid=roledefinition.id"
@@ -73,13 +73,13 @@ public class HeadCountByLocation {
 		Statement stmt = null;
 		HeadCountOperations hco = new HeadCountOperations();
 		String builderId ="";
-		String groupzBaseUniqueKey ="";
+		int groupzBaseId = 0 ;
 		String country ="";
 		String state ="";
 		String city ="";
 		String latitude ="";
 		String longitude ="";
-		String locationId="";
+		int locationId=0;
 		
 		try {
 
@@ -87,7 +87,7 @@ public class HeadCountByLocation {
 			stmt = connection.createStatement();
 			ResultSet result = stmt.executeQuery(locIdQuery);
 			while (result.next()) {
-				locationId = result.getString("Id");
+				locationId = result.getInt("LocationId");
 				System.out.println("locationId"+locationId);
 			}
 			String getHeadCountList = String.format(getHeadCount,groupzId);
@@ -97,12 +97,12 @@ public class HeadCountByLocation {
 			String getRoleListQuery = String.format(getRoleList, groupzId);
 			ResultSet getRoleListSet = stmt.executeQuery(getRoleListQuery);
 			
-			String builderQuery = String.format(getGroupzBaseUniqueKey,groupzId);
+			String builderQuery = String.format(getgroupzBaseId,groupzId);
 			stmt = connection.createStatement();
 			ResultSet res = stmt.executeQuery(builderQuery);
 			while (res.next()) {
-				groupzBaseUniqueKey = res.getString("GroupzBaseUniqueKey");
-				System.out.println("groupzBaseUniqueKey"+groupzBaseUniqueKey);
+				groupzBaseId = res.getInt("id");
+				System.out.println("groupzBaseId"+groupzBaseId);
 			}
 			
 			
@@ -140,8 +140,8 @@ public class HeadCountByLocation {
 							}
 
 							stmt = connection.createStatement();
-							String getsaveHeadCountQuery = String.format(saveHeadCount,groupzId,userCount, contactCount, groupzBaseUniqueKey,
-									locationId, RoleId, month,div,subDiv);
+							String getsaveHeadCountQuery = String.format(saveHeadCount,groupzId,userCount, contactCount, groupzBaseId,
+									locationId, RoleId, div,subDiv);
 		
 							System.out.println(getsaveHeadCountQuery);
 							boolean saveHeadCountSet = stmt.execute(getsaveHeadCountQuery);
