@@ -120,7 +120,8 @@ public class HeadCountByLocation {
 
 						//	String GroupzId = getRoleListSet.getString(groupzId);
 
-							String RoleId = getRoleListSet.getString("gbroleid");
+							String gbroleid = getRoleListSet.getString("gbroleid");
+							String RoleId = getRoleListSet.getString("Id");
 							String RoleName = getRoleListSet.getString("RoleName");
 							String grpId=getRoleListSet.getString("SocietyId");
 							int grpId1=Integer.parseInt(grpId);
@@ -141,7 +142,7 @@ public class HeadCountByLocation {
 
 							stmt = connection.createStatement();
 							String getsaveHeadCountQuery = String.format(saveHeadCount,groupzId,userCount, contactCount, groupzBaseId,
-									locationId, RoleId, div,subDiv);
+									locationId, gbroleid, div,subDiv);
 		
 							System.out.println(getsaveHeadCountQuery);
 							boolean saveHeadCountSet = stmt.execute(getsaveHeadCountQuery);
