@@ -120,7 +120,7 @@ public class HeadCountByLocation {
 
 						//	String GroupzId = getRoleListSet.getString(groupzId);
 
-							String RoleId = getRoleListSet.getString("ID");
+							String RoleId = getRoleListSet.getString("gbroleid");
 							String RoleName = getRoleListSet.getString("RoleName");
 							String grpId=getRoleListSet.getString("SocietyId");
 							int grpId1=Integer.parseInt(grpId);

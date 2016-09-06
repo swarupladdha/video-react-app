@@ -92,6 +92,15 @@ public class FollowupRefreshQueueExceute implements Runnable {
 						this.date = getCurrentTime();
 						System.out.println("thread id: "+this.id+"date: "+this.date);
 						}
+					if (moduleType.equals("DUES")) {
+						System.out.println("new "+moduleType+" request received for groupid: "+groupzId);
+						/*						
+						FeeAggregationOperations feeAggregation=new FeeAggregationOperations();
+						feeAggregation.deleteFeeAgg(connection,year,month,groupzId);
+						feeAggregation.saveFeeAgg(connection,year,month, groupzId);			
+						this.date = getCurrentTime();
+						System.out.println("thread id: "+this.id+"date: "+this.date);*/
+						}
 
 					}
 				ConnectionUtils.close(stmt);
