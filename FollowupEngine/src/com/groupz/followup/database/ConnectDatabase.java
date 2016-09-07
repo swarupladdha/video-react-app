@@ -127,15 +127,6 @@ public class ConnectDatabase {
 		refreshQueueExecSvc.shutdown();
 
 		
-		//  and  analytics 
-		
-				ExecutorService refreshQueueDues = Executors
-						.newFixedThreadPool(THREAD_POOL_SIZE);
-				for (int i = 0; i < THREAD_POOL_SIZE; i++) {
-					refreshQueueDues.execute(new FollowupRefreshQueueExceute(i, c));
-					
-				}
-				refreshQueueDues.shutdown();
 
 		
 	}

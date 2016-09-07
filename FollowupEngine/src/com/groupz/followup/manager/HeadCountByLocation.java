@@ -26,7 +26,7 @@ public class HeadCountByLocation {
 			+ "location_id,RoleId,Division,subdiv)"
 			+ "	  values (%s,%s,%s,'%s',%s,%s,'%s','%s')" ;
 	
-	String getHeadCount="select * from headcount where groupzId=%s";
+//	String getHeadCount="select * from headcount where groupzId=%s";
 	
 	String getRoleList = "select * from roledefinition where GBROLEID IS NOT NULL and SocietyId=%s";
 	
@@ -72,13 +72,9 @@ public class HeadCountByLocation {
 			String month) {
 		Statement stmt = null;
 		HeadCountOperations hco = new HeadCountOperations();
-		String builderId ="";
+		
 		int groupzBaseId = 0 ;
-		String country ="";
-		String state ="";
-		String city ="";
-		String latitude ="";
-		String longitude ="";
+	
 		int locationId=0;
 		
 		try {
@@ -90,10 +86,10 @@ public class HeadCountByLocation {
 				locationId = result.getInt("LocationId");
 				System.out.println("locationId"+locationId);
 			}
-			String getHeadCountList = String.format(getHeadCount,groupzId);
+		/*	String getHeadCountList = String.format(getHeadCount,groupzId);
 			stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(getHeadCountList);
-			stmt = connection.createStatement();
+			stmt = connection.createStatement();*/
 			String getRoleListQuery = String.format(getRoleList, groupzId);
 			ResultSet getRoleListSet = stmt.executeQuery(getRoleListQuery);
 			
@@ -112,7 +108,8 @@ public class HeadCountByLocation {
 				getRoleInfo(getRoleListSet);
 
 				List<String> divList = getdivisionlist();
-				// System.out.println(divList);
+				System.out.println("====================================================================");
+				System.out.println(divList);
 				if (divList != null && divList.size() > 0) {
 					for (String div : divList) {
 						List<String> subDivList = getSubivisionList(div);
@@ -143,7 +140,7 @@ public class HeadCountByLocation {
 							stmt = connection.createStatement();
 							String getsaveHeadCountQuery = String.format(saveHeadCount,groupzId,userCount, contactCount, groupzBaseId,
 									locationId, gbroleid, div,subDiv);
-		
+							System.out.println("***");
 							System.out.println(getsaveHeadCountQuery);
 							boolean saveHeadCountSet = stmt.execute(getsaveHeadCountQuery);
 												
