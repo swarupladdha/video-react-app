@@ -39,12 +39,12 @@ public class HeadCountOperations {
 		try {
 			stmt= connection.createStatement();
 			System.out.println(" Inside deleteHeadCount() of HeadCountOperations deleting from head count");
-			String deleteFeeAggQuery = String.format(deleteHeadCountQuery,
+			String deleteHeadCount = String.format(deleteHeadCountQuery,
 					groupzId);
 			System.out.println("Inside deleteHeadCount() of HeadCountOperations deleted from head count");
 			//System.out.println(deleteFeeAggQuery);
-			boolean deletedFeeAggSet = stmt.execute(deleteFeeAggQuery);
-			if (deletedFeeAggSet) {
+			boolean deletedHeadCount = stmt.execute(deleteHeadCount);
+			if (deletedHeadCount) {
 				// System.out.println("deleted");
 			}
 			ConnectionUtils.close(stmt);
