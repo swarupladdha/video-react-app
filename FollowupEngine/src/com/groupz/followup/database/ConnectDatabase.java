@@ -12,7 +12,8 @@ import org.apache.log4j.Logger;
 
 import src.followupconfig.PropertiesUtil;
 
-import com.groupz.followup.manager.FollowupRefreshQueueExceute;
+import com.groupz.followup.manager.AggregationThread;
+
 import com.groupz.followup.threads.CacheUpdateThread;
 import com.groupz.followup.threads.FollowUpThread;
 import com.groupz.followup.threads.serviceRequestThread;
@@ -83,7 +84,11 @@ public class ConnectDatabase {
 		final int followUpThread_POOL_SIZE = Integer.parseInt(PropertiesUtil.getProperty("FollowUpThread_POOL"));
 		logger.debug("followup alert started");
 		logger.info("followup alert started");
-		final Connection c = cd.establishConnection(p);
+		final Connection c1 = cd.establishConnection(p);
+		final Connection c2 = cd.establishConnection(p);
+		final Connection c3 = cd.establishConnection(p);
+		final Connection c4 = cd.establishConnection(p);
+		final Connection c5 = cd.establishConnection(p);
 
 		//followupthread
 
@@ -92,7 +97,7 @@ public class ConnectDatabase {
 				.newFixedThreadPool(followUpThread_POOL_SIZE);
 		for (int threadId = 0; threadId < followUpThread_POOL_SIZE; threadId++) {
 		
-			followupthreadExecSvc.execute(new FollowUpThread(followUpThread_POOL_SIZE,threadId,c,contactFollowUpTimeout));
+			followupthreadExecSvc.execute(new FollowUpThread(followUpThread_POOL_SIZE,threadId,c1,contactFollowUpTimeout));
 
 		}
 		followupthreadExecSvc.shutdown();
@@ -103,7 +108,7 @@ public class ConnectDatabase {
 				.newFixedThreadPool(cache_POOL_SIZE);
 		for (int threadId = 0; threadId < cache_POOL_SIZE; threadId++) {
 		
-		 	cacheExecSvc.execute(new CacheUpdateThread(cache_POOL_SIZE,threadId,c,cacheUpdateTimeout));
+		 	cacheExecSvc.execute(new CacheUpdateThread(cache_POOL_SIZE,threadId,c2,cacheUpdateTimeout));
 
 		}
 		followupthreadExecSvc.shutdown();
@@ -112,7 +117,7 @@ public class ConnectDatabase {
 		
 	
 		
-		serviceRequestThread sr = new serviceRequestThread(c,serviceRequestTimeout);
+		serviceRequestThread sr = new serviceRequestThread(c3,serviceRequestTimeout);
 		sr.startFollowUpThread(sr);
 		
 		
@@ -121,12 +126,10 @@ public class ConnectDatabase {
 		ExecutorService refreshQueueExecSvc = Executors
 				.newFixedThreadPool(THREAD_POOL_SIZE);
 		for (int i = 0; i < THREAD_POOL_SIZE; i++) {
-			refreshQueueExecSvc.execute(new FollowupRefreshQueueExceute(i, c));
+			refreshQueueExecSvc.execute(new AggregationThread(i, c4));
 			
 		}
 		refreshQueueExecSvc.shutdown();
-
-		
 
 		
 	}

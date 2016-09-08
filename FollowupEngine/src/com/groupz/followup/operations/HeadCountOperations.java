@@ -230,7 +230,11 @@ public class HeadCountOperations {
 					// System.out.println(" SUBDIV ARRAY IS NULL ");
 					subDivList = new ArrayList<String>();
 				}
-
+				for (int i = 0; i < subDivList.size(); i++) {
+					System.out.println("----------------subdiv---------------------");
+					System.out.print(subDivList.get(i));
+					System.out.println("----------------subdiv---------------------");
+				}
 			} catch (Exception e) {
 				// System.out.println(" ERROR IN SUBDIVLIST ROLEINFOMANAGER ");
 			}
@@ -243,6 +247,7 @@ public class HeadCountOperations {
 			 * .getAvailableSubDivisions(); } }
 			 */
 			subDivList = new ArrayList<String>();
+			
 		}
 
 		return subDivList;
@@ -264,6 +269,12 @@ public class HeadCountOperations {
 			 * .getAvailableBlockStreets(); } }
 			 */
 			divList = new ArrayList<String>();
+			
+		}
+		for (int i = 0; i < divList.size(); i++) {
+			System.out.println("----------------div---------------------");
+			System.out.print(divList.get(i));
+			System.out.println("----------------div---------------------");
 		}
 		return divList;
 		// TODO Auto-generated method stub

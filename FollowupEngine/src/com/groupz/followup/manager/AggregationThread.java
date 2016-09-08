@@ -18,13 +18,13 @@ import com.groupz.followup.utils.FollowUpUtils;
 
 import src.followupconfig.PropertiesUtil;
 
-public class FollowupRefreshQueueExceute implements Runnable {
+public class AggregationThread implements Runnable {
 	private int id = 0;
 	private Connection connection = null;
 	static final Logger logger = Logger
-			.getLogger(FollowupRefreshQueueExceute.class);
+			.getLogger(AggregationThread.class);
 
-	public FollowupRefreshQueueExceute(int id, Connection c) {
+	public AggregationThread(int id, Connection c) {
 		this.id = id;
 		this.connection = c;
 
