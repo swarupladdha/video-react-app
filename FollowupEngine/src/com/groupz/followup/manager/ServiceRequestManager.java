@@ -1,16 +1,16 @@
 package com.groupz.followup.manager;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 
-import com.groupz.followup.database.ConnectDatabase;
+import com.groupz.followup.utils.ConnectionUtils;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 
 
@@ -43,13 +43,12 @@ public class ServiceRequestManager {
 			+" where enddate is null and CurrentEscalationLevel =0 and  STR_TO_DATE(LevelOneEscalationTime,'%H:%i')< current_time() "
 			+" and LevelOneEscalationDate< current_time()";
 	
-	public void run(Connection connection) {
+	public void startServiceAggregation(Connection connection) {
 		// TODO Auto-generated method stub
 		Statement stmt=null;
-	
 		try {
+		System.out.println("Service Request thread started every  1 min :"	+ new Date());
 		stmt = connection.createStatement();
-		
 		int res =0;
 			String updateEscalationsQuery =updateToLevelOneEscalations;
 			res = stmt.executeUpdate(updateEscalationsQuery);
@@ -64,25 +63,11 @@ public class ServiceRequestManager {
 			res = stmt.executeUpdate(updateEscalationsQuery);
 			
 			logger.debug("getServiceRequestsList Sql:"+res);
-			
-			
-		
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			if(stmt!=null){
-				try {
-					stmt.close();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
 		}
-			
-			   
-			
-		 
+		
 	}
 	
 

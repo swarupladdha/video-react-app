@@ -21,77 +21,58 @@ public class FollowUpGraphOperations {
 	 String saveFollowUpGraphDataQuery = "insert into followupgraph (flatid,apartmentid,roleid,followupcount,createddate,approvaldate,"
 			+ "contact,user,month,year)values(%s,%s,%s,%s,'%s','%s',%s,%s,%s,%s)";
 
-	public void deleteFollowUpGraphData(Connection connection, int groupzId,
-			String month, String year) {
-		// TODO Auto-generated method stub
+	public void deleteFollowUpGraphData(Connection connection, int groupzId,String month, String year) {
 		Statement stmt = null;
 		try {
 			stmt = connection.createStatement();
-			System.out
-					.println("Inside deleteFollowUpGraphData() of FollowUpGraphOperations deleting from followupgraph...");
-			String deleteQuery = String.format(deleteFollowUpGraphDataQuery,
-					year, month, groupzId);
+			System.out.println("Inside deleteFollowUpGraphData() of FollowUpGraphOperations deleting from followupgraph...");
+			String deleteQuery = String.format(deleteFollowUpGraphDataQuery,year, month, groupzId);
 			// System.out.println(deleteQuery);
 			boolean deleteQuerySet = stmt.execute(deleteQuery);
-
 			if (deleteQuerySet) {
-				System.out
-						.println("Inside deleteFollowUpGraphData() of FollowUpGraphOperations deleted from followupgraph...");
+				System.out.println("Inside deleteFollowUpGraphData() of FollowUpGraphOperations deleted from followupgraph...");
 			}
 			ConnectionUtils.close(stmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			ConnectionUtils.close(stmt);
 			e.printStackTrace();
+			ConnectionUtils.close(stmt);
 		}
-
 	}
 
-	public void saveFollowUpGraphData(Connection connection, int groupzId,
-			String month, String year) {
-		// TODO Auto-generated method stub
+	public void saveFollowUpGraphData(Connection connection, int groupzId,String month, String year) {
 		Statement stmt = null;
 		try {
 			stmt = connection.createStatement();
-			System.out
-					.println("Inside saveFollowUpGraphData() of FollowUpGraphOperations saving into followupgraph...");
-			String getFollowupDataQuery = String.format(getFollowupData, year,
-					month, groupzId);
-			System.out.println(getFollowupDataQuery);
-			ResultSet getFollowUpGraphData = stmt
-					.executeQuery(getFollowupDataQuery);
+			System.out.println("Inside saveFollowUpGraphData() of FollowUpGraphOperations saving into followupgraph...");
+			String getFollowupDataQuery = String.format(getFollowupData, year,month, groupzId);
+		//	System.out.println(getFollowupDataQuery);
+			ResultSet getFollowUpGraphData = stmt.executeQuery(getFollowupDataQuery);
 
 			while (getFollowUpGraphData.next()) {
 				String id = getFollowUpGraphData.getString("id");
-				String apartmentId = getFollowUpGraphData
-						.getString("apartmentId");
+				String apartmentId = getFollowUpGraphData.getString("apartmentId");
 				String roleid = getFollowUpGraphData.getString("roleid");
-				String followupcount = getFollowUpGraphData
-						.getString("followupcount");
-				String createddate = getFollowUpGraphData
-						.getString("createddate");
-				String approveddate = getFollowUpGraphData
-						.getString("approvaldate");
+				String followupcount = getFollowUpGraphData.getString("followupcount");
+				String createddate = getFollowUpGraphData.getString("createddate");
+				String approveddate = getFollowUpGraphData.getString("approvaldate");
 			//	String noofdays = getFollowUpGraphData.getString("noOfDays");
 				String contact = getFollowUpGraphData.getString("contact");
 				String user = getFollowUpGraphData.getString("user");
 
 				stmt = connection.createStatement();
 
-				String saveQuery = String.format(saveFollowUpGraphDataQuery,
-						id, apartmentId, roleid, followupcount, createddate,
+				String saveQuery = String.format(saveFollowUpGraphDataQuery,id, apartmentId, roleid, followupcount, createddate,
 						approveddate,  contact, user, month, year);
 				// System.out.println(saveQuery);
 				boolean saveQuerySet = stmt.execute(saveQuery);
-
+		//		System.out.println("saveFollowUpGraphDataQuery: "+saveQuerySet);
+				ConnectionUtils.close(stmt);
 			}
-			ConnectionUtils.close(stmt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			ConnectionUtils.close(stmt);
 			e.printStackTrace();
+			ConnectionUtils.close(stmt);
 		}
-
 	}
-
 }

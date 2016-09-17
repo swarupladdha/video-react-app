@@ -40,7 +40,9 @@ public class FeeAggregationOperations {
 	public void deleteFeeAgg(Connection connection, String year, String month, int groupzId)
 	{
 	Statement stmt = null;
+//	Connection connection=null;
 	try {
+//		connection=connection2.getConnection();
 		stmt = connection.createStatement();
 		System.out.println("Inside deleteFeeAgg() of FeeAggregationOperations deleting from feeaggregation...");
 		String deleteFeeAggQuery = String.format(deleteFeeAggregationQuery, year, month,groupzId);
@@ -53,20 +55,17 @@ public class FeeAggregationOperations {
 		ConnectionUtils.close(stmt);
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
-		ConnectionUtils.close(stmt);
 		e.printStackTrace();
+		ConnectionUtils.close(stmt);
 	}
-	
-	}
+}
 
 	public void saveFeeAgg(Connection connection, String year, String month, int groupzId)
 	{
-	
-	
 	Statement stmt = null;
 	try {
 		String getFeeAggQuery = String.format(getFeeAggregationQuery, year, month, groupzId);
-		System.out.println(getFeeAggQuery);
+	//	System.out.println(getFeeAggQuery);
 		stmt = connection.createStatement();
 		ResultSet getFeeAggSet = stmt.executeQuery(getFeeAggQuery);
 		System.out.println("Inside getFeeAgg() of FeeAggregationOperations inserting into feeaggregation...");
@@ -77,24 +76,21 @@ public class FeeAggregationOperations {
 			String paymentType = getFeeAggSet.getString("PaymentType");
 			String paymentStatus = getFeeAggSet.getString("statusPayment");
 			String amount = getFeeAggSet.getString("amount");
-			
 		//	System.out.println(division + "" + subDivision + ""+ paymentType + "" + paymentStatus + ""+ amount);
-
 			stmt = connection.createStatement();
 			String addFeeAggSet = String.format(addFeeAggregationQuery, amount, groupzId,
 					division, month, paymentStatus,paymentType, subDivision, year);			
-			System.out.println(addFeeAggregationQuery);
+		//	System.out.println(addFeeAggregationQuery);
 			
 			boolean addFeeAgg = stmt.execute(addFeeAggSet);
 		//	System.out.println(addFeeAgg);
 		}
-		ConnectionUtils.close(stmt);
 		System.out.println("Inside getFeeAgg() of FeeAggregationOperations inserted into feeaggregation...");
+		ConnectionUtils.close(stmt);
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
-		ConnectionUtils.close(stmt);
 		e.printStackTrace();
-	}
-	
+		ConnectionUtils.close(stmt);
 		}
+	}
 }

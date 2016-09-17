@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ConnectionUtils {
@@ -56,18 +58,68 @@ public class ConnectionUtils {
 		return connectRecieveResponse;
 	}
 	
-	public static void close(Statement stmt) {
+	public static void close(Statement stmt, Connection connection)  {
+		Statement statement=stmt;
+		Connection con=connection;
 		try
 		{
-			if (stmt!=null) {
-				stmt.close();
+			if (statement!=null) {
+				statement.close();
+			}
+			if (con!=null) {
+				con.close();
 			}
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		
+		finally
+		{
+			try
+			{
+				if (statement!=null) {
+					statement.close();
+				}
+				if (con!=null) {
+					con.close();
+				}
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static void close(Statement stmt) {
+		// TODO Auto-generated method stub
+
+		Statement statement=stmt;
+		try
+		{
+			if (statement!=null) {
+				statement.close();
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+
+			try
+			{
+				if (statement!=null) {
+					statement.close();
+				}
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	

@@ -18,6 +18,7 @@ import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 
 import com.groupz.followup.utils.ConnectionUtils;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class CacheManager {
 
@@ -55,15 +56,19 @@ public class CacheManager {
 		}
 	}
 
-	public void run(Connection dbConnection, int cachePoolSize, int threadId) {
+	public void startCacheManager(ComboPooledDataSource connectionPool, int cachePoolSize, int threadId) {
 		Statement stmt = null;
+		Connection connection=null;
+	
 		try {
-			stmt = dbConnection.createStatement();
-
+			connection = connectionPool.getConnection();
+			stmt = connection.createStatement();
+	//		System.out.println("conn"+connection.hashCode());
 			String QueryString = String.format(cacheTableSQL,cachePoolSize,threadId);
 			logger.debug("Cache Update Sql:" + QueryString);
 			ResultSet rs = stmt.executeQuery(QueryString);	
-			String cacheUpdateTime="";String cacheUpdatedId="";
+			String cacheUpdateTime="";
+			String cacheUpdatedId="";
 			if (rs.next()) {
 				cacheUpdateTime = rs.getString("LASTUPDATEDDATE");
 				cacheUpdatedId = String.valueOf(rs.getInt("ID"));
@@ -71,8 +76,7 @@ public class CacheManager {
 				cacheUpdateTime = "0000-00-00 00:00:00";
 				cacheUpdatedId = "-1";
 			}
-				logger.debug("Checking.... lastupdateddate-->"
-						+ cacheUpdateTime);
+				logger.debug("Checking.... lastupdateddate-->"+ cacheUpdateTime+""+cacheUpdatedId);
 				/*String cacheListSQL = String.format(heartBeatListSQL,
 						cacheUpdateTime,cacheUpdatedId,cacheUpdateTime,cacheUpdatedId);*/
 				String cacheListSQL = String.format(heartBeatListSQL,cacheUpdateTime);
@@ -87,10 +91,8 @@ public class CacheManager {
 					String moduleType = cacheUpdateSet.getString("MODULETYPE");
 					String updatedDate = cacheUpdateSet
 							.getString("UPDATEDDATE");
-					logger.debug("Groupz Id:" + groupzId
-							+ " and groupz code:" + groupzCode
-							+ " and module type:" + moduleType
-							+ " and updateddate:" + updatedDate);
+					logger.debug("Groupz Id:" + groupzId+ " and groupz code:" + groupzCode
+							+ " and module type:" + moduleType+ " and updateddate:" + updatedDate);
 					dataObj.put("groupzid", groupzId);
 					dataObj.put("groupzcode", groupzCode);
 					dataObj.put("moduletype", moduleType);
@@ -102,24 +104,16 @@ public class CacheManager {
 				// call the cache url
 				if((lastUpdatedId!=null && lastUpdatedId.length()>0 && lastUpdatedId.equalsIgnoreCase("")==false) &&
 						(lastUpdatedDate!=null && lastUpdatedDate.length()>0 && lastUpdatedDate.equalsIgnoreCase("")==false)){
-				updateCacheTime(dbConnection,lastUpdatedId,lastUpdatedDate);
+				updateCacheTime(connection,lastUpdatedId,lastUpdatedDate);
 				boolean cacheStatus = sendCacheupdate(dataArray);
 				logger.debug("Cache DB  status through URL:"+cacheStatus);
 				
 				}
-			stmt.close();
+			ConnectionUtils.close(stmt, connection);
 		} catch (Exception e) {
 			e.printStackTrace();
-			if (stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
+			ConnectionUtils.close(stmt,connection);
 		}
-
 	}
 
 	// send cacheUpdate in url
@@ -149,8 +143,7 @@ public class CacheManager {
 			reqObj.put("request", dataObj);
 			jsonObj.put("json", reqObj);
 			logger.debug("Final JSON:" + jsonObj.toString());
-			String cacheDBURL = p.getProperty("cachefollowup_URL")
-					+ URLEncoder.encode(jsonObj.toString());
+			String cacheDBURL = p.getProperty("cachefollowup_URL")+ URLEncoder.encode(jsonObj.toString());
 			logger.debug("Cache DB URL:" + cacheDBURL);
 			ConnectionUtils connectionUtils = new ConnectionUtils();
 			String cacheDBResponse = connectionUtils
@@ -162,17 +155,9 @@ public class CacheManager {
 					JSONObject respJSON = JSONObject
 							.fromObject(cacheDBResponse);
 					logger.debug("Response JSON:" + respJSON.toString());
-					logger.debug("Status code:"
-							+ respJSON.getJSONObject("json")
-									.getJSONObject("response")
-									.getString("statuscode"));
-					logger.debug("Status code:"
-							+ respJSON.getJSONObject("json")
-									.getJSONObject("response")
-									.getString("statusmessage"));
-					if (respJSON.getJSONObject("json")
-							.getJSONObject("response").getString("statuscode")
-							.equalsIgnoreCase("0") == true) {
+					logger.debug("Status code:"+ respJSON.getJSONObject("json").getJSONObject("response").getString("statuscode"));
+					logger.debug("Status code:"+ respJSON.getJSONObject("json").getJSONObject("response").getString("statusmessage"));
+					if (respJSON.getJSONObject("json").getJSONObject("response").getString("statuscode").equalsIgnoreCase("0") == true) {
 						cacheStatus = true;
 					}
 				} catch (Exception e) {

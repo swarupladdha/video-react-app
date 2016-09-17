@@ -1,8 +1,7 @@
 package com.groupz.followup.database;
 
+import java.beans.PropertyVetoException;
 import java.io.FileInputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
@@ -13,125 +12,90 @@ import org.apache.log4j.Logger;
 import src.followupconfig.PropertiesUtil;
 
 import com.groupz.followup.manager.AggregationThread;
-
 import com.groupz.followup.threads.CacheUpdateThread;
 import com.groupz.followup.threads.FollowUpThread;
 import com.groupz.followup.threads.serviceRequestThread;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
 
 public class ConnectDatabase {
 
-	private Connection myConnection = null;
+	
 	static final Logger logger = Logger.getLogger(ConnectDatabase.class);
 
-	public Connection establishConnection(Properties p) {
-
-		if (myConnection == null) {
-			String url = null;
-			String dbName = null;
-			String driver = null;
-			String userName = null;
-			String password = null;
-
-			try {
-				url = p.getProperty("url");
-				dbName = p.getProperty("dbName");
-				driver = p.getProperty("driver");
-				userName = p.getProperty("userName");
-				password = p.getProperty("password");
-			} catch (Exception e) {
-				logger.debug("Error opening properties file." + e);
-				e.printStackTrace();
-			}
-
-			try {
-				Class.forName(driver).newInstance();
-				myConnection = DriverManager.getConnection(url + dbName,
-						userName, password);
-				logger.debug("In ConnectDatabase.java : The url and dbname is : "
-						+ url + dbName);
-				logger.debug("Connected to the database");
-			} catch (SQLException sqlException) {
-				sqlException.printStackTrace();
-			} catch (Exception exception) {
-				exception.printStackTrace();
-			}
-		}
-		return myConnection;
+		ComboPooledDataSource getConnectionPool(Properties p)throws PropertyVetoException {
+		ComboPooledDataSource cpds = new ComboPooledDataSource();
+		cpds.setJdbcUrl(p.getProperty("url"));
+		cpds.setDriverClass(p.getProperty("driver"));
+		cpds.setUser(p.getProperty("userName"));
+		cpds.setPassword(p.getProperty("password"));
+		System.out.println(cpds.getUser() + "" + cpds.getPassword() + ""+ cpds.getJdbcUrl() + "" + cpds.getDriverClass());
+		// Optional Settings
+		cpds.setMaxPoolSize(50);
+		cpds.setAcquireIncrement(1);
+		cpds.setMaxIdleTimeExcessConnections(10);
+		cpds.setUnreturnedConnectionTimeout(10);
+		cpds.setDebugUnreturnedConnectionStackTraces(true);
+		return cpds;
 	}
 
-
-	public static void main(String args[]) throws InterruptedException {
+	public static void main(String args[]) throws InterruptedException,	SQLException, PropertyVetoException {
 		ConnectDatabase cd = new ConnectDatabase();
 		String fileName = System.getenv("FE_CONFIG_FILE");
 		Properties p = null;
+		ComboPooledDataSource connectionPool=null;
+		
 		try {
 			if (fileName == null) {
 				logger.debug("Env. Variable FE is not set, using default file vinralerts.properties");
 				fileName = "conf/db.properties";
-			}
-			p = new Properties(System.getProperties());
-			FileInputStream propFile = new FileInputStream(fileName);
-			p.load(propFile);
-		} catch (Exception e) {
+				p = new Properties(System.getProperties());
+				FileInputStream propFile = new FileInputStream(fileName);
+				p.load(propFile);
+			}			
+		} 
+		catch (Exception e) {
 			logger.debug("Error opening properties file." + e);
 			e.printStackTrace();
 		}
+		//connection pool
+		connectionPool = cd.getConnectionPool(p);
+		final int aggregationTimeout = Integer.parseInt(p.getProperty("aggregation_sleepTime"));
 		final int contactFollowUpTimeout = Integer.parseInt(p.getProperty("contactfollowup_db_timeout"));
 		final int cacheUpdateTimeout = Integer.parseInt(p.getProperty("cachefollowup_db_timeout"));
 		final int serviceRequestTimeout = Integer.parseInt(p.getProperty("serviceRequest_db_timeout"));
-		final int THREAD_POOL_SIZE = Integer.parseInt(PropertiesUtil.getProperty("THREAD_POOL"));
+		final int AGGREGATION_POOL_SIZE = Integer.parseInt(PropertiesUtil.getProperty("THREAD_POOL"));
 		final int cache_POOL_SIZE = Integer.parseInt(PropertiesUtil.getProperty("CacheUpdateThread_POOL"));
 		final int followUpThread_POOL_SIZE = Integer.parseInt(PropertiesUtil.getProperty("FollowUpThread_POOL"));
-		logger.debug("followup alert started");
 		logger.info("followup alert started");
-		final Connection c1 = cd.establishConnection(p);
-		final Connection c2 = cd.establishConnection(p);
-		final Connection c3 = cd.establishConnection(p);
-		final Connection c4 = cd.establishConnection(p);
-		final Connection c5 = cd.establishConnection(p);
-
-		//followupthread
 
 		
-		ExecutorService followupthreadExecSvc = Executors
-				.newFixedThreadPool(followUpThread_POOL_SIZE);
-		for (int threadId = 0; threadId < followUpThread_POOL_SIZE; threadId++) {
-		
-			followupthreadExecSvc.execute(new FollowUpThread(followUpThread_POOL_SIZE,threadId,c1,contactFollowUpTimeout));
-
+		// feeAggregation , head count and head count By location analytics
+		ExecutorService aggregationExecSvc = Executors.newFixedThreadPool(AGGREGATION_POOL_SIZE);
+		for (int i = 0; i < AGGREGATION_POOL_SIZE; i++) {
+			aggregationExecSvc.execute(new AggregationThread(i, connectionPool,aggregationTimeout));
 		}
-		followupthreadExecSvc.shutdown();
-		
-		//cacheupdatethread
-		
-		ExecutorService cacheExecSvc = Executors
-				.newFixedThreadPool(cache_POOL_SIZE);
-		for (int threadId = 0; threadId < cache_POOL_SIZE; threadId++) {
-		
-		 	cacheExecSvc.execute(new CacheUpdateThread(cache_POOL_SIZE,threadId,c2,cacheUpdateTimeout));
-
-		}
-		followupthreadExecSvc.shutdown();
-		
-		//service request thread
-		
+		aggregationExecSvc.shutdown();
 	
-		
-		serviceRequestThread sr = new serviceRequestThread(c3,serviceRequestTimeout);
+
+		// escalation Upgrade thread
+		serviceRequestThread sr = new serviceRequestThread(connectionPool,serviceRequestTimeout);
 		sr.startFollowUpThread(sr);
+
 		
-		
-		// feeAggregation and headcount analytics 
-		
-		ExecutorService refreshQueueExecSvc = Executors
-				.newFixedThreadPool(THREAD_POOL_SIZE);
-		for (int i = 0; i < THREAD_POOL_SIZE; i++) {
-			refreshQueueExecSvc.execute(new AggregationThread(i, c4));
-			
+		// follow up message
+		ExecutorService followupmessageExecSvc = Executors.newFixedThreadPool(followUpThread_POOL_SIZE);
+		for (int threadId = 0; threadId < followUpThread_POOL_SIZE; threadId++) {
+			followupmessageExecSvc.execute(new FollowUpThread(followUpThread_POOL_SIZE, threadId, connectionPool,contactFollowUpTimeout));
 		}
-		refreshQueueExecSvc.shutdown();
-
+		followupmessageExecSvc.shutdown();
+				
 		
+		// cache updated request to node
+		ExecutorService cacheExecSvc = Executors.newFixedThreadPool(cache_POOL_SIZE);
+		for (int threadId = 0; threadId < cache_POOL_SIZE; threadId++) {
+			cacheExecSvc.execute(new CacheUpdateThread(cache_POOL_SIZE,	threadId, connectionPool, cacheUpdateTimeout));
+		}
+		cacheExecSvc.shutdown();
 	}
-
 }

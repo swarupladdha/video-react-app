@@ -13,7 +13,6 @@ import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 
-import com.groupz.followup.operations.HeadCountOperations;
 import com.groupz.followup.utils.ConnectionUtils;
 
 public class HeadCountByLocation {
@@ -45,51 +44,36 @@ public class HeadCountByLocation {
 	
 	static final Logger logger = Logger.getLogger(HeadCountByLocation.class);
 	
-	public void deleteHeadCountByLocation(Connection connection, int groupzId,
-			String month) {
+	public void deleteHeadCountByLocation(Connection connection, int groupzId,String month) {
 		Statement stmt = null;
 		String builderId ="";
-		
-		
 		try {
 			String Query = String.format(deleteHeadCount,groupzId);
 			stmt = connection.createStatement();
 			boolean rs = stmt.execute(Query);
-			System.out.println("deleted");
-		
-	} catch (Exception e) {
-		ConnectionUtils.close(stmt);
-		logger.error("Excepton Caught in HeadCountByLocation  Class");
-		logger.error(e.getMessage());
-		e.printStackTrace();
-	}
+			System.out.println("Inside deleteHeadCountByLocation() of HeadCountByLocation Operations inserting from HeadCountByLocation...");
+			ConnectionUtils.close(stmt);
+			} catch (Exception e) {
+				logger.error("Excepton Caught in HeadCountByLocation  Class");
+				logger.error(e.getMessage());
+				e.printStackTrace();
+				ConnectionUtils.close(stmt);
+			}
 		// TODO Auto-generated method stub
-		
-		
 	}
 
-	public void saveHeadCountByLocation(Connection connection, int groupzId,
-			String month) {
+	public void saveHeadCountByLocation(Connection connection, int groupzId,	String month) {
 		Statement stmt = null;
-		HeadCountOperations hco = new HeadCountOperations();
-		
 		int groupzBaseId = 0 ;
-	
 		int locationId=0;
-		
 		try {
-
 			String locIdQuery = String.format(getLocationId,groupzId);
 			stmt = connection.createStatement();
 			ResultSet result = stmt.executeQuery(locIdQuery);
 			while (result.next()) {
 				locationId = result.getInt("LocationId");
-				System.out.println("locationId"+locationId);
+		//		System.out.println("locationId"+locationId);
 			}
-		/*	String getHeadCountList = String.format(getHeadCount,groupzId);
-			stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(getHeadCountList);
-			stmt = connection.createStatement();*/
 			String getRoleListQuery = String.format(getRoleList, groupzId);
 			ResultSet getRoleListSet = stmt.executeQuery(getRoleListQuery);
 			
@@ -98,18 +82,13 @@ public class HeadCountByLocation {
 			ResultSet res = stmt.executeQuery(builderQuery);
 			while (res.next()) {
 				groupzBaseId = res.getInt("id");
-				System.out.println("groupzBaseId"+groupzBaseId);
+		//		System.out.println("groupzBaseId"+groupzBaseId);
 			}
-			
-			
-			
-			System.out.println("Inside saveHeadcount() of HeadCountOperations inserting from head count...");
+			System.out.println("Inside saveHeadCountByLocation() of HeadCountByLocation Operations inserting from HeadCountByLocation...");
 			while (getRoleListSet.next()) {
 				getRoleInfo(getRoleListSet);
-
 				List<String> divList = getdivisionlist();
-				System.out.println("====================================================================");
-				System.out.println(divList);
+			//	System.out.println(divList);
 				if (divList != null && divList.size() > 0) {
 					for (String div : divList) {
 						List<String> subDivList = getSubivisionList(div);
@@ -119,7 +98,7 @@ public class HeadCountByLocation {
 
 							String gbroleid = getRoleListSet.getString("gbroleid");
 							String RoleId = getRoleListSet.getString("Id");
-							String RoleName = getRoleListSet.getString("RoleName");
+						//	String RoleName = getRoleListSet.getString("RoleName");
 							String grpId=getRoleListSet.getString("SocietyId");
 							int grpId1=Integer.parseInt(grpId);
 
@@ -128,55 +107,44 @@ public class HeadCountByLocation {
 							int userCount = getHeadCountValue(grpId1, RoleId, div, subDiv, false, connection);
 							int contactCount = getHeadCountValue(grpId1, RoleId, div, subDiv, true, connection);
 							// System.out.println("----->"+userCount+""+contactCount);
-							if (userCount != -1) {
-								userCount = userCount;
-								// System.out.println("usercount"+userCount);
-							}
-							if (contactCount != -1) {
-								contactCount = contactCount;
-								// System.out.println("contactCount"+contactCount);
-							}
-
 							stmt = connection.createStatement();
 							String getsaveHeadCountQuery = String.format(saveHeadCount,groupzId,userCount, contactCount, groupzBaseId,
 									locationId, gbroleid, div,subDiv);
-							System.out.println("***");
-							System.out.println(getsaveHeadCountQuery);
+						//	System.out.println(getsaveHeadCountQuery);
 							boolean saveHeadCountSet = stmt.execute(getsaveHeadCountQuery);
-												
 							// System.out.println(saveHeadCountSet);
 						}
 					}
 				}
-			
-			
-			System.out.println("buil");
 			}
+			ConnectionUtils.close(stmt);
 	} catch (Exception e) {
-		ConnectionUtils.close(stmt);
+		
 		logger.error("Excepton Caught in HeadCountByLocation  Class");
 		logger.error(e.getMessage());
 		e.printStackTrace();
 	}
-		// TODO Auto-generated method stub
-		
-	}
+}
 
-	
-	
 
-	private int getHeadCountValue(int groupzId, String roleId, String div,
-			String subDiv, boolean b, Connection connection)
-			throws SQLException {
-		Statement stmt = connection.createStatement();
+	private int getHeadCountValue(int groupzId, String roleId, String div,String subDiv, boolean b, Connection connection) {
+		Statement stmt=null;
 		int getHeadCountValue = 0;
+		try
+		{
+		stmt = connection.createStatement();
 		String getRoleListQuery = String.format(headCountValueQuery, groupzId, b, roleId, div, subDiv);
 		ResultSet headCountValueSet = stmt.executeQuery(getRoleListQuery);
 		if (headCountValueSet.first())			
 		{
 			getHeadCountValue = headCountValueSet.getInt(1);
-			// System.out.println("=====>"+headCountValueSet.getInt(1));
 		}
+		}
+		catch (Exception e) {
+		logger.error("Exception Caught in HeadCountByLocation  getHeadCountValue()");
+		logger.error(e.getMessage());
+		e.printStackTrace();
+	}
 		ConnectionUtils.close(stmt);
 		return getHeadCountValue;
 	}
