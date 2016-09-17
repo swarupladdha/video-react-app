@@ -22,6 +22,8 @@
 		<pathelement path="libs/commons-logging-1.0.2.jar" />
 		<pathelement path="libs/commons-logging-1.1.1.jar" />
 		<pathelement path="libs/log4j-1.2.16.jar" />
+		<pathelement path="libs/c3p0-0.9.5.2.jar"/>
+		<pathelement path="libs/mchange-commons-java-0.2.12.jar" />
 	</path>
 
 	<target name="init">
