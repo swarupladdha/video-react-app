@@ -43,7 +43,8 @@ public class ConnectDatabase {
 
 	public static void main(String args[]) throws InterruptedException,	SQLException, PropertyVetoException {
 		ConnectDatabase cd = new ConnectDatabase();
-		String fileName = System.getenv("FE_CONFIG_FILE");
+	//	String fileName = System.getenv("FE_CONFIG_FILE");
+		String fileName = null ;
 		System.out.println("======================");
 		System.out.println("fileName"+fileName);
 		Properties p = null;
