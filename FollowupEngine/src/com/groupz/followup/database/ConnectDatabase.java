@@ -44,6 +44,8 @@ public class ConnectDatabase {
 	public static void main(String args[]) throws InterruptedException,	SQLException, PropertyVetoException {
 		ConnectDatabase cd = new ConnectDatabase();
 		String fileName = System.getenv("FE_CONFIG_FILE");
+		System.out.println("======================");
+		System.out.println("fileName"+fileName);
 		Properties p = null;
 		ComboPooledDataSource connectionPool=null;
 		
@@ -52,10 +54,11 @@ public class ConnectDatabase {
 				logger.debug("Env. Variable FE is not set, using default file vinralerts.properties");
 				fileName = "conf/db.properties";
 				p = new Properties(System.getProperties());
+				System.out.println("p1"+p);
 				FileInputStream propFile = new FileInputStream(fileName);
 				p.load(propFile);
-				System.out.println(p);
-				System.out.println(propFile);
+				System.out.println("p"+p);
+				System.out.println("propFile"+propFile);
 			}			
 		} 
 		catch (Exception e) {
