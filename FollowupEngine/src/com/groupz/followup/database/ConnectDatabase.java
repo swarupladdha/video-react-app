@@ -33,8 +33,8 @@ public class ConnectDatabase {
 		// Optional Settings
 		cpds.setMaxPoolSize(50);
 		cpds.setAcquireIncrement(1);
-		cpds.setMaxIdleTimeExcessConnections(10);
-		cpds.setUnreturnedConnectionTimeout(10);
+		cpds.setMaxIdleTimeExcessConnections(100);
+		cpds.setUnreturnedConnectionTimeout(100);
 		cpds.setDebugUnreturnedConnectionStackTraces(true);
 		return cpds;
 	}
