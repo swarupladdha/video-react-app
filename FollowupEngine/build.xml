@@ -68,7 +68,7 @@
 			${libs}/mysql-connector-java-5.1.38-bin.jar 
 			${libs}/commons-logging-1.0.2.jar ${libs}/commons-logging-1.1.1.jar
 			${libs}/c3p0-0.9.5.2.jar
-			${libs}//mchange-commons-java-0.2.12.jar" />
+			${libs}/mchange-commons-java-0.2.12.jar" />
 			</manifest>
 		</jar>
 	</target>

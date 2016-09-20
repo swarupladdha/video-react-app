@@ -25,6 +25,8 @@ public class ConnectDatabase {
 
 		ComboPooledDataSource getConnectionPool(Properties p)throws PropertyVetoException {
 		ComboPooledDataSource cpds = new ComboPooledDataSource();
+		System.out.println("inside cpds");
+		System.out.println(p.getProperty("url"));
 		cpds.setJdbcUrl(p.getProperty("url"));
 		cpds.setDriverClass(p.getProperty("driver"));
 		cpds.setUser(p.getProperty("userName"));
@@ -52,6 +54,8 @@ public class ConnectDatabase {
 				p = new Properties(System.getProperties());
 				FileInputStream propFile = new FileInputStream(fileName);
 				p.load(propFile);
+				System.out.println(p);
+				System.out.println(propFile);
 			}			
 		} 
 		catch (Exception e) {
