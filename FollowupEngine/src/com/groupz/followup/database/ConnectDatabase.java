@@ -31,11 +31,11 @@ public class ConnectDatabase {
 		cpds.setPassword(p.getProperty("password"));
 		System.out.println(cpds.getUser() + "" + cpds.getPassword() + ""+ cpds.getJdbcUrl() + "" + cpds.getDriverClass());
 		// Optional Settings
-		cpds.setMaxPoolSize(50);
+		/*cpds.setMaxPoolSize(50);
 		cpds.setAcquireIncrement(1);
 		cpds.setMaxIdleTimeExcessConnections(100);
 		cpds.setUnreturnedConnectionTimeout(100);
-		cpds.setDebugUnreturnedConnectionStackTraces(true);
+		cpds.setDebugUnreturnedConnectionStackTraces(true);*/
 		return cpds;
 	}
 
