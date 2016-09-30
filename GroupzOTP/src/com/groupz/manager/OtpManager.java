@@ -70,7 +70,7 @@ public class OtpManager {
 							e.printStackTrace();
 						}
 						EmailAndSmsManager sms = new EmailAndSmsManager();
-						sms.sendSms(genOtp, mobile);
+						sms.sendSms(genOtp, mobile,countrycode);
 						response = utils.processSucess("otp", genOtp);
 						return response;
 					} else {

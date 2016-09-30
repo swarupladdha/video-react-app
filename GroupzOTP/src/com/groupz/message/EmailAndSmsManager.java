@@ -23,14 +23,14 @@ public class EmailAndSmsManager {
 
 	}
 
-	public void sendSms(String Message, String toAddress) {
+	public void sendSms(String Message, String toAddress,String cc) {
 		String fromNumber = "00000";
 		String toName = "";
 		String toMessage = "One Time Password(OTP) is " + Message;
 		MessagesinTable mit = new MessagesinTable();
 		SmsMessage sms = new SmsMessage();
-		String toAdd = sms.addAddress(toAddress, toName, fromNumber);
-		String body = sms.getMessage(toMessage);
+		String toAdd = sms.addAddress(toAddress, toName, fromNumber,cc);
+		String body = sms.getMessage(toMessage,"QKONCT");
 		mit.setAddress(toAdd);
 		mit.setMessage(body);
 		mit.setMsgType(1);
