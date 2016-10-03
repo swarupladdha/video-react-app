@@ -45,7 +45,8 @@ public class OtpManager {
 					otpActions.setMobile(utils.encrypt(mobile));
 					// otpActions.setMobile(mobile);
 
-					if (countrycode.equalsIgnoreCase("91") == true) {
+					if (countrycode.equalsIgnoreCase("91") == true
+							|| countrycode.equalsIgnoreCase("1") == true) {
 						otpActions.setCountrycode(utils.encrypt(countrycode));
 						// otpActions.setCountrycode(countrycode);
 						String genOtp = utils.generateOTP();
@@ -69,7 +70,7 @@ public class OtpManager {
 							e.printStackTrace();
 						}
 						EmailAndSmsManager sms = new EmailAndSmsManager();
-						sms.sendSms(genOtp, mobile);
+						sms.sendSms(genOtp, mobile,countrycode);
 						response = utils.processSucess("otp", genOtp);
 						return response;
 					} else {

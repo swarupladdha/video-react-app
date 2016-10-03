@@ -8,15 +8,17 @@ public class SmsMessage {
 	private String title = "";
 	private String body = "";
 
-	public String addAddress(String toNumber, String name, String fromNumber) {
+	public String addAddress(String toNumber, String name, String fromNumber,
+			String cc) {
 
-		String toString = constructToXmlTagsForPerson(toNumber, name);
+		String toString = constructToXmlTagsForPerson(toNumber, name, cc);
 		toAddress += "<to>";
 		toAddress += toString;
 		toAddress += "</to>";
 		String toStr = getAddressAsXml(toAddress);
 
-		this.fromAddress = "<from><name>" + "admin" + "</name><number>" + "0000" + "</number></from>";
+		this.fromAddress = "<from><name>" + "admin" + "</name><number>"
+				+ "0000" + "</number></from>";
 
 		String Address = toStr + fromAddress;
 		return Address;
@@ -39,9 +41,10 @@ public class SmsMessage {
 		this.title = title;
 	}
 
-	public String getMessage(String body) {
+	public String getMessage(String body, String sid) {
+		String msg = "<sid>" + sid + "</sid>";
 
-		String msg = "<shorttext>" + RestUtils.encode(body) + "</shorttext>";
+		msg += "<shorttext>" + RestUtils.encode(body) + "</shorttext>";
 
 		return msg;
 	}
@@ -53,13 +56,16 @@ public class SmsMessage {
 	 * RestUtils.encode(fromMail) + "</email></from>"; return fromAddress; }
 	 */
 
-	private String constructToXmlTagsForPerson(String number, String name) {
+	private String constructToXmlTagsForPerson(String number, String name,
+			String cc) {
 
 		String ret = "";
 
 		ret += "<name>" + "candidate" + "</name>";
-		ret += "<contactpersonname>" + RestUtils.encode(name) + "</contactpersonname>";
-		ret += "<number>" + "+91."+ RestUtils.encode(number) + "</number>";
+		ret += "<contactpersonname>" + RestUtils.encode(name)
+				+ "</contactpersonname>";
+		ret += "<number>" + "+" + cc + "." + RestUtils.encode(number)
+				+ "</number>";
 		ret += "<email>" + "noreply@jobztop.in" + "</email>";
 		ret += "<prefix>" + "mr." + "</prefix>";
 

@@ -347,9 +347,14 @@ public class VinrMessageParser {
                             while (strTok.hasMoreTokens()) {
                                 localNo = strTok.nextToken();
                             }
+                            
 
                             if (countryCode.equals("+91") || countryCode.equals("91")) {
                                 targetUser.setMobileNumber("91"+localNo) ;
+                                smsFlag = true ;
+                            }
+                            if (countryCode.equals("+1") || countryCode.equals("1")) {
+                                targetUser.setMobileNumber("1"+localNo) ;
                                 smsFlag = true ;
                             }
                         }
