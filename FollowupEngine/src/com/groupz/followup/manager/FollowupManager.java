@@ -139,7 +139,7 @@ public class FollowupManager {
 			String threadid=String.valueOf(threadId);
 			String QueryString = String.format(followupSQL,poolSize,threadid);
 			logger.debug("Followup Sql:"+QueryString);
-			System.out.println(QueryString);
+		//	System.out.println(QueryString);
 			ResultSet rs = stmt.executeQuery(QueryString);
 			while (rs.next()) {
 			int id = rs.getInt("gbfollowup.id");

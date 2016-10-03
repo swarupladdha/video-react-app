@@ -92,7 +92,7 @@ public class ConnectDatabase {
 		// follow up message
 		ExecutorService followupmessageExecSvc = Executors.newFixedThreadPool(followUpThread_POOL_SIZE);
 		for (int threadId = 0; threadId < followUpThread_POOL_SIZE; threadId++) {
-			followupmessageExecSvc.execute(new FollowUpThread(followUpThread_POOL_SIZE, threadId, connectionPool,aggregationTimeout));
+			followupmessageExecSvc.execute(new FollowUpThread(followUpThread_POOL_SIZE, threadId, connectionPool,contactFollowUpTimeout));
 		}
 		followupmessageExecSvc.shutdown();
 				
