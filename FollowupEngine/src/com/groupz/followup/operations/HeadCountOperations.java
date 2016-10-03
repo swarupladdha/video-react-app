@@ -25,7 +25,7 @@ public class HeadCountOperations {
 	 String getRoleList = "select * from roledefinition where GBROLEID IS NOT NULL and SocietyId=%s";
 
 	 String saveHeadCountQuery = "insert into headcount (ContactCount,Division,GroupzId,MaxCount,RoleId,"
-			+ "RoleName,subDivision,UserCount,UnapprovedCount)values(%s,'%s',%s,%s,%s,'%s','%s',%s,%s)";
+			+ "RoleName,subDivision,UserCount)values(%s,'%s',%s,%s,%s,'%s','%s',%s)";
 
 	 String headCountValueQuery = "select count( userflatmapping.id) from userflatmapping,flat,roledefinition,user"
 			+ " where userflatmapping.userid=user.id and userflatmapping.flatid=flat.id and userflatmapping.roleid=roledefinition.id"
@@ -79,7 +79,6 @@ public class HeadCountOperations {
 					String RoleName = getRoleListSet.getString("RoleName");
 					String grpId=getRoleListSet.getString("SocietyId");
 //					String UnapprovedCount=getRoleListSet.getString("UnapprovedCount");
-					String UnapprovedCount="0";
 					int grpId1=Integer.parseInt(grpId);
 					JSONObject roleInfoJSON = JSONObject.fromObject(getRoleListSet.getString("roleInformation"));
 				//	System.out.println("roleInfoJSON"+roleInfoJSON);
@@ -88,7 +87,7 @@ public class HeadCountOperations {
 					int contactCount = getHeadCountValue(grpId1, RoleId, div, subDiv, true, connection);
 					// System.out.println("----->"+userCount+""+contactCount);
 					stmt = connection.createStatement();
-					String getsaveHeadCountQuery = String.format(saveHeadCountQuery, contactCount, div, grpId,maxCount, RoleId, RoleName,subDiv, userCount,UnapprovedCount);
+					String getsaveHeadCountQuery = String.format(saveHeadCountQuery, contactCount, div, grpId,maxCount, RoleId, RoleName,subDiv, userCount);
 			//		System.out.println(getsaveHeadCountQuery);
 					boolean saveHeadCountSet = stmt.execute(getsaveHeadCountQuery);
 					// System.out.println(saveHeadCountSet);

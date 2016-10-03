@@ -16,11 +16,10 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 public class FollowupManager {
 	static final Logger logger = Logger.getLogger(FollowupManager.class);
 
-	 String followupSQL ="  select gbfollowup.id, groupzbaseid,noofdays,roleid,followuptime,lastsenttime "
-			 			+"	from gbfollowup, builder where gbfollowup.id MOD %s= %s and "
-			 			+"	STR_TO_DATE(gbfollowup.followuptime,extract(hour from gbfollowup.FollowupTime) "
-			 			+"	and extract(minute from gbfollowup.FollowupTime))<CURTIME() "
-			 			+"	and gbfollowup.lastsenttime<CURDATE() and builder.id = gbfollowup.groupzbaseid ";
+	 String followupSQL =" select gbfollowup.id, groupzbaseid,noofdays,roleid,followuptime,lastsenttime from gbfollowup, builder "
+	 					+ "where gbfollowup.id MOD %s = %s and hour(gbfollowup.FollowupTime)<CURTIME() and "
+	 					+ "minute(gbfollowup.FollowupTime)<CURTIME() and (gbfollowup.lastsenttime<CURDATE() "
+	 					+ "or gbfollowup.lastsenttime is null) and builder.id = gbfollowup.groupzbaseid ";
 
 	 /*String followupSQL = "select gbfollowup.id, groupzbaseid,noofdays,roleid,followuptime,lastsenttime "
 				+ " from gbfollowup, builder "
@@ -43,6 +42,8 @@ public class FollowupManager {
 		List<Message> theFinalList = new ArrayList<Message>();
 		String QueryString = String.format(contactsListSQL, days, baseid,roleid);
 		logger.debug(QueryString);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@");
+		System.out.println(QueryString);
 		ResultSet rs = stmt.executeQuery(QueryString);
 		while (rs.next()) {
 		int ufmId = rs.getInt("ufm.id");
@@ -138,6 +139,7 @@ public class FollowupManager {
 			String threadid=String.valueOf(threadId);
 			String QueryString = String.format(followupSQL,poolSize,threadid);
 			logger.debug("Followup Sql:"+QueryString);
+			System.out.println(QueryString);
 			ResultSet rs = stmt.executeQuery(QueryString);
 			while (rs.next()) {
 			int id = rs.getInt("gbfollowup.id");

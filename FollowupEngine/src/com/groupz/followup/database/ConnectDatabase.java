@@ -43,15 +43,13 @@ public class ConnectDatabase {
 
 	public static void main(String args[]) throws InterruptedException,	SQLException, PropertyVetoException {
 		ConnectDatabase cd = new ConnectDatabase();
-	//	String fileName = System.getenv("FE_CONFIG_FILE");
 		String fileName = null ;
-		System.out.println("======================");
-		System.out.println("fileName"+fileName);
 		Properties p = null;
 		ComboPooledDataSource connectionPool=null;
 		
 		try {
 			if (fileName == null) {
+				fileName = System.getenv("FE_CONFIG_FILE");
 				logger.debug("Env. Variable FE is not set, using default file vinralerts.properties");
 				fileName = "conf/db.properties";
 				p = new Properties(System.getProperties());
@@ -94,7 +92,7 @@ public class ConnectDatabase {
 		// follow up message
 		ExecutorService followupmessageExecSvc = Executors.newFixedThreadPool(followUpThread_POOL_SIZE);
 		for (int threadId = 0; threadId < followUpThread_POOL_SIZE; threadId++) {
-			followupmessageExecSvc.execute(new FollowUpThread(followUpThread_POOL_SIZE, threadId, connectionPool,contactFollowUpTimeout));
+			followupmessageExecSvc.execute(new FollowUpThread(followUpThread_POOL_SIZE, threadId, connectionPool,aggregationTimeout));
 		}
 		followupmessageExecSvc.shutdown();
 				
