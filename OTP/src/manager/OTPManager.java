@@ -25,7 +25,7 @@ public class OTPManager {
 		String countryCode = "";
 		String encryptedCountryCode = "";
 		String mobileWithCountryCode = "";
-		String insertIntoOtpTableSQL = "Insert into Otp (Mobile,CountryCode,CreatedDate,LapseTime,Otp) values('%s','%s','%s','%s','%s')";
+		String insertIntoOtpTableSQL = "Insert into Otp (Mobile,CountryCode,CreatedTime,LapseTime,Otp) values('%s','%s','%s','%s','%s')";
 		String updateDuplicateEntrySQL = "Update Otp set Invalid=true where Id=%d ";
 		String checkMobileExist = "Select Id from Otp where Mobile='%s' and CountryCode='%s' and LapseTime>='%s'";
 
