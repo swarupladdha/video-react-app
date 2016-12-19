@@ -91,7 +91,7 @@ public class SmsManager {
 
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-		String now = f.format(cal.getTime());
+		String now = utils.getFormattedDateStr(cal.getTime());
 		System.out.println(now);
 
 		int messageType = 1;
