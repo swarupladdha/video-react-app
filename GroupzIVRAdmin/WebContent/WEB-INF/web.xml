@@ -27,4 +27,13 @@
     <servlet-name>IVRgroupzAdminService</servlet-name>
     <url-pattern>/IVRgroupzAdminService</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <description>for Login Service</description>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>api.groupz.admin.servlet.Login</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
 </web-app>
