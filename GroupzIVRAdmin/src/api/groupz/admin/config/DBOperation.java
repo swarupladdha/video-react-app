@@ -237,15 +237,19 @@ public class DBOperation {
 					 int id = rs.getInt("Id");
 					 System.out.println(id);
 				  }
-				 ResultSet rs1 = stmt.executeQuery(selectSQL3); 
+				  
+				  ResultSet rs1 = stmt.executeQuery(selectSQL3);
+				  while(rs1.next())
+				  {
+				 
 				 	  dataObj.put("ivrnumber",rs1.getString("ivrnumber"));
 				 	 System.out.println(rs1.getString("ivrnumber"));
 				 	  dataObj.put("groupzBase", rs1.getString("groupzBase"));
 				 	System.out.println(rs1.getString("groupzBase"));
-				 	  dataObj.put("groupZCase", rs1.getString("groupZCase"));
+				 	  dataObj.put("groupZCode", rs1.getString("groupZCode"));
 					 	System.out.println(rs1.getString("groupzBase"));
 				 	  jarray1.add(dataObj);
-				  
+				  }
 				  //jarray2.add(jarray1);
 			   }
 		      

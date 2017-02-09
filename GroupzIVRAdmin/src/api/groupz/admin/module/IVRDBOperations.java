@@ -11,6 +11,7 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+import api.groupz.admin.config.ConnectionManager;
 import api.groupz.admin.config.IVRAdminConfig;
 import api.groupz.admin.config.IVRbaseAdminConfig;
 import api.groupz.database.DBConnect;
@@ -30,7 +31,7 @@ public class IVRDBOperations
 		String response = "";
 	   try
 	   {
-	     conn = DBConnect.establishConnection();
+	     conn = ConnectionManager.getConnect();
 
 	      System.out.println("Database connected successfully...");
 	      stmt = conn.createStatement();
@@ -194,7 +195,8 @@ public class IVRDBOperations
 	      try
 	      {
 	         if(stmt!=null)
-	        	 DBConnect.closeConnection(conn);
+	        	 stmt.close();
+	         	 conn.close();
 	      }
 	      catch(Exception e)
 	      {
