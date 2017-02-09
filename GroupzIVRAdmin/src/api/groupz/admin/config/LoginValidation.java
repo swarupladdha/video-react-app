@@ -35,6 +35,7 @@ public class LoginValidation {
 				
 				if (PropertiesConfig.isEmptyOrNull(functiontype) == true)
 				{
+					System.out.println("d");
 					String statuscode = PropertiesConfig.prop.getProperty("errortypecode");
 				    String statusmessage = PropertiesConfig.prop.getProperty("errortype");
 				    response = PropertiesConfig.createResponse(statuscode, statusmessage);
@@ -42,10 +43,19 @@ public class LoginValidation {
 				}
 				else if (functiontype.equalsIgnoreCase(PropertiesConfig.AdminFunctionType))
 				{
+					System.out.println("e");
 					String validate = processvalidate(email, password);
 					response = validate;
 					return response;
 				}
+				else if (functiontype.equalsIgnoreCase(PropertiesConfig.GetListFunctionType))
+				{
+					System.out.println("f");
+					String list = DBOperation.getList();
+					response=list;
+					return response;
+					
+				}	
 				else
 				{
 					System.out.println("function invalid");
@@ -103,5 +113,7 @@ public class LoginValidation {
 		return response;
 		
 	}
+	
+	
 
 }

@@ -15,6 +15,7 @@ public class IVRbaseAdminService
 
 	public String process(String ivrData, String servicetype, String functiontype)
 	{
+		System.out.println("a");
 		String response = "";
 
 		try
@@ -31,6 +32,7 @@ public class IVRbaseAdminService
 			
 			if((IVRbaseAdminConfig.IVRAdminServiceType).equalsIgnoreCase(servicetype)==false)
 			{
+				
 				String statuscode = IVRbaseAdminConfig.prop.getProperty("invalidtypecode");
 			    String statusmessage = IVRbaseAdminConfig.prop.getProperty("invalidtype");
 			    response = IVRbaseAdminConfig.createResponse(statuscode, statusmessage);
@@ -50,6 +52,7 @@ public class IVRbaseAdminService
 				{
 					if (functiontype.equalsIgnoreCase(IVRbaseAdminConfig.addIVRBaseFunctionType))
 					{
+						System.out.println("b");
 						String insertValue = processAddIVRBase(ivrData);
 						response = insertValue;
 						return response;
@@ -88,6 +91,7 @@ public class IVRbaseAdminService
 
 	private String processAddIVRBase(String ivrData)
 	{
+		System.out.println("c");
 		String response = "";
 		String[] mandatory_keys = {"ivrnumber", "grpzWelcomeNotes", "selectionHangupNotes", "selectionEndNotes", "errorNotes", "memberWelcomeNotes", "notRegGroupzNotes", "generalHangupNotes", "groupzBase", "numbersUrllist", "previousMenuSelectNotes"};
 		boolean processvalidate = IVRbaseAdminConfig.checkvalidation(ivrData, mandatory_keys);

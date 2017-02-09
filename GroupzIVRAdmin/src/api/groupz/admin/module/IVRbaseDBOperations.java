@@ -11,6 +11,7 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+import api.groupz.admin.config.ConnectionManager;
 import api.groupz.admin.config.IVRAdminConfig;
 import api.groupz.admin.config.IVRbaseAdminConfig;
 import api.groupz.database.DBConnect;
@@ -19,7 +20,7 @@ import api.groupz.database.DBConnect;
 public class IVRbaseDBOperations
 {
 	
-      static final String insertSQL = "INSERT INTO ivrgroupzbase (ivrnumber, grpzWelcomeNotes, audioGrpzWelcomeUrl, selectionHangupNotes, audioSelectionHangupUrl, selectionEndNotes, selectionEndUrl, errorNotes, audioerrorUrl, memberWelcomeNotes, audioMemberWelcomeUrl, notRegGroupzNotes, notRegGroupzUrl, maintenanceNotes, maintenanceUrl, generalHangupNotes, generalHangupUrl, numbersUrllist, previousMenuSelectNotes, previousMenuSelectUrl, playspeed, settimeout, multiLanguageFlag, languageSelectionList, languageWelcomeURL, groupzBase)values(";
+      static final String insertSQL = "INSERT INTO ivrgroupzbase (ivrnumber, grpzWelcomeNotes, audioGrpzWelcomeUrl, selectionHangupNotes, audioSelectionHangupUrl, selectionEndNotes, selectionEndUrl, errorNotes, audioerrorUrl, memberWelcomeNotes, audioMemberWelcomeUrl, notRegGroupzNotes, notRegGroupzUrl, maintenanceNotes, maintenanceUrl, generalHangupNotes, generalHangupUrl, numbersUrllist, previousMenuSelectNotes, previousMenuSelectUrl, playspeed, settimeout, multiLanguageFlag, languageSelectionList, languageWelcomeURL, groupzBase) values(";
       static final String updateSQL = "UPDATE ivrgroupzbase SET ";
       static final String selectSQL = "SELECT * FROM ivrgroupzbase";
 	
@@ -30,7 +31,8 @@ public class IVRbaseDBOperations
 		String response = "";
 	   try
 	   {
-	     conn = DBConnect.establishConnection();
+	    // conn = DBConnect.establishConnection();
+		   conn=ConnectionManager.getConnect();
 
 	      System.out.println("Database connected successfully...");
 	      stmt = conn.createStatement();
@@ -42,11 +44,12 @@ public class IVRbaseDBOperations
 	      String[] columnNames = {"ivrnumber", "grpzWelcomeNotes", "audioGrpzWelcomeUrl", "selectionHangupNotes", "audioSelectionHangupUrl", "selectionEndNotes", "selectionEndUrl", "errorNotes", "audioerrorUrl", "memberWelcomeNotes", "audioMemberWelcomeUrl", "notRegGroupzNotes", "notRegGroupzUrl", "maintenanceNotes", "maintenanceUrl", "generalHangupNotes", "generalHangupUrl", "numbersUrllist", "previousMenuSelectNotes", "previousMenuSelectUrl", "playspeed", "settimeout", "multiLanguageFlag", "languageSelectionList", "languageWelcomeURL", "groupzBase"};
 	      
 	      JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
-	      
+	     
 	      for(int i=0; i<columnNames.length; i++)
 	      {
 	    	  field_value = json.getString(columnNames[i]);
 	    	  String value = field_value.trim();
+	    	  
 	    	  
 	    	  String key = columnNames[i];
 	    	  System.out.println("key : " + key);
@@ -162,6 +165,7 @@ public class IVRbaseDBOperations
 						value = "NULL"; 
 			   		  	columnValues += value + "," ;
 			   		 System.out.println("columnValues : "+ columnValues);
+			   		
 			   	  	}
 		        }
 	      }
@@ -170,9 +174,13 @@ public class IVRbaseDBOperations
 	    	  columnValues = columnValues.substring(0, columnValues.length()-1);
 	      }
 	      String sql = columnValues + ");";
-	      String sql_query = insertSQL+sql;      
-	      System.out.println("The Insert SQL : " + sql_query) ;
-	      stmt.execute(sql_query);
+	      //String sql_query = insertSQL+sql;
+	      String sql_querry = "insert into ivrgroupzbase (ivrnumber) values(sumit);";
+	      System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+	     // System.out.println("The Insert SQL : " + sql_query) ;
+	      System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
+	      //stmt.execute(sql_query);
+	     // stmt.executeQuery(sql_query);
 	      
 	      System.out.println("Records inserted into the table...");
 	      String statuscode = IVRbaseAdminConfig.prop.getProperty("successcode");

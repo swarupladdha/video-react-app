@@ -11,7 +11,8 @@ public class PropertiesConfig {
 	public static Properties prop = new Properties();
 	
 	public static String AdminServiceType;
-	public static String AdminFunctionType ;
+	public static String AdminFunctionType;
+	public static String GetListFunctionType;
 		
 	static
 	{
@@ -21,6 +22,7 @@ public class PropertiesConfig {
 			prop.load(in);
 			AdminServiceType = prop.getProperty("adminservicetype");
 			AdminFunctionType = prop.getProperty("adminfunctiontype");
+			GetListFunctionType = prop.getProperty("getlistfunctiontype");
 		}
 		catch (Exception e)
 		{
@@ -40,17 +42,17 @@ public class PropertiesConfig {
 		}
 	}
 	
-	public static String createResponse1(String statuscode, String statusmessage,Object jarray)
+	public static String createResponse1(String statuscode, String statusmessage,Object jarray2)
 	{
 		JSONObject json = new JSONObject();
 		JSONObject resp = new JSONObject();
 		JSONObject responseObj = new JSONObject();
 		responseObj.put("statuscode", statuscode);
 		responseObj.put("statusmessage", statusmessage);
-		if(jarray instanceof JSONArray){
-			responseObj.put("data", jarray);
+		if(jarray2 instanceof JSONArray){
+			responseObj.put("data", jarray2);
 		}else{
-			responseObj.put("data", jarray);
+			responseObj.put("data", jarray2);
 		}		
 		
 		resp.put("response",responseObj);
