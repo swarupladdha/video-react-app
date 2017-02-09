@@ -174,22 +174,23 @@ public class IVRbaseDBOperations
 	    	  columnValues = columnValues.substring(0, columnValues.length()-1);
 	      }
 	      String sql = columnValues + ");";
-	      //String sql_query = insertSQL+sql;
-	      String sql_querry = "insert into ivrgroupzbase (ivrnumber) values(sumit);";
-	      System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
-	     // System.out.println("The Insert SQL : " + sql_query) ;
-	      System.out.println("----------------------------------------------------------------------------------------------------------------------------------------");
-	      //stmt.execute(sql_query);
-	     // stmt.executeQuery(sql_query);
+	      String sql_query = insertSQL+sql;    
+	     
+	      System.out.println("The Insert SQL : " + sql_query) ;
+	     
+	      stmt.execute(sql_query);
+	     
 	      
 	      System.out.println("Records inserted into the table...");
 	      String statuscode = IVRbaseAdminConfig.prop.getProperty("successcode");
 	      String statusmessage = "Successfully Inserted";
 	      response = IVRbaseAdminConfig.createResponse(statuscode, statusmessage);
+	     
 	      return response;
 	   }
 	   catch(SQLException e)
 	   {
+		   System.out.println(e);
 	      //Handle errors for Class.forName
 		   StringWriter errors = new StringWriter();
 		   e.printStackTrace(new PrintWriter(errors));
@@ -218,7 +219,8 @@ public class IVRbaseDBOperations
 	      try
 	      {
 	         if(stmt!=null)
-	        	 DBConnect.closeConnection(conn);
+	        	 stmt.close();
+	        	 conn.close();
 	      }
 	      catch(Exception e)
 	      {

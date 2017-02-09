@@ -7,7 +7,9 @@ import java.util.List;
 
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+import api.groupz.admin.config.DBOperation;
 import api.groupz.admin.config.IVRAdminConfig;
+import api.groupz.admin.config.PropertiesConfig;
 
 
 public class IVRAdminService
@@ -30,6 +32,7 @@ public class IVRAdminService
 			System.out.println("function Type : "+functiontype);
 			if((IVRAdminConfig.IVRAdminServiceType).equalsIgnoreCase(servicetype)==false)
 			{
+				
 				System.out.println("service invalid");
 				String statuscode = IVRAdminConfig.prop.getProperty("invalidtypecode");
 			    String statusmessage = IVRAdminConfig.prop.getProperty("invalidtype");
@@ -65,6 +68,13 @@ public class IVRAdminService
 						String getSelectedValues = processGETIVRBase(ivrData);
 						response = getSelectedValues;
 						return response;
+					}
+					else if (functiontype.equalsIgnoreCase(PropertiesConfig.GetDetailListFunctionType))
+					{
+						String list = DBOperation.getDetailList(ivrData);
+						response=list;
+						return response;
+						
 					}
 					else
 					{

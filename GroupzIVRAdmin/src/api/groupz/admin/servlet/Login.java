@@ -33,14 +33,16 @@ public class Login extends HttpServlet {
 			jsonReq = JSONObject.fromObject(requestJson);
 			String servicetype = jsonReq.getJSONObject("json").getJSONObject("request").getString("servicetype");
 			String functiontype = jsonReq.getJSONObject("json").getJSONObject("request").getString("functiontype");
-			String email = jsonReq.getJSONObject("json").getJSONObject("request").getJSONObject("data")
-					.getString("email");
-			String password = jsonReq.getJSONObject("json").getJSONObject("request").getJSONObject("data")
-					.getString("password");
+			String data=jsonReq.getJSONObject("json").getJSONObject("request").getString("data");
+			
+			//String email = jsonReq.getJSONObject("json").getJSONObject("request").getJSONObject("data")
+			//			.getString("email");
+				//String password = jsonReq.getJSONObject("json").getJSONObject("request").getJSONObject("data")
+				//		.getString("password");
 
-			System.out.println(servicetype + functiontype + email + password);
-			System.out.println(servicetype + "   " + functiontype + "  " + email + "  " + password + "  " + admin);
-			String resp = admin.process(email, password, servicetype, functiontype);
+			System.out.println(servicetype + functiontype + data);
+			System.out.println(servicetype + "   " + functiontype + "  " + data + "  " + admin);
+			String resp = admin.process(data, servicetype, functiontype);
 
 			System.out.println("The response is : " + resp);
 			response.setContentType("application/json");

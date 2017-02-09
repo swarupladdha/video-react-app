@@ -13,6 +13,7 @@ public class PropertiesConfig {
 	public static String AdminServiceType;
 	public static String AdminFunctionType;
 	public static String GetListFunctionType;
+	public static String GetDetailListFunctionType;
 		
 	static
 	{
@@ -23,6 +24,7 @@ public class PropertiesConfig {
 			AdminServiceType = prop.getProperty("adminservicetype");
 			AdminFunctionType = prop.getProperty("adminfunctiontype");
 			GetListFunctionType = prop.getProperty("getlistfunctiontype");
+			GetDetailListFunctionType = prop.getProperty("getdetaillistfunctiontype");
 		}
 		catch (Exception e)
 		{

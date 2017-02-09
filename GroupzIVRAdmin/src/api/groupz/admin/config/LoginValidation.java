@@ -1,10 +1,10 @@
 package api.groupz.admin.config;
 
-
-
+import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
 
 public class LoginValidation {
-	public String process(String email, String password, String servicetype, String functiontype)
+	public String process(String data, String servicetype, String functiontype)
 	{
 		String response = "";
 
@@ -44,18 +44,11 @@ public class LoginValidation {
 				else if (functiontype.equalsIgnoreCase(PropertiesConfig.AdminFunctionType))
 				{
 					System.out.println("e");
-					String validate = processvalidate(email, password);
+					String validate = processvalidate(data);
 					response = validate;
 					return response;
 				}
-				else if (functiontype.equalsIgnoreCase(PropertiesConfig.GetListFunctionType))
-				{
-					System.out.println("f");
-					String list = DBOperation.getList();
-					response=list;
-					return response;
-					
-				}	
+				
 				else
 				{
 					System.out.println("function invalid");
@@ -76,12 +69,13 @@ public class LoginValidation {
 		}
 	}
 
-	private String processvalidate(String email,String password)
+	private String processvalidate(String data)
 	{
 		String response = "";
 		
-		
-		
+		JSONObject json = (JSONObject) JSONSerializer.toJSON(data);
+		String email = json.getString("email");
+		String password = json.getString("password");
 		String emailId = "";
 		String passwordId = "";
 		if(PropertiesConfig.isEmptyOrNull(email)==true)

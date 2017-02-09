@@ -7,8 +7,10 @@ import java.util.List;
 
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+import api.groupz.admin.config.DBOperation;
 import api.groupz.admin.config.IVRAdminConfig;
 import api.groupz.admin.config.IVRbaseAdminConfig;
+import api.groupz.admin.config.PropertiesConfig;
 
 public class IVRbaseAdminService
 {
@@ -68,6 +70,13 @@ public class IVRbaseAdminService
 						String getSelectedValues = processGETIVRBase(ivrData);
 						response = getSelectedValues;
 						return response;
+					}
+					else if (functiontype.equalsIgnoreCase(PropertiesConfig.GetListFunctionType))
+					{
+						String list = DBOperation.getList();
+						response=list;
+						return response;
+						
 					}
 					else
 					{
