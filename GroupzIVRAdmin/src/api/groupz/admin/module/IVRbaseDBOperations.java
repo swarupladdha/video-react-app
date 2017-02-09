@@ -406,7 +406,7 @@ public class IVRbaseDBOperations
 			JSONObject dataObj = new JSONObject();
 			JSONArray jarray = new JSONArray();
 			
-			conn = DBConnect.establishConnection();
+			conn = ConnectionManager.getConnect();
 
 			System.out.println("Database connected successfully...");
 			stmt = conn.createStatement();
@@ -631,7 +631,8 @@ public class IVRbaseDBOperations
 		    try
 		    {
 		       if(stmt!=null)
-		          DBConnect.closeConnection(conn);
+		         stmt.close();
+		       	 conn.close();
 		    }
 		    catch(Exception e)
 		    {
