@@ -15,7 +15,7 @@ public class DBOperation {
 		static final String selectSQL = "SELECT * FROM admin WHERE ";
 		static final String selectSQL1 = "SELECT ivrnumber ,groupzBase  FROM ivrgroupzbase ";
 		static final String selectSQL2 = "SELECT id  FROM ivrgroupzbase WHERE ";
-		static final String selectSQL3 = "SELECT ivrnumber ,groupzBase,groupZCode  FROM ivrgroupz ";
+
 		
 		public static String connectDBandCheck(String emailId, String passwordId)
 		{
@@ -237,8 +237,9 @@ public class DBOperation {
 					 int id = rs.getInt("Id");
 					 System.out.println(id);
 				  }
+				  String sql1= "SELECT ivrnumber ,groupzBase,groupZCode  FROM ivrgroupz where ivrnumber ="+ivrnumber+"  and groupzBase ="+groupzBase+";";
+				  ResultSet rs1 = stmt.executeQuery(sql1);
 				  
-				  ResultSet rs1 = stmt.executeQuery(selectSQL3);
 				  while(rs1.next())
 				  {
 				 
@@ -265,8 +266,9 @@ public class DBOperation {
 			    }
 			    else
 			    {
+			    	System.out.println("No match found"+PropertiesConfig.prop.getProperty("nomatcherror"));
 			    	String statuscode = PropertiesConfig.prop.getProperty("errorcode");
-					String statusmessage = PropertiesConfig.prop.getProperty("invaliddata");
+					String statusmessage = PropertiesConfig.prop.getProperty("nomatcherror");
 					response = PropertiesConfig.createResponse(statuscode, statusmessage);  
 				    return response;
 			    }
