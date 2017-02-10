@@ -447,7 +447,7 @@ public class IVRDBOperations
 			System.out.println("Database connected successfully...");
 			stmt = conn.createStatement();
 	      
-			System.out.println("Records submitted into the table...");
+			
 	      
 		      String field_value = null;
 		      String columnValues = "";
@@ -594,11 +594,11 @@ public class IVRDBOperations
 			    	  sql = ivrData_keys[i] + "=" + columnValues;
 						
 					  System.out.println("sql : "+sql);
-					  String sql_query = updateSQL + sql + " WHERE ivrnumber='" +ivrnumber+ "' and groupzCode='" +groupzcode+ "';";      
+					  String sql_query = updateSQL + sql + " WHERE ivrnumber= " +ivrnumber+ " and groupZCode='" +groupzcode+ "';";      
 					  System.out.println("The update SQL : " + sql_query) ;
 					  stmt.executeUpdate(sql_query); 
-					  String ret_list_Qry = selectSQL +" WHERE ivrnumber='"+ivrnumber+"' and groupzCode='"+groupzcode+"';";
-					  rs = stmt.executeQuery(ret_list_Qry);
+			//		  String ret_list_Qry = selectSQL +" WHERE ivrnumber='"+ivrnumber+"' and groupzCode='"+groupzcode+"';";
+			//		  rs = stmt.executeQuery(ret_list_Qry);
 				  }
 			  }
 			  if(rs!=null)
