@@ -451,7 +451,7 @@ public class IVRDBOperations
 	      
 		      String field_value = null;
 		      String columnValues = "";
-		      String[] columnNames = {"ivrnumber", "groupzCode", "welcomeNotes", "audioWelcomeUrl", "selectionlist", "selectionlistUrl", "groupzNameUrl", "multiLanguageFlag", "recmultilanguageSelectionList", "recmultilanguageSelectionWelcomeURL", "endDate", "address"};
+		      String[] columnNames = {"ivrnumber", "groupzCode","groupzBase", "welcomeNotes", "audioWelcomeUrl", "selectionlist", "selectionlistUrl", "groupzNameUrl", "multiLanguageFlag", "recmultilanguageSelectionList", "recmultilanguageSelectionWelcomeURL", "endDate", "address"};
 		      
 		      JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
 		      
@@ -584,6 +584,8 @@ public class IVRDBOperations
 					
 				  String ivrNumber = json.getString("ivrnumber");
 				  String ivrnumber = ivrNumber.trim();
+				  String grpzBase = json.getString("groupzBase");
+				  String groupzbase = grpzBase.trim();
 				  String grpzcode = json.getString("groupzCode");
 				  String groupzcode = grpzcode.trim();
 				  
@@ -594,14 +596,14 @@ public class IVRDBOperations
 			    	  sql = ivrData_keys[i] + "=" + columnValues;
 						
 					  System.out.println("sql : "+sql);
-					  String sql_query = updateSQL + sql + " WHERE ivrnumber= " +ivrnumber+ " and groupZCode='" +groupzcode+ "';";      
+					  String sql_query = updateSQL + sql + " WHERE ivrnumber= " +ivrnumber+ " and groupzBase='" +groupzbase+ "' and groupZCode = '"+groupzcode+"';";      
 					  System.out.println("The update SQL : " + sql_query) ;
 					  stmt.executeUpdate(sql_query); 
 			//		  String ret_list_Qry = selectSQL +" WHERE ivrnumber='"+ivrnumber+"' and groupzCode='"+groupzcode+"';";
 			//		  rs = stmt.executeQuery(ret_list_Qry);
 				  }
 			  }
-			  if(rs!=null)
+			/*  if(rs!=null)
 			  {
 				 while (rs.next())
 				 {
@@ -620,7 +622,7 @@ public class IVRDBOperations
 					 jarray.add(dataObj);
 				 }
 				 System.out.println("jarray : "+jarray);
-			  } 
+			  }*/ 
 		      System.out.println("Records updated in the table...");
 		      String statuscode = IVRAdminConfig.prop.getProperty("successcode");
 		      String statusmessage = "Successfully Updated";
