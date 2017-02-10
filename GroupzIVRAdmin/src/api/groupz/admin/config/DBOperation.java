@@ -225,8 +225,10 @@ public class DBOperation {
 		       stmt = conn.createStatement();
 		      
 		       System.out.println("Creating Query");
+		       System.out.println(ivrnumber);
+		       System.out.println();
 		       
-		       String sql =	selectSQL2+" ivrnumber = "+ivrnumber+ " and groupzBase= "+groupzBase+";";          
+		       String sql =	selectSQL2+" ivrnumber = "+ivrnumber+ " and groupzBase= '"+groupzBase+"';";          
 			   System.out.println("The select SQL : " + sql) ;
 			   ResultSet rs = stmt.executeQuery(sql);
 			  
@@ -237,7 +239,7 @@ public class DBOperation {
 					 int id = rs.getInt("Id");
 					 System.out.println(id);
 				  }
-				  String sql1= "SELECT ivrnumber ,groupzBase,groupZCode  FROM ivrgroupz where ivrnumber ="+ivrnumber+"  and groupzBase ="+groupzBase+";";
+				  String sql1= "SELECT ivrnumber ,groupzBase,groupZCode  FROM ivrgroupz where ivrnumber ="+ivrnumber+"  and groupzBase ='"+groupzBase+"';";
 				  ResultSet rs1 = stmt.executeQuery(sql1);
 				  
 				  while(rs1.next())

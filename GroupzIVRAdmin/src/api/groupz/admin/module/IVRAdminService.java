@@ -100,7 +100,7 @@ public class IVRAdminService
 	private String processAddIVRBase(String ivrData)
 	{
 		String response = "";
-		String[] mandatory_keys = { "ivrnumber", "groupzCode", "welcomeNotes", "selectionlist", "groupzNameUrl", "multiLanguageFlag", "groupzBase"};
+		String[] mandatory_keys = { "ivrnumber", "groupzCode", "welcomeNotes", "selectionlist", "groupzNameUrl", "multiLanguageFlag"};
 		boolean processvalidate = IVRAdminConfig.checkvalidation(ivrData, mandatory_keys);
 
 		String value = "";
@@ -323,26 +323,26 @@ public class IVRAdminService
 	{
 		String response = "";
 		
-		String[] mandatory_keys = { "ivrnumber", "groupzCode", "welcomeNotes", "selectionlist", "groupzNameUrl", "multiLanguageFlag"};
+		/*String[] mandatory_keys = { "ivrnumber", "groupzCode", "welcomeNotes", "selectionlist", "groupzNameUrl", "multiLanguageFlag"};
 
 		boolean processvalidate = IVRAdminConfig.checkvalidate(ivrData, mandatory_keys);
 
-		String value = "";
+		String value = "";*/
 		
-		if (processvalidate == false)
+		/*if (processvalidate == false)
 		{
 			String statuscode = IVRAdminConfig.prop.getProperty("errorcode");
 		    String statusmessage = IVRAdminConfig.prop.getProperty("missingfield");
 		    response = IVRAdminConfig.createResponse(statuscode, statusmessage);
 			return response;
-		}
-		else
-		{
+		}*/
+		//else
+		//{
 
 			String getValues = IVRDBOperations.connectDBandGet(ivrData);
 			response = getValues;
 			return response;
-		}
+		//}
 
 	}
 }
