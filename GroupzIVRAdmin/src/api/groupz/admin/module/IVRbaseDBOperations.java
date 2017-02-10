@@ -577,14 +577,14 @@ public class IVRbaseDBOperations
 		        {
 		    	    sql = ivrData_keys[i] + "=" + columnValues;
 				    System.out.println("sql : "+sql);
-				    String sql_query = updateSQL + sql + " WHERE ivrnumber='" +ivrnumber+ "';";
+				    String sql_query = updateSQL + sql + " WHERE ivrnumber= '" +ivrnumber+ "' ;";
 				    System.out.println("The update SQL : " + sql_query) ;
 				    stmt.executeUpdate(sql_query); 
-				    String ret_list_Qry = selectSQL +" WHERE ivrnumber='"+ivrnumber+"';";
-				    rs = stmt.executeQuery(ret_list_Qry);
+//				    String ret_list_Qry = selectSQL +" WHERE ivrnumber='"+ivrnumber+"';";
+//				    rs = stmt.executeQuery(ret_list_Qry);
 			    }
 		    }
-		    if(rs!=null)
+/*		    if(rs!=null)
 		    {
 			   while (rs.next())
 			   {
@@ -617,7 +617,7 @@ public class IVRbaseDBOperations
 				   jarray.add(dataObj);
 			   }
 			   System.out.println("jarray : "+jarray);
-		    } 
+		    } */
 	        System.out.println("Records updated in the table...");
 	        String statuscode = IVRAdminConfig.prop.getProperty("successcode");
 	        String statusmessage = "Successfully Updated";
