@@ -40,9 +40,10 @@ public class IVRDBOperations
 	      
 	      String field_value = null;
 	      String columnValues = "";
-	      String[] columnNames = {"ivrnumber", "groupzCode", "welcomeNotes", "audioWelcomeUrl", "selectionlist", "selectionlistUrl", "groupzNameUrl", "multiLanguageFlag", "recmultilanguageSelectionList", "recmultilanguageSelectionWelcomeURL", "endDate", "address"};
+	      String[] columnNames = {"ivrnumber", "groupzCode", "welcomeNotes", "audioWelcomeUrl", "selectionlist", "selectionlistUrl", "groupzNameUrl", "multiLanguageFlag", "recmultilanguageSelectionList", "recmultilanguageSelectionWelcomeURL", "endDate", "address","groupzBase"};
 	      
 	      JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
+	      System.out.println(columnNames.length+"");
 	      
 	      for(int i=0; i<columnNames.length; i++)
 	      {
@@ -57,6 +58,7 @@ public class IVRDBOperations
 				 JSONObject jReq = json.getJSONObject(key) ;
 				 String welcomeNotes_value = jReq.getString("welcomenotesList");
 				 System.out.println("welcomeNotes_value : "+welcomeNotes_value);
+				 System.out.println("==============================");
 					
 				 if (IVRAdminConfig.isEmptyOrNull(welcomeNotes_value.trim()) == false)
 			      {

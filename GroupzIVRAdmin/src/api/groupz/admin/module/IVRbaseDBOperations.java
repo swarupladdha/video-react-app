@@ -22,7 +22,7 @@ public class IVRbaseDBOperations
 	
       static final String insertSQL = "INSERT INTO ivrgroupzbase (ivrnumber, grpzWelcomeNotes, audioGrpzWelcomeUrl, selectionHangupNotes, audioSelectionHangupUrl, selectionEndNotes, selectionEndUrl, errorNotes, audioerrorUrl, memberWelcomeNotes, audioMemberWelcomeUrl, notRegGroupzNotes, notRegGroupzUrl, maintenanceNotes, maintenanceUrl, generalHangupNotes, generalHangupUrl, numbersUrllist, previousMenuSelectNotes, previousMenuSelectUrl, playspeed, settimeout, multiLanguageFlag, languageSelectionList, languageWelcomeURL, groupzBase) values(";
       static final String updateSQL = "UPDATE ivrgroupzbase SET ";
-      static final String selectSQL = "SELECT * FROM ivrgroupzbase";
+      static final String selectSQL = "SELECT * FROM ivrgroupzbase where ivrnumber = ";
 	
 	public static String connectDBandInsert(String ivrData)
 	{
@@ -252,18 +252,24 @@ public class IVRbaseDBOperations
 		Connection conn = null;
 		Statement stmt = null;
 		String response = "";
+		
+		JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
+		String ivrnumber = json.getString("ivrnumber");
+		String groupzBase = json.getString("groupzBase");
+		System.out.println(ivrnumber);
+		System.out.println(groupzBase);
 	   
 		try
 	    {
 			JSONObject dataObj = new JSONObject();
 			JSONArray jarray = new JSONArray();
 			
-			conn = DBConnect.establishConnection();
+			conn = ConnectionManager.getConnect();
 
 			System.out.println("Database connected successfully...");
 			stmt = conn.createStatement();
 	      
-			System.out.println("Records inserting into the table...");
+//			System.out.println("Records inserting into the table...");
 	      
 //		      String field_value = null;
 //		      String columnValues = "";
@@ -302,8 +308,9 @@ public class IVRbaseDBOperations
 //						
 //			    	  String sql = ivrData_keys[i] + "=" + columnValues + ";";
 //					  System.out.println("sql : "+sql);
-					  String sql_query = selectSQL;      
-					  System.out.println("The select SQL : " + sql_query) ;
+					  System.out.println("---------------------------------------------------------");
+					  String sql_query = selectSQL +ivrnumber+" and groupzBase ='"+groupzBase+"';";      
+					  System.out.println(sql_query) ;
 					  ResultSet rs = stmt.executeQuery(sql_query);
 					  
 					  if(rs!=null)
@@ -333,8 +340,8 @@ public class IVRbaseDBOperations
 							 dataObj.put("playspeed",rs.getInt("playspeed"));
 							 dataObj.put("settimeout",rs.getInt("settimeout"));
 							 dataObj.put("multilanguageFlag",rs.getInt("multilanguageFlag"));
-//							 dataObj.put("languageSelectionList",rs.getString("languageSelectionList"));
-//							 dataObj.put("languageWelcomeURL",rs.getString("languageWelcomeURL"));
+							 dataObj.put("languageSelectionList",rs.getString("languageSelectionList"));
+							 dataObj.put("languageWelcomeURL",rs.getString("languageWelcomeURL"));
 							 dataObj.put("groupzBase",rs.getString("groupzBase"));
 							 jarray.add(dataObj);
 						 }

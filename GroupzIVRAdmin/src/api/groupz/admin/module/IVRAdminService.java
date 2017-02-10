@@ -100,7 +100,7 @@ public class IVRAdminService
 	private String processAddIVRBase(String ivrData)
 	{
 		String response = "";
-		String[] mandatory_keys = { "ivrnumber", "groupzCode", "welcomeNotes", "selectionlist", "groupzNameUrl", "multiLanguageFlag"};
+		String[] mandatory_keys = { "ivrnumber", "groupzCode", "welcomeNotes", "selectionlist", "groupzNameUrl", "multiLanguageFlag", "groupzBase"};
 		boolean processvalidate = IVRAdminConfig.checkvalidation(ivrData, mandatory_keys);
 
 		String value = "";
@@ -176,6 +176,8 @@ public class IVRAdminService
 						return response;
 					}
 				}
+				
+				
 				
 				if (IVRAdminConfig.isEmptyOrNull(field_value) == true)
 				{ 
