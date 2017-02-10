@@ -22,7 +22,7 @@ public class IVRDBOperations
 	
       static final String insertSQL = "INSERT INTO ivrgroupz (ivrnumber, groupzCode,groupzBase, welcomeNotes, audioWelcomeUrl, selectionlist, selectionlistUrl, groupzNameUrl, multiLanguageFlag, recmultilanguageSelectionList, recmultilanguageSelectionWelcomeURL, endDate, address)values(";
       static final String updateSQL = "UPDATE ivrgroupz SET ";
-      static final String selectSQL = "SELECT * FROM ivrgroupz";
+      static final String selectSQL = "SELECT * FROM ivrgroupz where ivrnumber = ";
 	
 	public static String connectDBandInsert(String ivrData)
 	{
@@ -232,18 +232,24 @@ public class IVRDBOperations
 		Connection conn = null;
 		Statement stmt = null;
 		String response = "";
+		
+		JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
+		String ivrnumber = json.getString("ivrnumber");
+		String groupzBase = json.getString("groupzBase");
+		System.out.println(ivrnumber);
+		System.out.println(groupzBase);
 	   
 		try
 	    {
 			JSONObject dataObj = new JSONObject();
 			JSONArray jarray = new JSONArray();
 			
-			conn = DBConnect.establishConnection();
+			conn = ConnectionManager.getConnect();
 
 			System.out.println("Database connected successfully...");
 			stmt = conn.createStatement();
 	      
-			System.out.println("Records submitted into the table...");
+			//System.out.println("Records submitted into the table...");
 	      
 //		      String field_value = null;
 //		      String columnValues = "";
@@ -339,12 +345,12 @@ public class IVRDBOperations
 //			  }
 //		      else
 //	          {
-	    		  String sql_query = selectSQL + ";";
+	    		  String sql_query = selectSQL +ivrnumber+" and groupzBase = '"+groupzBase+ "' ;";
 	    		  System.out.println("The select SQL : " + sql_query) ;
-				  stmt.execute(sql_query);
+//				  stmt.execute(sql_query);
 					  
-				  String ret_list_Qry= sql_query;
-				  ResultSet rs = stmt.executeQuery(ret_list_Qry);
+//				  String ret_list_Qry= sql_query;
+				  ResultSet rs = stmt.executeQuery(sql_query);
 					  
 					  
 				  if(rs!=null)
