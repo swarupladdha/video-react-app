@@ -20,7 +20,7 @@ import api.groupz.database.DBConnect;
 public class IVRDBOperations
 {
 	
-      static final String insertSQL = "INSERT INTO ivrgroupz (ivrnumber, groupzCode, welcomeNotes, audioWelcomeUrl, selectionlist, selectionlistUrl, groupzNameUrl, multiLanguageFlag, recmultilanguageSelectionList, recmultilanguageSelectionWelcomeURL, endDate, address)values(";
+      static final String insertSQL = "INSERT INTO ivrgroupz (ivrnumber, groupzCode,groupzBase, welcomeNotes, audioWelcomeUrl, selectionlist, selectionlistUrl, groupzNameUrl, multiLanguageFlag, recmultilanguageSelectionList, recmultilanguageSelectionWelcomeURL, endDate, address)values(";
       static final String updateSQL = "UPDATE ivrgroupz SET ";
       static final String selectSQL = "SELECT * FROM ivrgroupz";
 	
@@ -40,10 +40,11 @@ public class IVRDBOperations
 	      
 	      String field_value = null;
 	      String columnValues = "";
-	      String[] columnNames = {"ivrnumber", "groupzCode", "welcomeNotes", "audioWelcomeUrl", "selectionlist", "selectionlistUrl", "groupzNameUrl", "multiLanguageFlag", "recmultilanguageSelectionList", "recmultilanguageSelectionWelcomeURL", "endDate", "address","groupzBase"};
+	      String[] columnNames = {"ivrnumber", "groupzCode" ,"groupzBase", "welcomeNotes", "audioWelcomeUrl", "selectionlist", "selectionlistUrl", "groupzNameUrl", "multiLanguageFlag", "recmultilanguageSelectionList", "recmultilanguageSelectionWelcomeURL", "endDate", "address"};
 	      
 	      JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
 	      System.out.println(columnNames.length+"");
+	      System.out.println(columnNames[2]);
 	      
 	      for(int i=0; i<columnNames.length; i++)
 	      {
@@ -157,6 +158,7 @@ public class IVRDBOperations
 	    	   columnValues = columnValues.substring(0, columnValues.length()-1);
 	       }
 		       String sql = columnValues + ");";
+		       
 		       String sql_query = insertSQL+sql;      
 		       System.out.println("The Insert SQL : " + sql_query) ;
 		       stmt.execute(sql_query);
