@@ -209,6 +209,7 @@ public class DBOperation {
 			JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
 			String ivrnumber = json.getString("ivrnumber");
 			String groupzBase = json.getString("groupzBase");
+			String groupZCode =json.getString("groupZCode");
 			
 			Connection conn = null;
 			Statement stmt = null;
@@ -239,7 +240,7 @@ public class DBOperation {
 					 int id = rs.getInt("Id");
 					 System.out.println(id);
 				  }
-				  String sql1= "SELECT ivrnumber ,groupzBase,groupZCode  FROM ivrgroupz where ivrnumber ="+ivrnumber+"  and groupzBase ='"+groupzBase+"';";
+				  String sql1= "SELECT ivrnumber ,groupzBase,groupZCode  FROM ivrgroupz where ivrnumber ="+ivrnumber+"  and groupzBase ='"+groupzBase+"' and groupZCode = '" +groupZCode+"';" ;
 				  ResultSet rs1 = stmt.executeQuery(sql1);
 				  
 				  while(rs1.next())
