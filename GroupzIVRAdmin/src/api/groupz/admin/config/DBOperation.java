@@ -14,7 +14,7 @@ public class DBOperation {
 
 		static final String selectSQL = "SELECT * FROM admin WHERE ";
 		static final String selectSQL1 = "SELECT ivrnumber ,groupzBase  FROM ivrgroupzbase ";
-		static final String selectSQL2 = "SELECT id  FROM ivrgroupzbase WHERE ";
+		static final String selectSQL2 = "SELECT ivrnumber,groupzBase,groupZCode  FROM ivrgroupz WHERE ";
 
 		
 		public static String connectDBandCheck(String emailId, String passwordId)
@@ -209,7 +209,6 @@ public class DBOperation {
 			JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
 			String ivrnumber = json.getString("ivrnumber");
 			String groupzBase = json.getString("groupzBase");
-			String groupZCode =json.getString("groupZCode");
 			
 			Connection conn = null;
 			Statement stmt = null;
@@ -237,10 +236,15 @@ public class DBOperation {
 			   {
 				  while (rs.next())
 				  {
-					 int id = rs.getInt("Id");
-					 System.out.println(id);
+					  dataObj.put("ivrnumber",rs.getString("ivrnumber"));
+					 	 System.out.println(rs.getString("ivrnumber"));
+					 	  dataObj.put("groupzBase", rs.getString("groupzBase"));
+					 	System.out.println(rs.getString("groupzBase"));
+					 	  dataObj.put("groupZCode", rs.getString("groupZCode"));
+						 	System.out.println(rs.getString("groupzBase"));
+					 	  jarray1.add(dataObj);
 				  }
-				  String sql1= "SELECT ivrnumber ,groupzBase,groupZCode  FROM ivrgroupz where ivrnumber ="+ivrnumber+"  and groupzBase ='"+groupzBase+"' and groupZCode = '" +groupZCode+"';" ;
+			/*	  String sql1= "SELECT ivrnumber ,groupzBase,groupZCode  FROM ivrgroupz where ivrnumber ="+ivrnumber+"  and groupzBase ='"+groupzBase+"' ;" ;
 				  ResultSet rs1 = stmt.executeQuery(sql1);
 				  
 				  while(rs1.next())
@@ -256,7 +260,8 @@ public class DBOperation {
 				  }
 				  //jarray2.add(jarray1);
 			   }
-		      
+		      */
+			   }
 			    System.out.println("jarray1 : "+ jarray1);
 			    
 			    if (jarray1 != null && jarray1.size()>0)
@@ -275,7 +280,7 @@ public class DBOperation {
 					response = PropertiesConfig.createResponse(statuscode, statusmessage);  
 				    return response;
 			    }
-		     } 
+			   }
 			 catch(Exception e)
 		     {
 			     //Handle errors for Class.forName

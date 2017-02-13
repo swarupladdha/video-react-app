@@ -236,6 +236,7 @@ public class IVRDBOperations
 		JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
 		String ivrnumber = json.getString("ivrnumber");
 		String groupzBase = json.getString("groupzBase");
+		String groupzcode = json.getString("groupzCode");
 		System.out.println(ivrnumber);
 		System.out.println(groupzBase);
 	   
@@ -345,7 +346,7 @@ public class IVRDBOperations
 //			  }
 //		      else
 //	          {
-	    		  String sql_query = selectSQL +ivrnumber+" and groupzBase = '"+groupzBase+ "' ;";
+	    		  String sql_query = selectSQL +ivrnumber+" and groupzBase = '"+groupzBase+ "' and groupZCode = '"+groupzcode+"' ;";
 	    		  System.out.println("The select SQL : " + sql_query) ;
 //				  stmt.execute(sql_query);
 					  
