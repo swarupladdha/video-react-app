@@ -226,6 +226,7 @@ public class IVRDBOperations
 					 {
 						 dataObj = new JSONObject();
 						 dataObj.put("ivrnumber",rs.getString("ivrnumber"));
+						 dataObj.put("groupzBase",rs.getString("groupzBase"));
 						 dataObj.put("groupZCode",rs.getString("groupZCode"));
 						 dataObj.put("welcomeNotes",rs.getString("welcomeNotes"));
 						 dataObj.put("audioWelcomeUrl",rs.getString("audioWelcomeUrl"));
