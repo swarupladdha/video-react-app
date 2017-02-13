@@ -244,23 +244,7 @@ public class DBOperation {
 						 	System.out.println(rs.getString("groupzBase"));
 					 	  jarray1.add(dataObj);
 				  }
-			/*	  String sql1= "SELECT ivrnumber ,groupzBase,groupZCode  FROM ivrgroupz where ivrnumber ="+ivrnumber+"  and groupzBase ='"+groupzBase+"' ;" ;
-				  ResultSet rs1 = stmt.executeQuery(sql1);
-				  
-				  while(rs1.next())
-				  {
-				 
-				 	  dataObj.put("ivrnumber",rs1.getString("ivrnumber"));
-				 	 System.out.println(rs1.getString("ivrnumber"));
-				 	  dataObj.put("groupzBase", rs1.getString("groupzBase"));
-				 	System.out.println(rs1.getString("groupzBase"));
-				 	  dataObj.put("groupZCode", rs1.getString("groupZCode"));
-					 	System.out.println(rs1.getString("groupzBase"));
-				 	  jarray1.add(dataObj);
-				  }
-				  //jarray2.add(jarray1);
-			   }
-		      */
+	
 			   }
 			    System.out.println("jarray1 : "+ jarray1);
 			    
