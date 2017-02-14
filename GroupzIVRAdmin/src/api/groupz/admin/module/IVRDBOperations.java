@@ -194,14 +194,14 @@ public class IVRDBOperations
 	{
 		Connection conn = null;
 		Statement stmt = null;
-		int limit=100;
-		int offset=-1;
+	
 		String response = "";
 		
 		JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
 		String ivrnumber = json.getString("ivrnumber");
 		String groupzBase = json.getString("groupzBase");
 		String groupzcode = json.getString("groupzCode");
+		
 		System.out.println(ivrnumber);
 		System.out.println(groupzBase);
 	   
@@ -214,10 +214,8 @@ public class IVRDBOperations
 
 			System.out.println("Database connected successfully...");
 			stmt = conn.createStatement();
-	      
-			String sql_query=DBOperation.paginationQry(limit, offset);
 
-	    		  String sql = selectSQL +ivrnumber+" and groupzBase = '"+groupzBase+ "' and groupZCode = '"+groupzcode+"'"+sql_query+" ;";
+	    		  String sql = selectSQL +ivrnumber+" and groupzBase = '"+groupzBase+ "' and groupZCode = '"+groupzcode+"' ;";
 	    		  
 	    		  System.out.println("The select SQL : " + sql) ;
 

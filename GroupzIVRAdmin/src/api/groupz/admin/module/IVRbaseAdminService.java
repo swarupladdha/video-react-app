@@ -74,7 +74,7 @@ public class IVRbaseAdminService
 					}
 					else if (functiontype.equalsIgnoreCase(PropertiesConfig.GetListFunctionType))
 					{
-						String list = DBOperation.getList();
+						String list = DBOperation.getList(ivrData);
 						response=list;
 						return response;
 						

@@ -235,12 +235,14 @@ public class IVRbaseDBOperations
 		Connection conn = null;
 		Statement stmt = null;
 		String response = "";
-		int limit =100;
-		int offset =-1;
+	//	int limit =100;
+	//	int offset =0;
 		
 		JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
 		String ivrnumber = json.getString("ivrnumber");
 		String groupzBase = json.getString("groupzBase");
+		int limit = json.getInt("limit");
+		int offset =json.getInt("offset");
 		System.out.println(ivrnumber);
 		System.out.println(groupzBase);
 	   

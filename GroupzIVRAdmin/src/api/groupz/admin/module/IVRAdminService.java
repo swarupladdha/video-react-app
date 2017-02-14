@@ -323,26 +323,10 @@ public class IVRAdminService
 	{
 		String response = "";
 		
-		/*String[] mandatory_keys = { "ivrnumber", "groupzCode", "welcomeNotes", "selectionlist", "groupzNameUrl", "multiLanguageFlag"};
-
-		boolean processvalidate = IVRAdminConfig.checkvalidate(ivrData, mandatory_keys);
-
-		String value = "";*/
-		
-		/*if (processvalidate == false)
-		{
-			String statuscode = IVRAdminConfig.prop.getProperty("errorcode");
-		    String statusmessage = IVRAdminConfig.prop.getProperty("missingfield");
-		    response = IVRAdminConfig.createResponse(statuscode, statusmessage);
-			return response;
-		}*/
-		//else
-		//{
 
 			String getValues = IVRDBOperations.connectDBandGet(ivrData);
 			response = getValues;
 			return response;
-		//}
 
 	}
 }

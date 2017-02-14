@@ -113,15 +113,19 @@ public class DBOperation {
 		   }
 		}
 		
-		public static String getList()
+		public static String getList(String ivrData)
 		{
 			Connection conn = null;
 			Statement stmt = null;
-			int limit=100;
-			int offset=-1;
+		//	int limit=100;
+		//	int offset=0;
 			String response = "";
 		   try
 		   {
+			   JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
+			   int limit = json.getInt("limit");
+				int offset =json.getInt("offset");
+			   
 			   JSONObject dataObj = new JSONObject();
 			   JSONArray jarray1 = new JSONArray();
 			   //JSONArray jarray2 = new JSONArray();
@@ -214,13 +218,15 @@ public class DBOperation {
 			
 			Connection conn = null;
 			Statement stmt = null;
-			int limit=100;
-			int offset=-1;
+			//int limit=100;
+			//int offset=-1;
 			String response = "";
 			
 			JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
 			String ivrnumber = json.getString("ivrnumber");
 			String groupzBase = json.getString("groupzBase");
+			int limit = json.getInt("limit");
+			int offset =json.getInt("offset");
 			
 			
 		   try
