@@ -241,8 +241,7 @@ public class IVRbaseDBOperations
 		JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
 		String ivrnumber = json.getString("ivrnumber");
 		String groupzBase = json.getString("groupzBase");
-		int limit = json.getInt("limit");
-		int offset =json.getInt("offset");
+	
 		System.out.println(ivrnumber);
 		System.out.println(groupzBase);
 	   
@@ -257,8 +256,7 @@ public class IVRbaseDBOperations
 			stmt = conn.createStatement();
 	      
 
-			String sql_query = DBOperation.paginationQry(limit, offset);
-					  String sql = selectSQL +ivrnumber+" and groupzBase ='"+groupzBase+"'"+sql_query+";";      
+					  String sql = selectSQL +ivrnumber+" and groupzBase ='"+groupzBase+"';";      
 					  
 					  System.out.println(sql) ;
 					  ResultSet rs = stmt.executeQuery(sql);
