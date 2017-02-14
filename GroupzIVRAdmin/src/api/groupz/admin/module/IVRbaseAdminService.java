@@ -316,23 +316,10 @@ public class IVRbaseAdminService
 		System.out.println("GETIVRBase");
 		String response = "";
 		
-		//String[] mandatory_keys = {"ivrnumber", "grpzWelcomeNotes", "selectionHangupNotes", "selectionEndNotes", "errorNotes", "memberWelcomeNotes", "notRegGroupzNotes", "generalHangupNotes", "numbersUrllist", "previousMenuSelectNotes", "groupzBase"};
 
-		//boolean processvalidate = IVRbaseAdminConfig.checkvalidate(ivrData, mandatory_keys);
-
-	/*	if (IVRAdminConfig.isEmptyOrNull(ivrData) == false)
-		{
-			String statuscode = IVRbaseAdminConfig.prop.getProperty("missingfieldvaluecode");
-		    String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingmandatoryfieldvalue");
-		    response = IVRbaseAdminConfig.createResponse(statuscode, statusmessage);
-			return response;
-		}*/
-//		else
-	//	{
 			String getValues = IVRbaseDBOperations.connectDBandGet(ivrData);
 			response = getValues;
 			return response;
-		//}
 
 	}
 }

@@ -35,11 +35,7 @@ public class Login extends HttpServlet {
 			String functiontype = jsonReq.getJSONObject("json").getJSONObject("request").getString("functiontype");
 			String data=jsonReq.getJSONObject("json").getJSONObject("request").getString("data");
 			
-			//String email = jsonReq.getJSONObject("json").getJSONObject("request").getJSONObject("data")
-			//			.getString("email");
-				//String password = jsonReq.getJSONObject("json").getJSONObject("request").getJSONObject("data")
-				//		.getString("password");
-
+	
 			System.out.println(servicetype + functiontype + data);
 			System.out.println(servicetype + "   " + functiontype + "  " + data + "  " + admin);
 			String resp = admin.process(data, servicetype, functiontype);

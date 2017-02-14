@@ -12,8 +12,10 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import api.groupz.admin.config.ConnectionManager;
+import api.groupz.admin.config.DBOperation;
 import api.groupz.admin.config.IVRAdminConfig;
 import api.groupz.admin.config.IVRbaseAdminConfig;
+import api.groupz.admin.config.Pagination;
 import api.groupz.database.DBConnect;
 
 
@@ -193,6 +195,8 @@ public class IVRDBOperations
 	{
 		Connection conn = null;
 		Statement stmt = null;
+		int limit=100;
+		int offset=-1;
 		String response = "";
 		
 		JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
@@ -212,11 +216,13 @@ public class IVRDBOperations
 			System.out.println("Database connected successfully...");
 			stmt = conn.createStatement();
 	      
+			String sql_query=DBOperation.paginationQry(limit, offset);
 
-	    		  String sql_query = selectSQL +ivrnumber+" and groupzBase = '"+groupzBase+ "' and groupZCode = '"+groupzcode+"' ;";
-	    		  System.out.println("The select SQL : " + sql_query) ;
+	    		  String sql = selectSQL +ivrnumber+" and groupzBase = '"+groupzBase+ "' and groupZCode = '"+groupzcode+"'"+sql_query+" ;";
+	    		  
+	    		  System.out.println("The select SQL : " + sql) ;
 
-				  ResultSet rs = stmt.executeQuery(sql_query);
+				  ResultSet rs = stmt.executeQuery(sql);
 					  
 					  
 				  if(rs!=null)

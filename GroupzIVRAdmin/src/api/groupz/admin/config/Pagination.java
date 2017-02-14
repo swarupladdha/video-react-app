@@ -2,9 +2,9 @@ package api.groupz.admin.config;
 
 public class Pagination {
 	
-	public static String paginationQry(int limit, int offset, String querry) {
-		String paginationQry = querry;
-
+	public  String paginationQry(int limit, int offset) {
+		String paginationQry = "";
+		
 		if (limit != -1 && offset != -1) {
 			paginationQry = " limit " + limit + " offset " + offset;
 

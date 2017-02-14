@@ -12,8 +12,10 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import api.groupz.admin.config.ConnectionManager;
+import api.groupz.admin.config.DBOperation;
 import api.groupz.admin.config.IVRAdminConfig;
 import api.groupz.admin.config.IVRbaseAdminConfig;
+import api.groupz.admin.config.Pagination;
 import api.groupz.database.DBConnect;
 
 
@@ -132,25 +134,7 @@ public class IVRbaseDBOperations
 				   		System.out.println("columnValues : "+ columnValues);
 				   	}
 	    	    }
-//	    	    else if ((key.equalsIgnoreCase("languageSelectionList")))
-//	    	    {
-//	    	    	JSONObject jReq = json.getJSONObject(key) ;
-//					String selectionList_value = jReq.getString("selectionList");
-//					System.out.println("selectionList_value : "+selectionList_value);
-//					
-//					if(IVRbaseAdminConfig.isEmptyOrNull(selectionList_value.trim()) == false)
-//					{ 
-//	    	    		System.out.println("value: -> "+value);
-//				    	columnValues += "'" + value + "'" + ",";
-//				    	System.out.println("columnValues : "+ columnValues);
-//					}
-//					else
-//					{
-//						value = "NULL"; 
-//				   		columnValues += value + "," ;
-//				   		System.out.println("columnValues : "+ columnValues);
-//				   	}
-//	    	    }
+
 	    	  
 	    	    else
 		    	{
@@ -252,6 +236,8 @@ public class IVRbaseDBOperations
 		Connection conn = null;
 		Statement stmt = null;
 		String response = "";
+		int limit =100;
+		int offset =-1;
 		
 		JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
 		String ivrnumber = json.getString("ivrnumber");
@@ -269,49 +255,12 @@ public class IVRbaseDBOperations
 			System.out.println("Database connected successfully...");
 			stmt = conn.createStatement();
 	      
-//			System.out.println("Records inserting into the table...");
-	      
-//		      String field_value = null;
-//		      String columnValues = "";
-//		      String[] columnNames = {"ivrnumber", "grpzWelcomeNotes", "audioGrpzWelcomeUrl", "selectionHangupNotes", "audioSelectionHangupUrl", "selectionEndNotes", "selectionEndUrl", "errorNotes", "audioerrorUrl", "memberWelcomeNotes", "audioMemberWelcomeUrl", "notRegGroupzNotes", "notRegGroupzUrl", "maintenanceNotes", "maintenanceUrl", "generalHangupNotes", "generalHangupUrl", "numbersUrllist", "previousMenuSelectNotes", "previousMenuSelectUrl", "playspeed", "settimeout", "multiLanguageFlag", "languageSelectionList", "languageWelcomeURL", "groupzBase"};
-//		      
-//		      JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
-		      
-//		      Iterator jsonObj = json.keys();
-//			  List<String> keysList = new ArrayList<String>();
-//			  
-//			  while(jsonObj.hasNext())
-//			  {
-//				  String ivrDatakeys = (String) jsonObj.next();
-//				  keysList.add(ivrDatakeys);
-//			  }
-//			  String[] ivrData_keys = keysList.toArray(new String[keysList.size()]);
-//			  System.out.println("ivrData_keys.length : "+ivrData_keys.length);
-//
-//		      for(int i=0; i<ivrData_keys.length; i++)
-//			  {
-//			      if (Arrays.asList(columnNames).contains(ivrData_keys[i]))
-//			      {
-//			    	  System.out.println("ivrData_keys[i] : "+ivrData_keys[i]);
-//					  field_value = json.getString(ivrData_keys[i]);
-//				      String value = field_value.trim();
-//		
-//			    	  if(value!=null && value.length()>0 && value.equalsIgnoreCase("")==false)
-//			    	  {
-//			    	      columnValues = "'" + value + "'";
-//			    	  }
-//			    	  else
-//			    	  {
-//			    	      value = "NULL";
-//				   		  columnValues = value;
-//				   	  }  
-//						
-//			    	  String sql = ivrData_keys[i] + "=" + columnValues + ";";
-//					  System.out.println("sql : "+sql);
-					  System.out.println("---------------------------------------------------------");
-					  String sql_query = selectSQL +ivrnumber+" and groupzBase ='"+groupzBase+"';";      
-					  System.out.println(sql_query) ;
-					  ResultSet rs = stmt.executeQuery(sql_query);
+
+			String sql_query = DBOperation.paginationQry(limit, offset);
+					  String sql = selectSQL +ivrnumber+" and groupzBase ='"+groupzBase+"'"+sql_query+";";      
+					  
+					  System.out.println(sql) ;
+					  ResultSet rs = stmt.executeQuery(sql);
 					  
 					  if(rs!=null)
 					  {
@@ -410,7 +359,6 @@ public class IVRbaseDBOperations
 	   
 		try
 	    {
-			JSONObject dataObj = new JSONObject();
 			JSONArray jarray = new JSONArray();
 			
 			conn = ConnectionManager.getConnect();
@@ -426,7 +374,7 @@ public class IVRbaseDBOperations
 		      
 		    JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
 		      
-		    Iterator jsonObj = json.keys();
+		    Iterator<?> jsonObj = json.keys();
 			List<String> keysList = new ArrayList<String>();
 			  
 			while(jsonObj.hasNext())
@@ -436,8 +384,7 @@ public class IVRbaseDBOperations
 			}
 			String[] ivrData_keys = keysList.toArray(new String[keysList.size()]);
 				
-			ResultSet rs = null;
-			
+					
 		    for(int i=0; i<ivrData_keys.length; i++)
 			{
 			   if (Arrays.asList(columnNames).contains(ivrData_keys[i]))

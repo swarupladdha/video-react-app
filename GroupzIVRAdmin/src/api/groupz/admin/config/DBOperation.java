@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
@@ -13,7 +14,7 @@ public class DBOperation {
 
 
 		static final String selectSQL = "SELECT * FROM admin WHERE ";
-		static final String selectSQL1 = "SELECT ivrnumber ,groupzBase  FROM ivrgroupzbase ";
+		static  String selectSQL1 = "SELECT ivrnumber ,groupzBase  FROM ivrgroupzbase ";
 		static final String selectSQL2 = "SELECT ivrnumber,groupzBase,groupZCode  FROM ivrgroupz WHERE ";
 
 		
@@ -116,6 +117,8 @@ public class DBOperation {
 		{
 			Connection conn = null;
 			Statement stmt = null;
+			int limit=100;
+			int offset=-1;
 			String response = "";
 		   try
 		   {
@@ -130,9 +133,11 @@ public class DBOperation {
 		      
 		       System.out.println("Creating Query");
 		       
+		       String sql=selectSQL1 + paginationQry(limit, offset )+";";
 		       	          
-			   System.out.println("The select SQL : " + selectSQL1) ;
-			   ResultSet rs = stmt.executeQuery(selectSQL1);
+			   System.out.println("The select SQL : " + sql) ;
+			   
+			   ResultSet rs = stmt.executeQuery(sql);
 			  
 			   if(rs!=null)
 			   {
@@ -206,13 +211,18 @@ public class DBOperation {
 		}
 
 		public static String getDetailList(String ivrData) {
+			
+			Connection conn = null;
+			Statement stmt = null;
+			int limit=100;
+			int offset=-1;
+			String response = "";
+			
 			JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
 			String ivrnumber = json.getString("ivrnumber");
 			String groupzBase = json.getString("groupzBase");
 			
-			Connection conn = null;
-			Statement stmt = null;
-			String response = "";
+			
 		   try
 		   {
 			   JSONObject dataObj = new JSONObject();
@@ -227,8 +237,9 @@ public class DBOperation {
 		       System.out.println("Creating Query");
 		       System.out.println(ivrnumber);
 		       System.out.println();
+		       String sql1=paginationQry(limit ,offset);
+		       String sql =	selectSQL2+" ivrnumber = "+ivrnumber+ " and groupzBase= '"+groupzBase+"'"+sql1+";"; 
 		       
-		       String sql =	selectSQL2+" ivrnumber = "+ivrnumber+ " and groupzBase= '"+groupzBase+"';";          
 			   System.out.println("The select SQL : " + sql) ;
 			   ResultSet rs = stmt.executeQuery(sql);
 			  
@@ -302,5 +313,23 @@ public class DBOperation {
 				 return response;
 		      }
 		   }
+		}
+		
+		public static  String paginationQry(int limit, int offset) {
+			String paginationQry = "";
+			
+			if (limit != -1 && offset != -1) {
+				paginationQry = " limit " + limit + " offset " + offset;
+
+			}
+			if (limit != -1 && offset == -1) {
+				paginationQry = " limit " + limit;
+
+			}
+			if (limit == -1 && offset != -1) {
+				paginationQry = " offset " + offset;
+
+			}
+			return paginationQry;
 		}
 }
