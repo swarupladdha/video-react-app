@@ -91,7 +91,7 @@ public class IVRAdminService
 		{
 			e.printStackTrace();
 			String statuscode = IVRAdminConfig.prop.getProperty("errorcode");
-		    String statusmessage = IVRAdminConfig.prop.getProperty("updatetableerror");
+		    String statusmessage = IVRAdminConfig.prop.getProperty("getdataerrornotes");
 		    response = IVRAdminConfig.createResponse(statuscode, statusmessage);
 			return response;
 		}
