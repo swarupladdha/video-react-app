@@ -198,7 +198,7 @@ public class IVRbaseAdminService
 	private String processUpdateIVRBase(String ivrData)
 	{
 		String response = "";
-		String[] mandatory_keys = {"ivrnumber", "grpzWelcomeNotes", "selectionHangupNotes", "selectionEndNotes", "errorNotes", "memberWelcomeNotes", "notRegGroupzNotes", "generalHangupNotes", "numbersUrllist", "previousMenuSelectNotes", "groupzBase"};
+		String[] mandatory_keys = {"ivrnumber", "grpzWelcomeNotes", "selectionHangupNotes", "selectionEndNotes", "errorNotes", "memberWelcomeNotes", "notRegGroupzNotes", "generalHangupNotes", "numbersUrllist", "previousMenuSelectNotes", "groupzBase","enquiryflag"};
 		boolean processvalidate = IVRbaseAdminConfig.checkvalidate(ivrData, mandatory_keys);
 
 		String value = "";
