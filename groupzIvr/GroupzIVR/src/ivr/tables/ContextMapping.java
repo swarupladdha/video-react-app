@@ -91,6 +91,8 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 
 	@Column(name = "lastupdatetime")
 	private Date lastupdatetime;
+	
+
 
 	@Column(name = "languageSelected")
 	private String languageSelected;
@@ -116,6 +118,21 @@ public class ContextMapping extends BaseDatabaseObject implements Serializable {
 	@Column(name = "ipAddress")
 	private String ipAddress;
 	
+	@Column(name = "enquiryflag")
+	private boolean enquiryflag;
+	
+	
+	
+	
+	
+	public boolean getEnquiryflag() {
+		return enquiryflag;
+	}
+
+	public void setEnquiryflag(boolean enquiryflag) {
+		this.enquiryflag = enquiryflag;
+	}
+
 	public int getId() {
 		return id;
 	}
