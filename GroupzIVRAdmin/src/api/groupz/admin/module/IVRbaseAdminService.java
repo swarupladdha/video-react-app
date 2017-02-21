@@ -103,7 +103,7 @@ public class IVRbaseAdminService
 	{
 		System.out.println("c");
 		String response = "";
-		String[] mandatory_keys = {"ivrnumber", "grpzWelcomeNotes", "selectionHangupNotes", "selectionEndNotes", "errorNotes", "memberWelcomeNotes", "notRegGroupzNotes", "generalHangupNotes", "groupzBase", "numbersUrllist", "previousMenuSelectNotes"};
+		String[] mandatory_keys = {"ivrnumber", "grpzWelcomeNotes", "selectionHangupNotes", "selectionEndNotes", "errorNotes", "memberWelcomeNotes", "notRegGroupzNotes", "generalHangupNotes", "groupzBase", "numbersUrllist", "previousMenuSelectNotes","enquiryflag"};
 		boolean processvalidate = IVRbaseAdminConfig.checkvalidation(ivrData, mandatory_keys);
 
 		String value = "";

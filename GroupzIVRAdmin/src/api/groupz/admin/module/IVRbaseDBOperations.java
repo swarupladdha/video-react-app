@@ -45,7 +45,8 @@ public class IVRbaseDBOperations
 	      String[] columnNames = {"ivrnumber", "grpzWelcomeNotes", "audioGrpzWelcomeUrl", "selectionHangupNotes", "audioSelectionHangupUrl", "selectionEndNotes", "selectionEndUrl", "errorNotes", "audioerrorUrl", "memberWelcomeNotes", "audioMemberWelcomeUrl", "notRegGroupzNotes", "notRegGroupzUrl", "maintenanceNotes", "maintenanceUrl", "generalHangupNotes", "generalHangupUrl", "numbersUrllist", "previousMenuSelectNotes", "previousMenuSelectUrl", "playspeed", "settimeout", "multiLanguageFlag", "languageSelectionList", "languageWelcomeURL", "groupzBase","enquiryflag"};
 	      
 	      JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
-	     
+	    
+	      
 	      for(int i=0; i<columnNames.length; i++)
 	      {
 	    	  field_value = json.getString(columnNames[i]);
@@ -54,6 +55,7 @@ public class IVRbaseDBOperations
 	    	  
 	    	  String key = columnNames[i];
 	    	  System.out.println("key : " + key);
+	    	
 
 	    	  if ((key.equalsIgnoreCase("grpzWelcomeNotes")) ||(key.equalsIgnoreCase("selectionHangupNotes")) || (key.equalsIgnoreCase("selectionEndNotes")) || (key.equalsIgnoreCase("memberWelcomeNotes")) || (key.equalsIgnoreCase("notRegGroupzNotes")) || (key.equalsIgnoreCase("generalHangupNotes")) || (key.equalsIgnoreCase("previousMenuSelectNotes")) || (key.equalsIgnoreCase("errorNotes")))
 				{						
@@ -291,6 +293,7 @@ public class IVRbaseDBOperations
 							 dataObj.put("languageSelectionList",rs.getString("languageSelectionList"));
 							 dataObj.put("languageWelcomeURL",rs.getString("languageWelcomeURL"));
 							 dataObj.put("groupzBase",rs.getString("groupzBase"));
+							 dataObj.put("enquiryflag", rs.getString("enquiryflag"));
 							 jarray.add(dataObj);
 						 }
 					  }
