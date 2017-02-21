@@ -2,7 +2,10 @@ package api.groupz.admin.config;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+
+
 
 
 
@@ -14,7 +17,7 @@ public class DBOperation {
 
 
 		static final String selectSQL = "SELECT * FROM admin WHERE ";
-		static  String selectSQL1 = "SELECT ivrnumber ,groupzBase  FROM ivrgroupzbase ";
+		static final String selectSQL1 = "SELECT ivrnumber ,groupzBase  FROM ivrgroupzbase ";
 		static final String selectSQL2 = "SELECT ivrnumber,groupzBase,groupZCode  FROM ivrgroupz WHERE ";
 
 		
@@ -321,6 +324,8 @@ public class DBOperation {
 		      }
 		   }
 		}
+		
+		
 		
 		public static  String paginationQry(int limit, int offset) {
 			String paginationQry = "";

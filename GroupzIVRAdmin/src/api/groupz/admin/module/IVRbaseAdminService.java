@@ -76,8 +76,7 @@ public class IVRbaseAdminService
 					{
 						String list = DBOperation.getList(ivrData);
 						response=list;
-						return response;
-						
+						return response;	
 					}
 					else
 					{
