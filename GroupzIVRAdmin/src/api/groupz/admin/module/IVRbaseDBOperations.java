@@ -289,11 +289,11 @@ public class IVRbaseDBOperations
 							 dataObj.put("previousMenuSelectUrl",rs.getString("previousMenuSelectUrl"));
 							 dataObj.put("playspeed",rs.getInt("playspeed"));
 							 dataObj.put("settimeout",rs.getInt("settimeout"));
-							 dataObj.put("multilanguageFlag",rs.getInt("multilanguageFlag"));
+							 dataObj.put("multilanguageFlag",Integer.parseInt(rs.getString("multilanguageFlag")));
 							 dataObj.put("languageSelectionList",rs.getString("languageSelectionList"));
 							 dataObj.put("languageWelcomeURL",rs.getString("languageWelcomeURL"));
 							 dataObj.put("groupzBase",rs.getString("groupzBase"));
-							 dataObj.put("enquiryflag", rs.getString("enquiryflag"));
+							 dataObj.put("enquiryflag", Integer.parseInt(rs.getString("enquiryflag")));
 							 jarray.add(dataObj);
 						 }
 					  }
