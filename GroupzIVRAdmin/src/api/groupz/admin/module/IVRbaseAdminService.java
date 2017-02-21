@@ -102,7 +102,7 @@ public class IVRbaseAdminService
 	{
 		System.out.println("c");
 		String response = "";
-		String[] mandatory_keys = {"ivrnumber", "grpzWelcomeNotes", "selectionHangupNotes", "selectionEndNotes", "errorNotes", "memberWelcomeNotes", "notRegGroupzNotes", "generalHangupNotes", "groupzBase", "numbersUrllist", "previousMenuSelectNotes","enquiryflag"};
+		String[] mandatory_keys = {"ivrnumber", "grpzWelcomeNotes", "selectionHangupNotes", "selectionEndNotes", "errorNotes", "memberWelcomeNotes", "notRegGroupzNotes", "generalHangupNotes", "groupzBase", "numbersUrllist", "previousMenuSelectNotes","enquiryflag","basekey"};
 		boolean processvalidate = IVRbaseAdminConfig.checkvalidation(ivrData, mandatory_keys);
 
 		String value = "";
@@ -197,7 +197,7 @@ public class IVRbaseAdminService
 	private String processUpdateIVRBase(String ivrData)
 	{
 		String response = "";
-		String[] mandatory_keys = {"ivrnumber", "grpzWelcomeNotes", "selectionHangupNotes", "selectionEndNotes", "errorNotes", "memberWelcomeNotes", "notRegGroupzNotes", "generalHangupNotes", "numbersUrllist", "previousMenuSelectNotes", "groupzBase","enquiryflag"};
+		String[] mandatory_keys = {"ivrnumber", "grpzWelcomeNotes", "selectionHangupNotes", "selectionEndNotes", "errorNotes", "memberWelcomeNotes", "notRegGroupzNotes", "generalHangupNotes", "numbersUrllist", "previousMenuSelectNotes", "groupzBase","enquiryflag","basekey"};
 		boolean processvalidate = IVRbaseAdminConfig.checkvalidate(ivrData, mandatory_keys);
 
 		String value = "";
