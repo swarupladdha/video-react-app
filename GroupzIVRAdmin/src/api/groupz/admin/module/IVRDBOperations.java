@@ -413,6 +413,7 @@ public class IVRDBOperations
 			      }
 				          	  
 		    	  String sql="";
+		    	  int id=0;
 					
 				  String ivrNumber = json.getString("ivrnumber");
 				  String ivrnumber = ivrNumber.trim();
@@ -425,10 +426,24 @@ public class IVRDBOperations
 				 
 				  if((ivrData_keys[i].equalsIgnoreCase("ivrnumber")==false) && (ivrData_keys[i].equalsIgnoreCase("groupzCode")==false) && (ivrData_keys[i].equalsIgnoreCase("scope") == false) && (ivrData_keys[i].equalsIgnoreCase("type") == false))
 				  {
+					  
 			    	  sql = ivrData_keys[i] + "=" + columnValues;
-						
+			    	  
+			    	  ResultSet rs1 = stmt.executeQuery("select id from ivrgroupz where ivrnumber= "+ivrNumber+" and groupZCode= '"+groupzcode+"' ;");
+			    	  System.out.println("select id from ivrgroupz where ivrnumber= "+ivrNumber+" and groupZCode= '"+groupzcode+"' ;");
+			    	  System.out.println("-------------------"+id);
+			    	  if (rs1 !=null)
+			    	  {
+			    		  System.out.println("rs is not null");
+			    		  System.out.println(rs);
+			    		  while (rs1.next())
+			    		  {
+			    			  id=rs1.getInt("Id");
+			    		  }
+			    	  }
+
 					  System.out.println("sql : "+sql);
-					  String sql_query = updateSQL + sql + " WHERE ivrnumber= " +ivrnumber+ " and groupzBase='" +groupzbase+ "' and groupZCode = '"+groupzcode+"';";      
+					  String sql_query = updateSQL + sql + " WHERE id= " +id+";";      
 					  System.out.println("The update SQL : " + sql_query) ;
 					  stmt.executeUpdate(sql_query); 
 
