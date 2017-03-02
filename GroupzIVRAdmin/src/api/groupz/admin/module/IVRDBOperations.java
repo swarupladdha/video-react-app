@@ -424,7 +424,7 @@ public class IVRDBOperations
 				  
 				  System.out.println("Column names:"+ivrData_keys[i]);
 				 
-				  if((ivrData_keys[i].equalsIgnoreCase("groupzCode")==false) && (ivrData_keys[i].equalsIgnoreCase("scope") == false) && (ivrData_keys[i].equalsIgnoreCase("type") == false))
+				  if((ivrData_keys[i].equalsIgnoreCase("scope") == false) && (ivrData_keys[i].equalsIgnoreCase("type") == false))
 				  {
 			    	  sql = ivrData_keys[i] + "=" + columnValues;  
 			      }
