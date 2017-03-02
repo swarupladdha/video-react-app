@@ -228,6 +228,7 @@ public class IVRDBOperations
 					 while (rs.next())
 					 {
 						 dataObj = new JSONObject();
+						 dataObj.put("id", rs.getInt("id"));
 						 dataObj.put("ivrnumber",rs.getString("ivrnumber"));
 						 dataObj.put("groupzBase",rs.getString("groupzBase"));
 						 dataObj.put("groupZCode",rs.getString("groupZCode"));
@@ -338,7 +339,7 @@ public class IVRDBOperations
 				
 			  ResultSet rs = null;
 			  
-		      for(int i=0; i<ivrData_keys.length; i++)
+		      for(int i=1; i<ivrData_keys.length; i++)
 			  {
 			      if (Arrays.asList(columnNames).contains(ivrData_keys[i]))
 			      {
@@ -413,41 +414,24 @@ public class IVRDBOperations
 			      }
 				          	  
 		    	  String sql="";
-		    	  int id=0;
-					
-				  String ivrNumber = json.getString("ivrnumber");
-				  String ivrnumber = ivrNumber.trim();
-				  String grpzBase = json.getString("groupzBase");
-				  String groupzbase = grpzBase.trim();
-				  String grpzcode = json.getString("groupzCode");
-				  String groupzcode = grpzcode.trim();
+		    	  int id=json.getInt("id");
+//				  String ivrNumber = json.getString("ivrnumber");
+//				  String ivrnumber = ivrNumber.trim();
+//				  String grpzBase = json.getString("groupzBase");
+//				  String groupzbase = grpzBase.trim();
+//				  String grpzcode = json.getString("groupzCode");
+//				  String groupzcode = grpzcode.trim();
 				  
 				  System.out.println("Column names:"+ivrData_keys[i]);
 				 
-				  if((ivrData_keys[i].equalsIgnoreCase("ivrnumber")==false) && (ivrData_keys[i].equalsIgnoreCase("groupzCode")==false) && (ivrData_keys[i].equalsIgnoreCase("scope") == false) && (ivrData_keys[i].equalsIgnoreCase("type") == false))
+				  if((ivrData_keys[i].equalsIgnoreCase("groupzCode")==false) && (ivrData_keys[i].equalsIgnoreCase("scope") == false) && (ivrData_keys[i].equalsIgnoreCase("type") == false))
 				  {
-					  
-			    	  sql = ivrData_keys[i] + "=" + columnValues;
-			    	  
-			    	  ResultSet rs1 = stmt.executeQuery("select id from ivrgroupz where ivrnumber= "+ivrNumber+" and groupZCode= '"+groupzcode+"' ;");
-			    	  System.out.println("select id from ivrgroupz where ivrnumber= "+ivrNumber+" and groupZCode= '"+groupzcode+"' ;");
-			    	  System.out.println("-------------------"+id);
-			    	  if (rs1 !=null)
-			    	  {
-			    		  System.out.println("rs is not null");
-			    		  System.out.println(rs);
-			    		  while (rs1.next())
-			    		  {
-			    			  id=rs1.getInt("Id");
-			    		  }
-			    	  }
-
+			    	  sql = ivrData_keys[i] + "=" + columnValues;  
+			      }
 					  System.out.println("sql : "+sql);
 					  String sql_query = updateSQL + sql + " WHERE id= " +id+";";      
 					  System.out.println("The update SQL : " + sql_query) ;
-					  stmt.executeUpdate(sql_query); 
-
-				  }
+					  stmt.executeUpdate(sql_query);
 			  }
 
 		      System.out.println("Records updated in the table...");

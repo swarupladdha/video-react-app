@@ -17,7 +17,7 @@ public class DBOperation {
 
 
 		static final String selectSQL = "SELECT * FROM admin WHERE ";
-		static final String selectSQL1 = "SELECT ivrnumber ,groupzBase  FROM ivrgroupzbase ";
+		static final String selectSQL1 = "SELECT id,ivrnumber ,groupzBase  FROM ivrgroupzbase ";
 		static final String selectSQL2 = "SELECT ivrnumber,groupzBase,groupZCode  FROM ivrgroupz WHERE ";
 
 		
@@ -49,12 +49,13 @@ public class DBOperation {
 			   {
 				  while (rs.next())
 				  {
+					  dataObj.put("id", rs.getInt("Id"));
 				 	  dataObj.put("username",rs.getString("username"));
 				 	  System.out.println(rs.getString(1));
 				 	  dataObj.put("email", rs.getString("email"));
-				 	 System.out.println(rs.getString(2));
+				 	  System.out.println(rs.getString(2));
 				 	  dataObj.put("password", rs.getString(3));
-				 	 System.out.println(rs.getString("password"));
+				 	  System.out.println(rs.getString("password"));
 				 	  jarray.add(dataObj);
 				  }
 			   }
@@ -150,11 +151,11 @@ public class DBOperation {
 			   {
 				  while (rs.next())
 				  {
-					  
+					  dataObj.put("id",rs.getInt("id"));  
 				 	  dataObj.put("ivrnumber",rs.getString("ivrnumber"));
-				 	 System.out.println(rs.getString("ivrnumber"));
+				 	  System.out.println(rs.getString("ivrnumber"));
 				 	  dataObj.put("groupzBase", rs.getString("groupzBase"));
-				 	System.out.println(rs.getString("groupzBase"));
+				 	  System.out.println(rs.getString("groupzBase"));
 				 	  jarray1.add(dataObj);
 				  }
 				  //jarray2.add(jarray1);
@@ -256,13 +257,14 @@ public class DBOperation {
 			   {
 				  while (rs.next())
 				  {
+					  dataObj.put("id", rs.getInt("Id"));
 					  dataObj.put("ivrnumber",rs.getString("ivrnumber"));
-					 	 System.out.println(rs.getString("ivrnumber"));
-					 	  dataObj.put("groupzBase", rs.getString("groupzBase"));
-					 	System.out.println(rs.getString("groupzBase"));
-					 	  dataObj.put("groupZCode", rs.getString("groupZCode"));
-						 	System.out.println(rs.getString("groupzBase"));
-					 	  jarray1.add(dataObj);
+					  System.out.println(rs.getString("ivrnumber"));
+					  dataObj.put("groupzBase", rs.getString("groupzBase"));
+					  System.out.println(rs.getString("groupzBase"));
+					  dataObj.put("groupZCode", rs.getString("groupZCode"));
+					  System.out.println(rs.getString("groupzBase"));
+					  jarray1.add(dataObj);
 				  }
 	
 			   }

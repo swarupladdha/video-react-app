@@ -12,7 +12,6 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import api.groupz.admin.config.ConnectionManager;
-import api.groupz.admin.config.DBOperation;
 import api.groupz.admin.config.IVRAdminConfig;
 import api.groupz.admin.config.IVRbaseAdminConfig;
 import api.groupz.database.DBConnect;
@@ -91,7 +90,7 @@ public class IVRbaseDBOperations
 					else
 					{
 						String statuscode = IVRbaseAdminConfig.prop.getProperty("errorcode");
-						String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingmandatoryfieldvalue") +" "+ key + " ie it is set to null value";
+						String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingmandatoryfieldvalue");
 					    response = IVRbaseAdminConfig.createResponse(statuscode, statusmessage);
 						return response;
 					}
@@ -373,7 +372,7 @@ public class IVRbaseDBOperations
 	      
 		    String field_value = null;
 		    String columnValues = "";
-		    String[] columnNames = {"ivrnumber", "grpzWelcomeNotes", "audioGrpzWelcomeUrl", "selectionHangupNotes", "audioSelectionHangupUrl", "selectionEndNotes", "selectionEndUrl", "errorNotes", "audioerrorUrl", "memberWelcomeNotes", "audioMemberWelcomeUrl", "notRegGroupzNotes", "notRegGroupzUrl", "maintenanceNotes", "maintenanceUrl", "generalHangupNotes", "generalHangupUrl", "numbersUrllist", "previousMenuSelectNotes", "previousMenuSelectUrl", "playspeed", "settimeout", "multiLanguageFlag", "languageSelectionList", "languageWelcomeURL", "groupzBase","enquiryflag","basekey"};
+		    String[] columnNames = {"id","ivrnumber", "grpzWelcomeNotes", "audioGrpzWelcomeUrl", "selectionHangupNotes", "audioSelectionHangupUrl", "selectionEndNotes", "selectionEndUrl", "errorNotes", "audioerrorUrl", "memberWelcomeNotes", "audioMemberWelcomeUrl", "notRegGroupzNotes", "notRegGroupzUrl", "maintenanceNotes", "maintenanceUrl", "generalHangupNotes", "generalHangupUrl", "numbersUrllist", "previousMenuSelectNotes", "previousMenuSelectUrl", "playspeed", "settimeout", "multiLanguageFlag", "languageSelectionList", "languageWelcomeURL", "groupzBase","enquiryflag","basekey"};
 		      
 		    JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
 		      
@@ -388,7 +387,7 @@ public class IVRbaseDBOperations
 			String[] ivrData_keys = keysList.toArray(new String[keysList.size()]);
 				
 					
-		    for(int i=0; i<ivrData_keys.length; i++)
+		    for(int i=1; i<ivrData_keys.length; i++)
 			{
 			   if (Arrays.asList(columnNames).contains(ivrData_keys[i]))
 			   {
@@ -396,7 +395,16 @@ public class IVRbaseDBOperations
 				   String value = field_value.trim();
 		
 				   String key = ivrData_keys[i];
+				   System.out.println("------------"+key+"----------------------");
 
+/*				   if(key.equalsIgnoreCase("ivrnumber"))
+				   {
+					   
+					   columnValues ="'"+value+"'"+",";
+					   System.out.println("columnValues:"+columnValues);
+					   
+				   }
+				  */
 				   if ((key.equalsIgnoreCase("grpzWelcomeNotes")) ||(key.equalsIgnoreCase("selectionHangupNotes")) || (key.equalsIgnoreCase("selectionEndNotes")) || (key.equalsIgnoreCase("memberWelcomeNotes")) || (key.equalsIgnoreCase("notRegGroupzNotes")) || (key.equalsIgnoreCase("generalHangupNotes")) || (key.equalsIgnoreCase("previousMenuSelectNotes")) || (key.equalsIgnoreCase("errorNotes")))
 				   {						
 						JSONObject jReq = json.getJSONObject(key) ;
@@ -519,16 +527,14 @@ public class IVRbaseDBOperations
 		        }
 		      
 		        String sql="";
-		      
-		        String ivrNumber = json.getString("ivrnumber");
-			    String ivrnumber = ivrNumber.trim();
-				
-		        if ((ivrData_keys[i].equalsIgnoreCase("ivrnumber")==false) && (ivrData_keys[i].equalsIgnoreCase("scope") == false) && (ivrData_keys[i].equalsIgnoreCase("type") == false))
+		        int id =json.getInt("id");			
+		        if ((ivrData_keys[i].equalsIgnoreCase("scope") == false) && (ivrData_keys[i].equalsIgnoreCase("type") == false))
 		        {
 		    	    sql = ivrData_keys[i] + "=" + columnValues;
 				    System.out.println("sql : "+sql);
-				    String sql_query = updateSQL + sql + " WHERE ivrnumber= '" +ivrnumber+ "' ;";
+				    String sql_query = updateSQL + sql + " WHERE id= " +id+ " ;";
 				    System.out.println("The update SQL : " + sql_query) ;
+				    System.out.println("------------"+id);
 				    stmt.executeUpdate(sql_query); 
 //				    String ret_list_Qry = selectSQL +" WHERE ivrnumber='"+ivrnumber+"';";
 //				    rs = stmt.executeQuery(ret_list_Qry);
