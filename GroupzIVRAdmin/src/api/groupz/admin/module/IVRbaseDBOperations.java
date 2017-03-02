@@ -266,6 +266,7 @@ public class IVRbaseDBOperations
 					  {
 						 while (rs.next())
 						 {
+							 dataObj.put("id", rs.getInt("id"));
 							 dataObj.put("ivrnumber",rs.getString("ivrnumber"));
 							 dataObj.put("grpzWelcomeNotes",rs.getString("grpzWelcomeNotes"));
 							 dataObj.put("audioGrpzWelcomeUrl",rs.getString("audioGrpzWelcomeUrl"));
@@ -421,6 +422,8 @@ public class IVRbaseDBOperations
 						{
 							String statuscode = IVRbaseAdminConfig.prop.getProperty("errorcode");
 							String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingmandatoryfieldvalue") +" "+ key;
+							System.out.println("====================================");
+							System.out.println("---------------------"+statusmessage);
 						    response = IVRbaseAdminConfig.createResponse(statuscode, statusmessage);
 							return response;
 						} 
@@ -440,7 +443,8 @@ public class IVRbaseDBOperations
 						else
 						{
 							String statuscode = IVRbaseAdminConfig.prop.getProperty("errorcode");
-							String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingmandatoryfieldvalue") +" "+ key + " ie it is set to null value";
+							String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingmandatoryfieldvalue") +" "+ key;
+							System.out.println("------------"+statusmessage);
 						    response = IVRbaseAdminConfig.createResponse(statuscode, statusmessage);
 							return response;
 						}
@@ -448,6 +452,8 @@ public class IVRbaseDBOperations
 		    	  
 		    	    else if ((key.equalsIgnoreCase("audioSelectionHangupUrl")) || (key.equalsIgnoreCase("audiomemberWelcomeUrl")) || (key.equalsIgnoreCase("maintenanceNotes")) || (key.equalsIgnoreCase("previousMenuSelectUrl")))
 		    	    {
+		    	    	
+		    	    	
 		    	    	JSONObject jReq = json.getJSONObject(key) ;
 						String dataList_value = jReq.getString("dataList");
 						System.out.println("dataList_value : "+dataList_value);

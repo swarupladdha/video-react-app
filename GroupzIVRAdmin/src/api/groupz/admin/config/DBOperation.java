@@ -18,7 +18,7 @@ public class DBOperation {
 
 		static final String selectSQL = "SELECT * FROM admin WHERE ";
 		static final String selectSQL1 = "SELECT id,ivrnumber ,groupzBase  FROM ivrgroupzbase ";
-		static final String selectSQL2 = "SELECT ivrnumber,groupzBase,groupZCode  FROM ivrgroupz WHERE ";
+		static final String selectSQL2 = "SELECT id,ivrnumber,groupzBase,groupZCode  FROM ivrgroupz WHERE ";
 
 		
 		public static String connectDBandCheck(String emailId, String passwordId)
@@ -49,7 +49,7 @@ public class DBOperation {
 			   {
 				  while (rs.next())
 				  {
-					  dataObj.put("id", rs.getInt("Id"));
+					  dataObj.put("id", rs.getInt("id"));
 				 	  dataObj.put("username",rs.getString("username"));
 				 	  System.out.println(rs.getString(1));
 				 	  dataObj.put("email", rs.getString("email"));
@@ -257,7 +257,7 @@ public class DBOperation {
 			   {
 				  while (rs.next())
 				  {
-					  dataObj.put("id", rs.getInt("Id"));
+					  dataObj.put("id", rs.getInt("id"));
 					  dataObj.put("ivrnumber",rs.getString("ivrnumber"));
 					  System.out.println(rs.getString("ivrnumber"));
 					  dataObj.put("groupzBase", rs.getString("groupzBase"));

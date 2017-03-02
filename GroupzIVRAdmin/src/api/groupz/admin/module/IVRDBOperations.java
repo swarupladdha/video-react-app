@@ -363,7 +363,7 @@ public class IVRDBOperations
 						  else
 						  {
 							  String statuscode = IVRAdminConfig.prop.getProperty("errorcode");
-							  String statusmessage = IVRAdminConfig.prop.getProperty("missingmandatoryfieldvalue") +" "+ key + " ie it is set to null value";
+							  String statusmessage = IVRAdminConfig.prop.getProperty("missingmandatoryfieldvalue") +" "+ key ;
 						      response = IVRAdminConfig.createResponse(statuscode, statusmessage);
 							  return response;
 						  }
