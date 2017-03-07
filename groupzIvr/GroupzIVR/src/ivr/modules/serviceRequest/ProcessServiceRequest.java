@@ -150,7 +150,6 @@ public class ProcessServiceRequest
 		String grpzInfoxmlString = null;
 		ContextMapping cm = new ContextMapping();
 		boolean multiLangFlag = false;
-//		boolean enquiryflag=false;
 
 		try
 		{
@@ -169,8 +168,6 @@ public class ProcessServiceRequest
 				playspeed = ivrnummap.getplayspeed();
 				timeout = ivrnummap.getsettimeout();
 				multiLangFlag = ivrnummap.getmultiLanguageFlag();
-//				enquiryflag =ivrnummap.getEnquiryflag();
-//				System.out.println("upward-------------"+enquiryflag);
 			}
 			else
 			{
@@ -423,10 +420,8 @@ public class ProcessServiceRequest
 							cm.setmultiMemberFlag(false);
 							cm.setglobalFlag(true);
 							cm.setmultigrpzWelcomeNotes(displayGroupzList);
-//							cm.setEnquiryflag(enquiryflag);
 							cm.save();
 							
-//							System.out.println("------------->>"+enquiryflag);
 
 							kkResponse = StaticUtils.processUrlOrTextMultiList(displayGroupzList, playspeed, timeout);
 						}
@@ -536,10 +531,9 @@ public class ProcessServiceRequest
 							cm.setglobalFlag(true);
 							cm.setgroupzId(groupzId);
 							cm.setgroupzCode(singlegrpzCode);
-//							cm.setEnquiryflag(enquiryflag);
 							cm.save();
 
-//							System.out.println("-------------->>"+enquiryflag);
+
 							String displayMemberList = StaticUtils.createMemberlistString(callSessionId, memberList, cm, ivrNumber);
 
 							//createMemberListString() is used to create a selection list i.e., press 1 for.....
@@ -569,10 +563,9 @@ public class ProcessServiceRequest
 							cm.setmemberId(memberId);
 							cm.setmultiMemberFlag(false);
 							cm.setglobalFlag(true);
-//							cm.setEnquiryflag(enquiryflag);
 							cm.save();
 
-//							System.out.println("----------------->>"+enquiryflag);
+
 							kkResponse = serviceUtils.generateGlobalNewCallResponse(cm);
 							
 							// use of generateGlobalNewCallResponse() combining all the notes and url to create a category list and playing the audio or text list
@@ -637,10 +630,8 @@ public class ProcessServiceRequest
 							cm.setmemberId(memberId);
 							cm.setmultiMemberFlag(false);
 							cm.setglobalFlag(false);
-//							cm.setEnquiryflag(enquiryflag);
 							cm.save();
 
-//							System.out.println("---------->>"+enquiryflag);
 							kkResponse = StaticUtils.createMultiGroupzData(ivrnummap, groupzcodeNamMap, ivrgrpzcodeList, groupzinfoMap, 
 									playspeed, timeout, cm);
 						}
@@ -1093,7 +1084,7 @@ public class ProcessServiceRequest
 										multiLanguageFlag = ivrnummap.getmultiLanguageFlag();
 									}
 								}
-//								System.out.println("------------------->>>>>>"+co.getEnquiryflag());
+
 							
 									String defualtaudioHangupUrl = prop.getProperty("ivrhangupUrl");
 									String defualtaudioHangupText = prop.getProperty("ivrhangupNotes");

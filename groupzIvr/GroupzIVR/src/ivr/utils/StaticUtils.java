@@ -1538,6 +1538,7 @@ public class StaticUtils
 		ArrayList<String> dataArray = new ArrayList<String>();
 
 		JSONObject dataObj = (JSONObject) JSONSerializer.toJSON(dataSTR);
+		System.out.println("------------"+dataObj+"--------"+dataSTR);
 		JSONArray jsndatalistObj = dataObj.getJSONArray("dataList");
 		
 		for (int i = 0; i < jsndatalistObj.size(); i++)
