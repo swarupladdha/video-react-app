@@ -164,6 +164,7 @@ public class ProcessServiceRequest
 
 			if (ivrnummap != null)
 			{
+				System.out.println("ivrnummap is not null");
 				playspeed = ivrnummap.getplayspeed();
 				timeout = ivrnummap.getsettimeout();
 				multiLangFlag = ivrnummap.getmultiLanguageFlag();
@@ -420,6 +421,7 @@ public class ProcessServiceRequest
 							cm.setglobalFlag(true);
 							cm.setmultigrpzWelcomeNotes(displayGroupzList);
 							cm.save();
+							
 
 							kkResponse = StaticUtils.processUrlOrTextMultiList(displayGroupzList, playspeed, timeout);
 						}
@@ -531,6 +533,7 @@ public class ProcessServiceRequest
 							cm.setgroupzCode(singlegrpzCode);
 							cm.save();
 
+
 							String displayMemberList = StaticUtils.createMemberlistString(callSessionId, memberList, cm, ivrNumber);
 
 							//createMemberListString() is used to create a selection list i.e., press 1 for.....
@@ -561,6 +564,7 @@ public class ProcessServiceRequest
 							cm.setmultiMemberFlag(false);
 							cm.setglobalFlag(true);
 							cm.save();
+
 
 							kkResponse = serviceUtils.generateGlobalNewCallResponse(cm);
 							
@@ -771,6 +775,7 @@ public class ProcessServiceRequest
 
 	public String processContinuousCall(String callSessionId, String data)
 	{
+		System.out.println("Inside processContinuousCall");
 		Response kkResponse = new Response();
 		int playspeed = 5;
 		int timeout = 5000;
@@ -1079,11 +1084,13 @@ public class ProcessServiceRequest
 										multiLanguageFlag = ivrnummap.getmultiLanguageFlag();
 									}
 								}
-								String defualtaudioHangupUrl = prop.getProperty("ivrhangupUrl");
-								String defualtaudioHangupText = prop.getProperty("ivrhangupNotes");
-								kkResponse = StaticUtils.processUrlOrTextMessage(dedicatedaudioHangupUrl, dedicatedaudioHangupText,
-												defualtaudioHangupText, defualtaudioHangupUrl, playspeed, multiLanguageFlag, co);
-								kkResponse.addHangup();
+
+							
+									String defualtaudioHangupUrl = prop.getProperty("ivrhangupUrl");
+									String defualtaudioHangupText = prop.getProperty("ivrhangupNotes");
+									kkResponse = StaticUtils.processUrlOrTextMessage(dedicatedaudioHangupUrl, dedicatedaudioHangupText,
+													defualtaudioHangupText, defualtaudioHangupUrl, playspeed, multiLanguageFlag, co);
+									kkResponse.addHangup();
 							}
 							else
 							{

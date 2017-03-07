@@ -1536,8 +1536,9 @@ public class StaticUtils
 	public static ArrayList<String> createJSONdataArray(String dataSTR)
 	{
 		ArrayList<String> dataArray = new ArrayList<String>();
-
+		System.out.println("++++++++++++"+dataSTR);
 		JSONObject dataObj = (JSONObject) JSONSerializer.toJSON(dataSTR);
+		System.out.println("------------"+dataObj+"--------"+dataSTR+"--Hello");
 		JSONArray jsndatalistObj = dataObj.getJSONArray("dataList");
 		
 		for (int i = 0; i < jsndatalistObj.size(); i++)

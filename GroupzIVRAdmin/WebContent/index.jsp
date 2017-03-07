@@ -8,6 +8,6 @@
 </head>
 <body>
 
-<h1> Welcome to Groupz IVR Update </h1>
+<h1> Welcome to GroupzIVR API Update </h1>
 </body>
 </html>

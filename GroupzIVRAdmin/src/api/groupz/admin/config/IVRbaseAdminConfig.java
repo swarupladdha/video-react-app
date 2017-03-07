@@ -72,7 +72,7 @@ public class IVRbaseAdminConfig
 	
 	public static boolean checkvalidation(String ivrData, String[] mandatory_keys)
 	{
-		
+		System.out.println("d");
 		boolean flag = false;
 		
 		JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
@@ -93,6 +93,7 @@ public class IVRbaseAdminConfig
 		    	break;
 		    }
 		}
+		System.out.println(flag);
 		return flag;
 	}
 	

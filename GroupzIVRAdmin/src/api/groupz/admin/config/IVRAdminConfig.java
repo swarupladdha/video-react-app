@@ -21,6 +21,8 @@ public class IVRAdminConfig
 	public static String updateIVRFunctionType;
 	//public static String deleteIVRFunctionType;
 	public static String getIVRFunctionType;
+	public static String adminservicetype;
+	public static String adminfuncttiontype;
 	
 	static
 	{
@@ -220,6 +222,7 @@ public class IVRAdminConfig
 		}
 		return null;
 	}
+	
 	
 	
 }
