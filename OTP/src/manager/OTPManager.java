@@ -25,7 +25,9 @@ public class OTPManager {
 		String countryCode = "";
 		String encryptedCountryCode = "";
 		String mobileWithCountryCode = "";
-		String insertIntoOtpTableSQL = "Insert into Otp (Mobile,CountryCode,CreatedTime,LapseTime,Otp) values('%s','%s','%s','%s','%s')";
+		boolean newOtp = false;
+		String otp = "";
+		String insertIntoOtpTableSQL = "Insert into Otp (Mobile,CountryCode,CreatedTime,LapseTime,Otp,OriginalOtp) values('%s','%s','%s','%s','%s','%s')";
 		String updateDuplicateEntrySQL = "Update Otp set Invalid=true where Id=%d ";
 		String checkMobileExist = "Select Id from Otp where Mobile='%s' and CountryCode='%s' and LapseTime>='%s'";
 
@@ -97,42 +99,77 @@ public class OTPManager {
 
 			}
 
+			if (mobileObject.containsKey("newotp")) {
+				newOtp = mobileObject.getBoolean("newotp");
+			}
+
 			if (countryCode.equalsIgnoreCase("91") == true
 					|| countryCode.equalsIgnoreCase("1") == true) {
 				String currentTime = utils.getFormattedDateStr(utils
 						.getLastSynchTime());
+				if (newOtp == true) {
+					String checkMobileExistQuery = checkMobileExist.format(
+							checkMobileExist, encryptedMobile,
+							encryptedCountryCode, currentTime);
+					System.out.println(" Mobile Exist Query :"
+							+ checkMobileExistQuery);
+					List<Integer> otpEntryList = dbo.getIntegerList(con,
+							checkMobileExistQuery);
+					if (otpEntryList != null && otpEntryList.size() > 0) {
+						for (int j = 0; j < otpEntryList.size(); j++) {
+							String updateOtpEntry = updateDuplicateEntrySQL
+									.format(updateDuplicateEntrySQL,
+											otpEntryList.get(j));
+							dbo.executeUpdate(updateOtpEntry, con);
+						}
 
-				String checkMobileExistQuery = checkMobileExist.format(
-						checkMobileExist, encryptedMobile,
-						encryptedCountryCode, currentTime);
-				System.out.println(" Mobile Exist Query :"
-						+ checkMobileExistQuery);
-				List<Integer> otpEntryList = dbo.getIntegerList(con,
-						checkMobileExistQuery);
-				if (otpEntryList != null && otpEntryList.size() > 0) {
-					for (int j = 0; j < otpEntryList.size(); j++) {
-						String updateOtpEntry = updateDuplicateEntrySQL.format(
-								updateDuplicateEntrySQL, otpEntryList.get(j));
-						dbo.executeUpdate(updateOtpEntry, con);
+					}
+
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(utils.getLastSynchTime());
+					cal.add(Calendar.MINUTE, 30);
+					Date lapse_time = cal.getTime();
+					String lapseTime = utils.getFormattedDateStr(lapse_time);
+
+					otp = utils.generateOTP();
+					String encryptedOtp = utils.encrypt(otp);
+
+					String insertIntoOtpQuery = insertIntoOtpTableSQL.format(
+							insertIntoOtpTableSQL, encryptedMobile,
+							encryptedCountryCode, currentTime, lapseTime,
+							encryptedOtp, otp);
+					System.out.println(insertIntoOtpQuery);
+					dbo.executeUpdate(insertIntoOtpQuery, con);
+				} else {
+					String query = "Select OriginalOtp from Otp where Mobile='"
+							+ encryptedMobile + "' and CountryCode='"
+							+ encryptedCountryCode + "' and LapseTime>='"
+							+ currentTime + "' ORDER BY id DESC LIMIT 1";
+					System.out.println("Query for getting old otp :" + query);
+					otp = dbo.getOldOTP(query, con);
+					if (otp == null) {
+						otp = utils.generateOTP();
+
+						Calendar cal = Calendar.getInstance();
+						cal.setTime(utils.getLastSynchTime());
+						cal.add(Calendar.MINUTE, 30);
+						Date lapse_time = cal.getTime();
+						String lapseTime = utils
+								.getFormattedDateStr(lapse_time);
+
+						otp = utils.generateOTP();
+						String encryptedOtp = utils.encrypt(otp);
+
+						String insertIntoOtpQuery = insertIntoOtpTableSQL
+								.format(insertIntoOtpTableSQL, encryptedMobile,
+										encryptedCountryCode, currentTime,
+										lapseTime, encryptedOtp, otp);
+						System.out.println(insertIntoOtpQuery);
+						dbo.executeUpdate(insertIntoOtpQuery, con);
+
 					}
 
 				}
-
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(utils.getLastSynchTime());
-				cal.add(Calendar.MINUTE, 30);
-				Date lapse_time = cal.getTime();
-				String lapseTime = utils.getFormattedDateStr(lapse_time);
-
-				String otp = utils.generateOTP();
-				String encryptedOtp = utils.encrypt(otp);
-
-				String insertIntoOtpQuery = insertIntoOtpTableSQL.format(
-						insertIntoOtpTableSQL, encryptedMobile,
-						encryptedCountryCode, currentTime, lapseTime,
-						encryptedOtp);
-				System.out.println(insertIntoOtpQuery);
-				dbo.executeUpdate(insertIntoOtpQuery, con);
 
 				String sms_text = PropertiesUtil.getProperty("otp_sms_text")
 						+ " " + otp;
