@@ -310,8 +310,8 @@ public class IVRbaseDBOperations
 					  else
 					  {
 						  String statuscode = IVRbaseAdminConfig.prop.getProperty("errorcode");
-						  String statusmessage = IVRbaseAdminConfig.prop.getProperty("getdataerrornotes");
-						  response = IVRbaseAdminConfig.createResponse1(statuscode, statusmessage,null);  
+						  String statusmessage = IVRbaseAdminConfig.prop.getProperty("noresultbase");
+						  response = IVRbaseAdminConfig.createResponse(statuscode, statusmessage);  
 						  return response;
 					  }
 		     } 

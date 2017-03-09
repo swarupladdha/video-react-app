@@ -257,7 +257,7 @@ public class IVRDBOperations
 				  else
 				  {
 					  String statuscode = IVRbaseAdminConfig.prop.getProperty("errorcode");
-					  String statusmessage = IVRbaseAdminConfig.prop.getProperty("getdataerrornotes");
+					  String statusmessage = IVRbaseAdminConfig.prop.getProperty("noresult");
 					  response = IVRbaseAdminConfig.createResponse(statuscode, statusmessage);  
 					  return response;
 				  }

@@ -158,9 +158,7 @@ public class DBOperation {
 				 	  System.out.println(rs.getString("groupzBase"));
 				 	  jarray1.add(dataObj);
 				  }
-				  //jarray2.add(jarray1);
 			   }
-		      
 			    System.out.println("jarray1 : "+ jarray1);
 			    
 			    if (jarray1 != null && jarray1.size()>0)
@@ -174,8 +172,8 @@ public class DBOperation {
 			    else
 			    {
 			    	String statuscode = PropertiesConfig.prop.getProperty("errorcode");
-					String statusmessage = PropertiesConfig.prop.getProperty("invaliddata");
-					response = PropertiesConfig.createResponse1(statuscode, statusmessage,null);  
+					String statusmessage = PropertiesConfig.prop.getProperty("noresultbase");
+					response = PropertiesConfig.createResponse(statuscode, statusmessage);  
 				    return response;
 			    }
 		     } 
@@ -282,9 +280,9 @@ public class DBOperation {
 			    {
 			    	System.out.println("No match found"+PropertiesConfig.prop.getProperty("nomatcherror"));
 			    	String statuscode = PropertiesConfig.prop.getProperty("errorcode");
-					String statusmessage = PropertiesConfig.prop.getProperty("nomatcherror");
+					String statusmessage = PropertiesConfig.prop.getProperty("noresultbase");
 					System.out.println(statuscode+"   "+statusmessage);
-					response = PropertiesConfig.createResponse1(statuscode, statusmessage,null);  
+					response = PropertiesConfig.createResponse(statuscode, statusmessage);  
 				    return response;
 			    }
 			   }
