@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.jfree.util.Log;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
@@ -30,6 +32,9 @@ public class IVRDBOperations
 		Connection conn = null;
 		Statement stmt = null;
 		String response = "";
+		int id =-1;
+		String ivr1="";
+		String groupz="";
 	   try
 	   {
 	     conn = ConnectionManager.getConnect();
@@ -54,6 +59,59 @@ public class IVRDBOperations
 
 	    	  
 	    	  String key = columnNames[i];
+	    	  
+	    	  
+	    	  
+//	    	  ResultSet rs1=null;
+//			   ResultSet rs2=null;
+//			   ResultSet rs3=null;
+//		   if(key.equalsIgnoreCase("ivrnumber"))
+//			   {
+//				   columnValues ="'"+value+"'"+",";
+//				   System.out.println("columnValues:"+columnValues);  
+//				   System.out.println("+++++++++++++++++++++++++Hello");
+//				   rs1=stmt.executeQuery("select ivrnumber from ivrgroupz where id="+id+";");
+//				   System.out.println("+++++++++++++++++++++++++Hello"+"select ivrnumber from ivrgroupz where id="+id);
+//				   while (rs1.next())
+//				   {
+//					     ivr1 = rs1.getString("ivrnumber");
+//					    System.out.println("Ivr is------"+ivr1);
+//				   }
+//				   rs2=stmt.executeQuery("select Id from ivrgroupzbase where ivrnumber = "+ivr1);
+//				   System.out.println("select Id from ivrgroupzbase where ivrnumber = "+ivr1);
+//					while (rs2.next())
+//					{
+//						int id1=rs2.getInt("Id");
+//						String query="update ivrgroupzbase set ivrnumber="+value+" where id="+id1;
+//						System.out.println(query +" and id = "+ id1);
+//						stmt.executeUpdate(query);
+//						System.out.println("Updated Successfully !");
+//						Log.info("updating ivrnumber in ivrgroupzbase   --"+ivr1+"----"+value);
+//					}
+//			   }
+//			  
+//		   if(key.equalsIgnoreCase("groupzBase"))
+//		   {
+//			   columnValues ="'"+value+"'"+",";
+//			   System.out.println("columnValues:"+columnValues);  
+//			   System.out.println("+++++++++++++++++++++++++Hello123");
+//			   rs1=stmt.executeQuery("select groupzBase from ivrgroupz where id="+id);
+//			   while (rs1.next())
+//			   {
+//				    groupz = rs1.getString("groupzBase");
+//				    System.out.println("groupBase is---"+groupz);
+//			   }
+//			   rs3=stmt.executeQuery("select Id from ivrgroupzbase where groupzBase = '"+groupz+"'");
+//			   System.out.println("select Id from ivrgroupzbase where groupzBase = '"+groupz+"'");
+//				while (rs3.next())
+//				{
+//					int id1=rs3.getInt("Id");
+//					System.out.println("Id is===="+id1);
+//					stmt.executeUpdate("update ivrgroupzbase set groupzBase = '"+value+"' where id="+id1);
+//					Log.info("updating groupzBase in ivrgroupzbase   --"+groupz+"----"+value);
+//				}
+//		   }
+	    	  
 	    	  
 	    	  if (key.equalsIgnoreCase("welcomeNotes"))
 			  {	

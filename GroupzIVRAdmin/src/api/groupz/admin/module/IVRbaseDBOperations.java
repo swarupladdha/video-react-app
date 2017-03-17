@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.jfree.util.Log;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
@@ -359,6 +361,9 @@ public class IVRbaseDBOperations
 		Connection conn = null;
 		Statement stmt = null;
 		String response = "";
+		int id =-1;
+		String ivr1="";
+		String groupz="";
 	   
 		try
 	    {
@@ -376,6 +381,7 @@ public class IVRbaseDBOperations
 		    String[] columnNames = {"id","ivrnumber", "grpzWelcomeNotes", "audioGrpzWelcomeUrl", "selectionHangupNotes", "audioSelectionHangupUrl", "selectionEndNotes", "selectionEndUrl", "errorNotes", "audioerrorUrl", "memberWelcomeNotes", "audioMemberWelcomeUrl", "notRegGroupzNotes", "notRegGroupzUrl", "maintenanceNotes", "maintenanceUrl", "generalHangupNotes", "generalHangupUrl", "numbersUrllist", "previousMenuSelectNotes", "previousMenuSelectUrl", "playspeed", "settimeout", "multiLanguageFlag", "languageSelectionList", "languageWelcomeURL", "groupzBase","enquiryflag","basekey"};
 		      
 		    JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
+		    id=json.getInt("id");
 		      
 		    Iterator<?> jsonObj = json.keys();
 			List<String> keysList = new ArrayList<String>();
@@ -398,14 +404,55 @@ public class IVRbaseDBOperations
 				   String key = ivrData_keys[i];
 				   System.out.println("------------"+key+"----------------------");
 
-/*				   if(key.equalsIgnoreCase("ivrnumber"))
+				   ResultSet rs1=null;
+				   ResultSet rs2=null;
+				   ResultSet rs3=null;
+			   if(key.equalsIgnoreCase("ivrnumber"))
 				   {
-					   
 					   columnValues ="'"+value+"'"+",";
-					   System.out.println("columnValues:"+columnValues);
-					   
+					   System.out.println("columnValues:"+columnValues);  
+					   System.out.println("+++++++++++++++++++++++++Hello");
+					   rs1=stmt.executeQuery("select ivrnumber from ivrgroupzbase where id="+id+";");
+					   System.out.println("+++++++++++++++++++++++++Hello"+"select ivrnumber from ivrgroupzbase where id="+id);
+					   while (rs1.next())
+					   {
+						     ivr1 = rs1.getString("ivrnumber");
+						    System.out.println("Ivr is------"+ivr1);
+					   }
+					   rs2=stmt.executeQuery("select Id from ivrgroupz where ivrnumber = "+ivr1);
+					   System.out.println("select Id from ivrgroupz where ivrnumber = "+ivr1);
+						while (rs2.next())
+						{
+							int id1=rs2.getInt("Id");
+							String query="update ivrgroupz set ivrnumber="+value+" where id="+id1;
+							System.out.println(query +" and id = "+ id1);
+							stmt.executeUpdate(query);
+							System.out.println("Updated Successfully !");
+							Log.info("updating ivrnumber in ivrgroupz   --"+ivr1+"----"+value);
+						}
 				   }
-				  */
+				  
+			   if(key.equalsIgnoreCase("groupzBase"))
+			   {
+				   columnValues ="'"+value+"'"+",";
+				   System.out.println("columnValues:"+columnValues);  
+				   System.out.println("+++++++++++++++++++++++++Hello123");
+				   rs1=stmt.executeQuery("select groupzBase from ivrgroupzbase where id="+id);
+				   while (rs1.next())
+				   {
+					    groupz = rs1.getString("groupzBase");
+					    System.out.println("groupBase is---"+groupz);
+				   }
+				   rs3=stmt.executeQuery("select Id from ivrgroupz where groupzBase = '"+groupz+"'");
+				   System.out.println("select Id from ivrgroupz where groupzBase = '"+groupz+"'");
+					while (rs3.next())
+					{
+						int id1=rs3.getInt("Id");
+						System.out.println("Id is===="+id1);
+						stmt.executeUpdate("update ivrgroupz set groupzBase = '"+value+"' where id="+id1);
+						Log.info("updating groupzBase in ivrgroupz   --"+groupz+"----"+value);
+					}
+			   }
 				   if ((key.equalsIgnoreCase("grpzWelcomeNotes")) ||(key.equalsIgnoreCase("selectionHangupNotes")) || (key.equalsIgnoreCase("selectionEndNotes")) || (key.equalsIgnoreCase("memberWelcomeNotes")) || (key.equalsIgnoreCase("notRegGroupzNotes")) || (key.equalsIgnoreCase("generalHangupNotes")) || (key.equalsIgnoreCase("previousMenuSelectNotes")) || (key.equalsIgnoreCase("errorNotes")))
 				   {						
 						JSONObject jReq = json.getJSONObject(key) ;
@@ -533,7 +580,6 @@ public class IVRbaseDBOperations
 		        }
 		      
 		        String sql="";
-		        int id =json.getInt("id");			
 		        if ((ivrData_keys[i].equalsIgnoreCase("scope") == false) && (ivrData_keys[i].equalsIgnoreCase("type") == false))
 		        {
 		    	    sql = ivrData_keys[i] + "=" + columnValues;
@@ -542,8 +588,12 @@ public class IVRbaseDBOperations
 				    System.out.println("The update SQL : " + sql_query) ;
 				    System.out.println("------------"+id);
 				    stmt.executeUpdate(sql_query); 
-//				    String ret_list_Qry = selectSQL +" WHERE ivrnumber='"+ivrnumber+"';";
-//				    rs = stmt.executeQuery(ret_list_Qry);
+				   
+//				    if(json.containsKey("ivrnumber"))
+//				    {
+//				    	int ivr = json.getInt("ivrnumber");
+//				    	stmt.executeUpdate("update ivrgroupz set ivrnumber = "+"where ivrnumber ="+ivr);
+//				    }
 			    }
 		    }
 /*		    if(rs!=null)
