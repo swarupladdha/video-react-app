@@ -167,7 +167,7 @@ public class IVRbaseDBOperations
 	      
 	      System.out.println("Records inserted into the table...");
 	      String statuscode = IVRbaseAdminConfig.prop.getProperty("successcode");
-	      String statusmessage = "Successfully Inserted";
+	      String statusmessage = "Successfully Added";
 	      response = IVRbaseAdminConfig.createResponse(statuscode, statusmessage);
 	     
 	      return response;

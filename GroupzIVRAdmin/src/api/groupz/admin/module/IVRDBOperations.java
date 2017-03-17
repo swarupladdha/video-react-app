@@ -128,7 +128,7 @@ public class IVRDBOperations
 		      
 		       System.out.println("Records inserted into the table...");
 		       String statuscode = IVRAdminConfig.prop.getProperty("successcode");
-		       String statusmessage = "Successfully Inserted";
+		       String statusmessage = "Successfully Added";
 		       response = IVRAdminConfig.createResponse(statuscode, statusmessage);
 		       return response;
 	   }
