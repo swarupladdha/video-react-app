@@ -383,7 +383,7 @@ public class IVRbaseDBOperations
 		    JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
 		     id=json.getInt("id");
 		      
-		    Iterator<?> jsonObj = json.keys();
+		    Iterator jsonObj = json.keys();
 			List<String> keysList = new ArrayList<String>();
 			  
 			while(jsonObj.hasNext())
@@ -392,7 +392,7 @@ public class IVRbaseDBOperations
 				keysList.add(ivrDatakeys);
 			}
 			String[] ivrData_keys = keysList.toArray(new String[keysList.size()]);
-				
+			System.out.println("Everything is fine "+ivrData_keys.length);
 					
 		    for(int i=1; i<ivrData_keys.length; i++)
 			{
@@ -430,7 +430,7 @@ public class IVRbaseDBOperations
 							System.out.println("Updated Successfully !");
 							Log.info("updating ivrnumber in ivrgroupz   --"+ivr1+"----"+value);
 						}
-				   
+				   }  
 				  
 			   if(key.equalsIgnoreCase("groupzBase"))
 			   {
@@ -586,7 +586,8 @@ public class IVRbaseDBOperations
 				    System.out.println("sql : "+sql);
 				    String sql_query = updateSQL + sql + " WHERE id= " +id+ " ;";
 				    System.out.println("The update SQL : " + sql_query) ;
-				    System.out.println("------------"+id);
+				    System.out.println("------------+"+id);
+				    System.out.println(sql_query);
 				    stmt.executeUpdate(sql_query); 
 				   
 //				    if(json.containsKey("ivrnumber"))
@@ -629,8 +630,8 @@ public class IVRbaseDBOperations
 				   jarray.add(dataObj);
 			   }
 			   System.out.println("jarray : "+jarray);
-		     */
-			}
+		     }*/
+			
 	        System.out.println("Records updated in the table...");
 	        String statuscode = IVRAdminConfig.prop.getProperty("successcode");
 	        String statusmessage = "Successfully Updated";
