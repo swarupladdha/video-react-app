@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.jfree.util.Log;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -360,10 +361,10 @@ public class IVRbaseDBOperations
 		Connection conn = null;
 		Statement stmt = null;
 		String response = "";
-//		int id =-1;
-//		String ivr1="";
-//		String groupz="";
-//	   
+		int id =-1;
+		String ivr1="";
+		String groupz="";
+	   
 		try
 	    {
 			JSONArray jarray = new JSONArray();
@@ -380,7 +381,7 @@ public class IVRbaseDBOperations
 		    String[] columnNames = {"id","ivrnumber", "grpzWelcomeNotes", "audioGrpzWelcomeUrl", "selectionHangupNotes", "audioSelectionHangupUrl", "selectionEndNotes", "selectionEndUrl", "errorNotes", "audioerrorUrl", "memberWelcomeNotes", "audioMemberWelcomeUrl", "notRegGroupzNotes", "notRegGroupzUrl", "maintenanceNotes", "maintenanceUrl", "generalHangupNotes", "generalHangupUrl", "numbersUrllist", "previousMenuSelectNotes", "previousMenuSelectUrl", "playspeed", "settimeout", "multiLanguageFlag", "languageSelectionList", "languageWelcomeURL", "groupzBase","enquiryflag","basekey"};
 		      
 		    JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
-		     int id=json.getInt("id");
+		     id=json.getInt("id");
 		      
 		    Iterator<?> jsonObj = json.keys();
 			List<String> keysList = new ArrayList<String>();
@@ -403,7 +404,7 @@ public class IVRbaseDBOperations
 				   String key = ivrData_keys[i];
 				   System.out.println("------------"+key+"----------------------");
 
-/*				   ResultSet rs1=null;
+				   ResultSet rs1=null;
 				   ResultSet rs2=null;
 				   ResultSet rs3=null;
 			   if(key.equalsIgnoreCase("ivrnumber"))
@@ -451,7 +452,7 @@ public class IVRbaseDBOperations
 						stmt.executeUpdate("update ivrgroupz set groupzBase = '"+value+"' where id="+id1);
 						Log.info("updating groupzBase in ivrgroupz   --"+groupz+"----"+value);
 					}
-			   }*/
+			   }
 				   if ((key.equalsIgnoreCase("grpzWelcomeNotes")) ||(key.equalsIgnoreCase("selectionHangupNotes")) || (key.equalsIgnoreCase("selectionEndNotes")) || (key.equalsIgnoreCase("memberWelcomeNotes")) || (key.equalsIgnoreCase("notRegGroupzNotes")) || (key.equalsIgnoreCase("generalHangupNotes")) || (key.equalsIgnoreCase("previousMenuSelectNotes")) || (key.equalsIgnoreCase("errorNotes")))
 				   {						
 						JSONObject jReq = json.getJSONObject(key) ;
@@ -628,7 +629,8 @@ public class IVRbaseDBOperations
 				   jarray.add(dataObj);
 			   }
 			   System.out.println("jarray : "+jarray);
-		    } */
+		     */
+			}
 	        System.out.println("Records updated in the table...");
 	        String statuscode = IVRAdminConfig.prop.getProperty("successcode");
 	        String statusmessage = "Successfully Updated";
