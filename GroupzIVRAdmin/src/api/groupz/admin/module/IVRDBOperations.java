@@ -8,13 +8,11 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jfree.util.Log;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import api.groupz.admin.config.ConnectionManager;
-import api.groupz.admin.config.DBOperation;
 import api.groupz.admin.config.IVRAdminConfig;
 import api.groupz.admin.config.IVRbaseAdminConfig;
 import api.groupz.database.DBConnect;
@@ -32,9 +30,7 @@ public class IVRDBOperations
 		Connection conn = null;
 		Statement stmt = null;
 		String response = "";
-		int id =-1;
-		String ivr1="";
-		String groupz="";
+
 	   try
 	   {
 	     conn = ConnectionManager.getConnect();
@@ -365,10 +361,14 @@ public class IVRDBOperations
 		Connection conn = null;
 		Statement stmt = null;
 		String response = "";
+		
+//		int id =-1;
+//		String ivr1="";
+//		String groupz="";
 	   
 		try
 	    {
-			JSONObject dataObj = new JSONObject();
+//			JSONObject dataObj = new JSONObject();
 			JSONArray jarray = new JSONArray();
 			
 			conn = ConnectionManager.getConnect();
@@ -384,7 +384,7 @@ public class IVRDBOperations
 		      
 		      JSONObject json = (JSONObject) JSONSerializer.toJSON(ivrData);
 		      
-		      Iterator jsonObj = json.keys();
+		      Iterator<?> jsonObj = json.keys();
 			  List<String> keysList = new ArrayList<String>();
 			  
 			  while(jsonObj.hasNext())
@@ -395,7 +395,7 @@ public class IVRDBOperations
 			  }
 			  String[] ivrData_keys = keysList.toArray(new String[keysList.size()]);
 				
-			  ResultSet rs = null;
+//			  ResultSet rs = null;
 			  
 		      for(int i=1; i<ivrData_keys.length; i++)
 			  {
