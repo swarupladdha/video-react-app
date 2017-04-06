@@ -101,8 +101,19 @@ public class IvrGroupzBaseMapping extends BaseDatabaseObject implements Serializ
 
 	@Column(name = "languageWelcomeURL")
 	private String languageWelcomeURL;
+	
+	@Column(name = "basekey")
+	private String basekey;
 
 
+
+	public String getBasekey() {
+		return basekey;
+	}
+
+	public void setBasekey(String basekey) {
+		this.basekey = basekey;
+	}
 
 	public int getId() {
 		return id;

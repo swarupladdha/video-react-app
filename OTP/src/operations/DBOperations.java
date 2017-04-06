@@ -12,8 +12,8 @@ public class DBOperations {
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<Integer> intList = new ArrayList<Integer>();
-		
-		System.out.println("Get Integers List Query is :"+query);
+
+		System.out.println("Get Integers List Query is :" + query);
 
 		try {
 			stmt = dbConnection.createStatement();
@@ -62,6 +62,39 @@ public class DBOperations {
 				e.printStackTrace();
 			}
 		}
+
+	}
+
+	public String getOldOTP(String query, Connection conn) {
+		Statement stmt = null;
+		ResultSet rs = null;
+		String otp = "";
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				otp = rs.getString("OriginalOtp");
+				return otp;
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (stmt != null) {
+					stmt.close();
+
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 
 	}
 

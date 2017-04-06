@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class ConnectionManager {
 
-	 static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
+	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	   static final String DB_URL = "jdbc:mysql://localhost/groupzivr";
 	   static final String USER = "root";
 	   static final String PASS = "password";
@@ -34,6 +34,7 @@ public class ConnectionManager {
 			}
 		   
 	   }
+	 
 	   
 	   public static void closeConnection(Connection conn)
 		{

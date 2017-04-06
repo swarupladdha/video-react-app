@@ -2,7 +2,10 @@ package api.groupz.admin.config;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+
+
 
 
 
@@ -14,8 +17,8 @@ public class DBOperation {
 
 
 		static final String selectSQL = "SELECT * FROM admin WHERE ";
-		static  String selectSQL1 = "SELECT ivrnumber ,groupzBase  FROM ivrgroupzbase ";
-		static final String selectSQL2 = "SELECT ivrnumber,groupzBase,groupZCode  FROM ivrgroupz WHERE ";
+		static final String selectSQL1 = "SELECT id,ivrnumber ,groupzBase  FROM ivrgroupzbase ";
+		static final String selectSQL2 = "SELECT id,ivrnumber,groupzBase,groupZCode  FROM ivrgroupz WHERE ";
 
 		
 		public static String connectDBandCheck(String emailId, String passwordId)
@@ -46,12 +49,13 @@ public class DBOperation {
 			   {
 				  while (rs.next())
 				  {
+					  dataObj.put("id", rs.getInt("id"));
 				 	  dataObj.put("username",rs.getString("username"));
 				 	  System.out.println(rs.getString(1));
 				 	  dataObj.put("email", rs.getString("email"));
-				 	 System.out.println(rs.getString(2));
+				 	  System.out.println(rs.getString(2));
 				 	  dataObj.put("password", rs.getString(3));
-				 	 System.out.println(rs.getString("password"));
+				 	  System.out.println(rs.getString("password"));
 				 	  jarray.add(dataObj);
 				  }
 			   }
@@ -147,16 +151,14 @@ public class DBOperation {
 			   {
 				  while (rs.next())
 				  {
-					  
+					  dataObj.put("id",rs.getInt("id"));  
 				 	  dataObj.put("ivrnumber",rs.getString("ivrnumber"));
-				 	 System.out.println(rs.getString("ivrnumber"));
+				 	  System.out.println(rs.getString("ivrnumber"));
 				 	  dataObj.put("groupzBase", rs.getString("groupzBase"));
-				 	System.out.println(rs.getString("groupzBase"));
+				 	  System.out.println(rs.getString("groupzBase"));
 				 	  jarray1.add(dataObj);
 				  }
-				  //jarray2.add(jarray1);
 			   }
-		      
 			    System.out.println("jarray1 : "+ jarray1);
 			    
 			    if (jarray1 != null && jarray1.size()>0)
@@ -170,8 +172,8 @@ public class DBOperation {
 			    else
 			    {
 			    	String statuscode = PropertiesConfig.prop.getProperty("errorcode");
-					String statusmessage = PropertiesConfig.prop.getProperty("invaliddata");
-					response = PropertiesConfig.createResponse1(statuscode, statusmessage,null);  
+					String statusmessage = PropertiesConfig.prop.getProperty("noresultbase");
+					response = PropertiesConfig.createResponse(statuscode, statusmessage);  
 				    return response;
 			    }
 		     } 
@@ -253,13 +255,14 @@ public class DBOperation {
 			   {
 				  while (rs.next())
 				  {
+					  dataObj.put("id", rs.getInt("id"));
 					  dataObj.put("ivrnumber",rs.getString("ivrnumber"));
-					 	 System.out.println(rs.getString("ivrnumber"));
-					 	  dataObj.put("groupzBase", rs.getString("groupzBase"));
-					 	System.out.println(rs.getString("groupzBase"));
-					 	  dataObj.put("groupZCode", rs.getString("groupZCode"));
-						 	System.out.println(rs.getString("groupzBase"));
-					 	  jarray1.add(dataObj);
+					  System.out.println(rs.getString("ivrnumber"));
+					  dataObj.put("groupzBase", rs.getString("groupzBase"));
+					  System.out.println(rs.getString("groupzBase"));
+					  dataObj.put("groupZCode", rs.getString("groupZCode"));
+					  System.out.println(rs.getString("groupzBase"));
+					  jarray1.add(dataObj);
 				  }
 	
 			   }
@@ -277,9 +280,9 @@ public class DBOperation {
 			    {
 			    	System.out.println("No match found"+PropertiesConfig.prop.getProperty("nomatcherror"));
 			    	String statuscode = PropertiesConfig.prop.getProperty("errorcode");
-					String statusmessage = PropertiesConfig.prop.getProperty("nomatcherror");
+					String statusmessage = PropertiesConfig.prop.getProperty("noresultbase");
 					System.out.println(statuscode+"   "+statusmessage);
-					response = PropertiesConfig.createResponse1(statuscode, statusmessage,null);  
+					response = PropertiesConfig.createResponse(statuscode, statusmessage);  
 				    return response;
 			    }
 			   }
@@ -289,7 +292,7 @@ public class DBOperation {
 			     e.printStackTrace();
 			     String statuscode = PropertiesConfig.prop.getProperty("errorcode");
 				 String statusmessage = PropertiesConfig.prop.getProperty("errornotes");
-				 response = PropertiesConfig.createResponse(statuscode, statusmessage);  
+				 response = PropertiesConfig.createResponse1(statuscode, statusmessage,null);  
 			     return response;
 		      }
 		   finally
@@ -321,6 +324,8 @@ public class DBOperation {
 		      }
 		   }
 		}
+		
+		
 		
 		public static  String paginationQry(int limit, int offset) {
 			String paginationQry = "";

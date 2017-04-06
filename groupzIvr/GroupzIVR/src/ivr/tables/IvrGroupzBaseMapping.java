@@ -99,8 +99,19 @@ public class IvrGroupzBaseMapping extends BaseDatabaseObject implements Serializ
 
 	@Column(name = "languageWelcomeURL")
 	private String languageWelcomeURL;
+	
+	@Column(name = "enquiryflag")
+	private boolean enquiryflag;
 
 
+
+	public boolean getEnquiryflag() {
+		return enquiryflag;
+	}
+
+	public void setEnquiryflag(boolean enquiryflag) {
+		this.enquiryflag = enquiryflag;
+	}
 
 	public int getId() {
 		return id;

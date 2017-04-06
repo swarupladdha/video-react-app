@@ -14,7 +14,7 @@ public class PropertiesConfig {
 	public static String AdminFunctionType;
 	public static String GetListFunctionType;
 	public static String GetDetailListFunctionType;
-		
+	public static String GetgroupzbaseName;	
 	static
 	{
 		try
@@ -25,6 +25,7 @@ public class PropertiesConfig {
 			AdminFunctionType = prop.getProperty("adminfunctiontype");
 			GetListFunctionType = prop.getProperty("getlistfunctiontype");
 			GetDetailListFunctionType = prop.getProperty("getdetaillistfunctiontype");
+			GetgroupzbaseName =prop.getProperty("getgroupzbasename");
 		}
 		catch (Exception e)
 		{
