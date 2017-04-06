@@ -53,9 +53,10 @@ public class VinrMessagesInTable {
                                            append(threadId).
                                            append("))").toString();	                	
             logger.debug("The query is ===> " + QueryString + " Connection pool address is " + ConnectionPoolProvider.getInstance().getConnectionPool().hashCode() + " Connection address is " + connection.hashCode());
-
+            //System.out.println("The query is ===> " + QueryString + " Connection pool address is " + ConnectionPoolProvider.getInstance().getConnectionPool().hashCode() + " Connection address is " + connection.hashCode()+THREAD_POOL_SIZE+"----"+threadId);
             ResultSet rs = stmt.executeQuery(QueryString);
             return rs;
+           
         } catch (Exception e) {
             //System.out.println("Unable to connect to database.");
             e.printStackTrace();

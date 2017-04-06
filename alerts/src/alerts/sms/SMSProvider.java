@@ -15,5 +15,5 @@ import alerts.utils.TargetUser;
  */
 
 public interface SMSProvider {
-    public String sendSMS(HashMap providerParams, String msgId, List<TargetUser> numbersList, String textMessage);	
+    public String sendSMS(HashMap providerParams, String msgId, List<TargetUser> numbersList, String textMessage);
 }
