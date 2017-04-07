@@ -1,4 +1,4 @@
-package alerts.email;
+//package alerts.email;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -7,7 +7,7 @@ public class RIJDBThreadPool {
  
 	static String dbusername = "root" ;
 	static String dbpassword = "password";
-	static String dburl = "jdbc:mysql://localhost:3306/groupzivr" ;	
+	static String dburl = "jdbc:mysql:/"+"/localhost:3306/groupzivr" ;	
 	static String jdbcDriver = "com.mysql.jdbc.Driver";
 	static int noofthreads = 10 ;
 

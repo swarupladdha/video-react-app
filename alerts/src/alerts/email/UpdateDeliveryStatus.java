@@ -1,4 +1,4 @@
-package alerts.email;
+//package alerts.email;
 
 import java.sql.Connection;
 import java.sql.SQLException;
