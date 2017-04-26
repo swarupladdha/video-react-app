@@ -1,14 +1,14 @@
 package alerts.email ;
 
 import java.io.FileInputStream;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
-
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
+
+import alerts.sms.SmsMSG91;
 
 /**
  *
@@ -18,7 +18,6 @@ public class ConnectDatabase {
 
     private static Connection myConnection = null;
     static final Logger logger = Logger.getLogger(ConnectDatabase.class);
-
 
     public static Connection establishConnection() {
   
@@ -50,7 +49,7 @@ public class ConnectDatabase {
 
             try {
                 Class.forName(driver).newInstance();
-                myConnection = DriverManager.getConnection(url+dbName,userName,password);
+                myConnection = DriverManager.getConnection(url,userName,password);
                 logger.debug("In ConnectDatabase.java : The url and dbname is : " + url+dbName);
                 logger.debug("Connected to the database");
             } catch(SQLException sqlException) {

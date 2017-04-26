@@ -1,0 +1,46 @@
+<project name="vinralerts" default="dist" basedir=".">
+    <description>
+        vinr alerts build file
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="dist"  location="dist"/>
+  <!-- property name="lib"  location="/home/vinr/alerts/lib"/ -->
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="compile" depends="init"
+        description="compile the source " >
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac srcdir="${src}" destdir="${build}" deprecation="on" debug="true" nowarn="off" />
+  </target>
+
+  <target name="dist" depends="compile"
+        description="generate the distribution" >
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist}/lib"/>
+
+    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+    <jar jarfile="${dist}/lib/vinralerts.jar" basedir="${build}">
+	<manifest>
+		<attribute name="Main-Class" value="alerts.email.VinrEmailNotification"/>
+		<attribute name="Class-path" value="${lib}/activation.jar ${lib}/imap.jar ${lib}/mailapi.jar ${lib}/pop3.jar ${lib}/dsn.jar ${lib}/mail-1.3.2.jar ${lib}/mysql-connector-java-5.1.7-bin.jar ${lib}/smtp.jar" /> 
+	</manifest>
+    </jar>
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+</project>         

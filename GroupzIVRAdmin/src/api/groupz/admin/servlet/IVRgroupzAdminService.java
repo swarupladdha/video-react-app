@@ -31,8 +31,9 @@ public class IVRgroupzAdminService extends HttpServlet
 		{
 			out = response.getWriter();
 			String jSonParameter = request.getParameter("request") ; //JSONREQUEST ;
+			System.out.println(request);			
 			JSONObject jsonReq = (JSONObject) JSONSerializer.toJSON(jSonParameter);
-						
+					
 			JSONObject json = jsonReq.getJSONObject("json") ;
 			JSONObject jReq = json.getJSONObject("request") ;
 			String servicetype = jReq.getString("servicetype");

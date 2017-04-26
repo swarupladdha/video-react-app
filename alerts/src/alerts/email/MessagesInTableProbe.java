@@ -29,6 +29,7 @@ import org.apache.log4j.Logger;
 
 import alerts.sms.SMSProvider;
 import alerts.sms.SMSProviderFactory;
+import alerts.sms.SmsMSG91;
 import alerts.utils.Constants;
 import alerts.utils.TargetUser;
 import alerts.utils.Utils;
@@ -45,23 +46,26 @@ import alerts.utils.Utils;
  *  @version 1.0
  */
 
-public class MessagesInTableProbe implements Runnable {
+public class MessagesInTableProbe implements Runnable {			//Thread Runnable
 
     private int id = 0;
-    private HashMap<String, String> defaultProviderParameters ;    
+    private HashMap<String,String> defaultProviderParameters ;    
     static final Logger logger = Logger.getLogger(MessagesInTableProbe.class);
 
-    public MessagesInTableProbe(int id) {
+    public MessagesInTableProbe(int id) {				//Constructor of messagesintableprobe
         this.id = id; 
     }
     
-    public HashMap<String , String> getSMSProviderParameters( VinrMessageParser parser) {
+    public HashMap<String,String> getSMSProviderParameters( VinrMessageParser parser) {
+    		
+    	//Hashmap returntype method    	
     	
     	String providerCode ;
-    	HashMap<String, String> providerParameters  = null ;
+    	
+    	HashMap<String,String> providerParameters  = null ; 	//class obj
     	try {
 
-	    	String fileName = System.getenv("DefaultSmsProvider_CONFIG_FILE");      			
+	    	String fileName = System.getenv("DefaultSmsProvider_CONFIG_FILE");  //getting environment variable from Default Sms Provider_Config_file    			
 	      	FileInputStream propFile = new FileInputStream(fileName);
 	       	Properties p = new Properties(System.getProperties());
 	      	p.load(propFile);
@@ -81,7 +85,7 @@ public class MessagesInTableProbe implements Runnable {
 		        		senderId = p.getProperty("default_sid") ;	        			
 	        		}
 	        		String passwd = p.getProperty("default_password");
-	        		providerParameters = new HashMap<String, String>();
+	        		providerParameters = new HashMap<String,String>();
 	        		providerParameters.put(VinrMessageParser.PRIMARY_PROVIDER_CODE, providerCode) ;
 	        		providerParameters.put(VinrMessageParser.PRIMARY_PROVIDER_USERID, Utils.encrypt(userName) );
 	        		providerParameters.put(VinrMessageParser.PRIMARY_PROIVDER_PASSWORD, Utils.encrypt(passwd));
@@ -185,8 +189,9 @@ public class MessagesInTableProbe implements Runnable {
                          smsProvider = SMSProviderFactory.getSMSProviderInstance(providerCode);
                              logger.debug("The value of txtMsg before passing to sendSMSroutine is  ----> " + textMessage);	
                              sms_response = smsProvider.sendSMS(providerParameters, msgIdString, recipients, textMessage); //gets the response back from the call to sendSMS()
-
-                         if (sms_response.equalsIgnoreCase(Constants.SUCCESS_STRING)) {
+                             
+                         
+                             if (sms_response.equalsIgnoreCase(Constants.SUCCESS_STRING)) {
                              mesgInTable.deleteMessage(msgid);
                              //is_Insert_Success = messagesSentTable.insertDataIntoTable(msgid, msgtype, sms_response, address, message, provider, date, customData);
                          }

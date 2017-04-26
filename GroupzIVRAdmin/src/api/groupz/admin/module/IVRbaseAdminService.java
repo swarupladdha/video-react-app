@@ -7,14 +7,17 @@ import java.util.List;
 
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+import api.groupz.admin.config.DBOperation;
 import api.groupz.admin.config.IVRAdminConfig;
 import api.groupz.admin.config.IVRbaseAdminConfig;
+import api.groupz.admin.config.PropertiesConfig;
 
 public class IVRbaseAdminService
 {
 
 	public String process(String ivrData, String servicetype, String functiontype)
 	{
+		System.out.println("a");
 		String response = "";
 
 		try
@@ -31,6 +34,7 @@ public class IVRbaseAdminService
 			
 			if((IVRbaseAdminConfig.IVRAdminServiceType).equalsIgnoreCase(servicetype)==false)
 			{
+				
 				String statuscode = IVRbaseAdminConfig.prop.getProperty("invalidtypecode");
 			    String statusmessage = IVRbaseAdminConfig.prop.getProperty("invalidtype");
 			    response = IVRbaseAdminConfig.createResponse(statuscode, statusmessage);
@@ -50,6 +54,7 @@ public class IVRbaseAdminService
 				{
 					if (functiontype.equalsIgnoreCase(IVRbaseAdminConfig.addIVRBaseFunctionType))
 					{
+						System.out.println("b");
 						String insertValue = processAddIVRBase(ivrData);
 						response = insertValue;
 						return response;
@@ -62,9 +67,16 @@ public class IVRbaseAdminService
 					}
 					else if (functiontype.equalsIgnoreCase(IVRbaseAdminConfig.getIVRBaseFunctionType))
 					{
+						System.out.println("Inside IVRFunctionType");
 						String getSelectedValues = processGETIVRBase(ivrData);
 						response = getSelectedValues;
 						return response;
+					}
+					else if (functiontype.equalsIgnoreCase(PropertiesConfig.GetListFunctionType))
+					{
+						String list = DBOperation.getList(ivrData);
+						response=list;
+						return response;	
 					}
 					else
 					{
@@ -88,8 +100,9 @@ public class IVRbaseAdminService
 
 	private String processAddIVRBase(String ivrData)
 	{
+		System.out.println("c");
 		String response = "";
-		String[] mandatory_keys = {"ivrnumber", "grpzWelcomeNotes", "selectionHangupNotes", "selectionEndNotes", "errorNotes", "memberWelcomeNotes", "notRegGroupzNotes", "generalHangupNotes", "groupzBase", "numbersUrllist", "previousMenuSelectNotes"};
+		String[] mandatory_keys = {"ivrnumber", "grpzWelcomeNotes", "selectionHangupNotes", "selectionEndNotes", "errorNotes", "memberWelcomeNotes", "notRegGroupzNotes", "generalHangupNotes", "groupzBase", "numbersUrllist", "previousMenuSelectNotes","enquiryflag","basekey"};
 		boolean processvalidate = IVRbaseAdminConfig.checkvalidation(ivrData, mandatory_keys);
 
 		String value = "";
@@ -97,7 +110,7 @@ public class IVRbaseAdminService
 		if (processvalidate == false)
 		{
 			String statuscode = IVRbaseAdminConfig.prop.getProperty("missingfieldcode");
-		    String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingfield");
+		    String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingfield")+" "+mandatory_keys;
 		    response = IVRbaseAdminConfig.createResponse(statuscode, statusmessage);
 			return response;
 		}
@@ -184,7 +197,7 @@ public class IVRbaseAdminService
 	private String processUpdateIVRBase(String ivrData)
 	{
 		String response = "";
-		String[] mandatory_keys = {"ivrnumber", "grpzWelcomeNotes", "selectionHangupNotes", "selectionEndNotes", "errorNotes", "memberWelcomeNotes", "notRegGroupzNotes", "generalHangupNotes", "numbersUrllist", "previousMenuSelectNotes", "groupzBase"};
+		String[] mandatory_keys = {"ivrnumber", "grpzWelcomeNotes", "selectionHangupNotes", "selectionEndNotes", "errorNotes", "memberWelcomeNotes", "notRegGroupzNotes", "generalHangupNotes", "numbersUrllist", "previousMenuSelectNotes", "groupzBase","enquiryflag","basekey"};
 		boolean processvalidate = IVRbaseAdminConfig.checkvalidate(ivrData, mandatory_keys);
 
 		String value = "";
@@ -192,7 +205,7 @@ public class IVRbaseAdminService
 		if (processvalidate == false)
 		{
 			String statuscode = IVRbaseAdminConfig.prop.getProperty("missingfieldvaluecode");
-		    String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingmandatoryfieldvalue");
+		    String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingmandatoryfieldvalue")+" "+mandatory_keys;
 		    response = IVRbaseAdminConfig.createResponse(statuscode, statusmessage);
 			return response;
 		} 
@@ -234,7 +247,7 @@ public class IVRbaseAdminService
 						if (IVRAdminConfig.isEmptyOrNull(ivrNumber.trim()) == true)
 						{ 
 							String statuscode = IVRAdminConfig.prop.getProperty("errorcode");
-						    String statusmessage = IVRAdminConfig.prop.getProperty("missingmandatoryfieldvalue") + " " + key + " ie it is set to null value";
+						    String statusmessage = IVRAdminConfig.prop.getProperty("missingmandatoryfieldvalue") + " " + key;
 						    response = IVRAdminConfig.createResponse(statuscode, statusmessage);
 							return response;
 						}
@@ -257,7 +270,7 @@ public class IVRbaseAdminService
 						if (IVRbaseAdminConfig.isEmptyOrNull(dataList_value.trim()) == true)
 						{ 
 							String statuscode = IVRbaseAdminConfig.prop.getProperty("errorcode");
-						    String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingmandatoryfieldvalue") + " " + key + " ie it is set to null value";
+						    String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingmandatoryfieldvalue") + " " + key;
 						    response = IVRbaseAdminConfig.createResponse(statuscode, statusmessage);
 							return response;
 						}
@@ -271,7 +284,7 @@ public class IVRbaseAdminService
 						if (IVRbaseAdminConfig.isEmptyOrNull(urlList_value.trim()) == true)
 						{ 
 							String statuscode = IVRbaseAdminConfig.prop.getProperty("errorcode");
-						    String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingmandatoryfieldvalue") + " " + key + " ie it is set to null value";
+						    String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingmandatoryfieldvalue") + " " + key;
 						    response = IVRbaseAdminConfig.createResponse(statuscode, statusmessage);
 							return response;
 						}
@@ -280,7 +293,7 @@ public class IVRbaseAdminService
 					if (IVRbaseAdminConfig.isEmptyOrNull(field_value) == true)
 					{ 
 						String statuscode = IVRbaseAdminConfig.prop.getProperty("missingfieldvaluecode");
-					    String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingmandatoryfieldvalue " + mandatory_keys[i] + " ie it is set to null value");
+					    String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingmandatoryfieldvalue " + mandatory_keys[i]);
 					    response = IVRbaseAdminConfig.createResponse(statuscode, statusmessage);
 						return response;
 					}
@@ -299,25 +312,13 @@ public class IVRbaseAdminService
 
 	private String processGETIVRBase(String ivrData)
 	{
+		System.out.println("GETIVRBase");
 		String response = "";
 		
-		String[] mandatory_keys = {"ivrnumber", "grpzWelcomeNotes", "selectionHangupNotes", "selectionEndNotes", "errorNotes", "memberWelcomeNotes", "notRegGroupzNotes", "generalHangupNotes", "numbersUrllist", "previousMenuSelectNotes", "groupzBase"};
 
-		boolean processvalidate = IVRbaseAdminConfig.checkvalidate(ivrData, mandatory_keys);
-
-		if (processvalidate == false)
-		{
-			String statuscode = IVRbaseAdminConfig.prop.getProperty("missingfieldvaluecode");
-		    String statusmessage = IVRbaseAdminConfig.prop.getProperty("missingmandatoryfieldvalue");
-		    response = IVRbaseAdminConfig.createResponse(statuscode, statusmessage);
-			return response;
-		}
-		else
-		{
 			String getValues = IVRbaseDBOperations.connectDBandGet(ivrData);
 			response = getValues;
 			return response;
-		}
 
 	}
 }

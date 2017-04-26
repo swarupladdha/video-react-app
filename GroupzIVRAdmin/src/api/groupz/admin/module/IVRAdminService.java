@@ -7,7 +7,9 @@ import java.util.List;
 
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+import api.groupz.admin.config.DBOperation;
 import api.groupz.admin.config.IVRAdminConfig;
+import api.groupz.admin.config.PropertiesConfig;
 
 
 public class IVRAdminService
@@ -30,6 +32,7 @@ public class IVRAdminService
 			System.out.println("function Type : "+functiontype);
 			if((IVRAdminConfig.IVRAdminServiceType).equalsIgnoreCase(servicetype)==false)
 			{
+				
 				System.out.println("service invalid");
 				String statuscode = IVRAdminConfig.prop.getProperty("invalidtypecode");
 			    String statusmessage = IVRAdminConfig.prop.getProperty("invalidtype");
@@ -66,6 +69,13 @@ public class IVRAdminService
 						response = getSelectedValues;
 						return response;
 					}
+					else if (functiontype.equalsIgnoreCase(PropertiesConfig.GetDetailListFunctionType))
+					{
+						String list = DBOperation.getDetailList(ivrData);
+						response=list;
+						return response;
+						
+					}
 					else
 					{
 						System.out.println("function invalid");
@@ -81,7 +91,7 @@ public class IVRAdminService
 		{
 			e.printStackTrace();
 			String statuscode = IVRAdminConfig.prop.getProperty("errorcode");
-		    String statusmessage = IVRAdminConfig.prop.getProperty("updatetableerror");
+		    String statusmessage = IVRAdminConfig.prop.getProperty("getdataerrornotes");
 		    response = IVRAdminConfig.createResponse(statuscode, statusmessage);
 			return response;
 		}
@@ -166,6 +176,8 @@ public class IVRAdminService
 						return response;
 					}
 				}
+				
+				
 				
 				if (IVRAdminConfig.isEmptyOrNull(field_value) == true)
 				{ 
@@ -311,26 +323,10 @@ public class IVRAdminService
 	{
 		String response = "";
 		
-		String[] mandatory_keys = { "ivrnumber", "groupzCode", "welcomeNotes", "selectionlist", "groupzNameUrl", "multiLanguageFlag"};
-
-		boolean processvalidate = IVRAdminConfig.checkvalidate(ivrData, mandatory_keys);
-
-		String value = "";
-		
-		if (processvalidate == false)
-		{
-			String statuscode = IVRAdminConfig.prop.getProperty("errorcode");
-		    String statusmessage = IVRAdminConfig.prop.getProperty("missingfield");
-		    response = IVRAdminConfig.createResponse(statuscode, statusmessage);
-			return response;
-		}
-		else
-		{
 
 			String getValues = IVRDBOperations.connectDBandGet(ivrData);
 			response = getValues;
 			return response;
-		}
 
 	}
 }

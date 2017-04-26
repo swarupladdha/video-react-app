@@ -60,8 +60,19 @@ public class IvrGroupzMapping extends BaseDatabaseObject implements Serializable
 	
 	@Column(name = "address")
 	private String address;
+	
+	@Column(name = "groupzBase")
+	private String groupzBase;
 
 	
+
+	public String getGroupzBase() {
+		return groupzBase;
+	}
+
+	public void setGroupzBase(String groupzBase) {
+		this.groupzBase = groupzBase;
+	}
 
 	public int getId() {
 		return id;

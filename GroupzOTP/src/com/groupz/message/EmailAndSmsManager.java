@@ -3,6 +3,7 @@ package com.groupz.message;
 import java.sql.Time;
 import java.util.Date;
 
+import com.groupz.utils.PropertiesUtil;
 import com.jobztop.tables.MessagesinTable;
 
 public class EmailAndSmsManager {
@@ -23,14 +24,15 @@ public class EmailAndSmsManager {
 
 	}
 
-	public void sendSms(String Message, String toAddress,String cc) {
+	public void sendSms(String Message, String toAddress, String cc) {
 		String fromNumber = "00000";
 		String toName = "";
 		String toMessage = "One Time Password(OTP) is " + Message;
 		MessagesinTable mit = new MessagesinTable();
 		SmsMessage sms = new SmsMessage();
-		String toAdd = sms.addAddress(toAddress, toName, fromNumber,cc);
-		String body = sms.getMessage(toMessage,"QKONCT");
+		String toAdd = sms.addAddress(toAddress, toName, fromNumber, cc);
+		String body = sms.getMessage(toMessage,
+				PropertiesUtil.getProperty("sid"));
 		mit.setAddress(toAdd);
 		mit.setMessage(body);
 		mit.setMsgType(1);
