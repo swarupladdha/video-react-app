@@ -1,0 +1,102 @@
+//Registration for clinic
+------------------------------------------------------------------------------
+localhost: 8080/OyePets/ClinicRegistration?request={
+  "request": {
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1000"
+    },
+    "data": {
+      "name": "last",
+      "mobilenumbers": [{"countrycode": "91","mobile":"8095334984"}],{"countrycode": "91","mobile":"8095334984"}],
+      "landinenumbers": [{"countrycode": "080","mobile":"244444"}],{"countrycode": "080","mobile":"565896"}],
+      "opentime": "5:30 am",
+      "closetime": "5:30 pm",
+      "country": "ccountry",
+      "state": "state",
+      "city": "city",
+      "address":"dfmksdmf",
+      "pincode": "1",
+      "services": ["grooming","clinical","breeding","adoption"],
+      "petstreated": ["dog","cat"],
+      "closedon": ["sunday"],
+      "slotduration":"15 minutes"
+    
+    }
+  }
+}
+
+response:
+===================
+{
+  "response": {
+    "status": {
+      "code": "0",
+      "message": "Success"
+    },
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1000",
+      "session_id": ""
+    },
+    "data": {
+      "session_id": "668",
+      "otpvalidation": 0,
+    }
+  }
+}
+
+
+
+
+//Registration for doctor
+------------------------------------------------------------------------------
+localhost: 8080/OyePets/DoctorRegistration?request={
+  "request": {
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1001"
+    },
+    "data": {
+      "registrationno":"V012345"
+      "firstname": "first",
+      "lastname":"lastname",
+      "mobilenumbers": [{"countrycode": "91","mobile":"8095334984"}],{"countrycode": "91","mobile":"8095334984"}],
+      "landinenumbers": [{"countrycode": "080","mobile":"244444"}],{"countrycode": "080","mobile":"565896"}],
+      "qualification":"BE",
+      "opentime": "5:30 am",
+      "closetime": "5:30 pm",
+      "practicingsince": "30/12/1991",
+      "country": "ccountry",
+      "state": "state",
+      "city": "city",
+      "specialization": "MBBS",
+      "services": ["grooming","clinical","breeding","adoption"],
+      "petstreated": ["dog","cat"],
+      "closedon": ["sunday"],
+      "aboutme":"",
+      "consultingfee":200
+    }
+  }
+}
+
+response:
+===================
+{
+  "response": {
+    "status": {
+      "code": "0",
+      "message": "Success"
+    },
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1001",
+      "session_id": ""
+    },
+    "data": {
+      "session_id": 668,
+      "otpvalidation": 0,
+    }
+  }
+}
+

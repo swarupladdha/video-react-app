@@ -1,0 +1,33 @@
+//Registration for snintegration
+------------------------------------------------------------------------------
+localhost: 8080/SNI/registration?request={
+  "request": {
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1000"
+    },
+    "data": {
+      "email": "A.spark@gmail.com",
+      "name": "shruthi",
+      "token": "OKUIUX908=S"
+    }
+  }
+}
+
+response:
+===================
+{
+  "response": {
+    "status": {
+      "code": "0",
+      "message": "Success"
+    },
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1000",
+      "session_id": ""
+    },
+    "data": {
+    }
+  }
+}

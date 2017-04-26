@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="all" name="SNI">
+	<property environment="env"/>
+	<property name="debuglevel" value="source,lines,vars"/>
+	<property name="target" value="1.5"/>
+	<property name="source" value="1.5"/>
+	<path id="SNI.classpath">
+		<pathelement path="WebContent/WEB-INF/lib/mchange-commons-java-0.2.12.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/c3p0-0.9.5.2.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/httpclient-4.2.3.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/servlet-api.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/commons-beanutils-1.7.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/commons-collections.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/commons-lang.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/ezmorph.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/xom-1.2.10.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/json-lib-2.2.2-jdk15.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/json-smart-1.0.8.jar"/>	
+		<pathelement path="WebContent/WEB-INF/lib/gson-2.7.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/commons-io-1.4.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/commons-fileupload-1.3.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/log4j-1.2.16.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/javacsv-2.0.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/google-api-services-oauth2-v2-rev37-1.15.0-rc.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/google-api-client-1.15.0-rc.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/google-http-client-1.15.0-rc.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/gson-2.1-sources.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/google-oauth-client-1.15.0-rc.jar"/>
+		<pathelement path="WebContent/WEB-INF/lib/google-http-client-gson-1.15.0-rc.jar"/>
+		
+	</path>
+
+	<target name="init">
+		<mkdir dir="build/web" />
+		<mkdir dir="build/web/WEB-INF/classes" />
+		<mkdir dir="build/web/WEB-INF/classes/META-INF" />
+		<mkdir dir="dist" />
+
+		<copy includeemptydirs="false" todir="build/web/WEB-INF/classes">
+			<fileset dir="src" includes="**/*.properties,**/*.xml" />
+		</copy>
+		<copy includeemptydirs="false" todir="build/web/WEB-INF/classes/META-INF">
+			<fileset dir="src" includes="**/*.xml,**/*.MF"/>
+		</copy>
+		
+	</target>
+	<target name="clean">
+		<delete dir="build/web"/>
+	</target>
+	<target depends="clean" name="cleanall"/>
+	<target depends="init" name="build">
+		<echo message="${ant.project.name}: ${ant.file}"/>
+		<javac target="${target}" debug="true" destdir="build/web/WEB-INF/classes" debuglevel="${debuglevel}" source="${source}" includeAntRuntime="false">
+			<src path="src"/>
+			<classpath refid="SNI.classpath"/>
+		</javac>
+
+	</target>
+	
+	<target depends="build" name="war">
+		<war destfile="dist/SNI.war" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="WebContent/WEB-INF/lib"/>
+			<lib dir="WebContent/WEB-INF/lib" includes="**/*.jar"/>
+			<classes dir="build/web/WEB-INF/classes"/>
+			<fileset dir="WebContent"/>
+		</war>
+	</target>
+
+	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+	<property name="build.home" value="build"/>
+	<property name="build.classes.home" value="build/web"/>
+
+</project>
