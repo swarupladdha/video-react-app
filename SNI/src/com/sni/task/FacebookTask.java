@@ -73,6 +73,17 @@ public class FacebookTask {
 							followUpStatus = true;
 						}
 						if(followUpStatus){
+							String fbname= respJSON.getString("name");
+							if(!name.equals(name)){
+					           registrationResponse = RestUtils.processError(PropertiesUtil.getProperty(InterfaceKeys.mismatch_name_code),PropertiesUtil.getProperty(InterfaceKeys.mismatch_name_message));
+					           return registrationResponse;
+					         }
+
+						    String fbemail= respJSON.getString("email");
+							if(!email.equals(fbemail)){
+					           registrationResponse = RestUtils.processError(PropertiesUtil.getProperty(InterfaceKeys.mismatch_email_code),PropertiesUtil.getProperty(InterfaceKeys.mismatch_email_message));
+					           return registrationResponse;
+					         }
 							connectRecieveResponse = RestUtils.processSucess(serviceType, functionType, respJSON, "");
 							return connectRecieveResponse;
 						}

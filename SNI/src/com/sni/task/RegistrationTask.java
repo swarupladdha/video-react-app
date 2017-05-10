@@ -72,6 +72,10 @@ public class RegistrationTask  {
 	            registrationResponse = RestUtils.processSucess(serviceType, functionType, jobj, "");
 	            return registrationResponse;
             }
+            else{
+            	registrationResponse = RestUtils.processError(PropertiesUtil.getProperty(InterfaceKeys.mismatch_email_code),PropertiesUtil.getProperty(InterfaceKeys.mismatch_email_message));
+				return registrationResponse;
+            }
          //   jobj.put(InterfaceKeys.userid, t.getUserId());
             
             
@@ -94,8 +98,6 @@ public class RegistrationTask  {
 		}
 		catch(Exception e)	{
 			e.printStackTrace();
-			registrationResponse = RestUtils.processError(PropertiesUtil.getProperty(InterfaceKeys.XMLRequest_code),PropertiesUtil.getProperty(InterfaceKeys.XMLRequest_message));
-			return registrationResponse;
 		}
 		/*finally	{
 			if(connection!=null){

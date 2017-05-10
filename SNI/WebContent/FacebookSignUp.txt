@@ -1,0 +1,34 @@
+http: //localhost: 8080/SNI/register?request={
+  "request": {
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1001"
+    },
+    "data": {
+      "email": "A.spark@gmail.com",
+      "name": "shruthi",
+      "token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjU5OGJlNjUxNmIzMTgzNjRjOTBhNDAyYmNhOWJhNzNlYWUxMzk1ZGEifQ.eyJhenAiOiI4MTU5NjUyMTYxMDYtaG0yZjVpcHZzcnYwczdnMWRraWFlZGRvZTgyYWkyZnEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI4MTU5NjUyMTYxMDYtanNuZTFqMmVzZGlwaWZraWFoaGJlZjRrczJzNGd0bjIuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDU0MzA3Njc2MzgxODA5NTMzNDYiLCJlbWFpbCI6InBheWFzd2luaWJoYXRAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbSIsImlhdCI6MTQ5MjUwODYwMCwiZXhwIjoxNDkyNTEyMjAwLCJuYW1lIjoiUGF5YXN3aW5pIEhlZ2RlIiwicGljdHVyZSI6Imh0dHBzOi8vbGg2Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tbWNGaG5YLUZaNXcvQUFBQUFBQUFBQUkvQUFBQUFBQUFDd2cvOWc5b0hycFMyNk0vczk2LWMvcGhvdG8uanBnIiwiZ2l2ZW5fbmFtZSI6IlBheWFzd2luaSIsImZhbWlseV9uYW1lIjoiSGVnZGUiLCJsb2NhbGUiOiJlbi1HQiJ9.eq26eC7pbpH1XDsEgrNF8EHKjAoIwCn_J675TPo_15Rwk9vq1RA706DfbNoYOUCs00zPD6psR8rQ-jhWyPNWihGsbplXPH1qm8hEuWGNDwrsEtc_4V15-Wz3uIso_o4fbMxQ1luSbYh3g_MMiQg_78bUOM6Fz3X5bWbw2Z603bktysLr3g_jeIj93xoUKWh3lQlbgvX5xswxKJP8zr_kDN4wHbDJO8IjKaAM416x0mLb0OXZytG9TtTGER5qBPfhH31Yv9QP2pfBH7ncflZiv_8VWNg7uukOGC1fYz32K1hB_QpOSnlyvptvG3b6iCm_J1TozE6tTUvzcNbHGPGiPg"
+    }
+  }
+}
+
+response:
+======================
+{
+  "response": {
+    "status": {
+      "code": "0",
+      "message": "Success"
+    },
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1001",
+      "session_id": ""
+    },
+    "data": {
+      "id": "1650499791645255",
+      "gender": "female",
+      "email": "payaswinibhat@gmail.com"
+    }
+  }
+}

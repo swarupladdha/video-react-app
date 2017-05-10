@@ -30,6 +30,10 @@ public interface InterfaceKeys {
 	static final String empty_token_code = "empty_token_code";
 	static final String empty_token_message = "empty_token_message";
 	static final String facebookSignUp_functionType = "facebookSignUp_functionType";
+	static final String mismatch_email_code = "mismatch_email_code";
+	static final String mismatch_email_message = "mismatch_email_message";
+	static final String mismatch_name_code = "mismatch_name_code";
+	static final String mismatch_name_message = "mismatch_name_message";
 	
 	
 	}
