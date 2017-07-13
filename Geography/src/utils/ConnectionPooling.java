@@ -1,74 +1,52 @@
 package utils;
 
-import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class ConnectionPooling {
+	public static ComboPooledDataSource cpds;
+	public Connection con = null;
 	private static ConnectionPooling instance;
+
 	static {
-		instance = new ConnectionPooling();
+		try {
+			instance = new ConnectionPooling();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static ConnectionPooling getInstance() {
 		return instance;
 	}
 
-	public static ComboPooledDataSource cpds;
-	public Connection con = null;
-
-	public ConnectionPooling() {
-
-		int maxPoolSize = Integer.parseInt(PropertiesUtil
-				.getProperty("maxpoolsize"));
-		System.out.println("Max pool size " + maxPoolSize);
-		int minPoolSize = Integer.parseInt(PropertiesUtil
-				.getProperty("minpoolsize"));
-		System.out.println("Min pool size :" + minPoolSize);
-
-		String jdbc_url = PropertiesUtil.getProperty("jdbc_url");
-		System.out.println("jdbc url :" + jdbc_url);
-		String jdbc_driver = PropertiesUtil.getProperty("jdbc_driver");
-		System.out.println("jdbc driver :" + jdbc_driver);
-		String userName = PropertiesUtil.getProperty("username");
-		String password = PropertiesUtil.getProperty("password");
-		System.out.println(userName + password);
-		int timeout = Integer.parseInt(PropertiesUtil.getProperty("timeout"));
-		System.out.println(timeout);
-
+	public ConnectionPooling() throws SQLException {
 		cpds = new ComboPooledDataSource();
-		cpds.setInitialPoolSize(Integer.parseInt(PropertiesUtil
-				.getProperty("minpoolsize")));
-		cpds.setMinPoolSize(Integer.parseInt(PropertiesUtil
-				.getProperty("maxpoolsize")));
-		cpds.setIdleConnectionTestPeriod(Integer.parseInt(PropertiesUtil
-				.getProperty("maxpoolsize")));
-		cpds.setJdbcUrl(PropertiesUtil.getProperty("jdbc_url"));
-		cpds.setTestConnectionOnCheckout(true);
-		cpds.setPreferredTestQuery("SELECT 1");
-		cpds.setUnreturnedConnectionTimeout(Integer.parseInt(PropertiesUtil
-				.getProperty("timeout")));
-		cpds.setDebugUnreturnedConnectionStackTraces(true);
-		cpds.setUser(PropertiesUtil.getProperty("username"));
-		cpds.setPassword(PropertiesUtil.getProperty("password"));
 		try {
-			cpds.setDriverClass(PropertiesUtil.getProperty("jdbc_driver"));
-		} catch (PropertyVetoException e) {
+			cpds.setDriverClass("com.mysql.jdbc.Driver");
+			cpds.setJdbcUrl("jdbc:mysql://localhost:3306/geography");
+			cpds.setUser("root");
+			cpds.setPassword("password");
+			cpds.setMinPoolSize(5);
+			cpds.setAcquireIncrement(5);
+			cpds.setMaxPoolSize(20);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
 
 	public Connection getConnection() {
-		System.out.println("inside get connecttion");
 		try {
 			if (con == null) {
+				System.out.println("Getting the Connection");
 				con = cpds.getConnection();
 				System.out.println("returnunfg");
 				return con;
 			} else {
+				con = cpds.getConnection();
+				System.out.println("returnunfg");
 				return con;
 			}
 		} catch (IllegalStateException e) {
@@ -84,6 +62,7 @@ public class ConnectionPooling {
 	public void close(Connection con) {
 		try {
 			if (con != null) {
+				System.out.println("Closing the Connection");
 				con.close();
 				con = null;
 			}
@@ -103,4 +82,5 @@ public class ConnectionPooling {
 		}
 
 	}
+
 }

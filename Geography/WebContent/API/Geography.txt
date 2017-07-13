@@ -1,0 +1,199 @@
+GET LIST OF COUNTRIES :
+----------------------
+URL :http://localhost:8080/Geography/Geography?request={JSON}
+-----
+Request :
+---------
+{
+  "servicetype": 100,
+  "functiontype": 101
+}
+
+Response :
+----------
+{
+  "statuscode": "success",
+  "servicetype": 100,
+  "functiontype": 101,
+  "data": [
+    {
+      "countryid": 1,
+      "countryname": "INDIA",
+      "countrycode": "91",
+      "currencyname": "RUPEE",
+      "currencycode": "INR",
+      "latitude": "20.26.2",
+      "longitude": "552.55"
+    },
+    {
+      "countryid": 2,
+      "countryname": "USA",
+      "countrycode": "1",
+      "currencyname": "DOLLAR",
+      "currencycode": "USD",
+      "latitude": "0.26.2",
+      "longitude": "52.55"
+    },
+    {
+      "countryid": 3,
+      "countryname": "RUSSIA",
+      "countrycode": "851",
+      "currencyname": "DOLLAR",
+      "currencycode": "RDS",
+      "latitude": "5.26.2",
+      "longitude": "52.55"
+    }
+  ]
+}
+
+GET LIST OF STATES :
+--------------------
+URL : http://localhost:8080/Geography/Geography?request={JSON}
+
+REQUEST :
+--------
+
+{
+  "servicetype": 100,
+  "functiontype": 102,
+  "data": {
+    "countryid": 1,
+    "limit": 1,
+    "offset": 1
+  }
+}
+
+RESPONSE :
+---------
+
+{
+  "statuscode": "success",
+  "servicetype": 100,
+  "functiontype": 102,
+  "data": [
+    {
+      "stateid": 1,
+      "countryid": 1,
+      "statename": "KARNATAKA",
+      "latitude": "155.25.362",
+      "longitude": "45.2563.55"
+    },
+    {
+      "stateid": 2,
+      "countryid": 1,
+      "statename": "ANDHRA PRADESH",
+      "latitude": "1558.5.25.362",
+      "longitude": "45.2563.55"
+    },
+    {
+      "stateid": 3,
+      "countryid": 1,
+      "statename": "TAMILNADU",
+      "latitude": "1558.5.25.362",
+      "longitude": "45.2563.55"
+    }
+  ]
+}
+
+GET LIST OF CITIES :
+
+URL : http://localhost:8080/Geography/Geography?request={JSON}
+
+REQUEST :
+
+{
+  "servicetype": 100,
+  "functiontype": 103,
+  "data": {
+    "stateid": 1,
+    "limit": 1,
+    "offset": 1
+  }
+}
+
+RESPONSE :
+
+{
+  "statuscode": "success",
+  "servicetype": 100,
+  "functiontype": 103,
+  "data": [
+    {
+      "cityid": 1,
+      "stateid": 1,
+      "cityname": "BENGALURU",
+      "latitude": "856.45.5686",
+      "longitude": "15.15.586.45",
+      "stdcode": "080"
+    },
+    {
+      "cityid": 2,
+      "stateid": 1,
+      "cityname": "MYSURU",
+      "latitude": "856.45.5686",
+      "longitude": "15.15.586.45",
+      "stdcode": "081"
+    },
+    {
+      "cityid": 3,
+      "stateid": 1,
+      "cityname": "BALLARI",
+      "latitude": "856.45.5686",
+      "longitude": "15.15.586.45",
+      "stdcode": "08512"
+    }
+  ]
+}
+
+GET LIST OF AREAS :
+-------------------
+URL : http://localhost:8080/Geography/Geography?request={JSON}
+
+REQUEST :
+
+{
+  "servicetype": 100,
+  "functiontype": 104,
+  "data": {
+    "cityid": 1,
+    "limit": 1,
+    "offset": 1
+  }
+}
+
+RESPONSE :
+
+{
+  "statuscode": "success",
+  "servicetype": 100,
+  "functiontype": 104,
+  "data": [
+    {
+      "areaid": 1,
+      "cityid": 1,
+      "areaname": "JAYANAGARA",
+      "stdcode": "080",
+      "zip": "569985",
+      "latitude": "456.458.55",
+      "longitude": "56.656.511"
+    },
+    {
+      "areaid": 2,
+      "cityid": 1,
+      "areaname": "VIJAYANAGARA",
+      "stdcode": "080",
+      "zip": "569985",
+      "latitude": "456.458.55",
+      "longitude": "56.656.511"
+    },
+    {
+      "areaid": 3,
+      "cityid": 1,
+      "areaname": "MALLESHWARAM",
+      "stdcode": "080",
+      "zip": "569985",
+      "latitude": "456.458.55",
+      "longitude": "56.656.511"
+    }
+  ]
+}

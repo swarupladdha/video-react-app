@@ -5,42 +5,20 @@
 	<property name="target" value="1.5" />
 	<property name="source" value="1.5" />
 	<path id="Geography.classpath">
-		<pathelement path="libs/mysql/mysql-connector-java-5.1.38-bin.jar" />
-		<pathelement path="libs/antlr-2.7.6.jar" />
-		<pathelement path="libs/antlr-2.7.6.jar" />
-		<pathelement path="libs/asm-attrs.jar" />
-		<pathelement path="libs/c3p0-0.9.1.jar" />
-		<pathelement path="libs/scglib-2.1.3.jar" />
-		<pathelement path="libs/commons-beanutils-1.7.jar" />
-		<pathelement path="libs/commons-collections-2.1.1.jar" />
-		<pathelement path="libs/commons-collections-2.1.jar" />
-		<pathelement path="libs/commons-collections-3.1.jar" />
-		<pathelement path="libs/commons-collections-3.2.jar" />
-		<pathelement path="libs/commons-digester-1.7.jar" />
-		<pathelement path="libs/commons-logging-1.0.2.jar" />
-		<pathelement path="libs/dom4j-1.6.1.jar" />
-		<pathelement path="libs/ehcache-1.2.3.jar" />
-		<pathelement path="libs/ejb3-persistence.jar" />
-		<pathelement path="libs/hibernate-tools.jar" />
-		<pathelement path="libs/jdbc2_0-stdext.jar" />
-		<pathelement path="libs/jta.jar" />
-		<pathelement path="libs/org-apache-commons-logging.jar" />
-		<pathelement path="libs/oscache-2.1.jar" />
-		<pathelement path="libs/standard.jar" />
-		<pathelement path="libs/standard.jar" />
-		<pathelement path="libs/javax.servlet-api.jar" />
-		<pathelement path="libs/commons-io-1.4.jar" />
-		<pathelement path="libs/javabase64-1.3.1.jar" />
+		<pathelement path="libs/com.springsource.com.mchange.v2.c3p0-0.9.1.2.jar" />
 		<pathelement path="libs/commons-beanutils-1.7.jar" />
 		<pathelement path="libs/commons-collections.jar" />
+		<pathelement path="libs/commons-io-1.4.jar" />
 		<pathelement path="libs/commons-lang.jar" />
 		<pathelement path="libs/commons-logging-1.1.1.jar" />
 		<pathelement path="libs/ezmorph.jar" />
+		<pathelement path="libs/javax.servlet-api.jar" />
 		<pathelement path="libs/json-lib-2.2.2-jdk15.jar" />
-		<pathelement path="libs/json-smart-1.0.8.jar" />
+		<pathelement path="libs/jstl.jar" />
+		<pathelement path="libs/mysql/mysql-connector-java-5.1.38-bin.jar" />
+		<pathelement path="libs/org-apache-commons-codec.jar" />
+		<pathelement path="libs/standard.jar" />
 		<pathelement path="libs/xom-1.2.10.jar" />
-		<pathelement path="libs/com.springsource.com.mchange.v2.c3p0-0.9.1.2.jar" />
-
 
 	</path>
 

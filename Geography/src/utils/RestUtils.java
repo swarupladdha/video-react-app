@@ -1,23 +1,7 @@
 package utils;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.text.StringCharacterIterator;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.TimeZone;
-
+import manager.GlobalVariables;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
@@ -26,8 +10,7 @@ public class RestUtils {
 	}
 
 	public boolean isEmpty(String test) {
-		if ((test == null) || (test.trim().isEmpty() == true)
-				|| (test.equalsIgnoreCase("[]")) || (test == "")) {
+		if ((test == null) || (test.trim().isEmpty() == true) || (test.equalsIgnoreCase("[]")) || (test == "")) {
 			return false;
 		}
 		return true;
@@ -71,6 +54,15 @@ public class RestUtils {
 		}
 
 		return valid;
+	}
+
+	public String processSuccessWithJsonArray(int serviceType, int functionType, JSONArray dataArray) {
+		JSONObject obj = new JSONObject();
+		obj.put("statuscode", "success");
+		obj.put(GlobalVariables.SERVICE_TYPE_TAG, serviceType);
+		obj.put(GlobalVariables.FUNCTION_TYPE_TAG, functionType);
+		obj.put("data", dataArray);
+		return obj.toString();
 	}
 
 }
