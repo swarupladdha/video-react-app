@@ -10,7 +10,8 @@ public class RestUtils {
 	}
 
 	public boolean isEmpty(String test) {
-		if ((test == null) || (test.trim().isEmpty() == true) || (test.equalsIgnoreCase("[]")) || (test == "")) {
+		if ((test == null) || (test.trim().isEmpty() == true)
+				|| (test.equalsIgnoreCase("[]")) || (test == "")) {
 			return false;
 		}
 		return true;
@@ -56,12 +57,23 @@ public class RestUtils {
 		return valid;
 	}
 
-	public String processSuccessWithJsonArray(int serviceType, int functionType, JSONArray dataArray) {
+	public String processSuccessWithJsonArray(int serviceType,
+			int functionType, JSONArray dataArray) {
 		JSONObject obj = new JSONObject();
 		obj.put("statuscode", "success");
 		obj.put(GlobalVariables.SERVICE_TYPE_TAG, serviceType);
 		obj.put(GlobalVariables.FUNCTION_TYPE_TAG, functionType);
 		obj.put("data", dataArray);
+		return obj.toString();
+	}
+
+	public String processSuccessWithJsonObject(int serviceType,
+			int functionType, JSONObject dataObject) {
+		JSONObject obj = new JSONObject();
+		obj.put("statuscode", "success");
+		obj.put(GlobalVariables.SERVICE_TYPE_TAG, serviceType);
+		obj.put(GlobalVariables.FUNCTION_TYPE_TAG, functionType);
+		obj.put("data", dataObject);
 		return obj.toString();
 	}
 

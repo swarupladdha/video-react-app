@@ -197,3 +197,11 @@ RESPONSE :
     }
   ]
 }
+
+GET DETAILS BASED ON ZIP CODE :
+------------------------------
+URL :http://localhost:8080/Geography/Geography?request={JSON}
+
+REQUEST :
+
+RESPONSE :
