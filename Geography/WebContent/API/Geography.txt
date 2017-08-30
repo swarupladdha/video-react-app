@@ -52,12 +52,12 @@ URL : http://localhost:8080/Geography/Geography?request={JSON}
 
 REQUEST :
 --------
-
 {
   "servicetype": 100,
   "functiontype": 102,
   "data": {
-    "countryid": 1,
+    "countryid": 1, 
+    "countryname": "United States of America",
     "limit": 1,
     "offset": 1
   }
@@ -96,23 +96,24 @@ RESPONSE :
 }
 
 GET LIST OF CITIES :
-
+-------------------
 URL : http://localhost:8080/Geography/Geography?request={JSON}
-
+----
 REQUEST :
-
+---------
 {
   "servicetype": 100,
   "functiontype": 103,
   "data": {
     "stateid": 1,
+    "countryname": "United States of America",
+    "statename": "Pennsylvania",
     "limit": 1,
     "offset": 1
   }
 }
-
 RESPONSE :
-
+----------
 {
   "statuscode": "success",
   "servicetype": 100,
@@ -148,21 +149,24 @@ RESPONSE :
 GET LIST OF AREAS :
 -------------------
 URL : http://localhost:8080/Geography/Geography?request={JSON}
-
+-----
 REQUEST :
-
+--------
 {
   "servicetype": 100,
   "functiontype": 104,
   "data": {
-    "cityid": 1,
+    "cityid": 2388,
+    "countryname": "United States of America",
+    "statename": "Pennsylvania",
+    "cityname": "Youngsville",
     "limit": 1,
     "offset": 1
   }
 }
 
 RESPONSE :
-
+----------
 {
   "statuscode": "success",
   "servicetype": 100,
