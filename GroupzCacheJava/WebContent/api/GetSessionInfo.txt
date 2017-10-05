@@ -1,0 +1,2525 @@
+
+
+Url : http://localhost:8080/GroupzCacheJava/GetSessionInfo?request=
+------------------------------------------------------------------------------
+request:
+------------------------------------------------------------------------------
+{
+  "json": {
+    "request": {
+      "servicetype": "6",
+      "functiontype": "1000",
+      "session_id": "59ce33fa1a208f125fe55178"
+    }
+  }
+}
+-------------------------------------------------------------------------------
+request:
+-------------------------------------------------------------------------------
+{
+  "json": {
+    "response": {
+      "servicetype": "6",
+      "functiontype": "1000",
+      "statuscode": "0",
+      "statusmessage": "success",
+      "user": [
+        {
+          "membersdetails": {
+            "_id": "59ce418a1a208f1950863b30",
+            "localadmin": 1,
+            "networkadmin": 1,
+            "groupzcode": "GRPOFF",
+            "groupzid": "221",
+            "personid": 43998,
+            "email": "preethi@groupz.in",
+            "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/43998",
+            "membername": "Preethi Ritesh",
+            "memberid": "23583",
+            "membercode": "A",
+            "morememinfo": {
+              "registeredpersonid": 43998,
+              "relationship": "Myself",
+              "username": "preethi@groupz.in",
+              "rolename": "Product Manager",
+              "divisionlabel": "Department",
+              "subdivisionlabel": "Category",
+              "leavetypelist": [
+                "Present",
+                "Absent",
+                "Work From Home",
+                "Sick Leave",
+                "Vacation Leave",
+                "Holidays"
+              ],
+              "managegroupzbase": 1,
+              "createissue": 1,
+              "viewallissue": 1,
+              "closeissue": 1,
+              "issuenotices": 1,
+              "manageresource": 1,
+              "loginotherusers": 0,
+              "createissueforothers": 1,
+              "sendmessages": 1,
+              "createduetemplate": 1,
+              "followupissues": 1,
+              "postannouncements": 1,
+              "createalbums": 1,
+              "networkgrouppublisher": 1,
+              "lockreceipts": 1,
+              "trackissues": 1,
+              "staff": 1,
+              "addhelpers": 1,
+              "viewconfidentialinfo": 1,
+              "canapprove": 1,
+              "canrecordmessage": 1,
+              "enableattendance": 1
+            },
+            "selection": {
+              "grouplabel": "Select Group",
+              "groups": [
+                "Java Programmers",
+                "App QA Teams",
+                "All from office",
+                "dont_disturb_others",
+                "Sir_Preethi_Paya_Pavan_ritesh_Seema_SunilVeronicKumarN",
+                "Only SIR and me",
+                "Normal Group",
+                "android group",
+                "handy_B_Kumara_wishes",
+                "PayaPreethiSirPavanRiteshSeema"
+              ],
+              "groupzlabel": "Select Account",
+              "groupzlist": [
+                {
+                  "groupzcode": "GPZANA",
+                  "state": "Karnataka",
+                  "streetaddress": "40th A Cross, 9th Block",
+                  "area": "Jayanagar",
+                  "city": "Bangalore",
+                  "country": "India",
+                  "postalcode": "560069",
+                  "shortname": "StrangeAnalyst"
+                },
+                {
+                  "groupzcode": "GPZDEV",
+                  "state": "Karnataka",
+                  "streetaddress": "40th A Cross, 9th Block ",
+                  "area": "Jayanagar",
+                  "city": "Bangalore",
+                  "country": "India",
+                  "postalcode": "590069",
+                  "shortname": "Developers JN"
+                },
+                {
+                  "groupzcode": "GRPOFF",
+                  "state": "Karnataka",
+                  "streetaddress": "40th A Cross",
+                  "area": "Jayanagar 9th Block",
+                  "city": "Bangalore",
+                  "country": "India",
+                  "postalcode": "560069",
+                  "shortname": "Head Office JN"
+                }
+              ],
+              "rolelabel": "Select Role",
+              "roles": [
+                {
+                  "role": "Product Manager",
+                  "divisionlabel": "Select Department",
+                  "subdivisionlabel": "Select Category",
+                  "leavetypelist": [
+                    "Present",
+                    "Absent",
+                    "Work From Home",
+                    "Sick Leave",
+                    "Vacation Leave",
+                    "Holidays"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "QA",
+                      "subdivisions": [
+                        {
+                          "subdivision": "White Box Testing"
+                        },
+                        {
+                          "subdivision": "Black  Box Testing"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "Development",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Server Side"
+                        },
+                        {
+                          "subdivision": "UI"
+                        },
+                        {
+                          "subdivision": "Back end"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "a",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A SEC"
+                        },
+                        {
+                          "subdivision": "B SEC"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Lead",
+                  "divisionlabel": "Select Department",
+                  "subdivisionlabel": "Select Category",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "QA",
+                      "subdivisions": [
+                        {
+                          "subdivision": "White Box Testing"
+                        },
+                        {
+                          "subdivision": "Black Box Testing"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "Development",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Server Side"
+                        },
+                        {
+                          "subdivision": "UI"
+                        },
+                        {
+                          "subdivision": "Back end"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Engineers",
+                  "divisionlabel": "Select Department",
+                  "subdivisionlabel": "Select Category",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "QA",
+                      "subdivisions": [
+                        {
+                          "subdivision": "White Box Testing"
+                        },
+                        {
+                          "subdivision": "Black Box Testing"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "Development",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Server Side"
+                        },
+                        {
+                          "subdivision": "UI"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Teacher",
+                  "divisionlabel": "Select Class",
+                  "subdivisionlabel": "Select Div",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "S1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Label1"
+                        },
+                        {
+                          "subdivision": "Label2"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "S2",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Label1"
+                        },
+                        {
+                          "subdivision": "Label2"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "S3",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Label1"
+                        },
+                        {
+                          "subdivision": "Label3"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "2",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Non Teaching Staff",
+                  "divisionlabel": "Select Department",
+                  "subdivisionlabel": "Select Category",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "2",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "Accounts",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Accountant"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Student",
+                  "divisionlabel": "Select Class",
+                  "subdivisionlabel": "Select Section",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "Nursery",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Preschool Only"
+                        },
+                        {
+                          "subdivision": "FDC"
+                        },
+                        {
+                          "subdivision": "HDC"
+                        },
+                        {
+                          "subdivision": "MhG"
+                        },
+                        {
+                          "subdivision": "Mansm"
+                        },
+                        {
+                          "subdivision": "MhGnpt"
+                        },
+                        {
+                          "subdivision": "Mnssm"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Marketing Executive",
+                  "divisionlabel": "Select Department",
+                  "subdivisionlabel": "Select Category",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "Sales",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Marketing"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Principal",
+                  "divisionlabel": "Select Area",
+                  "subdivisionlabel": "Select Branch",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "S1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "S1A"
+                        },
+                        {
+                          "subdivision": "S1B"
+                        },
+                        {
+                          "subdivision": "S1C"
+                        },
+                        {
+                          "subdivision": "S1D"
+                        },
+                        {
+                          "subdivision": "Label1"
+                        },
+                        {
+                          "subdivision": "Label2"
+                        },
+                        {
+                          "subdivision": "Label3"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "S2",
+                      "subdivisions": [
+                        {
+                          "subdivision": "S21"
+                        },
+                        {
+                          "subdivision": "S2A"
+                        },
+                        {
+                          "subdivision": "S2B"
+                        },
+                        {
+                          "subdivision": "S2C"
+                        },
+                        {
+                          "subdivision": "Label1"
+                        },
+                        {
+                          "subdivision": "Label2"
+                        },
+                        {
+                          "subdivision": "Label3"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "S3",
+                      "subdivisions": [
+                        {
+                          "subdivision": "S3A"
+                        },
+                        {
+                          "subdivision": "S3B"
+                        },
+                        {
+                          "subdivision": "S3C"
+                        },
+                        {
+                          "subdivision": "S3D"
+                        },
+                        {
+                          "subdivision": "Label3"
+                        },
+                        {
+                          "subdivision": "Label1"
+                        },
+                        {
+                          "subdivision": "Label2"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "S4",
+                      "subdivisions": [
+                        {
+                          "subdivision": "S4a"
+                        },
+                        {
+                          "subdivision": "S4b"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "S5",
+                      "subdivisions": [
+                        {
+                          "subdivision": "S51"
+                        },
+                        {
+                          "subdivision": "S5A"
+                        },
+                        {
+                          "subdivision": "S51B"
+                        },
+                        {
+                          "subdivision": "S51C"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "Demo",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Demo"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Sub Staff",
+                  "divisionlabel": "Select Div",
+                  "subdivisionlabel": "Select Sub Div",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "2",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Ablummaker",
+                  "divisionlabel": "Select Alb1",
+                  "subdivisionlabel": "Select AbS",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "Parent",
+                  "divisionlabel": "Select Div",
+                  "subdivisionlabel": "Select Sub Div",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "Ukg",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "2",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Students",
+                  "divisionlabel": "Select Division",
+                  "subdivisionlabel": "Select SubDivision",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "Lkg",
+                      "subdivisions": [
+                        {
+                          "subdivision": "a"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "2",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "followup",
+                  "divisionlabel": "Select follow up",
+                  "subdivisionlabel": "Select follow up",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "followup only",
+                      "subdivisions": [
+                        {
+                          "subdivision": "follow only"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "CentreHead",
+                  "divisionlabel": "Select Divison",
+                  "subdivisionlabel": "Select SubDiv",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "A",
+                      "subdivisions": [
+                        {
+                          "subdivision": "1st floor"
+                        },
+                        {
+                          "subdivision": "2nd floor"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "B",
+                      "subdivisions": [
+                        {
+                          "subdivision": "1st floor"
+                        },
+                        {
+                          "subdivision": "2nd floor"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "2",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Resident",
+                  "divisionlabel": "Select Block",
+                  "subdivisionlabel": "Select Floor",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "A",
+                      "subdivisions": [
+                        {
+                          "subdivision": "1st floor"
+                        },
+                        {
+                          "subdivision": "2nd floor"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "B",
+                      "subdivisions": [
+                        {
+                          "subdivision": "1st floor"
+                        },
+                        {
+                          "subdivision": "2nd floor"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "NO SR",
+                  "divisionlabel": "Select NOSRdiv",
+                  "subdivisionlabel": "Select NOSRdivS",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "SR1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "SRS1"
+                        },
+                        {
+                          "subdivision": "SRS2"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "OnlyViewSR",
+                  "divisionlabel": "Select dib",
+                  "subdivisionlabel": "Select Sdiv",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "View",
+                      "subdivisions": [
+                        {
+                          "subdivision": "View1"
+                        },
+                        {
+                          "subdivision": "View2"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "CLoseSRonly",
+                  "divisionlabel": "Select div",
+                  "subdivisionlabel": "Select Sdiv",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "close1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Close1A"
+                        },
+                        {
+                          "subdivision": "Close1B"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "OnlyCreateSelf",
+                  "divisionlabel": "Select Create",
+                  "subdivisionlabel": "Select Crea",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "create1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Create1A"
+                        },
+                        {
+                          "subdivision": "Create1B"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "createRothers",
+                  "divisionlabel": "Select Other",
+                  "subdivisionlabel": "Select Others",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "O1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "O1a"
+                        },
+                        {
+                          "subdivision": "O2"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "NoneSelected",
+                  "divisionlabel": "Select None",
+                  "subdivisionlabel": "Select None",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "None",
+                      "subdivisions": [
+                        {
+                          "subdivision": "N1"
+                        },
+                        {
+                          "subdivision": "N2"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "View&CloseSR",
+                  "divisionlabel": "Select ViewClose",
+                  "subdivisionlabel": "Select ViewClose1",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "ViewClose",
+                      "subdivisions": [
+                        {
+                          "subdivision": "ViewClose1"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "ViewClose1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "ViewClose2"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "NoAlbum",
+                  "divisionlabel": "Select NoAlbum",
+                  "subdivisionlabel": "Select NoAlbumS",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "NoAlbum1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "NoAlbumB"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "1a"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "NoSendSMS",
+                  "divisionlabel": "Select NoSendSMS1",
+                  "subdivisionlabel": "Select NoSendSMSD",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "NoSendSMS1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "NoSendSMSD"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Resident1",
+                  "divisionlabel": "Select Resident",
+                  "subdivisionlabel": "Select ResidentS",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "R1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Rs1"
+                        },
+                        {
+                          "subdivision": "Rs2"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "BlockA",
+                      "subdivisions": [
+                        {
+                          "subdivision": "BlockA1"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "BlockB",
+                      "subdivisions": [
+                        {
+                          "subdivision": "BlockB1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Resid",
+                  "divisionlabel": "Select ResidDivision",
+                  "subdivisionlabel": "Select ResidSubDivision",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "R1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "r2"
+                        },
+                        {
+                          "subdivision": "R3"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "BlockA",
+                      "subdivisions": [
+                        {
+                          "subdivision": "BlockA1"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "BlockB",
+                      "subdivisions": [
+                        {
+                          "subdivision": "BlockB1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "President",
+                  "divisionlabel": "Select PresidentDiv",
+                  "subdivisionlabel": "Select PresidentDivSub",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "Block A",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Block A1"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "Block B",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Block B1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "secretary",
+                  "divisionlabel": "Select secretaryDiv",
+                  "subdivisionlabel": "Select secretarySubD",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "BlockA",
+                      "subdivisions": [
+                        {
+                          "subdivision": "BlockA1"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "BlockB",
+                      "subdivisions": [
+                        {
+                          "subdivision": "BlockB1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Cultural Sec",
+                  "divisionlabel": "Select cult",
+                  "subdivisionlabel": "Select cultsub",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "BlockA",
+                      "subdivisions": [
+                        {
+                          "subdivision": "BlockA1"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "BlockB",
+                      "subdivisions": [
+                        {
+                          "subdivision": "BlockB1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Resident owner",
+                  "divisionlabel": "Select Ro1",
+                  "subdivisionlabel": "Select Ro1A",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "BlockA",
+                      "subdivisions": [
+                        {
+                          "subdivision": "BlockA1"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "BlockB",
+                      "subdivisions": [
+                        {
+                          "subdivision": "BlockB1"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "Resi",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Resiown"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "handyman",
+                  "divisionlabel": "Select handyman1",
+                  "subdivisionlabel": "Select handyman2",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "BlockA",
+                      "subdivisions": [
+                        {
+                          "subdivision": "BlockA1"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "BlockB",
+                      "subdivisions": [
+                        {
+                          "subdivision": "BlockB1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "canCreateSR",
+                  "divisionlabel": "Select canCreateSR",
+                  "subdivisionlabel": "Select canCreateSRS",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "BlockA",
+                      "subdivisions": [
+                        {
+                          "subdivision": "BlockA1"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "BlockB",
+                      "subdivisions": [
+                        {
+                          "subdivision": "BlockB1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "ViewAllSrs",
+                  "divisionlabel": "Select ViewAllSrs",
+                  "subdivisionlabel": "Select ViewAllSrs1",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "BlockA",
+                      "subdivisions": [
+                        {
+                          "subdivision": "BlockA1"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "BlockB",
+                      "subdivisions": [
+                        {
+                          "subdivision": "BlockB1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "CANt_MANAGE_Gbase",
+                  "divisionlabel": "Select Division",
+                  "subdivisionlabel": "Select SubDivision",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "Div",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Sdiv"
+                        },
+                        {
+                          "subdivision": "Sdiv1"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "Div1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "s1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Legend",
+                  "divisionlabel": "Select a",
+                  "subdivisionlabel": "Select b",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "Lege",
+                      "subdivisions": [
+                        {
+                          "subdivision": "LegSUB"
+                        },
+                        {
+                          "subdivision": "LegendOFLegends"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "Amitab Fans",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Amitab Fans Ladies"
+                        },
+                        {
+                          "subdivision": "Amitab Fans gents"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "S5",
+                  "divisionlabel": "Select S5Div",
+                  "subdivisionlabel": "Select S5Sdiv",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "New Role",
+                  "divisionlabel": "Select New Div",
+                  "subdivisionlabel": "Select New Sub div",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "New A",
+                      "subdivisions": [
+                        {
+                          "subdivision": "new A sec"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "New role add",
+                  "divisionlabel": "Select new div",
+                  "subdivisionlabel": "Select new sub div",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "School Head",
+                  "divisionlabel": "Select City",
+                  "subdivisionlabel": "Select Area",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "Bangalore",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Banashankari"
+                        },
+                        {
+                          "subdivision": "BTM Layout"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "HelperUselessFullPower",
+                  "divisionlabel": "Select Helper Useless Division Label",
+                  "subdivisionlabel": "Select Helper Useless Division Label AAAA1",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "HelperUselessFullPower_111111111111111111111",
+                      "subdivisions": [
+                        {
+                          "subdivision": "HelperUselessFullPower_111111111111111111111_AAAAAAAAAAAAAA"
+                        },
+                        {
+                          "subdivision": "HelperUselessFullPower_111111111111111111111_BBBBBBBBBBBBBBBBBBBBB"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Add new role",
+                  "divisionlabel": "Select dev div",
+                  "subdivisionlabel": "Select dev sub-div",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "RoleinGroupzUIALLpowerful",
+                  "divisionlabel": "Select RoleinGroupzUIALLpowerfulDivision",
+                  "subdivisionlabel": "Select RoleinGroupzUIALLpowerfulDIVDivision",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "SeemRole",
+                  "divisionlabel": "Select SeemDiv",
+                  "subdivisionlabel": "Select SeemSDiv",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "First Role",
+                  "divisionlabel": "Select div",
+                  "subdivisionlabel": "Select subdiv",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "First Role From GroupzUI_1",
+                  "divisionlabel": "Select First Role From GroupzUIDIVISION",
+                  "subdivisionlabel": "Select First Role From GroupzUISUBDIVISION",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "1a"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "2",
+                      "subdivisions": [
+                        {
+                          "subdivision": "2a"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "First Role From GroupzUI_111",
+                  "divisionlabel": "Select First Role From GroupzUIDIVISION",
+                  "subdivisionlabel": "Select First Role From GroupzUISUBDIVISION",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "Gowri",
+                  "divisionlabel": "Select D11111",
+                  "subdivisionlabel": "Select D1B111BBBBBBBBBB",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "",
+                  "divisionlabel": "Select div",
+                  "subdivisionlabel": "Select subdiv",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "Afterblank",
+                  "divisionlabel": "Select div",
+                  "subdivisionlabel": "Select subdiv",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "Zeropower",
+                  "divisionlabel": "Select div",
+                  "subdivisionlabel": "Select subdiv",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "Checking roles",
+                  "divisionlabel": "Select div",
+                  "subdivisionlabel": "Select sub-div",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "check role 2",
+                  "divisionlabel": "Select div",
+                  "subdivisionlabel": "Select sub-div",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "dinesh role",
+                  "divisionlabel": "Select Div",
+                  "subdivisionlabel": "Select Sub-div",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "dinesh role1",
+                  "divisionlabel": "Select Divi",
+                  "subdivisionlabel": "Select Sub-divi",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "Seven",
+                  "divisionlabel": "Select s",
+                  "subdivisionlabel": "Select a",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "gg",
+                  "divisionlabel": "Select s",
+                  "subdivisionlabel": "Select a",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "gg1",
+                  "divisionlabel": "Select s",
+                  "subdivisionlabel": "Select a",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "New testing role",
+                  "divisionlabel": "Select div",
+                  "subdivisionlabel": "Select sub-div",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "N",
+                      "subdivisions": [
+                        {
+                          "subdivision": "D"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "N1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Mon",
+                  "divisionlabel": "Select Div",
+                  "subdivisionlabel": "Select Sub",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "A",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A sec"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "today",
+                  "divisionlabel": "Select A",
+                  "subdivisionlabel": "Select B",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "B",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Bsec"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "March23Role",
+                  "divisionlabel": "Select March23RoleDiv",
+                  "subdivisionlabel": "Select March23RoleSUBDiv",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "Ran",
+                  "divisionlabel": "Select Level",
+                  "subdivisionlabel": "Select SUB level",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "Ran1",
+                  "divisionlabel": "Select RanDIV2",
+                  "subdivisionlabel": "Select RanSUBDIV2",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "RanDIVA",
+                      "subdivisions": [
+                        {
+                          "subdivision": "RanSUBDIVA"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "NoAttendance",
+                  "divisionlabel": "Select AttendDIV",
+                  "subdivisionlabel": "Select AttendSUBDIV",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "Present",
+                      "subdivisions": [
+                        {
+                          "subdivision": "B"
+                        },
+                        {
+                          "subdivision": "C"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "Absent",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "WithoutAttendance",
+                  "divisionlabel": "Select Presence",
+                  "subdivisionlabel": "Select A",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "NoAttendance2",
+                  "divisionlabel": "Select Div",
+                  "subdivisionlabel": "Select SDiv",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "A",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A1"
+                        },
+                        {
+                          "subdivision": "A2"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "B",
+                      "subdivisions": [
+                        {
+                          "subdivision": "B1"
+                        },
+                        {
+                          "subdivision": "B2"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "NoAtt",
+                  "divisionlabel": "Select NoAttDIV",
+                  "subdivisionlabel": "Select NoAttSUBDIV",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "1a"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Apr 06",
+                  "divisionlabel": "Select Apr div",
+                  "subdivisionlabel": "Select Apr subdiv",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "New",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "Latest",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "KalaiSeemaEDIT",
+                  "divisionlabel": "Select Div",
+                  "subdivisionlabel": "Select SDiv",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "k",
+                      "subdivisions": [
+                        {
+                          "subdivision": "k1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "STUDENT",
+                  "divisionlabel": "Select DIVISION",
+                  "subdivisionlabel": "Select SUBDIVISION",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "Pre-KG",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "LKG",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A"
+                        },
+                        {
+                          "subdivision": "B"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "April Role",
+                  "divisionlabel": "Select div",
+                  "subdivisionlabel": "Select sdiv",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "R1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "R1A"
+                        },
+                        {
+                          "subdivision": "R1B"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "667",
+                  "divisionlabel": "Select 667",
+                  "subdivisionlabel": "Select 667A",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "24aprilrole",
+                  "divisionlabel": "Select R",
+                  "subdivisionlabel": "Select R1",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "RA",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Ra1"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "Ra",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Ra2"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "tryrole",
+                  "divisionlabel": "Select tr",
+                  "subdivisionlabel": "Select tryy",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "rrr",
+                      "subdivisions": [
+                        {
+                          "subdivision": "rrrr"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "RRR",
+                      "subdivisions": [
+                        {
+                          "subdivision": "R"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "R",
+                      "subdivisions": [
+                        {
+                          "subdivision": "R1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "728",
+                  "divisionlabel": "Select 728",
+                  "subdivisionlabel": "Select 728",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "April28",
+                  "divisionlabel": "Select Ignore",
+                  "subdivisionlabel": "Select Ignore",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "Igno",
+                      "subdivisions": [
+                        {
+                          "subdivision": "1"
+                        },
+                        {
+                          "subdivision": "2"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Rolename is mandatory",
+                  "divisionlabel": "Select Rolename is mandatory",
+                  "subdivisionlabel": "Select Rolename is mandatory",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "PriSi",
+                  "divisionlabel": "Select Divi",
+                  "subdivisionlabel": "Select SubDivi",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "V1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "V1A"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "PriSi2",
+                  "divisionlabel": "Select PriSi2",
+                  "subdivisionlabel": "Select PriSi2",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "PriSi2",
+                      "subdivisions": [
+                        {
+                          "subdivision": "PriSi2A"
+                        },
+                        {
+                          "subdivision": "PriSi2B"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "PriSi2v",
+                      "subdivisions": [
+                        {
+                          "subdivision": "PriSi2vvv"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "5May",
+                  "divisionlabel": "Select 5MayDiv",
+                  "subdivisionlabel": "Select 5MaySDiv",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "5MayDiv",
+                      "subdivisions": [
+                        {
+                          "subdivision": "5MayDiv1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "May 5",
+                  "divisionlabel": "Select New Div",
+                  "subdivisionlabel": "Select New Sub Div",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "A",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A sub"
+                        },
+                        {
+                          "subdivision": "B sub"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "B",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A Sub"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Host",
+                  "divisionlabel": "Select Evening",
+                  "subdivisionlabel": "Select Ev",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "1a"
+                        },
+                        {
+                          "subdivision": "2a"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "2",
+                      "subdivisions": [
+                        {
+                          "subdivision": "2a"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "r",
+                  "divisionlabel": "Select r",
+                  "subdivisionlabel": "Select r",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "t",
+                      "subdivisions": [
+                        {
+                          "subdivision": "t"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "New may 8",
+                  "divisionlabel": "Select Div",
+                  "subdivisionlabel": "Select sub div",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "May 8",
+                  "divisionlabel": "Select Div",
+                  "subdivisionlabel": "Select Sub Div",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "A",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A Sec"
+                        },
+                        {
+                          "subdivision": "B Sec"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "B",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A Sec"
+                        },
+                        {
+                          "subdivision": "B Sec"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Rolename is mandatory1",
+                  "divisionlabel": "Select Rolename is mandatory",
+                  "subdivisionlabel": "Select Rolename is mandatory",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "mandatory",
+                      "subdivisions": [
+                        {
+                          "subdivision": "mandatoryDD"
+                        },
+                        {
+                          "subdivision": "mandatory1"
+                        },
+                        {
+                          "subdivision": "mandatory12"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "May19",
+                  "divisionlabel": "Select May19",
+                  "subdivisionlabel": "Select 19May",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "May19",
+                      "subdivisions": [
+                        {
+                          "subdivision": "May19"
+                        },
+                        {
+                          "subdivision": "May191"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "1",
+                      "subdivisions": [
+                        {
+                          "subdivision": "1"
+                        },
+                        {
+                          "subdivision": "2"
+                        },
+                        {
+                          "subdivision": "3"
+                        },
+                        {
+                          "subdivision": "4"
+                        },
+                        {
+                          "subdivision": "5"
+                        },
+                        {
+                          "subdivision": "6"
+                        },
+                        {
+                          "subdivision": "7"
+                        },
+                        {
+                          "subdivision": "8"
+                        },
+                        {
+                          "subdivision": "9"
+                        },
+                        {
+                          "subdivision": "11"
+                        },
+                        {
+                          "subdivision": "12"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "Role",
+                      "subdivisions": [
+                        {
+                          "subdivision": "Role1"
+                        },
+                        {
+                          "subdivision": "Role2"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "RoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRole",
+                      "subdivisions": [
+                        {
+                          "subdivision": "RoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRoleRolevv3"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Jun 27",
+                  "divisionlabel": "Select jun div",
+                  "subdivisionlabel": "Select jun sub div",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "A",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A Sec"
+                        },
+                        {
+                          "subdivision": "B Sec"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "B",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A Sec"
+                        },
+                        {
+                          "subdivision": "B Sec"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "MAxNumOfChrectorsIN Role NAme",
+                  "divisionlabel": "Select Maximum no of charectors IN DI",
+                  "subdivisionlabel": "Select Maximum no of charectors INSDI",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "tab role",
+                  "divisionlabel": "Select tab div",
+                  "subdivisionlabel": "Select tab sub div",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "Admin",
+                  "divisionlabel": "Select Area",
+                  "subdivisionlabel": "Select City",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "All",
+                      "subdivisions": [
+                        {
+                          "subdivision": "All"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "Aug 2017",
+                  "divisionlabel": "Select New Div",
+                  "subdivisionlabel": "Select New Sub Div",
+                  "leavetypelist": [
+                    "empty"
+                  ],
+                  "divisions": [
+                    {
+                      "division": "A",
+                      "subdivisions": [
+                        {
+                          "subdivision": "A Sec"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "B",
+                      "subdivisions": [
+                        {
+                          "subdivision": "B Sec"
+                        }
+                      ]
+                    },
+                    {
+                      "division": "C",
+                      "subdivisions": [
+                        {
+                          "subdivision": "C Sec"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "role": "KALAI TEST ROLE",
+                  "divisionlabel": "Select ABC",
+                  "subdivisionlabel": "Select SUB",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "Mighty",
+                  "divisionlabel": "Select MightyONE",
+                  "subdivisionlabel": "Select MightyONE1",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                },
+                {
+                  "role": "NithyaAllPOWERD",
+                  "divisionlabel": "Select POWER",
+                  "subdivisionlabel": "Select SUBPoer",
+                  "leavetypelist": [
+                    "empty"
+                  ]
+                }
+              ]
+            }
+          },
+          "groupzdetails": {
+            "_id": "59ce410f1a208f1950e08787",
+            "groupzbasekey": "24345fb7-75dc-4f77-a2d9-48f8e89115b8",
+            "shortname": "Head Office JN",
+            "groupzurl": "http://qa1.groupz.in/GroupzMobileApp/GroupzLogo/GRPOFF",
+            "groupzname": "Groupz Office",
+            "groupzcode": "GRPOFF",
+            "groupzid": "221",
+            "moregroupdetails": {
+              "type": 7,
+              "address": "40th A Cross",
+              "area": "Jayanagar 9th Block",
+              "city": "Bangalore",
+              "state": "Karnataka",
+              "country": "India",
+              "postalcode": "560069",
+              "landline": "",
+              "mobile": "9999999999",
+              "facebooklink": "",
+              "twitterlink": "",
+              "bloglink": "",
+              "defaultuserrole": "Product Manager",
+              "transactionstartdate": "2016-07-12 00:00:00",
+              "transactionenddate": "2020-12-31 00:00:00",
+              "senderemail": "admin@groupzoffice.in",
+              "registrationno": "",
+              "panno": "",
+              "albumsize": "100",
+              "segments": "",
+              "userareas": "",
+              "groupztype": "",
+              "others": "",
+              "loginurl": "",
+              "description": "",
+              "latitude": "15.8779723",
+              "longitude": "74.5349720",
+              "radius": 100,
+              "groupzenabled": true,
+              "metatagdesc": "",
+              "metatagkeywords": "",
+              "ipaddresses": "*.*.*.*",
+              "smscost": 0,
+              "bannerimageurl": "",
+              "bannerlink:": "",
+              "applicationskin": "emeraldTown",
+              "recieptnoprefix": "",
+              "userapprovedmailtitle": "groupZ account activated",
+              "userapprovedmailtext": "<div><!--block-->Dear $Name,<br>Your registration for groupz was successful and your account is activated.<br>Your login details are as below:<br>Website: http://www.groupz.in<br>Username: $Username<br>Password: $Password<br>Thank you for your support<br>Regards<br>Preethi<\/div>",
+              "userfailuremailtext": "Dear $Name,\nYour registration for groupz was unsuccessful.Email address $Email is already in use.\nIf you already own an account, please visit the URL $InvitationUrl\nThank you for your support\nRegards\n",
+              "userfailuremailtitle": "groupZ registration unsucessful",
+              "contactmailtitle": "Added as groupZ contact",
+              "contactmailtext": "Dear $Name,\r\nYou have been added as a contact for the groupz '$Groupz':\r\nThank you for your support\r\nRegards",
+              "contactsmstext": "Dear $Name,\r\nThis is a test contact registration sms\r\nRegards\r\n$Groupz\r\n",
+              "greetingmailenabled": true,
+              "greetingfamilymembersforemail": false,
+              "greetingsmsenabled": true,
+              "greetingfamilymembersforsms": false,
+              "dueslabel": "Due",
+              "duesenabled": 1,
+              "messagelabel": "Messages",
+              "smsenabled": 1,
+              "emailenabled": 1,
+              "albumlabel": "Albums",
+              "albumsenabled": 1,
+              "announcementlabel": "Announcements",
+              "announcementsenabled": 1,
+              "advertisementlabel": "Advertisements",
+              "advertisementsenabled": 1,
+              "surveylabel": "Surveys",
+              "surveysenabled": 1,
+              "servicerequestlabel": "Service Request",
+              "issuesenabled": 1,
+              "meeting label": "Meetings",
+              "meetingsenabled": 1,
+              "noticeslabel": "Notices",
+              "noticesenabled": "1",
+              "documentslabel": "Documents",
+              "documentssharingenabled": "1",
+              "plannerlabel": "Planner",
+              "plannerenabled": 1,
+              "banneradsenabled": 1,
+              "classifiedsearchenabled": 1,
+              "classifiedsenabled": 1,
+              "contactsharingenabled": 1,
+              "displayproductlogo": 1,
+              "familyinformationenabled": 1,
+              "helpersenabled": 1,
+              "memberssearchacrosssocietyenabled": 1,
+              "memberssearchenabled": 1,
+              "scrollingadsenabled": 1,
+              "issuesettings": {
+                "locationlist": [
+                  "Adugodi",
+                  "BTM Layout",
+                  "Chamrajpet",
+                  "DVG Road",
+                  "Ejipura",
+                  "Frazer Town"
+                ],
+                "categorylist": [
+                  {
+                    "name": "Electricity Personal",
+                    "type": "0",
+                    "titlelist": [
+                      "Elect Pers 1",
+                      "Elect Pers 2"
+                    ]
+                  },
+                  {
+                    "name": "Plumbing Personal",
+                    "type": "0",
+                    "titlelist": [
+                      "Plumb Pers 1",
+                      "Plumb Pers 2"
+                    ]
+                  },
+                  {
+                    "name": "Electricity Common",
+                    "type": "1",
+                    "titlelist": [
+                      "Elect Comm 1",
+                      "Elect Comm 2"
+                    ]
+                  },
+                  {
+                    "name": "Plumbing Common",
+                    "type": "1",
+                    "titlelist": [
+                      "Plumb Comm 1",
+                      "Plumb Comm 2"
+                    ]
+                  },
+                  {
+                    "name": "Electricity Management",
+                    "type": "2",
+                    "titlelist": [
+                      "Elect Mgmt 1",
+                      "Elect Mgmt 2"
+                    ]
+                  },
+                  {
+                    "name": "Plumbing Management",
+                    "type": "2",
+                    "titlelist": [
+                      "Plumb Mgmt 1",
+                      "Plumb Mgmt 2"
+                    ]
+                  }
+                ],
+                "rootcauselist": [
+                  "Wiring is not done well",
+                  "Quality of taps not good"
+                ],
+                "correctiveaction": [
+                  "Proper Re-WIring to be done",
+                  "Good quality taps to be replaced"
+                ],
+                "issue-state-list": [
+                  {
+                    "name": "New",
+                    "value": "0"
+                  },
+                  {
+                    "name": "In Progress",
+                    "value": "4"
+                  },
+                  {
+                    "name": "Assigned Technician",
+                    "value": "1"
+                  },
+                  {
+                    "name": "Completed",
+                    "value": "2"
+                  },
+                  {
+                    "name": "Closed",
+                    "value": "3"
+                  }
+                ],
+                "issue-flow-rule-list": {
+                  "issue-flow-rule": "New->In Progress,Assigned Technician,Completed,Closed\nIn Progress->Assigned Technician,Completed,Closed\nAssigned Technician->Assigned Technician,Assigned Technician,Completed,Closed\nCompleted->In Progress,Closed\nClosed->New"
+                }
+              },
+              "webtheme": {
+                "actionbar": "red",
+                "titlebar": "green",
+                "tabsbar": "white"
+              },
+              "androidtheme": {
+                "actionbar": "1565C0",
+                "titlebar": "yellow",
+                "tabsbar": "red"
+              },
+              "iostheme": {
+                "actionbar": "red",
+                "titlebar": "green",
+                "tabsbar": "white"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

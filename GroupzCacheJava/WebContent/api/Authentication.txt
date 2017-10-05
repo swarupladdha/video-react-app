@@ -1,0 +1,137 @@
+
+
+Url : http://localhost:8080/GroupzCacheJava/Authentication?request=
+
+-----------------------------------------------------------------------
+request:
+-----------------------------------------------------------------------
+{
+  "json": {
+    "request": {
+      "servicetype": "6",
+      "functiontype": "6004",
+      "userdata": {
+        "username": "preethi@groupz.in",
+        "password": "test"
+      },
+      "selection": true
+    }
+  }
+}
+--------------------------------------------------------------------------
+response:
+--------------------------------------------------------------------------
+{
+  "json": {
+    "response": {
+      "servicetype": "6",
+      "functiontype": "6004",
+      "statuscode": "0",
+      "statusmessage": "success",
+      "user": [
+        {
+          "session_id": "59cc8af11a208f108ce259d8",
+          "groupzcode": "GRPOFF",
+          "displayname": "Preethi Ritesh - Head Office JN",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/43998"
+        },
+        {
+          "session_id": "59cc8af11a208f108ce259d9",
+          "groupzcode": "GPZDEV",
+          "displayname": "Preethi Ritesh - Developers JN",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/44014"
+        },
+        {
+          "session_id": "59cc8af11a208f108ce259da",
+          "groupzcode": "GZAPPT",
+          "displayname": "Preethi Ritesh - App Test",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/44744"
+        },
+        {
+          "session_id": "59cc8af11a208f108ce259db",
+          "groupzcode": "GZAPPT",
+          "displayname": "Ritesh Kumar - App Test",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/44746"
+        },
+        {
+          "session_id": "59cc8af11a208f108ce259dc",
+          "groupzcode": "GRPOFF",
+          "displayname": "PreethiLead - Head Office JN",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/44782"
+        },
+        {
+          "session_id": "59cc8af11a208f108ce259dd",
+          "groupzcode": "GRPOFF",
+          "displayname": "preethi@groupz.in - Head Office JN",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/44841"
+        },
+        {
+          "session_id": "59cc8af11a208f108ce259de",
+          "groupzcode": "GPZANA",
+          "displayname": "Preethi Ritesh - StrangeAnalyst",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/44988"
+        },
+        {
+          "session_id": "59cc8af11a208f108ce259df",
+          "groupzcode": "GRPOFF",
+          "displayname": "Preethi Sales - Head Office JN",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/45154"
+        },
+        {
+          "session_id": "59cc8af11a208f108ce259e0",
+          "groupzcode": "GRPOFF",
+          "displayname": "PRem S2Label1 - Head Office JN",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/45155"
+        },
+        {
+          "session_id": "59cc8af11a208f108ce259e1",
+          "groupzcode": "GRPOFF",
+          "displayname": "PreethiEngineer - Head Office JN",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/45156"
+        },
+        {
+          "session_id": "59cc8af11a208f108ce259e2",
+          "groupzcode": "447815",
+          "displayname": "SR Tester - testsr",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/45233"
+        },
+        {
+          "session_id": "59cc8af11a208f108ce259e3",
+          "groupzcode": "GRPOFF",
+          "displayname": "Preethi Local Admin - Head Office JN",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/45490"
+        },
+        {
+          "session_id": "59cc8af11a208f108ce259e4",
+          "groupzcode": "GRPOFF",
+          "displayname": "PServer - Head Office JN",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/45552"
+        },
+        {
+          "session_id": "59cc8af11a208f108ce259e5",
+          "groupzcode": "GRPOFF",
+          "displayname": "PBackend - Head Office JN",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/45553"
+        },
+        {
+          "session_id": "59cc8af11a208f108ce259e6",
+          "groupzcode": "FAMILY",
+          "displayname": "Family Member - Family",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/45572"
+        },
+        {
+          "session_id": "59cc8af11a208f108ce259e7",
+          "groupzcode": "PJKBTT",
+          "displayname": "Preethi - PJBTM",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/45643"
+        },
+        {
+          "session_id": "59cc8af11a208f108ce259e8",
+          "groupzcode": "GroupzDemo1",
+          "displayname": "Preethi - Groupz",
+          "profileurl": "http://qa1.groupz.in/GroupzMobileApp/ProfilePhoto/46038"
+        }
+      ]
+    }
+  }
+}
