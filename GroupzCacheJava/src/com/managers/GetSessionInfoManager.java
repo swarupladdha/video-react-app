@@ -43,7 +43,13 @@ public class GetSessionInfoManager {
 				String id = request.getString("session_id");
 				response = getDataFromDb(id);
 				if (response != null){
-				System.out.println("-------------------");
+				System.out.println("-------------------"+response);
+				JSONObject res = JSONObject.fromObject(response);
+				if (res.getJSONObject("json").getJSONObject("response").containsKey("statuscode")){
+					if(PropertiesUtil.getProperty("invalid_session_code").equalsIgnoreCase(res.getJSONObject("json").getJSONObject("response").getString("statuscode"))){
+						return response;
+					}
+				}
 					response = formResponse(servicetype,functiontype,response);
 				}
 				return response;
@@ -90,6 +96,10 @@ public class GetSessionInfoManager {
 					resArray.add(value.toJson());
 					System.out.println(resp);
 				}
+			}
+			else{
+				resp = RestUtils.processError(PropertiesUtil.getProperty("invalid_session_code"), PropertiesUtil.getProperty("invalid_session_message"));
+				return resp;
 			}
 			if (RestUtils.isEmpty(groupzid) == true){
 				MongoCollection<Document> col1 = db.getCollection("groupzdetails");
