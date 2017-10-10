@@ -16,7 +16,7 @@ import com.connection.Mongo_Connection;
 import com.managers.GetSessionInfoManager;
 
 
-@WebServlet("/GetSessionInfo")
+//@WebServlet("/GetSessionInfo")
 public class GetSessionInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	static Logger log = Logger.getLogger(GetSessionInfo.class.getName());

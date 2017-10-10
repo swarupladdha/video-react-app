@@ -16,7 +16,7 @@ import com.connection.Mongo_Connection;
 import com.managers.AuthenticatorManager;
 
 
-@WebServlet("/Authenticator")
+//@WebServlet("/Authenticator")
 public class Authenticator extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	static Logger log = Logger.getLogger(Authenticator.class.getName());

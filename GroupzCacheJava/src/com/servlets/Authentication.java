@@ -17,7 +17,7 @@ import com.managers.AuthenticationManager;
 
 
 
-@WebServlet("/Authentication")
+//@WebServlet("/Authentication")
 public class Authentication extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	static Logger log = Logger.getLogger(Authentication.class.getName());
