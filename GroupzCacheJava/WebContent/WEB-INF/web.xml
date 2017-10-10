@@ -28,7 +28,7 @@
 	<servlet-mapping>
 		<servlet-name>GetSessionInfo</servlet-name>
 		<url-pattern>/GetSessionInfo</url-pattern>
-	</servlet-mapping> 
+	</servlet-mapping>  
 
   
   
