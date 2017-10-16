@@ -43,7 +43,6 @@ public class GetSessionInfoManager {
 				String id = request.getString("session_id");
 				response = getDataFromDb(id);
 				if (response != null){
-					System.out.println("Exception1");
 				System.out.println("-------------------"+response);
 				JSONObject res = JSONObject.fromObject(response);
 				if (res.getJSONObject("json").getJSONObject("response").containsKey("statuscode")){
@@ -117,7 +116,13 @@ public class GetSessionInfoManager {
 					}
 				}
 			}
-			return resArray.toString();  
+			JSONObject json = new JSONObject();
+			JSONObject response = new JSONObject();
+			response.put("data", resArray.toString());
+			json.put("response", response);
+			JSONObject j = new JSONObject();
+			j.put("json", json);
+			return j.toString();  
 		}catch(Exception e){
 			e.printStackTrace();
 			System.out.println("Exception in getDataFromDb!");
@@ -129,8 +134,8 @@ public class GetSessionInfoManager {
 	private String formResponse(String servicetype, String functiontype, String response) {
 		String res ="";
 		try{
-			JSONArray dataArray = new JSONArray();
-			dataArray = JSONArray.fromObject(response);
+			JSONObject j = JSONObject.fromObject(response);
+			JSONArray dataArray = j.getJSONObject("json").getJSONObject("response").getJSONArray("data");
 			
 			JSONObject memInfo = dataArray.getJSONObject(0);
 			JSONObject grpInfo = dataArray.getJSONObject(1);
