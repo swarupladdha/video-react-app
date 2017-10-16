@@ -81,8 +81,18 @@ public class AuthenticatorManager {
 							userList = bResponse.getJSONObject("json").getJSONObject("response").getJSONArray("userList");	
 						}
 						JSONObject datas = new JSONObject();
+						JSONArray dataArray = new JSONArray();
 						if (bResponse.getJSONObject("json").getJSONObject("response").containsKey("data")){
-							datas = bResponse.getJSONObject("json").getJSONObject("response").getJSONObject("data");	
+							
+							Object obj = bResponse.getJSONObject("json").getJSONObject("response").get("data");
+							if(obj instanceof JSONObject){
+								datas = bResponse.getJSONObject("json").getJSONObject("response").getJSONObject("data");
+							}
+							else{
+								dataArray = bResponse.getJSONObject("json").getJSONObject("response").getJSONArray("data");
+							}
+							
+							
 						}
 						contentJSON.put("servicetype", servicetype);
 						contentJSON.put("functiontype", functiontype);
@@ -91,7 +101,10 @@ public class AuthenticatorManager {
 						if(userList.size()>0){
 							contentJSON.put("userList", userList);	
 						}
-						if (bResponse.getJSONObject("json").getJSONObject("response").containsKey("data")){
+						if (dataArray.size()>0){
+							contentJSON.put("data", dataArray);
+						}
+						else{
 							contentJSON.put("data", datas);
 						}
 						sucessRespJSON.put("response", contentJSON);
