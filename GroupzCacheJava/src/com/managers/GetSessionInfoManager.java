@@ -200,98 +200,147 @@ public class GetSessionInfoManager {
 			groupzDetails.put("groupzcode", grpInfo.getString("groupzcode"));
 			groupzDetails.put("groupzid", grpInfo.getString("groupzid"));
 			
-			JSONObject moregroupInfo = new JSONObject();
-			if (grpInfo.containsKey("type")){
-				moregroupInfo.put("type", grpInfo.getString("type"));
-			}
-			moregroupInfo.put("address", grpInfo.getString("address"));
-			moregroupInfo.put("area", grpInfo.getString("area"));
-			moregroupInfo.put("city", grpInfo.getString("city"));
-			moregroupInfo.put("state", grpInfo.getString("state"));
-			moregroupInfo.put("country", grpInfo.getString("country"));
-			moregroupInfo.put("postalcode", grpInfo.getString("postalcode"));
-			moregroupInfo.put("landline", grpInfo.getString("landline"));
-			moregroupInfo.put("mobile", grpInfo.getString("mobile"));
-			moregroupInfo.put("facebooklink", grpInfo.getString("facebooklink"));
-			moregroupInfo.put("twitterlink", grpInfo.getString("twitterlink"));
-			moregroupInfo.put("bloglink", grpInfo.getString("bloglink"));
-			moregroupInfo.put("defaultuserrole", grpInfo.getString("defaultuserrole"));
-			moregroupInfo.put("transactionstartdate", grpInfo.getString("transactionstartdate"));
-			moregroupInfo.put("transactionenddate", grpInfo.getString("transactionenddate"));
-			moregroupInfo.put("senderemail", grpInfo.getString("senderemail"));
-			moregroupInfo.put("registrationno", grpInfo.getString("registrationno"));
-			moregroupInfo.put("panno", grpInfo.getString("panno"));
-			moregroupInfo.put("albumsize", grpInfo.getString("albumsize"));
-			moregroupInfo.put("segments", grpInfo.getString("segments"));
-			moregroupInfo.put("userareas", grpInfo.getString("userareas"));
-			moregroupInfo.put("groupztype", grpInfo.getString("groupztype"));
-			moregroupInfo.put("others", grpInfo.getString("others"));
-			moregroupInfo.put("loginurl", grpInfo.getString("loginurl"));
-			moregroupInfo.put("description", grpInfo.getString("description"));
-			moregroupInfo.put("latitude", grpInfo.getString("latitude"));
-			moregroupInfo.put("longitude", grpInfo.getString("longitude"));
-			moregroupInfo.put("radius", grpInfo.getInt("radius"));
-			moregroupInfo.put("groupzenabled", grpInfo.getBoolean("groupzenabled"));
-			moregroupInfo.put("metatagdesc", grpInfo.getString("metatagdesc"));
-			moregroupInfo.put("metatagkeywords", grpInfo.getString("metatagkeywords"));
-			moregroupInfo.put("ipaddresses", grpInfo.getString("ipaddresses"));
-			moregroupInfo.put("smscost", grpInfo.getInt("smscost"));
-			moregroupInfo.put("bannerimageurl", grpInfo.getString("bannerimageurl"));
-			moregroupInfo.put("bannerlink:", grpInfo.getString("bannerlink:"));
-			moregroupInfo.put("applicationskin", grpInfo.getString("applicationskin"));
-			moregroupInfo.put("recieptnoprefix", grpInfo.getString("recieptnoprefix"));
-			moregroupInfo.put("userapprovedmailtitle", grpInfo.getString("userapprovedmailtitle"));
-			moregroupInfo.put("userapprovedmailtext", grpInfo.getString("userapprovedmailtext"));
-			moregroupInfo.put("userfailuremailtext", grpInfo.getString("userfailuremailtext"));
-			moregroupInfo.put("userfailuremailtitle", grpInfo.getString("userfailuremailtitle"));
-			moregroupInfo.put("contactmailtitle", grpInfo.getString("contactmailtitle"));
-			moregroupInfo.put("contactmailtext", grpInfo.getString("contactmailtext"));
-			moregroupInfo.put("contactsmstext", grpInfo.getString("contactsmstext"));
-			moregroupInfo.put("greetingmailenabled", grpInfo.getBoolean("greetingmailenabled"));
-			moregroupInfo.put("greetingfamilymembersforemail", grpInfo.getBoolean("greetingfamilymembersforemail"));
-			moregroupInfo.put("greetingsmsenabled", grpInfo.getBoolean("greetingsmsenabled"));
-			moregroupInfo.put("greetingfamilymembersforsms", grpInfo.getBoolean("greetingfamilymembersforsms"));
-			moregroupInfo.put("dueslabel", grpInfo.getString("dueslabel"));
-			moregroupInfo.put("duesenabled", grpInfo.getInt("duesenabled"));
-			moregroupInfo.put("messagelabel", grpInfo.getString("messagelabel"));
-			moregroupInfo.put("smsenabled", grpInfo.getInt("smsenabled"));
-			moregroupInfo.put("emailenabled", grpInfo.getInt("emailenabled"));
-			moregroupInfo.put("albumlabel", grpInfo.getString("albumlabel"));
-			moregroupInfo.put("albumsenabled", grpInfo.getInt("albumsenabled"));
-			moregroupInfo.put("announcementlabel", grpInfo.getString("announcementlabel"));
-			moregroupInfo.put("announcementsenabled", grpInfo.getInt("announcementsenabled"));
-			moregroupInfo.put("advertisementlabel", grpInfo.getString("advertisementlabel"));
-			moregroupInfo.put("advertisementsenabled", grpInfo.getInt("advertisementsenabled"));
-			moregroupInfo.put("surveylabel", grpInfo.getString("surveylabel"));
-			moregroupInfo.put("surveysenabled", grpInfo.getInt("surveysenabled"));
-			moregroupInfo.put("servicerequestlabel", grpInfo.getString("servicerequestlabel"));
-			moregroupInfo.put("issuesenabled", grpInfo.getInt("issuesenabled"));
-			moregroupInfo.put("meeting label", grpInfo.getString("meeting label"));
-			moregroupInfo.put("meetingsenabled", grpInfo.getInt("meetingsenabled"));
-			moregroupInfo.put("noticeslabel", grpInfo.getString("noticeslabel"));
-			moregroupInfo.put("noticesenabled", grpInfo.getString("noticesenabled"));
-			moregroupInfo.put("documentslabel", grpInfo.getString("documentslabel"));
-			moregroupInfo.put("documentssharingenabled", grpInfo.getString("documentssharingenabled"));
-			moregroupInfo.put("plannerlabel", grpInfo.getString("plannerlabel"));
-			moregroupInfo.put("plannerenabled", grpInfo.getInt("plannerenabled"));
-			moregroupInfo.put("banneradsenabled", grpInfo.getInt("banneradsenabled"));
-			moregroupInfo.put("classifiedsearchenabled", grpInfo.getInt("classifiedsearchenabled"));
-			moregroupInfo.put("classifiedsenabled", grpInfo.getInt("classifiedsenabled"));
-			moregroupInfo.put("classifiedsenabled", grpInfo.getInt("classifiedsenabled"));
-			moregroupInfo.put("contactsharingenabled", grpInfo.getInt("contactsharingenabled"));
-			moregroupInfo.put("displayproductlogo", grpInfo.getInt("displayproductlogo"));
-			moregroupInfo.put("familyinformationenabled", grpInfo.getInt("familyinformationenabled"));
-			moregroupInfo.put("helpersenabled", grpInfo.getInt("helpersenabled"));
-			moregroupInfo.put("memberssearchacrosssocietyenabled", grpInfo.getInt("memberssearchacrosssocietyenabled"));
-			moregroupInfo.put("memberssearchenabled", grpInfo.getInt("memberssearchenabled"));
-			moregroupInfo.put("scrollingadsenabled", grpInfo.getInt("scrollingadsenabled"));
-			moregroupInfo.put("issuesettings", grpInfo.getJSONObject("issuesettings"));
-			moregroupInfo.put("webtheme", grpInfo.getJSONObject("webtheme"));
-			moregroupInfo.put("androidtheme", grpInfo.getJSONObject("androidtheme"));
-			moregroupInfo.put("iostheme", grpInfo.getJSONObject("iostheme"));
-			moregroupInfo.put("latitude", grpInfo.getString("latitude"));
-			moregroupInfo.put("longitude", grpInfo.getString("longitude"));
-			groupzDetails.put("moregroupdetails", moregroupInfo);
+//			JSONObject moregroupInfo = new JSONObject();
+//			if (grpInfo.containsKey("type")){
+//				moregroupInfo.put("type", grpInfo.getString("type"));
+//			}
+//			if (grpInfo.containsKey("address")){
+//				moregroupInfo.put("address", grpInfo.getString("address"));
+//			}
+//			if (grpInfo.containsKey("area")){
+//				moregroupInfo.put("area", grpInfo.getString("area"));
+//			}
+//			if (grpInfo.containsKey("city")){
+//				moregroupInfo.put("city", grpInfo.getString("city"));
+//			}
+//			if (grpInfo.containsKey("state")){
+//				moregroupInfo.put("state", grpInfo.getString("state"));
+//			}
+//			if (grpInfo.containsKey("country")){
+//				moregroupInfo.put("country", grpInfo.getString("country"));
+//			}
+//			if (grpInfo.containsKey("postalcode")){
+//				moregroupInfo.put("postalcode", grpInfo.getString("postalcode"));
+//			}
+//			if (grpInfo.containsKey("landline")){
+//				moregroupInfo.put("landline", grpInfo.getString("landline"));
+//			}
+//			if (grpInfo.containsKey("mobile")){
+//				moregroupInfo.put("mobile", grpInfo.getString("mobile"));
+//			}
+//			if (grpInfo.containsKey("facebooklink")){
+//				moregroupInfo.put("facebooklink", grpInfo.getString("facebooklink"));
+//			}
+//			if (grpInfo.containsKey("twitterlink")){
+//				moregroupInfo.put("twitterlink", grpInfo.getString("twitterlink"));
+//			}
+//			if (grpInfo.containsKey("bloglink")){
+//				moregroupInfo.put("bloglink", grpInfo.getString("bloglink"));
+//			}
+//			if (grpInfo.containsKey("type")){
+//				moregroupInfo.put("type", grpInfo.getString("type"));
+//			}
+//			if (grpInfo.containsKey("type")){
+//				moregroupInfo.put("type", grpInfo.getString("type"));
+//			}
+//			if (grpInfo.containsKey("type")){
+//				moregroupInfo.put("type", grpInfo.getString("type"));
+//			}
+//			if (grpInfo.containsKey("type")){
+//				moregroupInfo.put("type", grpInfo.getString("type"));
+//			}
+//			if (grpInfo.containsKey("type")){
+//				moregroupInfo.put("type", grpInfo.getString("type"));
+//			}
+//			if (grpInfo.containsKey("type")){
+//				moregroupInfo.put("type", grpInfo.getString("type"));
+//			}
+//			if (grpInfo.containsKey("type")){
+//				moregroupInfo.put("type", grpInfo.getString("type"));
+//			}
+//			if (grpInfo.containsKey("type")){
+//				moregroupInfo.put("type", grpInfo.getString("type"));
+//			}
+//			
+//			
+//			
+//			moregroupInfo.put("defaultuserrole", grpInfo.getString("defaultuserrole"));
+//			moregroupInfo.put("transactionstartdate", grpInfo.getString("transactionstartdate"));
+//			moregroupInfo.put("transactionenddate", grpInfo.getString("transactionenddate"));
+//			moregroupInfo.put("senderemail", grpInfo.getString("senderemail"));
+//			moregroupInfo.put("registrationno", grpInfo.getString("registrationno"));
+//			moregroupInfo.put("panno", grpInfo.getString("panno"));
+//			moregroupInfo.put("albumsize", grpInfo.getString("albumsize"));
+//			moregroupInfo.put("segments", grpInfo.getString("segments"));
+//			moregroupInfo.put("userareas", grpInfo.getString("userareas"));
+//			moregroupInfo.put("groupztype", grpInfo.getString("groupztype"));
+//			moregroupInfo.put("others", grpInfo.getString("others"));
+//			moregroupInfo.put("loginurl", grpInfo.getString("loginurl"));
+//			moregroupInfo.put("description", grpInfo.getString("description"));
+//			moregroupInfo.put("latitude", grpInfo.getString("latitude"));
+//			moregroupInfo.put("longitude", grpInfo.getString("longitude"));
+//			moregroupInfo.put("radius", grpInfo.getInt("radius"));
+//			moregroupInfo.put("groupzenabled", grpInfo.getBoolean("groupzenabled"));
+//			moregroupInfo.put("metatagdesc", grpInfo.getString("metatagdesc"));
+//			moregroupInfo.put("metatagkeywords", grpInfo.getString("metatagkeywords"));
+//			moregroupInfo.put("ipaddresses", grpInfo.getString("ipaddresses"));
+//			moregroupInfo.put("smscost", grpInfo.getInt("smscost"));
+//			moregroupInfo.put("bannerimageurl", grpInfo.getString("bannerimageurl"));
+//			moregroupInfo.put("bannerlink:", grpInfo.getString("bannerlink:"));
+//			moregroupInfo.put("applicationskin", grpInfo.getString("applicationskin"));
+//			moregroupInfo.put("recieptnoprefix", grpInfo.getString("recieptnoprefix"));
+//			moregroupInfo.put("userapprovedmailtitle", grpInfo.getString("userapprovedmailtitle"));
+//			moregroupInfo.put("userapprovedmailtext", grpInfo.getString("userapprovedmailtext"));
+//			moregroupInfo.put("userfailuremailtext", grpInfo.getString("userfailuremailtext"));
+//			moregroupInfo.put("userfailuremailtitle", grpInfo.getString("userfailuremailtitle"));
+//			moregroupInfo.put("contactmailtitle", grpInfo.getString("contactmailtitle"));
+//			moregroupInfo.put("contactmailtext", grpInfo.getString("contactmailtext"));
+//			moregroupInfo.put("contactsmstext", grpInfo.getString("contactsmstext"));
+//			moregroupInfo.put("greetingmailenabled", grpInfo.getBoolean("greetingmailenabled"));
+//			moregroupInfo.put("greetingfamilymembersforemail", grpInfo.getBoolean("greetingfamilymembersforemail"));
+//			moregroupInfo.put("greetingsmsenabled", grpInfo.getBoolean("greetingsmsenabled"));
+//			moregroupInfo.put("greetingfamilymembersforsms", grpInfo.getBoolean("greetingfamilymembersforsms"));
+//			moregroupInfo.put("dueslabel", grpInfo.getString("dueslabel"));
+//			moregroupInfo.put("duesenabled", grpInfo.getInt("duesenabled"));
+//			moregroupInfo.put("messagelabel", grpInfo.getString("messagelabel"));
+//			moregroupInfo.put("smsenabled", grpInfo.getInt("smsenabled"));
+//			moregroupInfo.put("emailenabled", grpInfo.getInt("emailenabled"));
+//			moregroupInfo.put("albumlabel", grpInfo.getString("albumlabel"));
+//			moregroupInfo.put("albumsenabled", grpInfo.getInt("albumsenabled"));
+//			moregroupInfo.put("announcementlabel", grpInfo.getString("announcementlabel"));
+//			moregroupInfo.put("announcementsenabled", grpInfo.getInt("announcementsenabled"));
+//			moregroupInfo.put("advertisementlabel", grpInfo.getString("advertisementlabel"));
+//			moregroupInfo.put("advertisementsenabled", grpInfo.getInt("advertisementsenabled"));
+//			moregroupInfo.put("surveylabel", grpInfo.getString("surveylabel"));
+//			moregroupInfo.put("surveysenabled", grpInfo.getInt("surveysenabled"));
+//			moregroupInfo.put("servicerequestlabel", grpInfo.getString("servicerequestlabel"));
+//			moregroupInfo.put("issuesenabled", grpInfo.getInt("issuesenabled"));
+//			moregroupInfo.put("meeting label", grpInfo.getString("meeting label"));
+//			moregroupInfo.put("meetingsenabled", grpInfo.getInt("meetingsenabled"));
+//			moregroupInfo.put("noticeslabel", grpInfo.getString("noticeslabel"));
+//			moregroupInfo.put("noticesenabled", grpInfo.getString("noticesenabled"));
+//			moregroupInfo.put("documentslabel", grpInfo.getString("documentslabel"));
+//			moregroupInfo.put("documentssharingenabled", grpInfo.getString("documentssharingenabled"));
+//			moregroupInfo.put("plannerlabel", grpInfo.getString("plannerlabel"));
+//			moregroupInfo.put("plannerenabled", grpInfo.getInt("plannerenabled"));
+//			moregroupInfo.put("banneradsenabled", grpInfo.getInt("banneradsenabled"));
+//			moregroupInfo.put("classifiedsearchenabled", grpInfo.getInt("classifiedsearchenabled"));
+//			moregroupInfo.put("classifiedsenabled", grpInfo.getInt("classifiedsenabled"));
+//			moregroupInfo.put("classifiedsenabled", grpInfo.getInt("classifiedsenabled"));
+//			moregroupInfo.put("contactsharingenabled", grpInfo.getInt("contactsharingenabled"));
+//			moregroupInfo.put("displayproductlogo", grpInfo.getInt("displayproductlogo"));
+//			moregroupInfo.put("familyinformationenabled", grpInfo.getInt("familyinformationenabled"));
+//			moregroupInfo.put("helpersenabled", grpInfo.getInt("helpersenabled"));
+//			moregroupInfo.put("memberssearchacrosssocietyenabled", grpInfo.getInt("memberssearchacrosssocietyenabled"));
+//			moregroupInfo.put("memberssearchenabled", grpInfo.getInt("memberssearchenabled"));
+//			moregroupInfo.put("scrollingadsenabled", grpInfo.getInt("scrollingadsenabled"));
+//			moregroupInfo.put("issuesettings", grpInfo.getJSONObject("issuesettings"));
+//			moregroupInfo.put("webtheme", grpInfo.getJSONObject("webtheme"));
+//			moregroupInfo.put("androidtheme", grpInfo.getJSONObject("androidtheme"));
+//			moregroupInfo.put("iostheme", grpInfo.getJSONObject("iostheme"));
+//			moregroupInfo.put("latitude", grpInfo.getString("latitude"));
+//			moregroupInfo.put("longitude", grpInfo.getString("longitude"));
+			groupzDetails.put("moregroupdetails", grpInfo);
 			
 			JSONObject jObj = new JSONObject();
 			jObj.put("membersdetails", memberDetails);
