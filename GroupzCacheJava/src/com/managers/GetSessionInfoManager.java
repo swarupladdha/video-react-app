@@ -43,6 +43,7 @@ public class GetSessionInfoManager {
 				String id = request.getString("session_id");
 				response = getDataFromDb(id);
 				if (response != null){
+					System.out.println("Exception1");
 				System.out.println("-------------------"+response);
 				JSONObject res = JSONObject.fromObject(response);
 				if (res.getJSONObject("json").getJSONObject("response").containsKey("statuscode")){

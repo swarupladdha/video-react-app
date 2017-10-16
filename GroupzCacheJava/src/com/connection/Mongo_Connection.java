@@ -1,10 +1,7 @@
 package com.connection;
 
-import org.bson.Document;
 
-import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.utils.PropertiesUtil;
 
