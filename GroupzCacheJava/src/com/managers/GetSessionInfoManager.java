@@ -341,10 +341,10 @@ public class GetSessionInfoManager {
 //			moregroupInfo.put("latitude", grpInfo.getString("latitude"));
 //			moregroupInfo.put("longitude", grpInfo.getString("longitude"));
 			groupzDetails.put("moregroupdetails", grpInfo);
-			
+			groupzDetails.put("moregroupdetails", grpInfo);
 			JSONObject jObj = new JSONObject();
 			jObj.put("membersdetails", memberDetails);
-			jObj.put("groupzdetails", groupzDetails);
+			jObj.put("moregroupInfo", groupzDetails);
 			user.add(jObj);
 			JSONObject sucessJSON = new JSONObject();
 			JSONObject sucessRespJSON = new JSONObject();
