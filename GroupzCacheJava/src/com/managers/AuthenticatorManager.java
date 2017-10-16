@@ -80,12 +80,19 @@ public class AuthenticatorManager {
 						if (bResponse.getJSONObject("json").getJSONObject("response").containsKey("userList")){
 							userList = bResponse.getJSONObject("json").getJSONObject("response").getJSONArray("userList");	
 						}
+						JSONObject datas = new JSONObject();
+						if (bResponse.getJSONObject("json").getJSONObject("response").containsKey("data")){
+							datas = bResponse.getJSONObject("json").getJSONObject("response").getJSONObject("data");	
+						}
 						contentJSON.put("servicetype", servicetype);
 						contentJSON.put("functiontype", functiontype);
 						contentJSON.put("statuscode",Integer.parseInt(bResponse.getJSONObject("json").getJSONObject("response").getString("statuscode")));
 						contentJSON.put("statusmessage", bResponse.getJSONObject("json").getJSONObject("response").getString("statusmessage"));
 						if(userList.size()>0){
 							contentJSON.put("userList", userList);	
+						}
+						if (bResponse.getJSONObject("json").getJSONObject("response").containsKey("data")){
+							contentJSON.put("data", datas);
 						}
 						sucessRespJSON.put("response", contentJSON);
 						sucessJSON.put("json", sucessRespJSON);
