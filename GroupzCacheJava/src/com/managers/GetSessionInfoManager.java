@@ -352,7 +352,7 @@ public class GetSessionInfoManager {
 			
 			contentJSON.put("servicetype", servicetype);
 			contentJSON.put("functiontype", functiontype);
-			contentJSON.put("statuscode",PropertiesUtil.getProperty("statuscodesuccessvalue"));
+			contentJSON.put("statuscode",Integer.parseInt(PropertiesUtil.getProperty("statuscodesuccessvalue")));
 			contentJSON.put("statusmessage", PropertiesUtil.getProperty("statusmessagesuccessvalue"));
 			contentJSON.put("user", user);
 			sucessRespJSON.put("response", contentJSON);

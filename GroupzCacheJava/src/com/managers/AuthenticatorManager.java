@@ -82,7 +82,7 @@ public class AuthenticatorManager {
 						}
 						contentJSON.put("servicetype", servicetype);
 						contentJSON.put("functiontype", functiontype);
-						contentJSON.put("statuscode",bResponse.getJSONObject("json").getJSONObject("response").getString("statuscode"));
+						contentJSON.put("statuscode",Integer.parseInt(bResponse.getJSONObject("json").getJSONObject("response").getString("statuscode")));
 						contentJSON.put("statusmessage", bResponse.getJSONObject("json").getJSONObject("response").getString("statusmessage"));
 						if(userList.size()>0){
 							contentJSON.put("userList", userList);	

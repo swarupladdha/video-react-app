@@ -75,7 +75,7 @@ public class AuthenticationManager {
 					
 					contentJSON.put("servicetype", servicetype);
 					contentJSON.put("functiontype", functiontype);
-					contentJSON.put("statuscode",PropertiesUtil.getProperty("statuscodesuccessvalue"));
+					contentJSON.put("statuscode",Integer.parseInt(PropertiesUtil.getProperty("statuscodesuccessvalue")));
 					contentJSON.put("statusmessage", PropertiesUtil.getProperty("statusmessagesuccessvalue"));
 					contentJSON.put("user", success);
 					sucessRespJSON.put("response", contentJSON);
