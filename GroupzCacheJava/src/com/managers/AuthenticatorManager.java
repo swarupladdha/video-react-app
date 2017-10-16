@@ -266,7 +266,7 @@ public class AuthenticatorManager {
 				js.put("json", json);
 				System.out.println(url+"?request="+RestUtils.encode(js.toString()));
 				ConnectionUtils cu = new ConnectionUtils();
-				resp = cu.ConnectandRecieve(url+"?request="+js);
+				resp = cu.ConnectandRecieve(url+"?request="+RestUtils.encode(js.toString()));
 				return resp;
 			}
 			else{
