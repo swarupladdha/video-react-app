@@ -6,6 +6,7 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.catalina.util.URLEncoder;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -264,9 +265,9 @@ public class AuthenticatorManager {
 				json.put("request", request);
 				JSONObject js = new JSONObject();
 				js.put("json", json);
-				System.out.println(url+"?request="+RestUtils.encode(js.toString()));
+				//System.out.println(url+"?request="+RestUtils.encode(js.toString()));
 				ConnectionUtils cu = new ConnectionUtils();
-				resp = cu.ConnectandRecieve(url+"?request="+RestUtils.encode(js.toString()));
+				resp = cu.ConnectandRecieve(url+"?request="+js.toString());
 				return resp;
 			}
 			else{
