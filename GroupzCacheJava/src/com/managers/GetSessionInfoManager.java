@@ -340,11 +340,11 @@ public class GetSessionInfoManager {
 //			moregroupInfo.put("iostheme", grpInfo.getJSONObject("iostheme"));
 //			moregroupInfo.put("latitude", grpInfo.getString("latitude"));
 //			moregroupInfo.put("longitude", grpInfo.getString("longitude"));
-			groupzDetails.put("moregroupdetails", grpInfo);
-			groupzDetails.put("moregroupdetails", grpInfo);
+//			groupzDetails.put("moregroupdetails", grpInfo);
+			groupzDetails.put("moregroupInfo", grpInfo);
 			JSONObject jObj = new JSONObject();
 			jObj.put("membersdetails", memberDetails);
-			jObj.put("moregroupInfo", groupzDetails);
+			jObj.put("groupzdetails", groupzDetails);
 			user.add(jObj);
 			JSONObject sucessJSON = new JSONObject();
 			JSONObject sucessRespJSON = new JSONObject();
