@@ -202,7 +202,7 @@ public class GetSessionInfoManager {
 			
 			JSONObject moregroupInfo = new JSONObject();
 			
-			moregroupInfo.put("type", grpInfo.getInt("type"));
+			moregroupInfo.put("type", grpInfo.getString("type"));
 			moregroupInfo.put("address", grpInfo.getString("address"));
 			moregroupInfo.put("area", grpInfo.getString("area"));
 			moregroupInfo.put("city", grpInfo.getString("city"));
