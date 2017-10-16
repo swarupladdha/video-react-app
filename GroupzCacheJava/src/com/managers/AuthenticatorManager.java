@@ -77,40 +77,47 @@ public class AuthenticatorManager {
 							response = RestUtils.processError(PropertiesUtil.getProperty("permissionError_code"), PropertiesUtil.getProperty("permissionError_message"));
 							return response;
 						}
-						if (bResponse.getJSONObject("json").getJSONObject("response").containsKey("userList")){
-							userList = bResponse.getJSONObject("json").getJSONObject("response").getJSONArray("userList");	
-						}
-						JSONObject datas = new JSONObject();
-						JSONArray dataArray = new JSONArray();
-						if (bResponse.getJSONObject("json").getJSONObject("response").containsKey("data")){
-							
-							Object obj = bResponse.getJSONObject("json").getJSONObject("response").get("data");
-							if(obj instanceof JSONObject){
-								datas = bResponse.getJSONObject("json").getJSONObject("response").getJSONObject("data");
-							}
-							else{
-								dataArray = bResponse.getJSONObject("json").getJSONObject("response").getJSONArray("data");
-							}
-							
-							
-						}
-						contentJSON.put("servicetype", servicetype);
-						contentJSON.put("functiontype", functiontype);
-						contentJSON.put("statuscode",Integer.parseInt(bResponse.getJSONObject("json").getJSONObject("response").getString("statuscode")));
-						contentJSON.put("statusmessage", bResponse.getJSONObject("json").getJSONObject("response").getString("statusmessage"));
-						if(userList.size()>0){
-							contentJSON.put("userList", userList);	
-						}
-						if (dataArray.size()>0){
-							contentJSON.put("data", dataArray);
-						}
-						else{
-							contentJSON.put("data", datas);
-						}
-						sucessRespJSON.put("response", contentJSON);
-						sucessJSON.put("json", sucessRespJSON);
-						response = sucessJSON.toString();
-						return response;
+						
+						bResponse.getJSONObject("json").getJSONObject("response").remove("servicetype");
+						bResponse.getJSONObject("json").getJSONObject("response").remove("functiontype");
+						
+						bResponse.getJSONObject("json").getJSONObject("response").put("servicetype", servicetype);
+						bResponse.getJSONObject("json").getJSONObject("response").put("servicetype", functiontype);
+						
+//						if (bResponse.getJSONObject("json").getJSONObject("response").containsKey("userList")){
+//							userList = bResponse.getJSONObject("json").getJSONObject("response").getJSONArray("userList");	
+//						}
+//						JSONObject datas = new JSONObject();
+//						JSONArray dataArray = new JSONArray();
+//						if (bResponse.getJSONObject("json").getJSONObject("response").containsKey("data")){
+//							
+//							Object obj = bResponse.getJSONObject("json").getJSONObject("response").get("data");
+//							if(obj instanceof JSONObject){
+//								datas = bResponse.getJSONObject("json").getJSONObject("response").getJSONObject("data");
+//							}
+//							else{
+//								dataArray = bResponse.getJSONObject("json").getJSONObject("response").getJSONArray("data");
+//							}
+//							
+//							
+//						}
+//						contentJSON.put("servicetype", servicetype);
+//						contentJSON.put("functiontype", functiontype);
+//						contentJSON.put("statuscode",Integer.parseInt(bResponse.getJSONObject("json").getJSONObject("response").getString("statuscode")));
+//						contentJSON.put("statusmessage", bResponse.getJSONObject("json").getJSONObject("response").getString("statusmessage"));
+//						if(userList.size()>0){
+//							contentJSON.put("userList", userList);	
+//						}
+//						if (dataArray.size()>0){
+//							contentJSON.put("data", dataArray);
+//						}
+//						else{
+//							contentJSON.put("data", datas);
+//						}
+//						sucessRespJSON.put("response", contentJSON);
+//						sucessJSON.put("json", sucessRespJSON);
+//						response = sucessJSON.toString();
+						return bResponse.toString();
 					}
 					else{
 						response = RestUtils.processError(PropertiesUtil.getProperty("invalidServiceOrFunctionType_code"), PropertiesUtil.getProperty("invalidServiceOrFunctionType_message"));
