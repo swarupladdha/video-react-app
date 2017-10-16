@@ -20,6 +20,10 @@ import com.utils.ConnectionUtils;
 import com.utils.PropertiesUtil;
 import com.utils.RestUtils;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+
 public class AuthenticatorManager {
 	
 	MongoDatabase db = Mongo_Connection.getConnection();
@@ -266,8 +270,10 @@ public class AuthenticatorManager {
 				JSONObject js = new JSONObject();
 				js.put("json", json);
 				//System.out.println(url+"?request="+RestUtils.encode(js.toString()));
+				String reqs = js.toString();
+				java.net.URLEncoder.encode(reqs,"UTF-8");
 				ConnectionUtils cu = new ConnectionUtils();
-				resp = cu.ConnectandRecieve(url+"?request="+js.toString());
+				resp = cu.ConnectandRecieve(url+"?request="+reqs);
 				return resp;
 			}
 			else{

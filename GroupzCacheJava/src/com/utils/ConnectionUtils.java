@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
+
 
 public class ConnectionUtils {
 
@@ -18,7 +18,7 @@ public class ConnectionUtils {
 			//System.out.println("URL FINAL22 : " + urlString);
 
 			InputStream stream = null;
-			URL url = new URL(URLEncoder.encode(urlString,"UTF-8"));
+			URL url = new URL(urlString);
 			System.out.println("URL FINAL : " + url);
 			URLConnection connection = url.openConnection();
 			HttpURLConnection httpConnection = (HttpURLConnection) connection;
