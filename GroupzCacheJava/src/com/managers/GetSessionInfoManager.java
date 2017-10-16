@@ -201,8 +201,9 @@ public class GetSessionInfoManager {
 			groupzDetails.put("groupzid", grpInfo.getString("groupzid"));
 			
 			JSONObject moregroupInfo = new JSONObject();
-			
-			moregroupInfo.put("type", grpInfo.getString("type"));
+			if (grpInfo.containsKey("type")){
+				moregroupInfo.put("type", grpInfo.getString("type"));
+			}
 			moregroupInfo.put("address", grpInfo.getString("address"));
 			moregroupInfo.put("area", grpInfo.getString("area"));
 			moregroupInfo.put("city", grpInfo.getString("city"));
