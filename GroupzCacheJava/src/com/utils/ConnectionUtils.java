@@ -7,18 +7,20 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 
 
 public class ConnectionUtils {
 
-	public String ConnectandRecieve(String urlString) {
+	public String ConnectandRecieve(String urls, String urlRequest) {
 		String connectRecieveResponse = "";
 		StringBuffer output = new StringBuffer("");
 		try {
 			//System.out.println("URL FINAL22 : " + urlString);
 
 			InputStream stream = null;
-			URL url = new URL(urlString);
+			String urlString = URLEncoder.encode(urlRequest, "UTF-8");
+			URL url = new URL(urls+urlString);
 			System.out.println("URL FINAL : " + url);
 			URLConnection connection = url.openConnection();
 			HttpURLConnection httpConnection = (HttpURLConnection) connection;

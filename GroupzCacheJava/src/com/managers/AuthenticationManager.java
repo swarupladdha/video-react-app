@@ -170,7 +170,7 @@ public class AuthenticationManager {
 			JSONObject js = new JSONObject();
 			js.put("json", json);
 			ConnectionUtils cu = new ConnectionUtils();
-			res = cu.ConnectandRecieve(url+"?request="+js);
+			res = cu.ConnectandRecieve(url+"?request=",js.toString());
 			return res;
 		}
 		else{

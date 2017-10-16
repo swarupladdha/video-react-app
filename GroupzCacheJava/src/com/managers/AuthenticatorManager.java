@@ -273,7 +273,7 @@ public class AuthenticatorManager {
 				String reqs = js.toString();
 				java.net.URLEncoder.encode(reqs,"UTF-8");
 				ConnectionUtils cu = new ConnectionUtils();
-				resp = cu.ConnectandRecieve(url+"?request="+reqs);
+				resp = cu.ConnectandRecieve(url+"?request=",reqs);
 				return resp;
 			}
 			else{
