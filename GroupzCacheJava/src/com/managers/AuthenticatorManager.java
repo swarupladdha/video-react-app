@@ -226,7 +226,8 @@ public class AuthenticatorManager {
 			System.out.println(groupzid+"---"+memberid+manageusers);
 			MongoCollection<Document> collection1 = db.getCollection("groupzdetails");
 			BasicDBObject query1 = new BasicDBObject();
-			query.put("groupzid",groupzid);
+			query1.put("groupzid",groupzid);
+			System.out.println(query1);
 			FindIterable<Document> values1 = collection1.find(query1);
 			System.out.println(query1);
 			MongoCursor<Document> re1 = values1.iterator();
