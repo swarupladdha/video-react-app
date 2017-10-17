@@ -223,6 +223,7 @@ public class AuthenticatorManager {
 			else{
 				return null;
 			}
+			System.out.println(groupzid+"---"+memberid+manageusers);
 			MongoCollection<Document> collection1 = db.getCollection("groupzdetails");
 			BasicDBObject query1 = new BasicDBObject();
 			query.put("groupzid",groupzid);
