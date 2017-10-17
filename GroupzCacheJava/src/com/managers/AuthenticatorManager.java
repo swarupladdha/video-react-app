@@ -236,6 +236,9 @@ public class AuthenticatorManager {
 			else{
 				return null;
 			}
+			System.out.println("---------------------");
+			System.out.println(groupzbasekey);
+			System.out.println("---------------------");
 			String roleoffset ="";
 			JSONArray requestArray = new JSONArray();
 			requestArray = JSONArray.fromObject(out);
