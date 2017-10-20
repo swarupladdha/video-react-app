@@ -66,8 +66,14 @@ public class AuthenticationManager {
 			if (request.containsKey("userdata")){
 				JSONObject userData = request.getJSONObject("userdata");
 				boolean selection = request.getBoolean("selection");
+				
+				System.out.println("--------------------------1");
+				
 				response = formUrlAndConnect(out,selection,userData);
+				
+				
 				String success = insertValuesInToTables(response);
+				System.out.println("-------Success "+success);
 				if (success !=null){
 					JSONObject sucessJSON = new JSONObject();
 					JSONObject sucessRespJSON = new JSONObject();

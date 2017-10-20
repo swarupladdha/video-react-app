@@ -6,7 +6,6 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import org.apache.catalina.util.URLEncoder;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -20,9 +19,6 @@ import com.utils.ConnectionUtils;
 import com.utils.PropertiesUtil;
 import com.utils.RestUtils;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
 
 public class AuthenticatorManager {
 	
@@ -73,10 +69,10 @@ public class AuthenticatorManager {
 					response = getDeatilsAndBackendResponse(sessionId,out,groupzCode,data);
 					System.out.println("---"+response);
 					if (response !=null){
-						JSONObject sucessJSON = new JSONObject();
-						JSONObject sucessRespJSON = new JSONObject();
-						JSONObject contentJSON = new JSONObject();
-						JSONArray userList = new JSONArray();
+//						JSONObject sucessJSON = new JSONObject();
+//						JSONObject sucessRespJSON = new JSONObject();
+//						JSONObject contentJSON = new JSONObject();
+//						JSONArray userList = new JSONArray();
 						JSONObject bResponse = JSONObject.fromObject(response);
 						if (bResponse.getJSONObject("json").getJSONObject("response").getString("statuscode").equals(PropertiesUtil.getProperty("permissionError_code"))){
 							response = RestUtils.processError(PropertiesUtil.getProperty("permissionError_code"), PropertiesUtil.getProperty("permissionError_message"));

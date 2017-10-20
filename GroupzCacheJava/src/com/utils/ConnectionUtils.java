@@ -26,8 +26,8 @@ public class ConnectionUtils {
 			HttpURLConnection httpConnection = (HttpURLConnection) connection;
 			httpConnection.setRequestMethod("POST");
 			httpConnection.setDoOutput(true);
-			httpConnection.setConnectTimeout(50000);
-			httpConnection.setReadTimeout(50000);
+			httpConnection.setConnectTimeout(70000);
+			httpConnection.setReadTimeout(70000);
 			httpConnection.setRequestProperty("Content-Type","application/json");
 			// httpConnection.setRequestProperty("Accept", "application/json");
 			httpConnection.connect();

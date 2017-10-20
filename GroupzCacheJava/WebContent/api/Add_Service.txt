@@ -1,0 +1,37 @@
+
+Url : http://localhost:8080/GroupzCacheJava/Add_Service?request=
+
+-----------------------------------------------------------------
+request:
+-----------------------------------------------------------------
+{
+  "json": {
+    "request": {
+      "servicetype": "6",
+      "functiontype": "1001",
+      "data": {
+        "functionType": "6112",
+        "contentServiceType": "2",
+        "contentFunctionServiceType": "11023",
+        "roleOffset": "Admin",
+        "groupzmodulename": "Add Escalation",
+        "uri": "http://qa1.groupz.in/GroupzMobileApp/GroupzBase",
+        "sessionValidation": true
+      }
+    }
+  }
+}
+-------------------------------------------------------------------
+response:
+-------------------------------------------------------------------
+{
+  "json": {
+    "response": {
+    "statuscode":0,
+    "statusmessage":"success",
+      "data": {
+        "id": "59ea1c741a208f14106b5e5f"
+      }
+    }
+  }
+}
