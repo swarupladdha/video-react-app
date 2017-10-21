@@ -25,12 +25,20 @@
     <servlet-name>GetSessionInfo</servlet-name>
     <url-pattern>/GetSessionInfo</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>Add_Service</servlet-name>
     <servlet-class>com.servlets.Add_Service</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Add_Service</servlet-name>
     <url-pattern>/Add_Service</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>com.servlets.Logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/Logout</url-pattern>
   </servlet-mapping>
 </web-app>

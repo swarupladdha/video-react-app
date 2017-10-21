@@ -1,5 +1,6 @@
 package com.managers;
 
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,46 +79,15 @@ public class AuthenticatorManager {
 							response = RestUtils.processError(PropertiesUtil.getProperty("permissionError_code"), PropertiesUtil.getProperty("permissionError_message"));
 							return response;
 						}
-						
+						else if (bResponse.getJSONObject("json").getJSONObject("response").getString("statuscode").equals(PropertiesUtil.getProperty("invalid_session_code"))){
+							return response;
+						}
 						bResponse.getJSONObject("json").getJSONObject("response").remove("servicetype");
 						bResponse.getJSONObject("json").getJSONObject("response").remove("functiontype");
 						
 						bResponse.getJSONObject("json").getJSONObject("response").put("servicetype", servicetype);
 						bResponse.getJSONObject("json").getJSONObject("response").put("servicetype", functiontype);
 						
-//						if (bResponse.getJSONObject("json").getJSONObject("response").containsKey("userList")){
-//							userList = bResponse.getJSONObject("json").getJSONObject("response").getJSONArray("userList");	
-//						}
-//						JSONObject datas = new JSONObject();
-//						JSONArray dataArray = new JSONArray();
-//						if (bResponse.getJSONObject("json").getJSONObject("response").containsKey("data")){
-//							
-//							Object obj = bResponse.getJSONObject("json").getJSONObject("response").get("data");
-//							if(obj instanceof JSONObject){
-//								datas = bResponse.getJSONObject("json").getJSONObject("response").getJSONObject("data");
-//							}
-//							else{
-//								dataArray = bResponse.getJSONObject("json").getJSONObject("response").getJSONArray("data");
-//							}
-//							
-//							
-//						}
-//						contentJSON.put("servicetype", servicetype);
-//						contentJSON.put("functiontype", functiontype);
-//						contentJSON.put("statuscode",Integer.parseInt(bResponse.getJSONObject("json").getJSONObject("response").getString("statuscode")));
-//						contentJSON.put("statusmessage", bResponse.getJSONObject("json").getJSONObject("response").getString("statusmessage"));
-//						if(userList.size()>0){
-//							contentJSON.put("userList", userList);	
-//						}
-//						if (dataArray.size()>0){
-//							contentJSON.put("data", dataArray);
-//						}
-//						else{
-//							contentJSON.put("data", datas);
-//						}
-//						sucessRespJSON.put("response", contentJSON);
-//						sucessJSON.put("json", sucessRespJSON);
-//						response = sucessJSON.toString();
 						return bResponse.toString();
 					}
 					else{
@@ -217,7 +187,8 @@ public class AuthenticatorManager {
 					manageusers = value.getInteger("manageusers");
 			}
 			else{
-				return null;
+				resp = RestUtils.processError(PropertiesUtil.getProperty("invalid_session_code"), PropertiesUtil.getProperty("invalid_session_message"));
+				return resp;
 			}
 			System.out.println(groupzid+"---"+memberid+manageusers);
 			MongoCollection<Document> collection1 = db.getCollection("groupzdetails");
@@ -231,9 +202,9 @@ public class AuthenticatorManager {
 					Document value = re1.next();
 					groupzbasekey = value.getString("groupzbasekey");
 			}
-			else{
-				return null;
-			}
+//			else{
+//				return null;
+//			}
 			System.out.println("---------------------");
 			System.out.println(groupzbasekey);
 			System.out.println("---------------------");

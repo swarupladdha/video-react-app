@@ -60,6 +60,8 @@ public class Add_ServiceManager {
 			
 		}catch(Exception e){
 			e.printStackTrace();
+			response = RestUtils.processError(PropertiesUtil.getProperty("incompleteInput_code"), PropertiesUtil.getProperty("incompleteInput_message"));
+			return response;
 		}
 		
 		return response;
@@ -162,6 +164,8 @@ public class Add_ServiceManager {
 			datas.put("id", id+"");
 			res1.put("statuscode",Integer.parseInt( PropertiesUtil.getProperty("statuscodesuccessvalue")));
 			res1.put("statusmessage", PropertiesUtil.getProperty("statusmessagesuccessvalue"));
+			res1.put("servicetype", servicetype);
+			res1.put("functiontype", functiontype);
 			res1.put("data", datas);
 			json.put("response", res1);
 			j.put("json", json);
