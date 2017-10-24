@@ -1,0 +1,34 @@
+
+Url : http://localhost:8080/GroupzCacheJava/Add_Service?request=
+
+-----------------------------------------------------------------
+request:
+-----------------------------------------------------------------
+{
+  "json": {
+    "request": {
+      "servicetype": "6",
+      "functiontype": "1004",
+      "data": {
+      "id":"58cfa130f53f85681ea05780",
+        "functionType": "5000"
+      }
+    }
+  }
+}
+-------------------------------------------------------------------
+response:
+-------------------------------------------------------------------
+{
+  "json": {
+    "response": {
+      "statuscode": 0,
+      "statusmessage": "success",
+      "servicetype": "6",
+      "functiontype": "1004",
+      "data": {
+        "id": "58cfa130f53f85681ea05780"
+      }
+    }
+  }
+}

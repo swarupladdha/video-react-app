@@ -14,6 +14,8 @@ import com.connection.Mongo_Connection;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.mongodb.ServerAddress;
+import com.mongodb.ServerCursor;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -56,6 +58,24 @@ public class Add_ServiceManager {
 				System.out.println(data);
 				response = addServiceToDb(servicetype,functiontype,data);
 			}
+			if (functiontype.equalsIgnoreCase(PropertiesUtil.getProperty("list_service_functiontype"))){
+				System.out.println(functiontype);
+				JSONObject data = json.getJSONObject("json").getJSONObject("request").getJSONObject("data");
+				System.out.println(data);
+				response = listServiceFromDb(servicetype,functiontype,data);
+			}
+			if (functiontype.equalsIgnoreCase(PropertiesUtil.getProperty("update_service_functiontype"))){
+				System.out.println(functiontype);
+				JSONObject data = json.getJSONObject("json").getJSONObject("request").getJSONObject("data");
+				System.out.println(data);
+				response = updateServiceInDb(servicetype,functiontype,data);
+			}
+			if (functiontype.equalsIgnoreCase(PropertiesUtil.getProperty("delete_service_functiontype"))){
+				System.out.println(functiontype);
+				JSONObject data = json.getJSONObject("json").getJSONObject("request").getJSONObject("data");
+				System.out.println(data);
+				response = deleteServiceFromDb(servicetype,functiontype,data);
+			}
 			
 			
 		}catch(Exception e){
@@ -67,7 +87,7 @@ public class Add_ServiceManager {
 		return response;
 	}
 
-	protected String addServiceToDb(String servicetype, String functiontype,JSONObject data) {
+	public String addServiceToDb(String servicetype, String functiontype,JSONObject data) {
 		String resp = "";
 		boolean sessionValidation = false;
 		try{
@@ -177,5 +197,179 @@ public class Add_ServiceManager {
 			return resp;
 		}
 	}
+	
 
+	public String listServiceFromDb(String servicetype, String functiontype,JSONObject data) {
+		String resp = "";
+		try{
+			int limit =-1;
+			int offset =-1;
+			if (data.containsKey("limit")){
+				limit = data.getInt("limit");
+			}
+			if (data.containsKey("offset")){
+				offset = data.getInt("offset");
+			}
+			JSONArray list = new JSONArray();
+			MongoDatabase db = Mongo_Connection.getConnection();
+			MongoCollection<Document> col = db.getCollection("authtables");
+			FindIterable<Document> res = null;
+			if (limit !=-1 && offset !=-1){
+				 res = col.find().skip(offset).limit(limit);
+			}else if(limit !=-1){
+				res = col.find().limit(limit);
+			}
+			else if(limit !=-1){
+				res = col.find().skip(offset);
+			}
+			else{
+				res = col.find();
+			}
+			MongoCursor<Document> cursor = res.iterator();
+			while(cursor.hasNext()){
+				Document doc = cursor.next();
+				String id = doc.get("_id")+"";
+				doc.remove("_id");
+				doc.put("id", id);
+				list.add(doc);
+			}
+			JSONObject j = new JSONObject();
+			JSONObject json = new JSONObject();
+			JSONObject res1 = new JSONObject();
+//			JSONObject datas = new JSONObject();
+			res1.put("statuscode",Integer.parseInt( PropertiesUtil.getProperty("statuscodesuccessvalue")));
+			res1.put("statusmessage", PropertiesUtil.getProperty("statusmessagesuccessvalue"));
+			res1.put("servicetype", servicetype);
+			res1.put("functiontype", functiontype);
+			res1.put("data", list);
+			json.put("response", res1);
+			j.put("json", json);
+			resp = j.toString();
+			
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			resp = RestUtils.processError(PropertiesUtil.getProperty("incompleteInput_code"), PropertiesUtil.getProperty("incompleteInput_message"));
+			return resp;
+		}
+		return resp;
+	}
+
+
+	public String updateServiceInDb(String servicetype, String functiontype,JSONObject data) {
+		String resp = "";
+		boolean sessionValidation = false;
+		try{
+			String id = data.getString("id");
+			MongoDatabase db = Mongo_Connection.getConnection();
+			MongoCollection<Document> collection = db.getCollection("authtables");
+			
+			BasicDBObject where = new BasicDBObject();
+			where.put("_id",new ObjectId(id+""));
+			FindIterable<Document> values = collection.find(where);
+			System.out.println(where);
+			MongoCursor<Document> cursor = values.iterator();
+			if(cursor.hasNext()){
+				
+			}
+			else{
+				resp = RestUtils.processError(PropertiesUtil.getProperty("invalid_Id_code"), PropertiesUtil.getProperty("invalid_Id_message"));
+				return resp;
+			}
+			BasicDBObject doc = new BasicDBObject();
+			if (data.containsKey("functionType")){
+				String functionType = data.getString("functionType");
+				doc.append("functiontype", Integer.parseInt(functionType));
+			}
+			if (data.containsKey("contentServiceType")){
+				String contentServiceType = data.getString("contentServiceType");
+				doc.append("contentservicetype", Integer.parseInt(contentServiceType));
+			}
+			if (data.containsKey("contentFunctionServiceType")){
+				String contentFunctionServiceType = data.getString("contentFunctionServiceType");
+				doc.append("contentfunctiontype", Integer.parseInt(contentFunctionServiceType));
+			}
+			if (data.containsKey("uri")){
+				String uri = data.getString("uri");
+				doc.append("uri", uri);
+			}
+			if (data.containsKey("groupzmodulename")){
+				String groupzmodulename = data.getString("groupzmodulename");
+				doc.append("groupzmodulename", groupzmodulename);
+			}
+			if (data.containsKey("roleOffset")){
+				String roleOffset = data.getString("roleOffset");
+				doc.append("roleoffset", roleOffset);
+			}
+			if (data.containsKey("sessionValidation")){
+				sessionValidation = data.getBoolean("sessionValidation");
+				doc.append("sesstionvalidation", sessionValidation);
+			}
+			
+			BasicDBObject setQuery = new BasicDBObject();
+			setQuery.put("$set", doc);
+			System.out.println(where);
+			System.out.println(setQuery);
+			collection.updateOne(where, setQuery);
+
+			JSONObject j = new JSONObject();
+			JSONObject json = new JSONObject();
+			JSONObject res1 = new JSONObject();
+			JSONObject datas = new JSONObject();
+			datas.put("id", id+"");
+			res1.put("statuscode",Integer.parseInt( PropertiesUtil.getProperty("statuscodesuccessvalue")));
+			res1.put("statusmessage", PropertiesUtil.getProperty("statusmessagesuccessvalue"));
+			res1.put("servicetype", servicetype);
+			res1.put("functiontype", functiontype);
+			res1.put("data", datas);
+			json.put("response", res1);
+			j.put("json", json);
+			resp = j.toString();
+			return resp;
+		}catch(Exception e){
+			e.printStackTrace();
+			resp = RestUtils.processError(PropertiesUtil.getProperty("incompleteInput_code"), PropertiesUtil.getProperty("incompleteInput_message"));
+			return resp;
+		}
+	}
+	
+	private String deleteServiceFromDb(String servicetype, String functiontype,JSONObject data) {
+		String resp = "";
+		try{
+			MongoDatabase db = Mongo_Connection.getConnection();
+			MongoCollection<Document> collection = db.getCollection("authtables");
+			String id = data.getString("id");
+			BasicDBObject query = new BasicDBObject();
+				query.put("_id",new ObjectId(id+""));
+			FindIterable<Document> values = collection.find(query);
+			System.out.println(query);
+			MongoCursor<Document> re = values.iterator();
+			if (re.hasNext()){
+				System.out.println(re.next());
+				collection.deleteOne(query);
+				JSONObject j = new JSONObject();
+				JSONObject json = new JSONObject();
+				JSONObject res1 = new JSONObject();
+				JSONObject datas = new JSONObject();
+				datas.put("id", id);
+				res1.put("statuscode",Integer.parseInt( PropertiesUtil.getProperty("statuscodesuccessvalue")));
+				res1.put("statusmessage", PropertiesUtil.getProperty("statusmessagesuccessvalue"));
+				res1.put("servicetype", servicetype);
+				res1.put("functiontype", functiontype);
+				res1.put("data", datas);
+				json.put("response", res1);
+				j.put("json", json);
+				resp = j.toString();
+				return resp;
+			}else{
+				resp = RestUtils.processError(PropertiesUtil.getProperty("invalid_Id_code"), PropertiesUtil.getProperty("invalid_Id_message"));
+				return resp;
+			}
+					
+		}catch(Exception e){
+			e.printStackTrace();
+			resp = RestUtils.processError(PropertiesUtil.getProperty("incompleteInput_code"), PropertiesUtil.getProperty("incompleteInput_message"));
+			return resp;
+		}
+	}
 }
