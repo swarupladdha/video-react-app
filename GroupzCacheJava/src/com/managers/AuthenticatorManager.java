@@ -82,6 +82,10 @@ public class AuthenticatorManager {
 						else if (bResponse.getJSONObject("json").getJSONObject("response").getString("statuscode").equals(PropertiesUtil.getProperty("invalid_session_code"))){
 							return response;
 						}
+						else if (bResponse.getJSONObject("json").getJSONObject("response").getString("statuscode").equals(PropertiesUtil.getProperty("technical_issue_code"))){
+							response = RestUtils.processError(PropertiesUtil.getProperty("technical_issue_code"), PropertiesUtil.getProperty("technical_issue_message"));
+							return response;
+						}
 						bResponse.getJSONObject("json").getJSONObject("response").remove("servicetype");
 						bResponse.getJSONObject("json").getJSONObject("response").remove("functiontype");
 						
@@ -243,9 +247,13 @@ public class AuthenticatorManager {
 				js.put("json", json);
 				//System.out.println(url+"?request="+RestUtils.encode(js.toString()));
 				String reqs = js.toString();
-				java.net.URLEncoder.encode(reqs,"UTF-8");
+//				java.net.URLEncoder.encode(reqs,"UTF-8");
 				ConnectionUtils cu = new ConnectionUtils();
 				resp = cu.ConnectandRecieve(url+"?request=",reqs);
+				if (resp == null){
+					resp = RestUtils.processError(PropertiesUtil.getProperty("technical_issue_code"), PropertiesUtil.getProperty("technical_issue_message"));
+					return resp;
+				}
 				return resp;
 			}
 			else{

@@ -147,7 +147,7 @@ public class Add_ServiceManager {
 			doc.append("groupzmodulename", groupzmodulename);
 			doc.append("roleoffset", roleOffset);
 			doc.append("uri", uri);
-			doc.append("sessionvalidation", sessionValidation);
+			doc.append("sesstionvalidation", sessionValidation);
 			
 			System.out.println(doc);
 			collection.insertOne(doc);
