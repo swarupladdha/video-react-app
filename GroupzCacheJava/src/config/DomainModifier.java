@@ -1,4 +1,4 @@
-//package config;
+package config;
 
 
 
@@ -14,7 +14,7 @@ import com.mongodb.client.MongoDatabase;
 public class DomainModifier {
 	
 	
-	public static void main(String[] args) {
+	public void changeDomain() {
 		MongoDatabase db = Mongo_Connection.getConnection();
 		MongoCollection<Document> col = db.getCollection("authtables");
 		

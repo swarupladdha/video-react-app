@@ -16,6 +16,7 @@ import com.utils.ConnectionUtils;
 import com.utils.PropertiesUtil;
 import com.utils.RestUtils;
 
+import config.DomainModifier;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -23,6 +24,8 @@ public class AuthenticationManager {
 	MongoDatabase db = Mongo_Connection.getConnection();
 	public String getResponse(String regRequest) {
 		System.out.println("Insde AuthenticationManager getResponse");
+		DomainModifier d = new DomainModifier();
+		d.changeDomain();
 		String response = "";
 		String servicetype = "";
 		String functiontype = "";
