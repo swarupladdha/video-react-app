@@ -140,7 +140,7 @@ public class AuthenticatorManager {
 					val.put("roleoffset", value.getString("roleoffset"));
 					val.put("url", value.getString("uri"));
 					val.put("groupzmodulename", value.getString("groupzmodulename"));
-					val.put("sessionvalidation", value.getBoolean("sessionvalidation"));
+					val.put("sessionvalidation", value.getBoolean("sesstionvalidation"));
 					datas.add(val);
 				}
 				res = datas.toString();
