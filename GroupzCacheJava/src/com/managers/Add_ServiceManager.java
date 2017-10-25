@@ -135,10 +135,7 @@ public class Add_ServiceManager {
 			
 			JSONArray a = new JSONArray();
 			BasicDBObject searchQuery = new BasicDBObject();
-			List <BasicDBObject> list = new ArrayList<BasicDBObject>(); 
-			list.add(new BasicDBObject("functiontype",Integer.parseInt(functionType)));
-			list.add(new BasicDBObject("contentfunctiontype", Integer.parseInt(contentFunctionServiceType)));
-			searchQuery.put("$or", list);
+			searchQuery.put("functiontype",Integer.parseInt(functionType));
 			System.out.println(searchQuery);
 			FindIterable<Document> res = collection.find(searchQuery);
 			MongoCursor<Document> cursor = res.iterator();
