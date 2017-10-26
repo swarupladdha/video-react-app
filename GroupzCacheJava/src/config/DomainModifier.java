@@ -30,7 +30,7 @@ public class DomainModifier {
 			for(int i=0; i<parts.length; i++){
 				System.out.println(parts[i]);
 			}
-			parts[2]="localhost:8080";
+			parts[2]="localhost:7070";
 			String s="";
 			for(int i=0; i<parts.length; i++){
 				System.out.println(parts[i]);
