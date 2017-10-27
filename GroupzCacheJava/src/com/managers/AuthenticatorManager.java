@@ -24,7 +24,7 @@ public class AuthenticatorManager {
 	
 	MongoDatabase db = Mongo_Connection.getConnection();
 	public String getResponse(String regRequest) {
-		System.out.println("Insde AuthenticationManager getResponse");
+		System.out.println("Insde AuthenticatorManager getResponse");
 		String response = "";
 		String servicetype = "";
 		String functiontype = "";
@@ -140,7 +140,7 @@ public class AuthenticatorManager {
 					val.put("roleoffset", value.getString("roleoffset"));
 					val.put("url", value.getString("uri"));
 					val.put("groupzmodulename", value.getString("groupzmodulename"));
-					val.put("sessionvalidation", value.getBoolean("sesstionvalidation"));
+					val.put("sessionvalidation", value.getBoolean("sessionvalidation"));
 					datas.add(val);
 				}
 				res = datas.toString();
@@ -214,6 +214,7 @@ public class AuthenticatorManager {
 			String roleoffset ="";
 			JSONArray requestArray = new JSONArray();
 			requestArray = JSONArray.fromObject(out);
+			System.out.println(requestArray.size());
 			if (requestArray.size() == 1){
 				JSONObject req = requestArray.getJSONObject(0);
 				System.out.println(req);

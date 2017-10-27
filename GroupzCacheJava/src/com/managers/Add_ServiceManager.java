@@ -164,7 +164,7 @@ public class Add_ServiceManager {
 			doc.append("groupzmodulename", groupzmodulename);
 			doc.append("roleoffset", roleOffset);
 			doc.append("uri", uri);
-			doc.append("sesstionvalidation", sessionValidation);
+			doc.append("sessionvalidation", sessionValidation);
 			
 			System.out.println(doc);
 			collection.insertOne(doc);
@@ -300,7 +300,7 @@ public class Add_ServiceManager {
 			}
 			if (data.containsKey("sessionValidation")){
 				sessionValidation = data.getBoolean("sessionValidation");
-				doc.append("sesstionvalidation", sessionValidation);
+				doc.append("sessionvalidation", sessionValidation);
 			}
 			
 			BasicDBObject setQuery = new BasicDBObject();
