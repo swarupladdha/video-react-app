@@ -222,7 +222,7 @@ public class AuthenticatorManager {
 			JSONArray requestArray = new JSONArray();
 			requestArray = JSONArray.fromObject(out);
 			System.out.println(requestArray.size());
-			if (requestArray.size() == 1){
+			if (requestArray.size() >= 1){
 				JSONObject req = requestArray.getJSONObject(0);
 				System.out.println(req);
 				String url = req.getString("url");
