@@ -85,13 +85,20 @@ public class AuthenticatorManager {
 							response = RestUtils.processError(PropertiesUtil.getProperty("technical_issue_code"), PropertiesUtil.getProperty("technical_issue_message"));
 							return response;
 						}
-						bResponse.getJSONObject("json").getJSONObject("response").remove("servicetype");
-						bResponse.getJSONObject("json").getJSONObject("response").remove("functiontype");
+						if (bResponse.getJSONObject("json").getJSONObject("response").getString("statuscode").equals(PropertiesUtil.getProperty("statuscodesuccessvalue"))){
+							bResponse.getJSONObject("json").getJSONObject("response").remove("servicetype");
+							bResponse.getJSONObject("json").getJSONObject("response").remove("functiontype");
+							
+							bResponse.getJSONObject("json").getJSONObject("response").put("servicetype", servicetype);
+							bResponse.getJSONObject("json").getJSONObject("response").put("servicetype", functiontype);
+							
+							return bResponse.toString();	
+						}
+						else{
+							return response;
+						}
 						
-						bResponse.getJSONObject("json").getJSONObject("response").put("servicetype", servicetype);
-						bResponse.getJSONObject("json").getJSONObject("response").put("servicetype", functiontype);
 						
-						return bResponse.toString();
 					}
 					else{
 						response = RestUtils.processError(PropertiesUtil.getProperty("invalidServiceOrFunctionType_code"), PropertiesUtil.getProperty("invalidServiceOrFunctionType_message"));

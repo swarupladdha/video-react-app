@@ -10,7 +10,7 @@ request:
       "servicetype": "6",
       "functiontype": "1005",
       "data":{
-      	"session_id": "59d5b95d1a208f0e3431e2d2"
+      	"id": "59ea1c741a208f14106b5e5f"
       }
     }
   }
@@ -26,7 +26,7 @@ response:
       "servicetype": "6",
       "functiontype": "1005",
       "data": {
-        "session_id": "59d5b95d1a208f0e3431e2d2"
+        "id": "59d5b95d1a208f0e3431e2d2"
       }
     }
   }
