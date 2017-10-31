@@ -26,7 +26,7 @@ import com.utils.RestUtils;
 public class Add_ServiceManager {
 	
 	public String getResponse(String regRequest) {
-		System.out.println("Insde Add_ServiceManager getResponse");
+		System.out.println("Insde Add_ServiceManager getResponse!");
 		String response = "";
 		String servicetype = "";
 		String functiontype = "";
