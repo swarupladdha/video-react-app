@@ -34,7 +34,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 	
 	String RegRequest = request.getParameter("request");
 	Calendar start = Calendar.getInstance();
-	log.info("The Request is :" + RegRequest);
+	log.info("The Request is -:" + RegRequest);
 	LogoutManager am = new LogoutManager();
 	String Response = am.getResponse(RegRequest);
 	Mongo_Connection.closeConnection();
