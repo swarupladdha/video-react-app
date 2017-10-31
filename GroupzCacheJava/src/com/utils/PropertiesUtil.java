@@ -16,7 +16,7 @@ public class PropertiesUtil {
 		try {
 			
 			PropertiesUtil util = new PropertiesUtil();
-			System.out.println("PROPERTIES UTILS CALLING");
+			System.out.println("PROPERTIES UTILS CALLING!");
 			props = util.getPropertiesFromClasspath("/config/cache.properties");
 				System.out.println("CALLD");
 		} catch (FileNotFoundException e) {

@@ -57,7 +57,7 @@ public class RestUtils {
 			sb.append(Long.toString(encodedPassword[i] & 0xff, 16));
 		}
 
-		System.out.println("Plain    : " + password);
+		System.out.println("Plain     : " + password);
 		System.out.println("Encrypted: " + sb.toString());
 		encryptedPassword = sb.toString();
 		return encryptedPassword;

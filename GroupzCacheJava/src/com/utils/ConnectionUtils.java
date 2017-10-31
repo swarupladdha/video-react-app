@@ -18,7 +18,7 @@ public class ConnectionUtils {
 		StringBuffer output = new StringBuffer("");
 		try {
 			//System.out.println("URL FINAL22 : " + urlString);
-
+System.out.println("-");
 			InputStream stream = null;
 			String urlString = URLEncoder.encode(urlRequest, "UTF-8");
 			URL url = new URL(urls+urlString);

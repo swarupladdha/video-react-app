@@ -18,7 +18,7 @@ public class Mongo_Connection {
 //		System.out.println(Integer.parseInt(PropertiesUtil.getProperty("port_number")));
 //		System.out.println(PropertiesUtil.getProperty("db_name"));
 		System.out.println("Connection Established!");
-		System.out.println("Connected to mongotest DataBase!");
+		System.out.println("Connected to mongotest DataBase!!");
 		return db;
 	}
 	
