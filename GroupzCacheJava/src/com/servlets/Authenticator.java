@@ -34,7 +34,7 @@ public class Authenticator extends HttpServlet {
 
 		String RegRequest = request.getParameter("request");
 		Calendar start = Calendar.getInstance();
-		log.info("The Request is :" + RegRequest);
+		log.info("The Request is- :" + RegRequest);
 		AuthenticatorManager am = new AuthenticatorManager();
 		String Response = am.getResponse(RegRequest);
 		Mongo_Connection.closeConnection();
