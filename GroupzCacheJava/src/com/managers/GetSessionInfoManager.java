@@ -19,7 +19,7 @@ public class GetSessionInfoManager {
 
 	MongoDatabase db = Mongo_Connection.getConnection();
 	public String getResponse(String regRequest) {
-		System.out.println("Insde GetSessionInfoManager getResponse");
+		System.out.println("Insde GetSessionInfoManager getResponse!");
 		String response = "";
 		String servicetype = "";
 		String functiontype = "";

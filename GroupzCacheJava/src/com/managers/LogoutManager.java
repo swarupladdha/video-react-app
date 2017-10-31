@@ -17,7 +17,7 @@ import com.utils.RestUtils;
 public class LogoutManager {
 
 	public String getResponse(String regRequest) {
-		System.out.println("Insde LogoutManager getResponse");
+		System.out.println("Insde LogoutManager getResponse!");
 		String response = "";
 		String servicetype = "";
 		String functiontype = "";

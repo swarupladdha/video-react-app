@@ -22,7 +22,7 @@ import net.sf.json.JSONObject;
 public class AuthenticationManager {
 	MongoDatabase db = Mongo_Connection.getConnection();
 	public String getResponse(String regRequest) {
-		System.out.println("Insde AuthenticationManager getResponse");
+		System.out.println("Insde AuthenticationManager getResponse!");
 //		DomainModifier d = new DomainModifier();
 //		d.changeDomain();
 		String response = "";
