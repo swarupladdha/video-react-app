@@ -24,7 +24,7 @@ public class AuthenticatorManager {
 	
 	MongoDatabase db = Mongo_Connection.getConnection();
 	public String getResponse(String regRequest) {
-		System.out.println("Insde AuthenticatorManager getResponse");
+		System.out.println("Insde AuthenticatorManager getResponse!");
 		String response = "";
 		String servicetype = "";
 		String functiontype = "";
