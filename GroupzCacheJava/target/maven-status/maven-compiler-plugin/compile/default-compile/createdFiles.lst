@@ -1,7 +1,6 @@
 com/servlets/Authenticator.class
 com/servlets/Authentication.class
 com/managers/GetSessionInfoManager.class
-DomainModifier.class
 com/managers/Add_ServiceManager.class
 com/connection/Mongo_Connection.class
 com/servlets/GetSessionInfo.class

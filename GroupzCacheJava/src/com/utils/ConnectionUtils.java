@@ -43,9 +43,12 @@ public class ConnectionUtils {
 				
 				connectRecieveResponse = output.toString();
 				System.out.println(connectRecieveResponse);
-				if ((connectRecieveResponse.contains("json") || connectRecieveResponse.contains("userdata") || connectRecieveResponse.contains("userList")) == false) {
+				if (RestUtils.isEmpty(connectRecieveResponse)== false){
 					connectRecieveResponse = null;
 				}
+//				if ((connectRecieveResponse.contains("json") || connectRecieveResponse.contains("userdata") || connectRecieveResponse.contains("userList")) == false) {
+//					connectRecieveResponse = null;
+//				}
 			}
 		} catch (SocketTimeoutException e){
 			e.printStackTrace();

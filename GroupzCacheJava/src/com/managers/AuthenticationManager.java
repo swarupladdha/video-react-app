@@ -16,7 +16,6 @@ import com.utils.ConnectionUtils;
 import com.utils.PropertiesUtil;
 import com.utils.RestUtils;
 
-import config.DomainModifier;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -70,14 +69,24 @@ public class AuthenticationManager {
 				JSONObject userData = request.getJSONObject("userdata");
 				boolean selection = request.getBoolean("selection");
 				
-				System.out.println("--------------------------1");
-				
 				response = formUrlAndConnect(out,selection,userData);
-				
-				
-				String success = insertValuesInToTables(response);
-				System.out.println("-------Success "+success);
-				if (success !=null){
+				System.out.println("res :"+response);
+				JSONObject r = new JSONObject();
+				r = JSONObject.fromObject(response);
+				if (r.getJSONObject("json").getJSONObject("response").getString("statuscode").equalsIgnoreCase(PropertiesUtil.getProperty("statuscodesuccessvalue"))){
+					System.out.println("---------------------------------------");				
+					String success = insertValuesInToTables(response);
+					System.out.println("-------Success "+success);
+					try{
+						JSONArray array = JSONArray.fromObject(success);
+						if (array.size() == 0){
+							response = RestUtils.processError(PropertiesUtil.getProperty("insertError_code"), PropertiesUtil.getProperty("insertError_message"));
+							return response;
+						}
+					}catch (Exception e){
+						response = RestUtils.processError(PropertiesUtil.getProperty("insertError_code"), PropertiesUtil.getProperty("insertError_message"));
+						return response;
+					}
 					JSONObject sucessJSON = new JSONObject();
 					JSONObject sucessRespJSON = new JSONObject();
 					JSONObject contentJSON = new JSONObject();
@@ -93,9 +102,9 @@ public class AuthenticationManager {
 					return response;
 				}
 				else{
-					response = RestUtils.processError(PropertiesUtil.getProperty("invalidServiceOrFunctionType_code"), PropertiesUtil.getProperty("invalidServiceOrFunctionType_message"));
 					return response;
 				}
+				
 			}
 			else{
 				response = RestUtils.processError(PropertiesUtil.getProperty("invalidServiceOrFunctionType_code"), PropertiesUtil.getProperty("invalidServiceOrFunctionType_message"));
@@ -163,27 +172,36 @@ public class AuthenticationManager {
 	private String formUrlAndConnect(String out, boolean selection, JSONObject userData) {
 		System.out.println("Inside formUrlAndConnect");
 		String res = "";
-		JSONArray requestArray = new JSONArray();
-		requestArray = JSONArray.fromObject(out);
-		if (requestArray.size() == 1){
-			JSONObject req = requestArray.getJSONObject(0);
-			System.out.println(req);
-			String url = req.getString("url");
-			JSONObject request = new JSONObject();
-			request.put("servicetype", req.getString("servicetype"));
-			request.put("functiontype", req.getString("functiontype"));
-			request.put("userdata", userData);
-			request.put("selection", selection);
-			JSONObject json = new JSONObject();
-			json.put("request", request);
-			JSONObject js = new JSONObject();
-			js.put("json", json);
-			ConnectionUtils cu = new ConnectionUtils();
-			res = cu.ConnectandRecieve(url+"?request=",js.toString());
+		try{
+			JSONArray requestArray = new JSONArray();
+			requestArray = JSONArray.fromObject(out);
+			if (requestArray.size() >= 1){
+				JSONObject req = requestArray.getJSONObject(0);
+				System.out.println(req);
+				String url = req.getString("url");
+				JSONObject request = new JSONObject();
+				request.put("servicetype", req.getString("servicetype"));
+				request.put("functiontype", req.getString("functiontype"));
+				request.put("userdata", userData);
+				request.put("selection", selection);
+				JSONObject json = new JSONObject();
+				json.put("request", request);
+				JSONObject js = new JSONObject();
+				js.put("json", json);
+				ConnectionUtils cu = new ConnectionUtils();
+				url ="http://qa1.groupz.in/GroupzMobileApp/Authentication";
+				res = cu.ConnectandRecieve(url+"?request=",js.toString());
+			}
+			if (RestUtils.isEmpty(res)== false){
+				res = RestUtils.processError(PropertiesUtil.getProperty("technical_issue_code"), PropertiesUtil.getProperty("technical_issue_message"));
+				return res;	
+			}
 			return res;
-		}
-		else{
-			return null;
+		}catch (Exception e){
+			e.printStackTrace();
+			System.out.println("Exceprtion in formUrlAndConnect()");
+			res = RestUtils.processError(PropertiesUtil.getProperty("technical_issue_code"), PropertiesUtil.getProperty("technical_issue_message"));
+			return res;
 		}
 	}
 	
@@ -194,12 +212,14 @@ public class AuthenticationManager {
 			result = JSONObject.fromObject(response);
 			JSONObject res = result.getJSONObject("json").getJSONObject("response");
 			if (res.getString("statusmessage").equals("Success") == false){
-				return null;
+				resp = res.toString();
+				return resp;
 			}
 			JSONArray user = res.getJSONArray("user");
 			JSONArray userRes = new JSONArray();
 			if (user.size() <= 0){
-				return null;
+				resp = RestUtils.processError(PropertiesUtil.getProperty("no_user_from_back_end_code"), PropertiesUtil.getProperty("no_user_from_back_end_message"));
+				return resp;
 			} 
 			for (int i =0 ; i < user.size() ; i++){
 				
@@ -216,46 +236,120 @@ public class AuthenticationManager {
 				else{
 					System.out.println("Should Insert Into groupzdetails!");
 					Document doc = new Document("groupzid",groupzid);
-					doc.append("groupzcode", groupzDetails.getString("groupzcode"));
-					doc.append("groupzname", groupzDetails.getString("groupzname"));
-					doc.append("shortname", groupzDetails.getString("shortname"));
-					doc.append("groupzurl", groupzDetails.getString("groupzurl"));
-					doc.append("type", groupzDetails.getInt("type"));
+					if (groupzDetails.containsKey("groupzcode")){
+						doc.append("groupzcode", groupzDetails.getString("groupzcode"));
+					}
+					if (groupzDetails.containsKey("groupzname")){
+						doc.append("groupzname", groupzDetails.getString("groupzname"));		
+					}
+					if (groupzDetails.containsKey("shortname")){
+						doc.append("shortname", groupzDetails.getString("shortname"));
+					}
+					if (groupzDetails.containsKey("groupzurl")){
+						doc.append("groupzurl", groupzDetails.getString("groupzurl"));
+					}
+					if (groupzDetails.containsKey("type")){
+						doc.append("type", groupzDetails.getInt("type"));
+					}
 					if (groupzDetails.containsKey("groupzbasekey")){
 						doc.append("groupzbasekey", groupzDetails.getString("groupzbasekey"));
 					}
-					doc.append("address", groupzDetails.getString("address"));
-					doc.append("area", groupzDetails.getString("area"));
-					doc.append("city", groupzDetails.getString("city"));
-					doc.append("state", groupzDetails.getString("state"));
-					doc.append("country", groupzDetails.getString("country"));
-					doc.append("postalcode", groupzDetails.getString("postalcode"));
-					doc.append("landline", groupzDetails.getString("landline"));
-					doc.append("mobile", groupzDetails.getString("mobile"));
-					doc.append("facebooklink", groupzDetails.getString("facebooklink"));
-					doc.append("twitterlink", groupzDetails.getString("twitterlink"));
-					doc.append("bloglink", groupzDetails.getString("bloglink"));
-					doc.append("defaultuserrole", groupzDetails.getString("defaultuserrole"));
-					doc.append("transactionstartdate", groupzDetails.getString("transactionstartdate"));
-					doc.append("transactionenddate", groupzDetails.getString("transactionenddate"));
-					doc.append("senderemail", groupzDetails.getString("senderemail"));
-					doc.append("registrationno", groupzDetails.getString("registrationno"));
-					doc.append("panno", groupzDetails.getString("panno"));
-					doc.append("albumsize", groupzDetails.getString("albumsize"));
-					doc.append("segments", groupzDetails.getString("segments"));
-					doc.append("userareas", groupzDetails.getString("userareas"));
-					doc.append("groupztype", groupzDetails.getString("groupztype"));
-					doc.append("others", groupzDetails.getString("others"));
-					doc.append("loginurl", groupzDetails.getString("loginurl"));
-					doc.append("description", groupzDetails.getString("description"));
-					doc.append("latitude", groupzDetails.getString("latitude"));
-					doc.append("longitude", groupzDetails.getString("longitude"));
-					doc.append("radius", groupzDetails.getInt("radius"));
-					doc.append("groupzenabled", groupzDetails.getBoolean("groupzenabled"));
-					doc.append("metatagdesc", groupzDetails.getString("metatagdesc"));
-					doc.append("metatagkeywords", groupzDetails.getString("metatagkeywords"));
-					doc.append("ipaddresses", groupzDetails.getString("ipaddresses"));
-					doc.append("smscost", groupzDetails.getInt("smscost"));
+					if (groupzDetails.containsKey("address")){
+						doc.append("address", groupzDetails.getString("address"));
+					}
+					if (groupzDetails.containsKey("area")){
+						doc.append("area", groupzDetails.getString("area"));
+					}
+					if (groupzDetails.containsKey("city")){
+						doc.append("city", groupzDetails.getString("city"));
+					}
+					if (groupzDetails.containsKey("state")){
+						doc.append("state", groupzDetails.getString("state"));
+					}
+					if (groupzDetails.containsKey("country")){
+						doc.append("country", groupzDetails.getString("country"));
+					}
+					if (groupzDetails.containsKey("postalcode")){
+						doc.append("postalcode", groupzDetails.getString("postalcode"));
+					}
+					if (groupzDetails.containsKey("landline")){
+						doc.append("landline", groupzDetails.getString("landline"));
+					}
+					if (groupzDetails.containsKey("mobile")){
+						doc.append("mobile", groupzDetails.getString("mobile"));
+					}
+					if (groupzDetails.containsKey("facebooklink")){
+						doc.append("facebooklink", groupzDetails.getString("facebooklink"));
+					}
+					if (groupzDetails.containsKey("twitterlink")){
+						doc.append("facebooklink", groupzDetails.getString("facebooklink"));
+					}
+					if (groupzDetails.containsKey("bloglink")){
+						doc.append("bloglink", groupzDetails.getString("bloglink"));
+					}
+					if (groupzDetails.containsKey("defaultuserrole")){
+						doc.append("defaultuserrole", groupzDetails.getString("defaultuserrole"));
+					}
+					if (groupzDetails.containsKey("transactionstartdate")){
+						doc.append("transactionstartdate", groupzDetails.getString("transactionstartdate"));
+					}
+					if (groupzDetails.containsKey("transactionenddate")){
+						doc.append("transactionenddate", groupzDetails.getString("transactionenddate"));
+					}
+					if (groupzDetails.containsKey("senderemail")){
+						doc.append("senderemail", groupzDetails.getString("senderemail"));
+					}
+					if (groupzDetails.containsKey("registrationno")){
+						doc.append("registrationno", groupzDetails.getString("registrationno"));
+					}
+					if (groupzDetails.containsKey("panno")){
+						doc.append("panno", groupzDetails.getString("panno"));
+					}
+					if (groupzDetails.containsKey("albumsize")){
+						doc.append("albumsize", groupzDetails.getString("albumsize"));
+					}
+					if (groupzDetails.containsKey("segments")){
+						doc.append("segments", groupzDetails.getString("segments"));
+					}
+					if (groupzDetails.containsKey("userareas")){
+						doc.append("userareas", groupzDetails.getString("userareas"));
+					}
+					if (groupzDetails.containsKey("groupztype")){
+						doc.append("groupztype", groupzDetails.getString("groupztype"));
+					}
+					if (groupzDetails.containsKey("others")){
+						doc.append("others", groupzDetails.getString("others"));
+					}
+					if (groupzDetails.containsKey("loginurl")){
+						doc.append("loginurl", groupzDetails.getString("loginurl"));
+					}
+					if (groupzDetails.containsKey("description")){
+						doc.append("description", groupzDetails.getString("description"));
+					}
+					if (groupzDetails.containsKey("latitude")){
+						doc.append("latitude", groupzDetails.getString("latitude"));
+					}
+					if (groupzDetails.containsKey("longitude")){
+						doc.append("longitude", groupzDetails.getString("longitude"));
+					}
+					if (groupzDetails.containsKey("radius")){
+						doc.append("radius", groupzDetails.getInt("radius"));
+					}
+					if (groupzDetails.containsKey("groupzenabled")){
+						doc.append("groupzenabled", groupzDetails.getBoolean("groupzenabled"));
+					}
+					if (groupzDetails.containsKey("metatagdesc")){
+						doc.append("metatagdesc", groupzDetails.getString("metatagdesc"));
+					}
+					if (groupzDetails.containsKey("metatagkeywords")){
+						doc.append("metatagkeywords", groupzDetails.getString("metatagkeywords"));
+					}
+					if (groupzDetails.containsKey("ipaddresses")){
+						doc.append("ipaddresses", groupzDetails.getString("ipaddresses"));
+					}
+					if (groupzDetails.containsKey("smscost")){
+						doc.append("smscost", groupzDetails.getInt("smscost"));
+					}
 					if(groupzDetails.containsKey("bannerimageurl")){
 						doc.append("bannerimageurl", groupzDetails.getString("bannerimageurl"));
 					}
@@ -281,14 +375,30 @@ public class AuthenticationManager {
 					if(groupzDetails.containsKey("smsproviderpassworddecrypted")){
 						doc.append("smsproviderpassworddecrypted", groupzDetails.getString("smsproviderpassworddecrypted"));
 					}
-					doc.append("recieptnoprefix", groupzDetails.getString("recieptnoprefix"));
-					doc.append("userapprovedmailtitle", groupzDetails.getString("userapprovedmailtitle"));
-					doc.append("userapprovedmailtext", groupzDetails.getString("userapprovedmailtext"));
-					doc.append("userfailuremailtext", groupzDetails.getString("userfailuremailtext"));
-					doc.append("userfailuremailtitle", groupzDetails.getString("userfailuremailtitle"));
-					doc.append("contactmailtitle", groupzDetails.getString("contactmailtitle"));
-					doc.append("contactmailtext", groupzDetails.getString("contactmailtext"));
-					doc.append("contactsmstext", groupzDetails.getString("contactsmstext"));
+					if(groupzDetails.containsKey("recieptnoprefix")){
+						doc.append("recieptnoprefix", groupzDetails.getString("recieptnoprefix"));
+					}
+					if(groupzDetails.containsKey("userapprovedmailtitle")){
+						doc.append("userapprovedmailtitle", groupzDetails.getString("userapprovedmailtitle"));
+					}
+					if(groupzDetails.containsKey("userapprovedmailtext")){
+						doc.append("userapprovedmailtext", groupzDetails.getString("userapprovedmailtext"));
+					}
+					if(groupzDetails.containsKey("userfailuremailtext")){
+						doc.append("userfailuremailtext", groupzDetails.getString("userfailuremailtext"));
+					}
+					if(groupzDetails.containsKey("userfailuremailtitle")){
+						doc.append("userfailuremailtitle", groupzDetails.getString("userfailuremailtitle"));
+					}
+					if(groupzDetails.containsKey("contactmailtitle")){
+						doc.append("contactmailtitle", groupzDetails.getString("contactmailtitle"));
+					}
+					if(groupzDetails.containsKey("contactmailtext")){
+						doc.append("contactmailtext", groupzDetails.getString("contactmailtext"));
+					}
+					if(groupzDetails.containsKey("contactsmstext")){
+						doc.append("contactsmstext", groupzDetails.getString("contactsmstext"));
+					}
 					if (groupzDetails.containsKey("greetingmailtitle")){
 						doc.append("greetingmailtitle", groupzDetails.getString("greetingmailtitle"));
 					}
@@ -310,54 +420,129 @@ public class AuthenticationManager {
 					if (groupzDetails.containsKey("greetingfamilymembersforsms")){
 						doc.append("greetingfamilymembersforsms", groupzDetails.getBoolean("greetingfamilymembersforsms"));
 					}
-					doc.append("dueslabel", groupzDetails.getString("dueslabel"));
-					doc.append("duesenabled", groupzDetails.getInt("duesenabled"));
-					doc.append("messagelabel", groupzDetails.getString("messagelabel"));
-					doc.append("smsenabled", groupzDetails.getInt("smsenabled"));
-					doc.append("emailenabled", groupzDetails.getInt("emailenabled"));
-					doc.append("albumlabel", groupzDetails.getString("albumlabel"));
-					doc.append("albumsenabled", groupzDetails.getInt("albumsenabled"));
-					doc.append("announcementlabel", groupzDetails.getString("announcementlabel"));
-					doc.append("announcementsenabled", groupzDetails.getInt("announcementsenabled"));
-					doc.append("advertisementlabel", groupzDetails.getString("advertisementlabel"));
-					doc.append("advertisementsenabled", groupzDetails.getInt("advertisementsenabled"));
-					doc.append("surveylabel", groupzDetails.getString("surveylabel"));
-					doc.append("surveysenabled", groupzDetails.getInt("surveysenabled"));
-					doc.append("servicerequestlabel", groupzDetails.getString("servicerequestlabel"));
-					doc.append("issuesenabled", groupzDetails.getInt("issuesenabled"));
-					doc.append("meeting label", groupzDetails.getString("meeting label"));
-					doc.append("meetingsenabled", groupzDetails.getInt("meetingsenabled"));
+					if (groupzDetails.containsKey("dueslabel")){
+						doc.append("dueslabel", groupzDetails.getString("dueslabel"));
+					}
+					if (groupzDetails.containsKey("duesenabled")){
+						doc.append("duesenabled", groupzDetails.getInt("duesenabled"));
+					}
+					if (groupzDetails.containsKey("messagelabel")){
+						doc.append("messagelabel", groupzDetails.getString("messagelabel"));
+					}
+					if (groupzDetails.containsKey("smsenabled")){
+						doc.append("smsenabled", groupzDetails.getInt("smsenabled"));
+					}
+					if (groupzDetails.containsKey("emailenabled")){
+						doc.append("emailenabled", groupzDetails.getInt("emailenabled"));
+					}
+					if (groupzDetails.containsKey("albumlabel")){
+						doc.append("albumlabel", groupzDetails.getString("albumlabel"));
+					}
+					if (groupzDetails.containsKey("albumsenabled")){
+						doc.append("albumsenabled", groupzDetails.getInt("albumsenabled"));
+					}
+					if (groupzDetails.containsKey("announcementlabel")){
+						doc.append("announcementlabel", groupzDetails.getString("announcementlabel"));
+					}
+					if (groupzDetails.containsKey("announcementsenabled")){
+						doc.append("announcementsenabled", groupzDetails.getInt("announcementsenabled"));
+					}
+					if (groupzDetails.containsKey("advertisementlabel")){
+						doc.append("advertisementlabel", groupzDetails.getString("advertisementlabel"));
+					}
+					if (groupzDetails.containsKey("advertisementsenabled")){
+						doc.append("advertisementsenabled", groupzDetails.getInt("advertisementsenabled"));
+					}
+					if (groupzDetails.containsKey("surveylabel")){
+						doc.append("surveylabel", groupzDetails.getString("surveylabel"));
+					}
+					if (groupzDetails.containsKey("surveysenabled")){
+						doc.append("surveysenabled", groupzDetails.getInt("surveysenabled"));
+					}
+					if (groupzDetails.containsKey("servicerequestlabel")){
+						doc.append("servicerequestlabel", groupzDetails.getString("servicerequestlabel"));
+					}
+					if (groupzDetails.containsKey("issuesenabled")){
+						doc.append("issuesenabled", groupzDetails.getInt("issuesenabled"));
+					}
+					if (groupzDetails.containsKey("meeting label")){
+						doc.append("meeting label", groupzDetails.getString("meeting label"));
+					}
+					if (groupzDetails.containsKey("meetingsenabled")){
+						doc.append("meetingsenabled", groupzDetails.getInt("meetingsenabled"));
+					}
 					if (groupzDetails.containsKey("noticeslabel")){
 						doc.append("noticeslabel", groupzDetails.getString("noticeslabel"));
 					}
 					if (groupzDetails.containsKey("noticesenabled")){
 						doc.append("noticesenabled", groupzDetails.getInt("noticesenabled"));
 					}
-					doc.append("documentslabel", groupzDetails.getString("documentslabel"));
-					doc.append("documentssharingenabled", groupzDetails.getInt("documentssharingenabled"));
-					doc.append("plannerlabel", groupzDetails.getString("plannerlabel"));
-					doc.append("plannerenabled", groupzDetails.getInt("plannerenabled"));
-					doc.append("banneradsenabled", groupzDetails.getInt("banneradsenabled"));
-					doc.append("classifiedsearchenabled", groupzDetails.getInt("classifiedsearchenabled"));
-					doc.append("classifiedsenabled", groupzDetails.getInt("classifiedsenabled"));
-					doc.append("contactsenabled", groupzDetails.getInt("contactsenabled"));
-					doc.append("contactsharingenabled", groupzDetails.getInt("contactsharingenabled"));
-					doc.append("displayproductlogo", groupzDetails.getInt("displayproductlogo"));
-					doc.append("familyinformationenabled", groupzDetails.getInt("familyinformationenabled"));
-					doc.append("helpersenabled", groupzDetails.getInt("helpersenabled"));
-					doc.append("memberssearchacrosssocietyenabled", groupzDetails.getInt("memberssearchacrosssocietyenabled"));
-					doc.append("memberssearchenabled", groupzDetails.getInt("memberssearchenabled"));
-					doc.append("scrollingadsenabled", groupzDetails.getInt("scrollingadsenabled"));
-					doc.append("issuesettings", groupzDetails.getJSONObject("issuesettings"));
-					doc.append("webtheme", groupzDetails.getJSONObject("webtheme"));
-					doc.append("androidtheme", groupzDetails.getJSONObject("androidtheme"));
-					doc.append("iostheme", groupzDetails.getJSONObject("iostheme"));
+					if (groupzDetails.containsKey("documentslabel")){
+						doc.append("documentslabel", groupzDetails.getString("documentslabel"));
+					}
+					if (groupzDetails.containsKey("documentssharingenabled")){
+						doc.append("documentssharingenabled", groupzDetails.getInt("documentssharingenabled"));
+					}
+					if (groupzDetails.containsKey("plannerlabel")){
+						doc.append("plannerlabel", groupzDetails.getString("plannerlabel"));
+					}
+					if (groupzDetails.containsKey("plannerenabled")){
+						doc.append("plannerenabled", groupzDetails.getInt("plannerenabled"));
+					}
+					if (groupzDetails.containsKey("banneradsenabled")){
+						doc.append("banneradsenabled", groupzDetails.getInt("banneradsenabled"));
+					}
+					if (groupzDetails.containsKey("classifiedsearchenabled")){
+						doc.append("classifiedsearchenabled", groupzDetails.getInt("classifiedsearchenabled"));
+					}
+					if (groupzDetails.containsKey("classifiedsenabled")){
+						doc.append("classifiedsenabled", groupzDetails.getInt("classifiedsenabled"));
+					}
+					if (groupzDetails.containsKey("contactsenabled")){
+						doc.append("contactsenabled", groupzDetails.getInt("contactsenabled"));
+					}
+					if (groupzDetails.containsKey("contactsharingenabled")){
+						doc.append("contactsharingenabled", groupzDetails.getInt("contactsharingenabled"));
+					}
+					if (groupzDetails.containsKey("displayproductlogo")){
+						doc.append("displayproductlogo", groupzDetails.getInt("displayproductlogo"));
+					}
+					if (groupzDetails.containsKey("familyinformationenabled")){
+						doc.append("displayproductlogo", groupzDetails.getInt("displayproductlogo"));
+					}
+					if (groupzDetails.containsKey("helpersenabled")){
+						doc.append("helpersenabled", groupzDetails.getInt("helpersenabled"));
+					}
+					if (groupzDetails.containsKey("memberssearchacrosssocietyenabled")){
+						doc.append("memberssearchacrosssocietyenabled", groupzDetails.getInt("memberssearchacrosssocietyenabled"));
+					}
+					if (groupzDetails.containsKey("memberssearchenabled")){
+						doc.append("memberssearchenabled", groupzDetails.getInt("memberssearchenabled"));
+					}
+					if (groupzDetails.containsKey("scrollingadsenabled")){
+						doc.append("scrollingadsenabled", groupzDetails.getInt("scrollingadsenabled"));
+					}
+					if (groupzDetails.containsKey("issuesettings")){
+						doc.append("issuesettings", groupzDetails.getJSONObject("issuesettings"));
+					}
+					if (groupzDetails.containsKey("webtheme")){
+						doc.append("webtheme", groupzDetails.getJSONObject("webtheme"));
+					}
+					if (groupzDetails.containsKey("androidtheme")){
+						doc.append("androidtheme", groupzDetails.getJSONObject("androidtheme"));
+					}
+					if (groupzDetails.containsKey("iostheme")){
+						doc.append("iostheme", groupzDetails.getJSONObject("iostheme"));
+					}
+					
 
 //					System.out.println("--"+doc);
 					collection.insertOne(doc);
 					Object id = doc.get("_id");
 					if (id == null){
 						System.out.println("Problem Occured while inserting in groupzdetails");
+						resp = RestUtils.processError(PropertiesUtil.getProperty("insertError_code"), PropertiesUtil.getProperty("insertError_message"));
+						return resp;
 					}
 					else{
 							System.out.println("Inserted");
@@ -371,55 +556,142 @@ public class AuthenticationManager {
 		
 		
 				Document doc1 = new Document("groupzid",memberDetails.getString("groupzid"));
-				doc1.append("groupzcode", memberDetails.getString("groupzcode"));
-				doc1.append("membercode", memberDetails.getString("membercode"));
-				doc1.append("memberid", memberDetails.getInt("memberid"));
-				doc1.append("registeredpersonid", memberDetails.getInt("registeredpersonid"));
-				doc1.append("personid", memberDetails.getInt("personid"));
-				doc1.append("membername", memberDetails.getString("membername"));
-				doc1.append("relationship", memberDetails.getString("relationship"));
-				doc1.append("profileurl", memberDetails.getString("profileurl"));
-				doc1.append("email", memberDetails.getString("email"));
-				doc1.append("username", memberDetails.getString("username"));
-				doc1.append("rolename", memberDetails.getString("rolename"));
+				if (memberDetails.containsKey("groupzcode")){
+					doc1.append("groupzcode", memberDetails.getString("groupzcode"));
+				}
+				if (memberDetails.containsKey("membercode")){
+					doc1.append("membercode", memberDetails.getString("membercode"));
+				}
+				if (memberDetails.containsKey("memberid")){
+					doc1.append("memberid", memberDetails.getInt("memberid"));
+				}
+				if (memberDetails.containsKey("registeredpersonid")){
+					doc1.append("registeredpersonid", memberDetails.getInt("registeredpersonid"));
+				}
+				if (memberDetails.containsKey("personid")){
+					doc1.append("personid", memberDetails.getInt("personid"));
+				}
+				if (memberDetails.containsKey("membername")){
+					doc1.append("membername", memberDetails.getString("membername"));
+				}
+				if (memberDetails.containsKey("relationship")){
+					doc1.append("relationship", memberDetails.getString("relationship"));
+				}
+				if (memberDetails.containsKey("profileurl")){
+					doc1.append("profileurl", memberDetails.getString("profileurl"));
+				}
+				if (memberDetails.containsKey("email")){
+					doc1.append("email", memberDetails.getString("email"));
+				}
+				if (memberDetails.containsKey("username")){
+					doc1.append("username", memberDetails.getString("username"));
+				}
+				if (memberDetails.containsKey("username")){
+					doc1.append("rolename", memberDetails.getString("rolename"));
+				}
 				if(memberDetails.containsKey("dateofbirth")){
 					doc1.append("dateofbirth", memberDetails.getString("dateofbirth"));
 				}
 				if(memberDetails.containsKey("bloodgroup")){
 					doc1.append("bloodgroup", memberDetails.getString("bloodgroup"));
 				}
-				doc1.append("divisionlabel", memberDetails.getString("divisionlabel"));
-				doc1.append("divisionvalue", memberDetails.getString("divisionvalue"));
-				doc1.append("subdivisionlabel", memberDetails.getString("subdivisionlabel"));
-				doc1.append("subdivisionvalue", memberDetails.getString("subdivisionvalue"));
-				doc1.append("leavetypelist", memberDetails.getJSONArray("leavetypelist"));
-				doc1.append("networkadmin", memberDetails.getInt("networkadmin"));
-				doc1.append("managegroupzbase", memberDetails.getInt("managegroupzbase"));
-				doc1.append("localadmin", memberDetails.getInt("localadmin"));
-				doc1.append("manageusers", memberDetails.getInt("manageusers"));
-				doc1.append("createissue", memberDetails.getInt("createissue"));
-				doc1.append("viewallissue", memberDetails.getInt("viewallissue"));
-				doc1.append("closeissue", memberDetails.getInt("closeissue"));
-				doc1.append("issuenotices", memberDetails.getInt("issuenotices"));
-				doc1.append("manageresource", memberDetails.getInt("manageresource"));
-				doc1.append("startsurvey", memberDetails.getInt("startsurvey"));
-				doc1.append("loginotherusers", memberDetails.getInt("loginotherusers"));
-				doc1.append("createissueforothers", memberDetails.getInt("createissueforothers"));
-				doc1.append("sendmessages", memberDetails.getInt("sendmessages"));
-				doc1.append("createduetemplate", memberDetails.getInt("createduetemplate"));
-				doc1.append("followupissues", memberDetails.getInt("followupissues"));
-				doc1.append("postannouncements", memberDetails.getInt("postannouncements"));
-				doc1.append("createalbums", memberDetails.getInt("createalbums"));
-				doc1.append("networkgrouppublisher", memberDetails.getInt("networkgrouppublisher"));
-				doc1.append("lockreceipts", memberDetails.getInt("lockreceipts"));
-				doc1.append("trackissues", memberDetails.getInt("trackissues"));
-				doc1.append("staff", memberDetails.getInt("staff"));
-				doc1.append("addhelpers", memberDetails.getInt("addhelpers"));
-				doc1.append("viewconfidentialinfo", memberDetails.getInt("viewconfidentialinfo"));
-				doc1.append("canapprove", memberDetails.getInt("canapprove"));
-				doc1.append("canrecordmessage", memberDetails.getInt("canrecordmessage"));
-				doc1.append("enableattendance", memberDetails.getInt("enableattendance"));
-				doc1.append("selection", memberDetails.getJSONObject("selection"));
+				if(memberDetails.containsKey("divisionlabel")){
+					doc1.append("divisionlabel", memberDetails.getString("divisionlabel"));
+				}
+				if(memberDetails.containsKey("divisionvalue")){
+					doc1.append("divisionvalue", memberDetails.getString("divisionvalue"));
+				}
+				if(memberDetails.containsKey("subdivisionlabel")){
+					doc1.append("subdivisionlabel", memberDetails.getString("subdivisionlabel"));
+				}
+				if(memberDetails.containsKey("subdivisionvalue")){
+					doc1.append("subdivisionvalue", memberDetails.getString("subdivisionvalue"));
+				}
+				if(memberDetails.containsKey("leavetypelist")){
+					doc1.append("leavetypelist", memberDetails.getJSONArray("leavetypelist"));
+				}
+				if(memberDetails.containsKey("networkadmin")){
+					doc1.append("networkadmin", memberDetails.getInt("networkadmin"));
+				}
+				if(memberDetails.containsKey("managegroupzbase")){
+					doc1.append("managegroupzbase", memberDetails.getInt("managegroupzbase"));
+				}
+				if(memberDetails.containsKey("localadmin")){
+					doc1.append("localadmin", memberDetails.getInt("localadmin"));
+				}
+				if(memberDetails.containsKey("manageusers")){
+					doc1.append("manageusers", memberDetails.getInt("manageusers"));
+				}
+				if(memberDetails.containsKey("createissue")){
+					doc1.append("createissue", memberDetails.getInt("createissue"));
+				}
+				if(memberDetails.containsKey("viewallissue")){
+					doc1.append("viewallissue", memberDetails.getInt("viewallissue"));
+				}
+				if(memberDetails.containsKey("closeissue")){
+					doc1.append("closeissue", memberDetails.getInt("closeissue"));
+				}
+				if(memberDetails.containsKey("issuenotices")){
+					doc1.append("issuenotices", memberDetails.getInt("issuenotices"));
+				}
+				if(memberDetails.containsKey("manageresource")){
+					doc1.append("manageresource", memberDetails.getInt("manageresource"));
+				}
+				if(memberDetails.containsKey("startsurvey")){
+					doc1.append("startsurvey", memberDetails.getInt("startsurvey"));
+				}
+				if(memberDetails.containsKey("loginotherusers")){
+					doc1.append("loginotherusers", memberDetails.getInt("loginotherusers"));
+				}
+				if(memberDetails.containsKey("createissueforothers")){
+					doc1.append("createissueforothers", memberDetails.getInt("createissueforothers"));
+				}
+				if(memberDetails.containsKey("sendmessages")){
+					doc1.append("sendmessages", memberDetails.getInt("sendmessages"));
+				}
+				if(memberDetails.containsKey("createduetemplate")){
+					doc1.append("createduetemplate", memberDetails.getInt("createduetemplate"));
+				}
+				if(memberDetails.containsKey("followupissues")){
+					doc1.append("followupissues", memberDetails.getInt("followupissues"));
+				}
+				if(memberDetails.containsKey("postannouncements")){
+					doc1.append("postannouncements", memberDetails.getInt("postannouncements"));
+				}
+				if(memberDetails.containsKey("createalbums")){
+					doc1.append("createalbums", memberDetails.getInt("createalbums"));
+				}
+				if(memberDetails.containsKey("networkgrouppublisher")){
+					doc1.append("networkgrouppublisher", memberDetails.getInt("networkgrouppublisher"));
+				}
+				if(memberDetails.containsKey("lockreceipts")){
+					doc1.append("lockreceipts", memberDetails.getInt("lockreceipts"));
+				}
+				if(memberDetails.containsKey("trackissues")){
+					doc1.append("trackissues", memberDetails.getInt("trackissues"));
+				}
+				if(memberDetails.containsKey("staff")){
+					doc1.append("staff", memberDetails.getInt("staff"));
+				}
+				if(memberDetails.containsKey("addhelpers")){
+					doc1.append("addhelpers", memberDetails.getInt("addhelpers"));
+				}
+				if(memberDetails.containsKey("viewconfidentialinfo")){
+					doc1.append("viewconfidentialinfo", memberDetails.getInt("viewconfidentialinfo"));
+				}
+				if(memberDetails.containsKey("canapprove")){
+					doc1.append("canapprove", memberDetails.getInt("canapprove"));
+				}
+				if(memberDetails.containsKey("canrecordmessage")){
+					doc1.append("canrecordmessage", memberDetails.getInt("canrecordmessage"));
+				}
+				if(memberDetails.containsKey("enableattendance")){
+					doc1.append("enableattendance", memberDetails.getInt("enableattendance"));
+				}
+				if(memberDetails.containsKey("selection")){
+					doc1.append("selection", memberDetails.getJSONObject("selection"));
+				}
+				
 				
 				
 //				System.out.println(doc1);
@@ -430,8 +702,8 @@ public class AuthenticationManager {
 				Object id = doc1.get("_id");
 				if (id == null){
 					System.out.println("Problem Occured while inserting in memberdetails");
-//					resp = RestUtils.processError(PropertiesUtil.getProperty("insertError_code"), PropertiesUtil.getProperty("insertError_message"));
-					return null;
+					resp = RestUtils.processError(PropertiesUtil.getProperty("insertError_code"), PropertiesUtil.getProperty("insertError_message"));
+					return resp;
 				}
 				else{
 					JSONObject data = new JSONObject();
@@ -447,7 +719,8 @@ public class AuthenticationManager {
 		}catch(Exception e){
 			e.printStackTrace();
 			System.out.println("Exception -- insertValuesInToTables");
-			return null;
+			resp = RestUtils.processError(PropertiesUtil.getProperty("insertError_code"), PropertiesUtil.getProperty("insertError_message"));
+			return resp;
 		}
 	}
 }
