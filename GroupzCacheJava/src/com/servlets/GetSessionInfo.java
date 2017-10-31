@@ -33,7 +33,7 @@ public class GetSessionInfo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String RegRequest = request.getParameter("request");
 		Calendar start = Calendar.getInstance();
-		log.info("The Request is :" + RegRequest);
+		log.info("The Request is- :" + RegRequest);
 		GetSessionInfoManager am = new GetSessionInfoManager();
 		String Response = am.getResponse(RegRequest);
 		Mongo_Connection.closeConnection();
