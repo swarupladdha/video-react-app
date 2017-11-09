@@ -534,8 +534,11 @@ public class AuthenticationManager {
 					if (groupzDetails.containsKey("iostheme")){
 						doc.append("iostheme", groupzDetails.getJSONObject("iostheme"));
 					}
-					
-
+//					if (groupzDetails.containsKey("$$hashKey")){
+//						groupzDetails.remove("$$hashKey");
+//					}
+//					Document doc1 = new Document(groupzDetails);
+//					collection.insertOne(doc1);
 //					System.out.println("--"+doc);
 					collection.insertOne(doc);
 					Object id = doc.get("_id");
