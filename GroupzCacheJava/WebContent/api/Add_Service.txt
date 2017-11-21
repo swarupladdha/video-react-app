@@ -16,7 +16,9 @@ request:
         "roleOffset": "Admin",
         "groupzmodulename": "Add Escalation",
         "uri": "http://qa1.groupz.in/GroupzMobileApp/GroupzBase",
-        "sessionValidation": true
+        "sessionValidation": true,
+        "groupzRefresh": true,
+        "memberRefresh": true
       }
     }
   }

@@ -189,7 +189,7 @@ public class AuthenticationManager {
 				JSONObject js = new JSONObject();
 				js.put("json", json);
 				ConnectionUtils cu = new ConnectionUtils();
-				url ="http://qa1.groupz.in/GroupzMobileApp/Authentication";
+//				url ="http://qa1.groupz.in/GroupzMobileApp/Authentication";
 				res = cu.ConnectandRecieve(url+"?request=",js.toString());
 			}
 			if (RestUtils.isEmpty(res)== false){
@@ -234,7 +234,7 @@ public class AuthenticationManager {
 //					System.out.println("Present");
 				}
 				else{
-					System.out.println("Should Insert Into groupzdetails!");
+/*					System.out.println("Should Insert Into groupzdetails!");
 					Document doc = new Document("groupzid",groupzid);
 					if (groupzDetails.containsKey("groupzcode")){
 						doc.append("groupzcode", groupzDetails.getString("groupzcode"));
@@ -534,14 +534,29 @@ public class AuthenticationManager {
 					if (groupzDetails.containsKey("iostheme")){
 						doc.append("iostheme", groupzDetails.getJSONObject("iostheme"));
 					}
-//					if (groupzDetails.containsKey("$$hashKey")){
-//						groupzDetails.remove("$$hashKey");
-//					}
-//					Document doc1 = new Document(groupzDetails);
-//					collection.insertOne(doc1);
-//					System.out.println("--"+doc);
-					collection.insertOne(doc);
-					Object id = doc.get("_id");
+					doc.append("lastUpdatedTime", RestUtils.getLastSynchTime().toString());*/
+					
+					if (groupzDetails.getJSONObject("srsettings").containsKey("issueflowrulelist")){
+						JSONArray issueflowrulelist = groupzDetails.getJSONObject("srsettings").getJSONArray("issueflowrulelist");
+						JSONArray issueflowrulelist1 = new JSONArray();
+						groupzDetails.remove("issueflowrulelist");
+						for(int k =0; k<issueflowrulelist.size();k++) {
+							JSONObject obj = issueflowrulelist.getJSONObject(k);
+							obj.remove("$$hashKey");
+							issueflowrulelist1.add(obj);
+						}
+						groupzDetails.getJSONObject("srsettings").put("issueflowrulelist", issueflowrulelist1);
+					}
+					
+					groupzDetails.put("lastUpdatedTime", RestUtils.getLastSynchTime().toString());
+					System.out.println("--------------------------------------------");
+					System.out.println(groupzDetails);
+					System.out.println("--------------------------------------------");
+					Document groupz = new Document(groupzDetails);
+					collection.insertOne(groupz);
+					System.out.println("--"+groupz);
+//					collection.insertOne(doc);
+/*					Object id = doc.get("_id");
 					if (id == null){
 						System.out.println("Problem Occured while inserting in groupzdetails");
 						resp = RestUtils.processError(PropertiesUtil.getProperty("insertError_code"), PropertiesUtil.getProperty("insertError_message"));
@@ -549,7 +564,7 @@ public class AuthenticationManager {
 					}
 					else{
 							System.out.println("Inserted");
-					}
+					}*/
 				}
 				
 				
@@ -558,7 +573,7 @@ public class AuthenticationManager {
 				JSONObject memberDetails = user.getJSONObject(i).getJSONObject("memberdetails");
 		
 		
-				Document doc1 = new Document("groupzid",memberDetails.getString("groupzid"));
+/*				Document doc1 = new Document("groupzid",memberDetails.getString("groupzid"));
 				if (memberDetails.containsKey("groupzcode")){
 					doc1.append("groupzcode", memberDetails.getString("groupzcode"));
 				}
@@ -694,15 +709,21 @@ public class AuthenticationManager {
 				if(memberDetails.containsKey("selection")){
 					doc1.append("selection", memberDetails.getJSONObject("selection"));
 				}
+				doc1.append("lastUpdatedTime", RestUtils.getLastSynchTime().toString());*/
 				
 				
 				
 //				System.out.println(doc1);
 				
 				MongoCollection<Document> collection1 = db.getCollection("memberdetails");
-				collection1.insertOne(doc1);
+//				collection1.insertOne(doc1);
+				memberDetails.put("lastUpdatedTime", RestUtils.getLastSynchTime().toString());
+				Document member = new Document(memberDetails);
+				collection1.insertOne(member);
+				System.out.println("--"+member);
+				
 
-				Object id = doc1.get("_id");
+				Object id = member.get("_id");
 				if (id == null){
 					System.out.println("Problem Occured while inserting in memberdetails");
 					resp = RestUtils.processError(PropertiesUtil.getProperty("insertError_code"), PropertiesUtil.getProperty("insertError_message"));

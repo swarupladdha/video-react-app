@@ -90,6 +90,8 @@ public class Add_ServiceManager {
 	public String addServiceToDb(String servicetype, String functiontype,JSONObject data) {
 		String resp = "";
 		boolean sessionValidation = false;
+		boolean groupzRefresh = false;
+		boolean memberRefresh = false;
 		try{
 			MongoDatabase db = Mongo_Connection.getConnection();
 			MongoCollection<Document> collection = db.getCollection("authtables");
@@ -104,10 +106,23 @@ public class Add_ServiceManager {
 				sessionValidation = data.getBoolean("sessionValidation");
 			}
 			else{
-				resp = RestUtils.processError(PropertiesUtil.getProperty("sessionFlag_missing_code"), PropertiesUtil.getProperty("sessionFlag_missing_message"));
+				resp = RestUtils.processError(PropertiesUtil.getProperty("flag_missing_code"), PropertiesUtil.getProperty("flag_missing_message"));
 				return resp;
 			}
-			
+			if (data.containsKey("groupzRefresh")){
+				groupzRefresh = data.getBoolean("groupzRefresh");
+			}
+			else{
+				resp = RestUtils.processError(PropertiesUtil.getProperty("flag_missing_code"), PropertiesUtil.getProperty("flag_missing_message"));
+				return resp;
+			}
+			if (data.containsKey("memberRefresh")){
+				memberRefresh = data.getBoolean("memberRefresh");
+			}
+			else{
+				resp = RestUtils.processError(PropertiesUtil.getProperty("flag_missing_code"), PropertiesUtil.getProperty("flag_missing_message"));
+				return resp;
+			}
 			if (RestUtils.isEmpty(functionType) == false){
 				resp = RestUtils.processError(PropertiesUtil.getProperty("invalidFunctiontype_code"), PropertiesUtil.getProperty("invalidFunctiontype_message"));
 				return resp;
@@ -165,6 +180,8 @@ public class Add_ServiceManager {
 			doc.append("roleoffset", roleOffset);
 			doc.append("uri", uri);
 			doc.append("sessionvalidation", sessionValidation);
+			doc.append("groupzRefresh", groupzRefresh);
+			doc.append("memberRefresh", memberRefresh);
 			
 			System.out.println(doc);
 			collection.insertOne(doc);
@@ -256,6 +273,8 @@ public class Add_ServiceManager {
 	public String updateServiceInDb(String servicetype, String functiontype,JSONObject data) {
 		String resp = "";
 		boolean sessionValidation = false;
+		boolean groupzRefresh = false;
+		boolean memberRefresh = false;
 		try{
 			String id = data.getString("id");
 			MongoDatabase db = Mongo_Connection.getConnection();
@@ -301,6 +320,14 @@ public class Add_ServiceManager {
 			if (data.containsKey("sessionValidation")){
 				sessionValidation = data.getBoolean("sessionValidation");
 				doc.append("sessionvalidation", sessionValidation);
+			}
+			if (data.containsKey("groupzRefresh")){
+				groupzRefresh = data.getBoolean("groupzRefresh");
+				doc.append("groupzRefresh", groupzRefresh);
+			}
+			if (data.containsKey("memberRefresh")){
+				memberRefresh = data.getBoolean("memberRefresh");
+				doc.append("memberRefresh", memberRefresh);
 			}
 			
 			BasicDBObject setQuery = new BasicDBObject();
