@@ -87,12 +87,12 @@ public class GetSessionInfoManager {
 			System.out.println(query);
 			JSONArray resArray = new JSONArray();
 			MongoCursor<Document> re = values.iterator();
-			String groupzid = ""; 
+			int groupzid = 0; 
 			if(re.hasNext()){
 				System.out.println("Data");
 				while (re.hasNext()){
 					Document value = re.next();
-					groupzid = value.getString("groupzid");
+					groupzid = value.getInteger("groupzid");
 					resArray.add(value.toJson());
 					System.out.println(resp);
 				}
@@ -101,7 +101,7 @@ public class GetSessionInfoManager {
 				resp = RestUtils.processError(PropertiesUtil.getProperty("invalid_session_code"), PropertiesUtil.getProperty("invalid_session_message"));
 				return resp;
 			}
-			if (RestUtils.isEmpty(groupzid) == true){
+			if (groupzid !=0){
 				MongoCollection<Document> col1 = db.getCollection("groupzdetails");
 				BasicDBObject query1 = new BasicDBObject("groupzid",groupzid);
 				FindIterable<Document> values1 = col1.find(query1);
