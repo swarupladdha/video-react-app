@@ -1,4 +1,4 @@
 
-nohup java GroupzCacheSync > /home/sumit/development/Interfaces/GroupzCacheSync/js.log &
+nohup java GroupzCacheSync > /home/groupz/development/Interfaces/GroupzCacheSync/js.log &
 
 
