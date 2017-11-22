@@ -125,7 +125,7 @@ public class AuthenticatorManager {
 									insertQuery.append("groupzcode", groupzCode);
 									insertQuery.append("groupzbasekey", groupzbasekey);
 									insertQuery.append("memberid", memberid);
-									insertQuery.append("lastUpdatedTime", groupzUpdatedTime);
+									insertQuery.append("lastUpdatedTime", RestUtils.getLastSynchTime());
 									insertQuery.append("proccessedTime", null);
 									updateCollection.insertOne(insertQuery);
 								}
