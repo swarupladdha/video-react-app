@@ -116,7 +116,9 @@ public class AuthenticatorManager {
 									updateCollection.updateOne(whereQuery, updateQuery);
 								}
 								else {
+									System.out.println("----------------------------------------");
 									System.out.println("No Values Found!");
+									System.out.println("----------------------------------------");
 									System.out.println("groupzid "+groupzid);
 									System.out.println("memberid "+memberid);
 									System.out.println("groupz "+groupzUpdatedTime);
@@ -125,7 +127,7 @@ public class AuthenticatorManager {
 									insertQuery.append("groupzcode", groupzCode);
 									insertQuery.append("groupzbasekey", groupzbasekey);
 									insertQuery.append("memberid", memberid);
-									insertQuery.append("lastUpdatedTime", RestUtils.getLastSynchTime());
+									insertQuery.append("lastUpdatedTime", RestUtils.getLastSynchTime().toString());
 									insertQuery.append("proccessedTime", null);
 									updateCollection.insertOne(insertQuery);
 								}
