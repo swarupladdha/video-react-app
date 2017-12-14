@@ -548,7 +548,7 @@ public class AuthenticationManager {
 						groupzDetails.getJSONObject("srsettings").put("issueflowrulelist", issueflowrulelist1);
 					}
 					
-					groupzDetails.put("lastUpdatedTime", RestUtils.getLastSynchTime());
+					groupzDetails.put("lastUpdatedTime", RestUtils.getLastSynchTime().toString());
 					System.out.println("--------------------------------------------");
 					System.out.println(groupzDetails);
 					System.out.println("--------------------------------------------");
@@ -717,7 +717,7 @@ public class AuthenticationManager {
 				
 				MongoCollection<Document> collection1 = db.getCollection("memberdetails");
 //				collection1.insertOne(doc1);
-				memberDetails.put("lastUpdatedTime", RestUtils.getLastSynchTime());
+				memberDetails.put("lastUpdatedTime", RestUtils.getLastSynchTime().toString());
 				Document member = new Document(memberDetails);
 				collection1.insertOne(member);
 				System.out.println("--"+member);
