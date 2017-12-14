@@ -70,8 +70,11 @@ public class UpdateGroupzDetails extends RIJDBBaseThread{
 					System.out.println("-------------------------------");
 					JSONObject groupzData = serverRes.getJSONObject("json").getJSONObject("response").getJSONObject("data");
 					System.out.println("-------------------------------");
+					BasicDBObject where = new BasicDBObject();
+					where.put("groupzcode", groupzcode);
 					System.out.println("deleting old value");
-					groupzdetails.deleteMany(whereQuery);
+					System.out.println(where);
+					groupzdetails.deleteMany(where);
 					System.out.println("deleted");
 					System.out.println("-------------------------------");
 					if (groupzData.getJSONObject("srsettings").containsKey("issueflowrulelist")){
@@ -99,6 +102,7 @@ public class UpdateGroupzDetails extends RIJDBBaseThread{
 						setQuery.put("$set", new BasicDBObject("proccessedTime",RestUtil.getLastSynchTime()));
 						updateCollection.updateOne(whereQuery, setQuery);*/
 						System.out.println("--------------------------------------------");
+						System.out.println(whereQuery);
 						updateCollection.deleteOne(whereQuery);
 						System.out.println("delete value from updategroupz");
 						System.out.println("--------------------------------------------");
