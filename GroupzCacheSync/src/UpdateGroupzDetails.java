@@ -96,7 +96,7 @@ public class UpdateGroupzDetails extends RIJDBBaseThread{
 					ObjectId id = (ObjectId) groupz.get("_id");
 					if (id !=null) {
 						BasicDBObject setQuery = new BasicDBObject();
-						setQuery.put("$set", new BasicDBObject("proccessedTime",RestUtil.getLastSynchTime()).toString());
+						setQuery.put("$set", new BasicDBObject("proccessedTime",RestUtil.getLastSynchTime()));
 						updateCollection.updateOne(whereQuery, setQuery);
 						System.out.println("successfully updated!");
 					}
