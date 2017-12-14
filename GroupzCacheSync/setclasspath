@@ -1,4 +1,4 @@
-export BG_BASE=/home/ubuntu/repos/Interfaces/GroupzCacheSync
+export BG_BASE=/usr/local/repository/Interfaces/GroupzCacheSync
 for i in `find $BG_BASE -name *.jar`
 do
 CLASSPATH=$i:$CLASSPATH
