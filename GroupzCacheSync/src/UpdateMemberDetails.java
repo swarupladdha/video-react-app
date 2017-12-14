@@ -1,10 +1,8 @@
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import org.omg.CORBA.Object;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
@@ -15,11 +13,11 @@ import com.mongodb.client.MongoDatabase;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-public class UpdateGroupzDetails extends RIJDBBaseThread{
+public class UpdateMemberDetails extends RIJDBBaseThread{
 	
 	int threadid ;
 	
-	public UpdateGroupzDetails(int tid, MongoDatabase session) {
+	public UpdateMemberDetails(int tid, MongoDatabase session) {
 		super(tid, session);
 		threadid = tid ;
 	}
@@ -92,7 +90,7 @@ public class UpdateGroupzDetails extends RIJDBBaseThread{
 					ObjectId id = (ObjectId) groupz.get("_id");
 					if (id !=null) {
 						BasicDBObject setQuery = new BasicDBObject();
-						setQuery.put("$set", new BasicDBObject("proccessedTime",RestUtil.getLastSynchTime()).toString());
+						setQuery.put("$set", new BasicDBObject("proccessedTime",RestUtil.getLastSynchTime()));
 						updateCollection.updateOne(whereQuery, setQuery);
 						System.out.println("successfully updated!");
 					}
@@ -109,4 +107,5 @@ public class UpdateGroupzDetails extends RIJDBBaseThread{
 				
 		}
 	}
+
 }
