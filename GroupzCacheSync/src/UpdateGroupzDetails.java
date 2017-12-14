@@ -27,7 +27,7 @@ public class UpdateGroupzDetails extends RIJDBBaseThread{
 	@Override
 	void process(MongoDatabase session) {
 		try {
-			MongoCollection<Document> updateCollection = session.getCollection("update");
+			MongoCollection<Document> updateCollection = session.getCollection("updategroupz");
 			BasicDBObject whereQuery = new BasicDBObject();
 			List<BasicDBObject> list = new ArrayList<BasicDBObject>();
 			list.add(new BasicDBObject("proccessedTime",new BasicDBObject("$lte", "lastUpdatedTime")));

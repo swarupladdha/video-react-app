@@ -22,7 +22,7 @@ public class GroupzCacheSync {
 			Runnable worker1 = new UpdateGroupzDetails(i, session);
 			Runnable worker2 = new UpdateMemberDetails(i, session);
 			executor.execute(worker1);
-			executor.execute(worker2);
+//			executor.execute(worker2);
 		}
 		executor.shutdown();
 		while (!executor.isTerminated()) {
