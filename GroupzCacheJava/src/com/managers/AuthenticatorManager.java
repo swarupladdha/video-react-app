@@ -97,7 +97,7 @@ public class AuthenticatorManager {
 							bResponse.getJSONObject("json").getJSONObject("response").put("servicetype", servicetype);
 							bResponse.getJSONObject("json").getJSONObject("response").put("servicetype", functiontype);
 							
-							MongoCollection<Document> updateCollection = db.getCollection("update");
+							MongoCollection<Document> updateCollection = db.getCollection("updategroupz");
 							if (groupzRefresh) {
 								BasicDBObject whereQuery = new BasicDBObject();
 								List <BasicDBObject> list = new ArrayList<BasicDBObject>(); 
@@ -219,14 +219,14 @@ public class AuthenticatorManager {
 			int len = sessionId.length();
 			MongoCollection<Document> collection = db.getCollection("memberdetails");
 			BasicDBObject query = new BasicDBObject();
-			if (len <= 9){
-				System.out.println("Id is String");
-				 query.put("_id",sessionId);
-			}
-			else{
+//			if (len <= 9){
+//				System.out.println("Id is String");
+//				 query.put("_id",sessionId);
+//			}
+//			else{
 				System.out.println("Id is Object");
 				query.put("_id",new ObjectId(sessionId));
-			}
+//			}
 			FindIterable<Document> values = collection.find(query);
 			System.out.println(query);
 			MongoCursor<Document> re = values.iterator();
