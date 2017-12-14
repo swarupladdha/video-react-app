@@ -1,4 +1,4 @@
 
-nohup java GroupzCacheSync >/usr/local/repository/Interfaces/GroupzCacheSync/js.log &
+nohup java GroupzCacheSync >/home/ubuntu/repos/Interfaces/GroupzCacheSync/js.log &
 
 
