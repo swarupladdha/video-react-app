@@ -69,7 +69,11 @@ public class UpdateGroupzDetails extends RIJDBBaseThread{
 					MongoCollection<Document> groupzdetails = session.getCollection("groupzdetails");
 					System.out.println("-------------------------------");
 					JSONObject groupzData = serverRes.getJSONObject("json").getJSONObject("response").getJSONObject("data");
-					groupzdetails.deleteOne(whereQuery);
+					System.out.println("-------------------------------");
+					System.out.println("deleting old value");
+					groupzdetails.deleteMany(whereQuery);
+					System.out.println("deleted");
+					System.out.println("-------------------------------");
 					if (groupzData.getJSONObject("srsettings").containsKey("issueflowrulelist")){
 						JSONArray issueflowrulelist = groupzData.getJSONObject("srsettings").getJSONArray("issueflowrulelist");
 						JSONArray issueflowrulelist1 = new JSONArray();
