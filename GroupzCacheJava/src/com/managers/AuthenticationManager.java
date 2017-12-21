@@ -226,7 +226,7 @@ public class AuthenticationManager {
 				JSONObject groupzDetails = user.getJSONObject(i).getJSONObject("groupzdetails");
 				String groupzid = groupzDetails.getString("groupzid");
 				MongoCollection<Document> collection = db.getCollection("groupzdetails");
-				BasicDBObject query = new BasicDBObject ("groupzid",groupzid);
+				BasicDBObject query = new BasicDBObject ("groupzid",Integer.parseInt(groupzid));
 				
 				FindIterable<Document> r = collection.find(query);
 				MongoCursor<Document> re = r.iterator();
@@ -554,7 +554,9 @@ public class AuthenticationManager {
 					System.out.println("--------------------------------------------");
 					Document groupz = new Document(groupzDetails);
 					collection.insertOne(groupz);
+					System.out.println("--------------------------------------------");
 					System.out.println("--"+groupz);
+					System.out.println("--------------------------------------------");
 //					collection.insertOne(doc);
 /*					Object id = doc.get("_id");
 					if (id == null){
