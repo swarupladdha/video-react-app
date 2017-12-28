@@ -1,4 +1,5 @@
-export JAVA_HOME=/usr/lib/jvm/java-6-oracle
+export ALERTS_BASE=/home/pavan/development/Interfaces/alerts
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle/
 export VINR_CONFIG_FILE=$ALERTS_BASE/conf/databaseSetting.ini
 export SmsProvider_CONFIG_FILE=$ALERTS_BASE/conf/smsProviderClassNames.ini
 export DefaultSmsProvider_CONFIG_FILE=$ALERTS_BASE/conf/defaultProvider.ini

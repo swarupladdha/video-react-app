@@ -1,10 +1,8 @@
 package alerts.email;
 
 import java.io.FileInputStream;
-
 import java.sql.ResultSet;
 import java.sql.Blob;
-
 import java.util.List;
 import java.util.Set;
 import java.util.Iterator;
@@ -16,7 +14,6 @@ import javax.mail.Session;
 import javax.mail.Message;
 import javax.mail.Transport;
 import javax.mail.Multipart;
-
 import javax.mail.util.ByteArrayDataSource;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.InternetAddress;
@@ -29,6 +26,7 @@ import com.sun.org.apache.bcel.internal.generic.FCMPG;
 
 import org.apache.log4j.Logger;
 
+import alerts.sms.Operaions;
 import alerts.sms.SMSProvider;
 import alerts.sms.SMSProviderFactory;
 import alerts.sms.SmsMSG91;
@@ -51,16 +49,18 @@ import fcm.Fcm;
  */
 
 public class MessagesInTableProbe implements Runnable { // Thread Runnable
-
+	Operaions op = new Operaions();
 	private int id = 0;
 	private HashMap<String, String> defaultProviderParameters;
 	static final Logger logger = Logger.getLogger(MessagesInTableProbe.class);
 
 	public MessagesInTableProbe(int id) { // Constructor of messagesintableprobe
+		logger.debug("Thread Id in MITP : " + id);
 		this.id = id;
 	}
 
-	public HashMap<String, String> getSMSProviderParameters(VinrMessageParser parser) {
+	public HashMap<String, String> getSMSProviderParameters(
+			VinrMessageParser parser) {
 
 		// Hashmap returntype method
 
@@ -69,8 +69,13 @@ public class MessagesInTableProbe implements Runnable { // Thread Runnable
 		HashMap<String, String> providerParameters = null; // class obj
 		try {
 
-			String fileName = System.getenv("DefaultSmsProvider_CONFIG_FILE"); // getting environment variable from
-																				// Default Sms Provider_Config_file
+			String fileName = System.getenv("DefaultSmsProvider_CONFIG_FILE"); // getting
+																				// environment
+																				// variable
+																				// from
+																				// Default
+																				// Sms
+																				// Provider_Config_file
 			FileInputStream propFile = new FileInputStream(fileName);
 			Properties p = new Properties(System.getProperties());
 			p.load(propFile);
@@ -80,7 +85,14 @@ public class MessagesInTableProbe implements Runnable { // Thread Runnable
 				providerCode = parser.getPrimaryProviderCode();
 				providerParameters = parser.getPrimaryProviderParameters();
 			} else {
-				providerCode = p.getProperty("default_provider_code"); // This is the default provider code set in
+				providerCode = p.getProperty("default_provider_code"); // This
+																		// is
+																		// the
+																		// default
+																		// provider
+																		// code
+																		// set
+																		// in
 																		// defaultProvider.ini
 				String userName = p.getProperty("default_username");
 				if (senderId != null && senderId.isEmpty() == false) {
@@ -90,20 +102,28 @@ public class MessagesInTableProbe implements Runnable { // Thread Runnable
 				}
 				String passwd = p.getProperty("default_password");
 				providerParameters = new HashMap<String, String>();
-				providerParameters.put(VinrMessageParser.PRIMARY_PROVIDER_CODE, providerCode);
-				providerParameters.put(VinrMessageParser.PRIMARY_PROVIDER_USERID, Utils.encrypt(userName));
-				providerParameters.put(VinrMessageParser.PRIMARY_PROIVDER_PASSWORD, Utils.encrypt(passwd));
+				providerParameters.put(VinrMessageParser.PRIMARY_PROVIDER_CODE,
+						providerCode);
+				providerParameters.put(
+						VinrMessageParser.PRIMARY_PROVIDER_USERID,
+						Utils.encrypt(userName));
+				providerParameters.put(
+						VinrMessageParser.PRIMARY_PROIVDER_PASSWORD,
+						Utils.encrypt(passwd));
 			}
 
-			providerParameters.put(VinrMessageParser.PRIMARY_PROIVDER_SID, senderId);
+			providerParameters.put(VinrMessageParser.PRIMARY_PROIVDER_SID,
+					senderId);
 			String urlCode = providerCode.toUpperCase() + "_URL";
 			String url = p.getProperty(urlCode);
 			if (url == null) {
-				System.out.println("URL not found for provider code : " + urlCode + " in " + fileName);
+				System.out.println("URL not found for provider code : "
+						+ urlCode + " in " + fileName);
 			}
 
 			if (senderId != null && senderId.isEmpty() == false) {
-				senderId = p.getProperty(VinrMessageParser.PRIMARY_PROIVDER_SID);
+				senderId = p
+						.getProperty(VinrMessageParser.PRIMARY_PROIVDER_SID);
 			}
 
 			providerParameters.put(VinrMessageParser.PRIMARY_PROIVDER_URL, url);
@@ -117,42 +137,51 @@ public class MessagesInTableProbe implements Runnable { // Thread Runnable
 	}
 
 	public void run() {
-
 		VinrMessagesInTable mesgInTable = new VinrMessagesInTable();
 		int msgid = -1;
 		while (true) {
 			try {
 				Thread.sleep(1000);
 				mesgInTable.setConnection();
+				logger.debug("MITP : " + this.id);
 				ResultSet rs1 = mesgInTable.readNewMessages(this.id);
 				while (rs1.next()) {
 					String sms_response = null;
 					String email = null;
 					boolean is_Insert_Success = false;
-
-					msgid = rs1.getInt(1);
-					int msgtype = rs1.getInt(2);
-					logger.debug("we are here ****************************" + msgtype);
-					String address = rs1.getString(3);
-					String message = rs1.getString(4);
-					String versionColumn = rs1.getString(5);
-					String provider = rs1.getString(6);
-					Blob blobContent = rs1.getBlob(7);
-					String date = rs1.getString(8);
-					String customData = rs1.getString(9);
-					logger.debug("Custom data : " + customData);
+					msgid = rs1.getInt("MsgId");
+					int msgtype = rs1.getInt("MsgType");
+					String address = rs1.getString("Address");
+					String message = rs1.getString("Message");
+					String versionColumn = rs1.getString("Version");
+					String provider = rs1.getString("Provider");
+					Blob blobContent = rs1.getBlob("Attachment");
+					String date = rs1.getString("Date");
+					String customData = rs1.getString("CustomData");
+					String accountId = rs1.getString("AccountId");
+					String subAccountId = rs1.getString("SubAccountId");
 					String msgIdString = "" + msgid;
 					boolean bodyType;
-
-					String xmlMessage = new StringBuffer("<message>").append(rs1.getString(3)).append(rs1.getString(4))
-							.append(rs1.getString(5)).append(rs1.getString(6)).append("</message>").toString();
-					logger.debug("The value of XMLMessage in MessagesInTableProbe is ::::::---> " + xmlMessage);
+					String xmlMessage = new StringBuffer("<message>")
+							.append(rs1.getString(3)).append(rs1.getString(4))
+							.append(rs1.getString(5)).append(rs1.getString(6))
+							.append("</message>").toString();
+					logger.debug("XML Text : " + xmlMessage);
 
 					VinrMessageParser parser = new VinrMessageParser();
 					parser.parse(xmlMessage);
 
 					String sender = parser.getFromList();
 					List<TargetUser> recipients = parser.getToList();
+					if (recipients != null && recipients.size() > 0) {
+						logger.info("Recipients size : " + recipients.size());
+						for (int i = 0; i < recipients.size(); i++) {
+							logger.info("Printing mobile : "
+									+ recipients.get(i).getMobileNumber());
+
+						}
+
+					}
 					List<TargetUser> informList = parser.getInformUsers();
 					String cc = parser.getCCList();
 					String subject = parser.getSubject();
@@ -161,7 +190,6 @@ public class MessagesInTableProbe implements Runnable { // Thread Runnable
 					String version = parser.getVersion();
 					String numbersList = parser.getMobileList();
 					String textMessage = parser.getShortText();
-
 					String primaryProviderCode;
 
 					bodyType = parser.getBodyContentType();
@@ -169,57 +197,80 @@ public class MessagesInTableProbe implements Runnable { // Thread Runnable
 					if (msgtype == Constants.EMAIL_CODE) {
 
 						if (attachmentName == null) {
-							email = VinrEmailDispatcher.sendPersonalPlainMail(subject, body, sender, recipients, cc,
+							email = VinrEmailDispatcher.sendPersonalPlainMail(
+									subject, body, sender, recipients, cc,
 									msgid, bodyType);
 						} else {
-							email = VinrEmailDispatcher.sendPersonalAttachmentMail(subject, body, sender, recipients,
-									cc, msgid, blobContent, attachmentName, bodyType);
+							email = VinrEmailDispatcher
+									.sendPersonalAttachmentMail(subject, body,
+											sender, recipients, cc, msgid,
+											blobContent, attachmentName,
+											bodyType);
 						}
 
 						if (email.equalsIgnoreCase(Constants.SUCCESS_STRING)) {
-							if (informList != null && informList.isEmpty() == false) {
-								VinrEmailDispatcher.sendConfirmation(subject, body, sender, recipients, informList,
+							if (informList != null
+									&& informList.isEmpty() == false) {
+								VinrEmailDispatcher.sendConfirmation(subject,
+										body, sender, recipients, informList,
 										msgid, blobContent, attachmentName);
 							}
 							mesgInTable.deleteMessage(msgid);
-							// is_Insert_Success = messagesSentTable.insertDataIntoTable(msgid, msgtype,
-							// sms_response, address, message, provider, date, customData);
+							// is_Insert_Success =
+							// messagesSentTable.insertDataIntoTable(msgid,
+							// msgtype,
+							// sms_response, address, message, provider, date,
+							// customData);
 						}
 						if (email.equalsIgnoreCase(Constants.ERROR_STRING)) {
 							mesgInTable.touchMessage(msgid, 3600);
 						}
-						Thread.sleep(150000);
+					//	Thread.sleep(150000);
 					}
 
 					if (msgtype == Constants.SMS_CODE) {
 						SMSProvider smsProvider;
 						HashMap<String, String> providerParameters = getSMSProviderParameters(parser);
-						String providerCode = providerParameters.get(VinrMessageParser.PRIMARY_PROVIDER_CODE);
+						String providerCode = providerParameters
+								.get(VinrMessageParser.PRIMARY_PROVIDER_CODE);
+						logger.debug("Primary Provider Code : " + providerCode);
 
-						smsProvider = SMSProviderFactory.getSMSProviderInstance(providerCode);
-						logger.debug("The value of txtMsg before passing to sendSMSroutine is  ----> " + textMessage);
-						sms_response = smsProvider.sendSMS(providerParameters, msgIdString, recipients, textMessage); // gets
-																														// the
-																														// response
-																														// back
-																														// from
-																														// the
-																														// call
-																														// to
-																														// sendSMS()
+						smsProvider = SMSProviderFactory
+								.getSMSProviderInstance(providerCode);
+						logger.debug("The value of txtMsg before passing to sendSMSroutine is  ----> "
+								+ textMessage);
+						logger.info("Recipients size : " + recipients.size());
+						sms_response = smsProvider.sendSMS(providerParameters,
+								msgIdString, recipients, textMessage); // gets
+																		// the
+																		// response
+																		// back
+																		// from
+																		// the
+																		// call
+																		// to
+																		// sendSMS()
 
-						if (sms_response.equalsIgnoreCase(Constants.SUCCESS_STRING)) {
+						if (sms_response
+								.equalsIgnoreCase(Constants.SUCCESS_STRING)) {
 							mesgInTable.deleteMessage(msgid);
-							// is_Insert_Success = messagesSentTable.insertDataIntoTable(msgid, msgtype,
-							// sms_response, address, message, provider, date, customData);
+							op.insertIntoMessageAggregation(msgid, accountId,
+									subAccountId);
+							// is_Insert_Success =
+							// messagesSentTable.insertDataIntoTable(msgid,
+							// msgtype,
+							// sms_response, address, message, provider, date,
+							// customData);
 						}
-						if (sms_response.equalsIgnoreCase(Constants.ERROR_STRING)) {
+						if (sms_response
+								.equalsIgnoreCase(Constants.ERROR_STRING)) {
 							mesgInTable.touchMessage(msgid, 3600);
 						}
 					}
 					if (msgtype == Constants.FCM_CODE) {
 						Fcm fcm = new Fcm();
-						fcm.sendFcmNotification(recipients, textMessage, customData);
+						fcm.sendFcmNotification(recipients, textMessage,
+								customData);
 						mesgInTable.deleteMessage(msgid);
 
 					}
@@ -289,6 +340,4 @@ public class MessagesInTableProbe implements Runnable { // Thread Runnable
  * 
  * sms_response = defaultHighProvider.sendSMS(defaultUnicelProviderParameters,
  * msgIdString, recipients, textMessage); }
- *
- * 
  */
