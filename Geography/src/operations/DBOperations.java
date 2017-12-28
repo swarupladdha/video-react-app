@@ -19,6 +19,8 @@ public class DBOperations {
 
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(query);
+			System.out.println(" In DBOperations ThreadId : "
+					+ Thread.currentThread().getId());
 			if (listType == GlobalVariables.COUNTRY_LIST) {
 				while (rs.next()) {
 					object = new JSONObject();
@@ -77,9 +79,11 @@ public class DBOperations {
 			try {
 				if (rs != null) {
 					rs.close();
+					System.out.println("Closed resultset for ThreadId : "+Thread.currentThread().getId());
 				}
 				if (stmt != null) {
 					stmt.close();
+					System.out.println("Closed statement for ThreadId : "+Thread.currentThread().getId());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -114,10 +118,12 @@ public class DBOperations {
 			try {
 				if (rs != null) {
 					rs.close();
+					System.out.println("Closed resultset for ThreadId : "+Thread.currentThread().getId());
 
 				}
 				if (stmt != null) {
 					stmt.close();
+					System.out.println("Closed statement for ThreadId : "+Thread.currentThread().getId());
 				}
 
 			} catch (Exception e) {

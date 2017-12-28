@@ -42,10 +42,12 @@ public class ConnectionPooling {
 	public Connection getConnection() {
 		try {
 			Connection con = null;
-			System.out.println("Getting the Connection");
+			System.out.println("Getting the Connection for ThreadId : "
+					+ Thread.currentThread().getId());
 			con = cpds.getConnection();
 			getConnectionCount++;
-			System.out.println("Get Connection count in Geography : "+getConnectionCount);
+			System.out.println("Get Connection count in Geography : "
+					+ getConnectionCount);
 			return con;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,10 +58,12 @@ public class ConnectionPooling {
 	public void close(Connection con) {
 		try {
 			if (con != null) {
-				System.out.println("Closing the Connection");
+				System.out.println("Closing the Connection for ThreadId : "
+						+ Thread.currentThread().getId());
 				con.close();
 				closeConnectionCount++;
-				System.out.println("Close Connection count in Geography : "+closeConnectionCount);
+				System.out.println("Close Connection count in Geography : "
+						+ closeConnectionCount);
 				con = null;
 			}
 		} catch (Exception e) {
@@ -67,5 +71,4 @@ public class ConnectionPooling {
 		}
 
 	}
-
 }
