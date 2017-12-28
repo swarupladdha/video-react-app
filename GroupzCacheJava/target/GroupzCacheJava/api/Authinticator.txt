@@ -1,0 +1,582 @@
+
+Url : http://localhost:8080/GroupzCacheJava/Authenticator?request=
+
+--------------------------------------------------------------------------
+request:
+--------------------------------------------------------------------------
+{
+  "json": {
+    "request": {
+      "servicetype": "6",
+      "functiontype": "6024",
+      "groupzCode":"GRPOFF",
+      "session_id": "59ce418a1a208f1950863b30",
+      "data":{"contactonly":false,"enabled":true,"roleid":698,"uniqueid":"","id":"","division":"","userid":"","name":"","mobile":"","subdivision":"","limit":100,"offset":0}
+    }
+  }
+}
+--------------------------------------------------------------------------
+response:
+--------------------------------------------------------------------------
+{
+  "json": {
+    "response": {
+      "servicetype": "6",
+      "functiontype": "6042",
+      "statuscode": "0",
+      "statusmessage": "success",
+      "userList": [
+        {
+          "mobile": "+91.9535000636",
+          "subdivision": "Server Side",
+          "userId": "preethi@groupz.in",
+          "userName": "Preethi Ritesh",
+          "division": "Development",
+          "memberid": "23583",
+          "flatid": 23579,
+          "uniqueId": "GRPOFF-000001",
+          "id": "A"
+        },
+        {
+          "mobile": "+91.9880720028",
+          "subdivision": "Back end",
+          "userId": "seema@groupz.in",
+          "userName": "Seema Bhargava whiteboxtesting",
+          "division": "Development",
+          "memberid": "23584",
+          "flatid": 23580,
+          "uniqueId": "GRPOFF-000317",
+          "id": "23584"
+        },
+        {
+          "mobile": "+91.9986067657",
+          "subdivision": "Back end",
+          "userId": "payaswini@groupz.in",
+          "userName": "Payaswini ",
+          "division": "Development",
+          "memberid": "23585",
+          "flatid": 23581,
+          "uniqueId": "GRPOFF-000003",
+          "id": "A"
+        },
+        {
+          "mobile": "+91.9986067657",
+          "subdivision": "UI",
+          "userId": "payaswini@groupz.in",
+          "userName": "Payaswini.K.Hegde",
+          "division": "Development",
+          "memberid": "23603",
+          "flatid": 23599,
+          "uniqueId": "GRPOFF-000012",
+          "id": "A"
+        },
+        {
+          "mobile": "+91.7022011026",
+          "subdivision": "Black  Box Testing",
+          "userId": "sunil.v@groupz.in",
+          "userName": "Seemanthini",
+          "division": "QA",
+          "memberid": "23605",
+          "flatid": 23601,
+          "uniqueId": "GRPOFF-000013",
+          "id": "GPZOFF05"
+        },
+        {
+          "mobile": " 91.9880720028",
+          "subdivision": "Back end",
+          "userId": "ronnieforgroupztest001@gmail.com",
+          "userName": "Ronnie",
+          "division": "Development",
+          "memberid": "24243",
+          "flatid": 24239,
+          "uniqueId": "GRPOFF-000293",
+          "id": "24243"
+        },
+        {
+          "mobile": "+91.9164617430",
+          "subdivision": "White Box Testing",
+          "userId": "smitha@infosoftjoin.in",
+          "userName": "Smitha",
+          "division": "QA",
+          "memberid": "24522",
+          "flatid": 24518,
+          "uniqueId": "GRPOFF-000071",
+          "id": "017"
+        },
+        {
+          "mobile": "+91.9886492525",
+          "subdivision": "UI",
+          "userId": "vijayaphani5@gmail.com",
+          "userName": "Vijaya Admin",
+          "division": "Development",
+          "memberid": "24545",
+          "flatid": 24541,
+          "uniqueId": "GRPOFF-000075",
+          "id": "A"
+        },
+        {
+          "mobile": " 91.9611357105",
+          "subdivision": "White Box Testing",
+          "userId": "Laxreturnsgrp@gmail.com",
+          "userName": "Lax returns",
+          "division": "QA",
+          "memberid": "24565",
+          "flatid": 24561,
+          "uniqueId": "GRPOFF-000081",
+          "id": "Lax returns"
+        },
+        {
+          "mobile": "+91.7829129006",
+          "subdivision": "Server Side",
+          "userId": "pavan@groupz.in",
+          "userName": "Pavan",
+          "division": "Development",
+          "memberid": "24644",
+          "flatid": 24640,
+          "uniqueId": "GRPOFF-000091",
+          "id": "1"
+        },
+        {
+          "mobile": "+91.9148450858",
+          "subdivision": "Server Side",
+          "userId": "sunitha@infosoftjoin.in",
+          "userName": "Sunitha",
+          "division": "Development",
+          "memberid": "24647",
+          "flatid": 24643,
+          "uniqueId": "GRPOFF-000094",
+          "id": "1"
+        },
+        {
+          "mobile": "+91.9880720028",
+          "subdivision": "White Box Testing",
+          "userId": "preethi@groupz.in",
+          "userName": "Preethi Local Admin",
+          "division": "QA",
+          "memberid": "24677",
+          "flatid": 24673,
+          "uniqueId": "GRPOFF-000105",
+          "id": "2569"
+        },
+        {
+          "mobile": "+91.7022011026",
+          "subdivision": "White Box Testing",
+          "userId": "seematestinggroupzKshama@gmail.com",
+          "userName": "Kshama",
+          "division": "QA",
+          "memberid": "24708",
+          "flatid": 24704,
+          "uniqueId": "GRPOFF-000106",
+          "id": "M1id"
+        },
+        {
+          "mobile": "+91.9535000636",
+          "subdivision": "White Box Testing",
+          "userId": "seemarao801@gmail.com",
+          "userName": "Preethi QA black Box test",
+          "division": "QA",
+          "memberid": "24713",
+          "flatid": 24709,
+          "uniqueId": "GRPOFF-000112",
+          "id": "Bugrepr"
+        },
+        {
+          "mobile": "  91.9902330676",
+          "subdivision": null,
+          "userId": "dinesh@groupz.in",
+          "userName": "Dinesh HD",
+          "division": "Development",
+          "memberid": "24767",
+          "flatid": 24763,
+          "uniqueId": "GRPOFF-000121",
+          "id": "568"
+        },
+        {
+          "mobile": "+91.9886492525",
+          "subdivision": "Server Side",
+          "userId": "vijaya@infosoftjoin.in",
+          "userName": "Vijaya",
+          "division": "Development",
+          "memberid": "24768",
+          "flatid": 24764,
+          "uniqueId": "GRPOFF-000122",
+          "id": "1002"
+        },
+        {
+          "mobile": "+91.8100688592",
+          "subdivision": "Server Side",
+          "userId": "sumit@infosoftjoin.in",
+          "userName": "Sumit Kumar Gupta",
+          "division": "Development",
+          "memberid": "24781",
+          "flatid": 24777,
+          "uniqueId": "GRPOFF-000125",
+          "id": "23658"
+        },
+        {
+          "mobile": "+91.8867988458",
+          "subdivision": "White Box Testing",
+          "userId": "node@abc.in",
+          "userName": "RITESh RAKSHIt",
+          "division": "QA",
+          "memberid": "24796",
+          "flatid": 24792,
+          "uniqueId": "GRPOFF-000133",
+          "id": "A465GHJGJH"
+        },
+        {
+          "mobile": "+91.8973487114",
+          "subdivision": "UI",
+          "userId": "kalai@o.in",
+          "userName": "Kalaiyarasi",
+          "division": "Development",
+          "memberid": "24805",
+          "flatid": 24823,
+          "uniqueId": "GRPOFF-000300",
+          "id": "24805"
+        },
+        {
+          "mobile": "+91.8973487114",
+          "subdivision": "UI",
+          "userId": "kalmai@n.in",
+          "userName": "Kalaiyarasi",
+          "division": "Development",
+          "memberid": "24806",
+          "flatid": 24827,
+          "uniqueId": "GRPOFF-000301",
+          "id": "24806"
+        },
+        {
+          "mobile": "+91.8973487114",
+          "subdivision": "UI",
+          "userId": "kali@gmil.in",
+          "userName": "Kalaiyarasi",
+          "division": "Development",
+          "memberid": "24807",
+          "flatid": 24833,
+          "uniqueId": "GRPOFF-000309",
+          "id": "24807"
+        },
+        {
+          "mobile": "+91.8973487114",
+          "subdivision": "UI",
+          "userId": "diniatg7@gmail.co",
+          "userName": "Dinesh testf",
+          "division": "Development",
+          "memberid": "24827",
+          "flatid": 24891,
+          "uniqueId": "GRPOFF-000230",
+          "id": "002"
+        },
+        {
+          "mobile": "  91.9880720028",
+          "subdivision": "White Box Testing",
+          "userId": "seemarao80808080@gmail.com",
+          "userName": "Julia Jules1111",
+          "division": "QA",
+          "memberid": "24847",
+          "flatid": 24911,
+          "uniqueId": "GRPOFF-000242",
+          "id": "Julia Julia Jules"
+        },
+        {
+          "mobile": "+91.9880720028",
+          "subdivision": "Server Side",
+          "userId": "seemarao808080groupztesting@gmail.com",
+          "userName": "Seema",
+          "division": "Development",
+          "memberid": "24850",
+          "flatid": 24914,
+          "uniqueId": "GRPOFF-000245",
+          "id": "Application umber"
+        },
+        {
+          "mobile": "+.7022011026",
+          "subdivision": "Black  Box Testing",
+          "userId": "seemarao808080groupztesting1111@gmail.com",
+          "userName": "seema kalai",
+          "division": "QA",
+          "memberid": "24856",
+          "flatid": 24920,
+          "uniqueId": "GRPOFF-000248",
+          "id": "app"
+        },
+        {
+          "mobile": "+91.8973487114",
+          "subdivision": "White Box Testing",
+          "userId": "kalaiy56@yahoo.com",
+          "userName": "Contact March 31",
+          "division": "QA",
+          "memberid": "24859",
+          "flatid": 24923,
+          "uniqueId": "GRPOFF-000257",
+          "id": "24859"
+        },
+        {
+          "mobile": "+91.8973487114",
+          "subdivision": "Back end",
+          "userId": "dineshhd196@yahoo.com",
+          "userName": "today contact 4",
+          "division": "Development",
+          "memberid": "24860",
+          "flatid": 24924,
+          "uniqueId": "GRPOFF-000299",
+          "id": "i am a member"
+        },
+        {
+          "mobile": "+91.8973487114",
+          "subdivision": "Back end",
+          "userId": "updateduser@gmail.com",
+          "userName": "Updated User apr 3",
+          "division": "Development",
+          "memberid": "24861",
+          "flatid": 24925,
+          "uniqueId": "GRPOFF-000253",
+          "id": "AG56H678"
+        },
+        {
+          "mobile": "+91.7022011026",
+          "subdivision": "White Box Testing",
+          "userId": "seemarao80@gmail.com",
+          "userName": "Shukran",
+          "division": "QA",
+          "memberid": "24871",
+          "flatid": 24935,
+          "uniqueId": "GRPOFF-000261",
+          "id": "member"
+        },
+        {
+          "mobile": "+91.9880720028",
+          "subdivision": "UI",
+          "userId": "1111111seemarao808080groupztesting111@gmail.com",
+          "userName": "Samyi",
+          "division": "Development",
+          "memberid": "24881",
+          "flatid": 24945,
+          "uniqueId": "GRPOFF-000271",
+          "id": "Apply"
+        },
+        {
+          "mobile": "+91.7022011026",
+          "subdivision": "White Box Testing",
+          "userId": "seemarao808080groupztesting1@gmail.com",
+          "userName": "Chris",
+          "division": "QA",
+          "memberid": "24887",
+          "flatid": 24951,
+          "uniqueId": "GRPOFF-000274",
+          "id": "App"
+        },
+        {
+          "mobile": "+91.9902330676",
+          "subdivision": "White Box Testing",
+          "userId": "sumitgupta.bxr@gmail.com",
+          "userName": "Sumit",
+          "division": "QA",
+          "memberid": "24897",
+          "flatid": 24961,
+          "uniqueId": "GRPOFF-000284",
+          "id": "nsd"
+        },
+        {
+          "mobile": "+91.9880720028",
+          "subdivision": null,
+          "userId": "seemarao8080801groupztesting@gmail.com",
+          "userName": "S.R No :851",
+          "division": "Development",
+          "memberid": "24907",
+          "flatid": 24971,
+          "uniqueId": "GRPOFF-000289",
+          "id": "S.R No :851"
+        },
+        {
+          "mobile": "+91.9880720028",
+          "subdivision": "Back end",
+          "userId": "seemarao808080group1ztesting@gmail.com",
+          "userName": "Seja",
+          "division": "Development",
+          "memberid": "24910",
+          "flatid": 24974,
+          "uniqueId": "GRPOFF-000292",
+          "id": "a1"
+        },
+        {
+          "mobile": "+91.9880720028",
+          "subdivision": "Back end",
+          "userId": "see222marao808080groupztesting@gmail.com",
+          "userName": "contact test",
+          "division": "Development",
+          "memberid": "24911",
+          "flatid": 24975,
+          "uniqueId": "GRPOFF-000298",
+          "id": "MM"
+        },
+        {
+          "mobile": "+91.7022011026",
+          "subdivision": "Black  Box Testing",
+          "userId": "contactdisabledseematesting@gmail.com",
+          "userName": "Twinkle",
+          "division": "QA",
+          "memberid": "24914",
+          "flatid": 24978,
+          "uniqueId": "GRPOFF-000321",
+          "id": "MEM"
+        },
+        {
+          "mobile": "+91.8973487114",
+          "subdivision": "White Box Testing",
+          "userId": "kalai@jun27.in",
+          "userName": "Jun 27",
+          "division": "QA",
+          "memberid": "24923",
+          "flatid": 24987,
+          "uniqueId": "GRPOFF-000308",
+          "id": "APSRT567"
+        },
+        {
+          "mobile": "+91.78978",
+          "subdivision": "Server Side",
+          "userId": "dfds@gdfg.in",
+          "userName": "dsfdsf",
+          "division": "Development",
+          "memberid": "24936",
+          "flatid": 25000,
+          "uniqueId": "GRPOFF-000312",
+          "id": "fdsfsd"
+        },
+        {
+          "mobile": "+91.9902330675",
+          "subdivision": "Black  Box Testing",
+          "userId": "ab@g.con",
+          "userName": "NAANU",
+          "division": "QA",
+          "memberid": "24938",
+          "flatid": 25002,
+          "uniqueId": "GRPOFF-000322",
+          "id": "NAANU"
+        },
+        {
+          "mobile": "+91.9902330676",
+          "subdivision": "White Box Testing",
+          "userId": "abc@mk.com",
+          "userName": "Test User",
+          "division": "QA",
+          "memberid": "25013",
+          "flatid": 25077,
+          "uniqueId": "GRPOFF-000330",
+          "id": "ksnci"
+        },
+        {
+          "mobile": "+91.8124168119",
+          "subdivision": "White Box Testing",
+          "userId": "nithya@group.in",
+          "userName": "nithya",
+          "division": "QA",
+          "memberid": "25035",
+          "flatid": 25100,
+          "uniqueId": "GRPOFF-000331",
+          "id": "abcdmem09"
+        },
+        {
+          "mobile": "+91.9880720028",
+          "subdivision": "White Box Testing",
+          "userId": "seemarao80@gmail.com",
+          "userName": "Lead",
+          "division": "QA",
+          "memberid": "25037",
+          "flatid": 25102,
+          "uniqueId": "GRPOFF-000332",
+          "id": "Lead"
+        },
+        {
+          "mobile": "+ 91.9902330676",
+          "subdivision": "White Box Testing",
+          "userId": "abc@anbm.com",
+          "userName": "Mahesh",
+          "division": "QA",
+          "memberid": "25040",
+          "flatid": 25105,
+          "uniqueId": "GRPOFF-000335",
+          "id": "25040"
+        },
+        {
+          "mobile": "+91.9880720028",
+          "subdivision": "White Box Testing",
+          "userId": "seemarao80rrrrrrrrrrrrr11@gmail.com",
+          "userName": "Shardul",
+          "division": "QA",
+          "memberid": "25041",
+          "flatid": 25106,
+          "uniqueId": "GRPOFF-000350",
+          "id": "Shardul"
+        },
+        {
+          "mobile": "+91.8124168119",
+          "subdivision": "Back end",
+          "userId": "nithyapommaiyasamy@gmail.com",
+          "userName": "Nithya",
+          "division": "Development",
+          "memberid": "25046",
+          "flatid": 25111,
+          "uniqueId": "GRPOFF-000340",
+          "id": "App"
+        },
+        {
+          "mobile": "+91.8050663767",
+          "subdivision": "White Box Testing",
+          "userId": "ritesh.karmare@gmail.in",
+          "userName": "Alerts",
+          "division": "QA",
+          "memberid": "25081",
+          "flatid": 25146,
+          "uniqueId": "GRPOFF-000341",
+          "id": "ABCD11"
+        },
+        {
+          "mobile": "+91.9902330676",
+          "subdivision": "White Box Testing",
+          "userId": "ritesh.karmare@gmai",
+          "userName": "COntact alerts",
+          "division": "QA",
+          "memberid": "25085",
+          "flatid": 25150,
+          "uniqueId": "GRPOFF-000344",
+          "id": "mncja"
+        },
+        {
+          "mobile": "+91.9880720028",
+          "subdivision": "UI",
+          "userId": "pushkartestinggrp@gmail.com",
+          "userName": "Pushkar Ramnath ",
+          "division": "Development",
+          "memberid": "25088",
+          "flatid": 25153,
+          "uniqueId": "GRPOFF-000347",
+          "id": "PUSH"
+        },
+        {
+          "mobile": "+91.9880720028",
+          "subdivision": "Black  Box Testing",
+          "userId": "testinggrpupzuserone111@gmail.com",
+          "userName": "Marky",
+          "division": "QA",
+          "memberid": "25092",
+          "flatid": 25157,
+          "uniqueId": "GRPOFF-000351",
+          "id": "App"
+        },
+        {
+          "mobile": " 91.1",
+          "subdivision": "White Box Testing",
+          "userId": "shreegrpztesting@gmail.com",
+          "userName": "Shreee Venkatatesha",
+          "division": "QA",
+          "memberid": "25094",
+          "flatid": 25173,
+          "uniqueId": "GRPOFF-000359",
+          "id": "Shree"
+        }
+      ]
+    }
+  }
+}

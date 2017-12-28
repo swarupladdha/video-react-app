@@ -1,0 +1,88 @@
+
+Url : http://localhost:8080/GroupzCacheJava/Add_Service?request=
+
+-----------------------------------------------------------------
+request:
+-----------------------------------------------------------------
+{
+  "json": {
+    "request": {
+      "servicetype": "6",
+      "functiontype": "1003",
+      "data": {
+        "limit": 5,
+        "offset":5
+      }
+    }
+  }
+}
+---------------------------------------------------------------------
+response:
+---------------------------------------------------------------------
+{
+  "json": {
+    "response": {
+      "statuscode": 0,
+      "statusmessage": "success",
+      "servicetype": "6",
+      "functiontype": "1003",
+      "data": [
+        {
+          "uri": "http://localhost:8080/GroupzMobileApp/Greetings",
+          "groupzmodulename": "Birthdays",
+          "roleoffset": "Admin",
+          "contentfunctiontype": 2030,
+          "contentservicetype": 21,
+          "functiontype": 6000,
+          "servicetype": 6,
+          "sessionvalidation": true,
+          "id": "58cfa130f53f85681ea05780"
+        },
+        {
+          "uri": "http://localhost:8080/GroupzMobileApp/Greetings",
+          "groupzmodulename": "Anniversary",
+          "roleoffset": "Admin",
+          "contentfunctiontype": 2031,
+          "contentservicetype": 21,
+          "functiontype": 6001,
+          "servicetype": 6,
+          "sessionvalidation": true,
+          "id": "58cfa15ef53f85681ea05781"
+        },
+        {
+          "uri": "http://localhost:8080/GroupzMobileApp/Geography",
+          "groupzmodulename": "Geography",
+          "roleoffset": "Admin",
+          "contentfunctiontype": 2023,
+          "contentservicetype": 21,
+          "functiontype": 6002,
+          "servicetype": 6,
+          "sessionvalidation": true,
+          "id": "58cfa2b1f53f85681ea05782"
+        },
+        {
+          "uri": "http://localhost:8080/GroupzMobileApp/AccountsList",
+          "groupzmodulename": "Geography Account",
+          "roleoffset": "Admin",
+          "contentfunctiontype": 2024,
+          "contentservicetype": 21,
+          "functiontype": 6003,
+          "servicetype": 6,
+          "sessionvalidation": true,
+          "id": "58cfa2ecf53f85681ea05783"
+        },
+        {
+          "uri": "http://localhost:8080/GroupzMobileApp/Authentication",
+          "groupzmodulename": "Login",
+          "roleoffset": "Admin",
+          "contentfunctiontype": 2019,
+          "contentservicetype": 21,
+          "functiontype": 6004,
+          "servicetype": 6,
+          "sessionvalidation": false,
+          "id": "58cfa3d6f53f85681ea05784"
+        }
+      ]
+    }
+  }
+}
