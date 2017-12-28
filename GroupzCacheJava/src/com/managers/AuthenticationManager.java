@@ -20,7 +20,8 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class AuthenticationManager {
-	MongoDatabase db = Mongo_Connection.getConnection();
+	Mongo_Connection conn = new Mongo_Connection();
+	MongoDatabase db = conn.getConnection();
 	public String getResponse(String regRequest) {
 		System.out.println("Insde AuthenticationManager getResponse!");
 //		DomainModifier d = new DomainModifier();

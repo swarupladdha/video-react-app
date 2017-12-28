@@ -15,7 +15,8 @@ public class DomainModifier {
 	
 	
 	public void changeDomain() {
-		MongoDatabase db = Mongo_Connection.getConnection();
+		Mongo_Connection conn = new Mongo_Connection();
+		MongoDatabase db = conn.getConnection();
 		MongoCollection<Document> col = db.getCollection("authtables");
 		
 		FindIterable<Document> res = col.find();

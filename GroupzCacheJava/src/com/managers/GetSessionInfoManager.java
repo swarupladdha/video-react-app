@@ -16,8 +16,8 @@ import com.utils.PropertiesUtil;
 import com.utils.RestUtils;
 
 public class GetSessionInfoManager {
-
-	MongoDatabase db = Mongo_Connection.getConnection();
+	Mongo_Connection conn = new Mongo_Connection();
+	MongoDatabase db = conn.getConnection();
 	public String getResponse(String regRequest) {
 		System.out.println("Insde GetSessionInfoManager getResponse!");
 		String response = "";
@@ -63,6 +63,9 @@ public class GetSessionInfoManager {
 			e.printStackTrace();
 			response = RestUtils.processError(PropertiesUtil.getProperty("incompleteInput_code"), PropertiesUtil.getProperty("incompleteInput_message"));
 			return response;
+		}
+		finally {
+			
 		}
 	}
 	

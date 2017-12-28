@@ -21,8 +21,8 @@ import com.utils.RestUtils;
 
 
 public class AuthenticatorManager {
-	
-	MongoDatabase db = Mongo_Connection.getConnection();
+	Mongo_Connection conn = new Mongo_Connection();
+	MongoDatabase db = conn.getConnection();
 	int groupzid = 0;
 	int memberid = 0;
 	int manageusers = 0;

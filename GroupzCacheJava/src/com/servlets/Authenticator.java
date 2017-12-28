@@ -37,7 +37,8 @@ public class Authenticator extends HttpServlet {
 		log.info("The Request is- :" + RegRequest);
 		AuthenticatorManager am = new AuthenticatorManager();
 		String Response = am.getResponse(RegRequest);
-		Mongo_Connection.closeConnection();
+		Mongo_Connection conn = new Mongo_Connection();
+		conn.closeConnection();
 		log.info("The Response is :" + Response);
 		response.setContentType("application/json; charset=UTF-8");
 		PrintWriter writer = response.getWriter();
