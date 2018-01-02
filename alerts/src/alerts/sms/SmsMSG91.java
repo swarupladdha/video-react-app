@@ -11,7 +11,7 @@ import java.util.List;
 import javax.net.ssl.*;
 
 import alerts.utils.TargetUser;
-import alerts.utils.Utils ;
+import alerts.utils.Utils;
 import alerts.sms.*;
 
 import org.json.JSONObject;
@@ -22,235 +22,210 @@ import alerts.email.VinrMessageParser;
 import alerts.email.VinrMessagesOutTable;
 import alerts.utils.Constants;
 
-
-/** This class contains the sendSMS() implementation for 
- *  for SmsCountry
+/**
+ * This class contains the sendSMS() implementation for for SmsCountry
  *
- *  @author Sushma
- *  @date July-08-2010
- *  @version 1.0
+ * @author Sushma
+ * @date July-08-2010
+ * @version 1.0
  */
 
 public class SmsMSG91 implements SMSProvider {
 	VinrMessagesOutTable msgouttab = new VinrMessagesOutTable();
-	
-	
+
 	JSONArray ja = new JSONArray();
-    static final Logger logger = Logger.getLogger(SmsMSG91.class);
+	static final Logger logger = Logger.getLogger(SmsMSG91.class);
 
-    public static class MyHostnameVerifier implements HostnameVerifier {
-    	public boolean verify(String hostname, SSLSession session) {
-    	// verification of hostname is switched off
-    	return true;
-    	}
-    	}
-    
-   public String sendSingleSMS(HashMap providerParams, String msgId, List<TargetUser> numbersList, String textMessage) { 
-	
+	public static class MyHostnameVerifier implements HostnameVerifier {
+		public boolean verify(String hostname, SSLSession session) {
+			// verification of hostname is switched off
+			return true;
+		}
+	}
 
-        try {
+	public String sendSingleSMS(HashMap providerParams, String msgId,
+			List<TargetUser> numbersList, String textMessage) {
 
-        	String userId = (String) providerParams.get(VinrMessageParser.PRIMARY_PROVIDER_USERID);
-        	String mainURL = (String) providerParams.get(VinrMessageParser.PRIMARY_PROIVDER_URL) ;
-    	    String password = (String) providerParams.get( VinrMessageParser.PRIMARY_PROIVDER_PASSWORD);
-	    
-	    
-		    String authKey = Utils.decrypt( userId ) ;
-		    String senderId = (String) providerParams.get(VinrMessageParser.PRIMARY_PROIVDER_SID);
-		    String route = Utils.decrypt(password) ;
-		    String mobile = null;
-		    String message = null ;
-	    
-	    
+		try {
 
-		    for ( TargetUser tUser : numbersList ) {
+			String userId = (String) providerParams
+					.get(VinrMessageParser.PRIMARY_PROVIDER_USERID);
+			String mainURL = (String) providerParams
+					.get(VinrMessageParser.PRIMARY_PROIVDER_URL);
+			String password = (String) providerParams
+					.get(VinrMessageParser.PRIMARY_PROIVDER_PASSWORD);
 
-		    	mobile = tUser.getMobileNumber() ;
-		    	
-		    	if ( mobile != null && mobile.isEmpty() == false && 
-		    			textMessage != null && textMessage.isEmpty() == false) {	    	
-		    		String replacedMessage = tUser.personalizeMessage(textMessage) ;
-		    		//String replacedMessage = personalizedSMS ; //Utils.replaceCharacterWithSpacesAround( personalizedSMS, '&', 'n') ; 
-		    		//replacedMessage = Utils.replaceCharacterWithWord( replacedMessage, '@', new String("(at)")) ; 
-		    		message = URLEncoder.encode( replacedMessage, "UTF-8" ) ;
-			    	StringBuilder sbPostData= new StringBuilder(mainURL);
-			    	sbPostData.append("authkey="+authKey); 
-			    	sbPostData.append("&mobiles="+mobile);
-			    	sbPostData.append("&message="+message);
-			    	sbPostData.append("&route="+route);
-			    	sbPostData.append("&sender="+senderId);
-		
-			    	//final string
-			    	String finalURL = sbPostData.toString();
-	
-			        URL url = new URL(finalURL);
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        conn.connect();
-			        BufferedReader reader= new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String response ;
-			        response = reader.readLine();
-			        while( (response) != null)
-			        response += response ;
-		            reader.close();         
-		            System.out.println("The value of responseId in MSG91 CLASS IS ----========------> " + response);                
-		            
-			    }		    	
-		    }
-		    return Constants.SUCCESS_STRING;			
-	        } catch(Exception e) {
-	            e.printStackTrace();
-	            return Constants.ERROR_STRING;
-	        } 
-	        //return Constants.SUCCESS_STRING;     
-	    } 
-   
-    public String sendSMS(HashMap providerParams, String msgId, List<TargetUser> numbersList, String textMessage) { 
-    	
+			String authKey = Utils.decrypt(userId);
+			String senderId = (String) providerParams
+					.get(VinrMessageParser.PRIMARY_PROIVDER_SID);
+			String route = Utils.decrypt(password);
+			String mobile = null;
+			String message = null;
 
-        try {
+			for (TargetUser tUser : numbersList) {
 
-        	String userId = (String) providerParams.get(VinrMessageParser.PRIMARY_PROVIDER_USERID);
-        	String mainURL = (String) providerParams.get(VinrMessageParser.PRIMARY_PROIVDER_URL) ;
-    	    String password = (String) providerParams.get( VinrMessageParser.PRIMARY_PROIVDER_PASSWORD);
-	    
-	    
-		    String authKey = Utils.decrypt( userId ) ;
-		    String senderId = (String) providerParams.get(VinrMessageParser.PRIMARY_PROIVDER_SID);
-		    String route = Utils.decrypt(password) ;
-		    String mobile = null;
-		    String message = null ;
-	    
-	    	StringBuilder sbPostData= new StringBuilder(mainURL);
-	    	String xmlData = "<AUTHKEY>"+authKey+"</AUTHKEY>" ;
-	    	xmlData = xmlData + "<SENDER>"+senderId+"</SENDER>" ;
-	    	xmlData = xmlData + "<ROUTE>" + route + "</ROUTE>" ;
-	    
+				mobile = tUser.getMobileNumber();
 
-		    for ( TargetUser tUser : numbersList ) {
+				if (mobile != null && mobile.isEmpty() == false
+						&& textMessage != null
+						&& textMessage.isEmpty() == false) {
+					String replacedMessage = tUser
+							.personalizeMessage(textMessage);
+					// String replacedMessage = personalizedSMS ;
+					// //Utils.replaceCharacterWithSpacesAround(
+					// personalizedSMS, '&', 'n') ;
+					// replacedMessage = Utils.replaceCharacterWithWord(
+					// replacedMessage, '@', new String("(at)")) ;
+					message = URLEncoder.encode(replacedMessage, "UTF-8");
+					StringBuilder sbPostData = new StringBuilder(mainURL);
+					sbPostData.append("authkey=" + authKey);
+					sbPostData.append("&mobiles=" + mobile);
+					sbPostData.append("&message=" + message);
+					sbPostData.append("&route=" + route);
+					sbPostData.append("&sender=" + senderId);
 
-		    	mobile = tUser.getMobileNumber() ;
-		    	
-		    	if ( mobile != null && mobile.isEmpty() == false && 
-		    			textMessage != null && textMessage.isEmpty() == false) {	    	
-		    		String replacedMessage = tUser.personalizeMessage(textMessage) ;
-		    		//String replacedMessage = personalizedSMS ; //Utils.replaceCharacterWithSpacesAround( personalizedSMS, '&', 'n') ; 
-		    		//replacedMessage = Utils.replaceCharacterWithWord( replacedMessage, '@', new String("(at)")) ; 
-		    		
-		    		message = URLEncoder.encode( replacedMessage, "UTF-8" ) ;
-		    		
-		    		String smsContent = "<SMS TEXT=\"" + replacedMessage +"\">" ;
-		    		smsContent = smsContent + "<ADDRESS TO=\"" + mobile + "\">"+"</ADDRESS>" ;
-		    		smsContent = smsContent + "</SMS>" ;
-		    		 xmlData = xmlData + smsContent ;
-			    
-		    
-		    	}
-		    	
-		    }
-		   
-		    xmlData = "<MESSAGE>" + xmlData + "</MESSAGE>" ;
-		    //System.out.println("XML posted = " + xmlData) ;
-		    sbPostData.append( "data=" + xmlData) ;
-		   
-			    	//final string
-			    	String finalURL = sbPostData.toString();
-	
-			        URL url = new URL(finalURL);
-			        HttpsURLConnection conn = (HttpsURLConnection)url.openConnection();
-			        ((HttpsURLConnection) conn).setHostnameVerifier(new MyHostnameVerifier());
-			        conn.setDoOutput(true);
-			        conn.connect();
-			        BufferedReader reader= new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String response ;
-			       
-			        while( (response = reader.readLine()) != null)
-			    {	  
-			        SentSMS(providerParams,msgId,numbersList,textMessage,response,message);
-			        response += response ;
-			        System.out.println("The value of responseId in MSG91 CLASS IS ----========------> " +response); 
-			        //SentSMS(providerParams,msgId,numbersList,textMessage,response,message);
-			    }
-			        System.out.println("XML posted = " + xmlData) ;
-			        reader.close();
-			        
-		                          
-			        
-		    return Constants.SUCCESS_STRING;			
-	        } catch(Exception e) {
-	            e.printStackTrace();
-	            return Constants.ERROR_STRING;
-	        } 
-	        //return Constants.SUCCESS_STRING;     
-	    } 
-    public String SentSMS( HashMap providerParams, String msgId, List<TargetUser> numbersList, 
-    		String textMessage,String response,String message)
-    {
-    
-    	JSONObject jo=null;
+					// final string
+					String finalURL = sbPostData.toString();
 
-        try {
-        	/*String userId = (String) providerParams.get(VinrMessageParser.PRIMARY_PROVIDER_USERID);
-    	    String password = (String) providerParams.get( VinrMessageParser.PRIMARY_PROIVDER_PASSWORD);
+					URL url = new URL(finalURL);
+					URLConnection conn = url.openConnection();
+					conn.setDoOutput(true);
+					conn.connect();
+					BufferedReader reader = new BufferedReader(
+							new InputStreamReader(conn.getInputStream()));
+					String response;
+					response = reader.readLine();
+					while ((response) != null)
+						response += response;
+					reader.close();
+					System.out
+							.println("The value of responseId in MSG91 CLASS IS ----========------> "
+									+ response);
 
-    	    String authKey = Utils.decrypt( userId ) ;
-		    String senderId = (String) providerParams.get(VinrMessageParser.PRIMARY_PROIVDER_SID);
-		    String route = Utils.decrypt(password) ;*/
-		    String mobile = null;
-		   // String message = null ;
-	    	
-		    String providerCode = "QKONCT";
-		    String DeliveryStatus = "Sent";
-		    
-		    for ( TargetUser tUser : numbersList ) {
+				}
+			}
+			return Constants.SUCCESS_STRING;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Constants.ERROR_STRING;
+		}
+		// return Constants.SUCCESS_STRING;
+	}
 
-		    	mobile = tUser.getMobileNumber() ;
-		    	
-		    	if ( mobile != null && mobile.isEmpty() == false && 
-		    		textMessage != null && textMessage.isEmpty() == false) 
-		    		{	    	
-		    		String replacedMessage = tUser.personalizeMessage(textMessage) ;
-		    	    jo = getData(response, msgId, numbersList, textMessage,mobile, providerCode,DeliveryStatus,message);
-		        	addJSON(jo);
-		    	    }
-		    }
-		    printArray();
-		   // System.out.println("-------------A"+ja);
-		    msgouttab.setConnection(ja);
-		   // System.out.println("CHECK 1");
-		    return Constants.SUCCESS_STRING;			
-        	} catch(Exception e) {
-            e.printStackTrace();
-            return Constants.ERROR_STRING;
-        } 
-    }
-    
-    public JSONObject getData( String response,String msgId, List<TargetUser> numbersList,
-    		String textMessage,String mobile,String providerCode, String DeliveryStatus,String message)
-    {
-    	JSONObject obj = new JSONObject();
-    	obj.put("MsgId", msgId);
-    	obj.put("Response ID",response);
-    	obj.put("Mobile", mobile);	 
-    	obj.put("Message", message );
-    	obj.put("ProviderCode", providerCode);
-    	obj.put("DeliveryStatus", DeliveryStatus );
-    	//System.out.println("CHECK 2");
-    	//msgouttab.writeNewMessages( mobile, message, response, providerCode,DeliveryStatus);
-    	return obj;
-    	
-		
-    	}
-    public void addJSON(JSONObject jo)
-    {
-    	System.out.println("AddJson Method");
-    	ja.put(jo);
-    }
-    
-    public JSONArray printArray(){
-    	System.out.println("JSON Array is :" + ja.toString());
-    	JSONArray ar = ja;
-    	return ar;
-    }  
+	public String sendSMS(HashMap providerParams, String msgId,
+			List<TargetUser> numbersList, String textMessage) {
+		logger.debug("Inside SEND SMS");
+		logger.info("Target numbers list before : " + numbersList.size());
+		String providerCode = providerParams.get(
+				VinrMessageParser.PRIMARY_PROVIDER_CODE).toString();
+		try {
+			String userId = (String) providerParams
+					.get(VinrMessageParser.PRIMARY_PROVIDER_USERID);
+			String mainURL = (String) providerParams
+					.get(VinrMessageParser.PRIMARY_PROIVDER_URL);
+			String password = (String) providerParams
+					.get(VinrMessageParser.PRIMARY_PROIVDER_PASSWORD);
 
-}    
+			String authKey = Utils.decrypt(userId);
+			String senderId = (String) providerParams
+					.get(VinrMessageParser.PRIMARY_PROIVDER_SID);
+			String route = Utils.decrypt(password);
+			String mobile = null;
+			String message = null;
+
+			StringBuilder sbPostData = new StringBuilder(mainURL);
+			String xmlData = "<AUTHKEY>" + authKey + "</AUTHKEY>";
+			xmlData = xmlData + "<SENDER>" + senderId + "</SENDER>";
+			xmlData = xmlData + "<ROUTE>" + route + "</ROUTE>";
+
+			for (TargetUser tUser : numbersList) {
+				mobile = tUser.getMobileNumber();
+				if (mobile != null && mobile.isEmpty() == false
+						&& textMessage != null
+						&& textMessage.isEmpty() == false) {
+					String replacedMessage = tUser
+							.personalizeMessage(textMessage);
+					// String replacedMessage = personalizedSMS ;
+					// //Utils.replaceCharacterWithSpacesAround(
+					// personalizedSMS, '&', 'n') ;
+					// replacedMessage = Utils.replaceCharacterWithWord(
+					// replacedMessage, '@', new String("(at)")) ;
+
+					message = URLEncoder.encode(replacedMessage, "UTF-8");
+
+					String smsContent = "<SMS TEXT=\"" + replacedMessage
+							+ "\">";
+					smsContent = smsContent + "<ADDRESS TO=\"" + mobile + "\">"
+							+ "</ADDRESS>";
+					smsContent = smsContent + "</SMS>";
+					xmlData = xmlData + smsContent;
+
+				}
+
+			}
+
+			xmlData = "<MESSAGE>" + xmlData + "</MESSAGE>";
+			// System.out.println("XML posted = " + xmlData) ;
+			sbPostData.append("data=" + xmlData);
+
+			// final string
+			String finalURL = sbPostData.toString();
+
+			URL url = new URL(finalURL);
+			HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+			((HttpsURLConnection) conn)
+					.setHostnameVerifier(new MyHostnameVerifier());
+			conn.setDoOutput(true);
+			conn.connect();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					conn.getInputStream()));
+			String response;
+
+			while ((response = reader.readLine()) != null) {
+				logger.info("Target numbers list after : " + numbersList.size());
+				SentSMS(msgId, numbersList, response, message, providerCode);
+				response += response;
+				logger.debug("The value of responseId in MSG91 class is : "
+						+ response);
+			}
+			logger.debug("XML posted = " + xmlData);
+			reader.close();
+			return Constants.SUCCESS_STRING;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Constants.ERROR_STRING;
+		}
+
+	}
+
+	public String SentSMS(String msgId, List<TargetUser> numbersList,
+			String response, String message, String providerCode) {
+		logger.info("Target numbers list Inside SentSMS method : "
+				+ numbersList.size());
+		JSONArray messagesArray = new JSONArray();
+		try {
+			for (TargetUser tUser : numbersList) {
+				String mobile = tUser.getMobileNumber();
+				logger.info("Mobile number is : " + mobile);
+				if (mobile != null && mobile.isEmpty() == false) {
+					JSONObject obj = new JSONObject();
+					obj.put("MsgId", msgId);
+					obj.put("Response ID", response);
+					obj.put("Mobile", mobile);
+					obj.put("Message", message);
+					obj.put("ProviderCode", providerCode);
+					messagesArray.put(obj);
+
+				} else {
+					logger.info("problem is here");
+				}
+			}
+			logger.debug("Messages array size :" + messagesArray.length());
+			msgouttab.writeIntoMessagesOutTable(messagesArray);
+			return Constants.SUCCESS_STRING;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Constants.ERROR_STRING;
+		}
+	}
+}

@@ -8,6 +8,8 @@ public class ConnectionPooling {
 	public static ComboPooledDataSource cpds;
 	public Connection con = null;
 	private static ConnectionPooling instance;
+	int getConnectionCount = 0;
+	int closeConnectionCount = 0;
 
 	static {
 		try {
@@ -39,20 +41,14 @@ public class ConnectionPooling {
 
 	public Connection getConnection() {
 		try {
-			if (con == null) {
-				System.out.println("Getting the Connection");
-				con = cpds.getConnection();
-				System.out.println("returnunfg");
-				return con;
-			} else {
-				con = cpds.getConnection();
-				System.out.println("returnunfg");
-				return con;
-			}
-		} catch (IllegalStateException e) {
-			System.out.println("");
-		} catch (SQLException e) {
-			e.printStackTrace();
+			Connection con = null;
+			System.out.println("Getting the Connection for ThreadId : "
+					+ Thread.currentThread().getId());
+			con = cpds.getConnection();
+			getConnectionCount++;
+			System.out.println("Get Connection count in Geography : "
+					+ getConnectionCount);
+			return con;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -62,25 +58,17 @@ public class ConnectionPooling {
 	public void close(Connection con) {
 		try {
 			if (con != null) {
-				System.out.println("Closing the Connection");
+				System.out.println("Closing the Connection for ThreadId : "
+						+ Thread.currentThread().getId());
 				con.close();
+				closeConnectionCount++;
+				System.out.println("Close Connection count in Geography : "
+						+ closeConnectionCount);
 				con = null;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (con != null) {
-					con.close();
-					con = null;
-				}
-			} catch (IllegalStateException e) {
-				System.out.println("");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 
 	}
-
 }
