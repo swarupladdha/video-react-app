@@ -172,6 +172,10 @@ public class AuthenticatorManager {
 			response = RestUtils.processError(PropertiesUtil.getProperty("incompleteInput_code"), PropertiesUtil.getProperty("incompleteInput_message"));
 			return response;
 		}
+		finally {
+			Mongo_Connection conn = new Mongo_Connection();
+			conn.closeConnection();
+		}
 	}
 
 	private String getServicetypeAndFunctiontypefromDB(String serviceType, String functionType){
