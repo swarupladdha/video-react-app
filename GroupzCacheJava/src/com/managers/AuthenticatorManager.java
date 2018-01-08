@@ -109,8 +109,8 @@ public class AuthenticatorManager {
 							bResponse.getJSONObject("json").getJSONObject("response").remove("functiontype");
 							bResponse.getJSONObject("json").getJSONObject("response").put("servicetype", servicetype);
 							bResponse.getJSONObject("json").getJSONObject("response").put("servicetype", functiontype);
-							
-							MongoCollection<Document> updateCollection = db.getCollection("updategroupz");
+							MongoDatabase db1 = conn.getConnection();
+							MongoCollection<Document> updateCollection = db1.getCollection("updategroupz");
 							if (groupzRefresh) {
 //								BasicDBObject whereQuery = new BasicDBObject();
 //								List <BasicDBObject> list = new ArrayList<BasicDBObject>(); 
