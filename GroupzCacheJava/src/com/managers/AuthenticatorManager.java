@@ -21,8 +21,8 @@ import com.utils.RestUtils;
 
 
 public class AuthenticatorManager {
-//	Mongo_Connection conn = new Mongo_Connection();
-//	MongoDatabase db = conn.getConnection();
+	Mongo_Connection conn = new Mongo_Connection();
+	MongoDatabase db = conn.getConnection();
 	int groupzid = 0;
 	int memberid = 0;
 	int manageusers = 0;
@@ -30,7 +30,7 @@ public class AuthenticatorManager {
 	String groupzCode ="";
 	String groupzUpdatedTime="";
 	String memberUpdatedTime="";
-	public String getResponse(MongoDatabase db,String regRequest) {
+	public String getResponse(String regRequest) {
 		System.out.println("Insde AuthenticatorManager getResponse!");
 		String response = "";
 		String servicetype = "";
@@ -58,7 +58,7 @@ public class AuthenticatorManager {
 				return response;
 			}
 			
-			String out = getServicetypeAndFunctiontypefromDB(db,servicetype, functiontype);
+			String out = getServicetypeAndFunctiontypefromDB(servicetype, functiontype);
 			if (out == null){
 				System.out.println("==================");
 				response = RestUtils.processError(PropertiesUtil.getProperty("invalidServiceOrFunctionType_code"), PropertiesUtil.getProperty("invalidServiceOrFunctionType_message"));
@@ -78,12 +78,12 @@ public class AuthenticatorManager {
 				JSONArray dataArray = new JSONArray();
 				if (data instanceof JSONArray) {
 					dataArray = request.getJSONArray("data");
-					response = getDeatilsAndBackendResponse(db,sessionId,out,groupzCode,dataArray);
+					response = getDeatilsAndBackendResponse(sessionId,out,groupzCode,dataArray);
 				}
 				JSONObject dataObj = new JSONObject();
 				if (data instanceof JSONObject) {
 					dataObj = request.getJSONObject("data");
-					response = getDeatilsAndBackendResponse(db,sessionId,out,groupzCode,dataObj);
+					response = getDeatilsAndBackendResponse(sessionId,out,groupzCode,dataObj);
 				}
 				
 			//	JSONObject data = request.getJSONObject("data");
@@ -112,25 +112,25 @@ public class AuthenticatorManager {
 							
 							MongoCollection<Document> updateCollection = db.getCollection("updategroupz");
 							if (groupzRefresh) {
-								BasicDBObject whereQuery = new BasicDBObject();
-								List <BasicDBObject> list = new ArrayList<BasicDBObject>(); 
-								list.add(new BasicDBObject("groupzcode",groupzCode));
-								list.add(new BasicDBObject("groupzbasekey",groupzbasekey));
-								whereQuery.put("$and", list);
-								System.out.println(whereQuery);
-								FindIterable<Document> resultant = updateCollection.find(whereQuery);
-								MongoCursor<Document> result = resultant.iterator();
-								if (result.hasNext()) {
-									System.out.println("Got Value");
-									BasicDBObject set = new BasicDBObject();
-									set.put("lastUpdatedTime", RestUtils.getLastSynchTime().toString());
-									BasicDBObject updateQuery = new BasicDBObject();
-									updateQuery.put("$set", set);
-									updateCollection.updateOne(whereQuery, updateQuery);
-								}
-								else {
-									System.out.println("----------------------------------------");
-									System.out.println("No Values Found!");
+//								BasicDBObject whereQuery = new BasicDBObject();
+//								List <BasicDBObject> list = new ArrayList<BasicDBObject>(); 
+//								list.add(new BasicDBObject("groupzcode",groupzCode));
+//								list.add(new BasicDBObject("groupzbasekey",groupzbasekey));
+//								whereQuery.put("$and", list);
+//								System.out.println(whereQuery);
+//								FindIterable<Document> resultant = updateCollection.find(whereQuery);
+//								MongoCursor<Document> result = resultant.iterator();
+//								if (result.hasNext()) {
+//									System.out.println("Got Value");
+//									BasicDBObject set = new BasicDBObject();
+//									set.put("lastUpdatedTime", RestUtils.getLastSynchTime().toString());
+//									BasicDBObject updateQuery = new BasicDBObject();
+//									updateQuery.put("$set", set);
+//									updateCollection.updateOne(whereQuery, updateQuery);
+//								}
+//								else {
+//									System.out.println("----------------------------------------");
+//									System.out.println("No Values Found!");
 									System.out.println("----------------------------------------");
 									System.out.println("groupzid "+groupzid);
 									System.out.println("memberid "+memberid);
@@ -143,7 +143,7 @@ public class AuthenticatorManager {
 									insertQuery.append("lastUpdatedTime", RestUtils.getLastSynchTime().toString());
 									insertQuery.append("proccessedTime", null);
 									updateCollection.insertOne(insertQuery);
-								}
+//								}
 							}
 							
 							
@@ -178,7 +178,7 @@ public class AuthenticatorManager {
 		}
 	}
 
-	private String getServicetypeAndFunctiontypefromDB(MongoDatabase db,String serviceType, String functionType){
+	private String getServicetypeAndFunctiontypefromDB(String serviceType, String functionType){
 		String res= "";
 		try{
 			
@@ -228,7 +228,7 @@ public class AuthenticatorManager {
 	}
 
 	
-	private String getDeatilsAndBackendResponse(MongoDatabase db,String sessionId, String out,String groupzCode, JSONObject data) {
+	private String getDeatilsAndBackendResponse(String sessionId, String out,String groupzCode, JSONObject data) {
 		System.out.println("Inside getDeatilsAndBackendResponse");
 		String resp = "";
 		
@@ -335,7 +335,7 @@ public class AuthenticatorManager {
 		}
 	}
 	
-	private String getDeatilsAndBackendResponse(MongoDatabase db,String sessionId, String out,String groupzCode, JSONArray data) {
+	private String getDeatilsAndBackendResponse(String sessionId, String out,String groupzCode, JSONArray data) {
 		System.out.println("Inside getDeatilsAndBackendResponse");
 		String resp = "";
 		

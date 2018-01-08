@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
 
 import com.connection.Mongo_Connection;
 import com.managers.AuthenticatorManager;
-import com.mongodb.client.MongoDatabase;
 
 
 //@WebServlet("/Authenticator")
@@ -37,9 +36,7 @@ public class Authenticator extends HttpServlet {
 		Calendar start = Calendar.getInstance();
 		log.info("The Request is- :" + RegRequest);
 		AuthenticatorManager am = new AuthenticatorManager();
-		Mongo_Connection conn = new Mongo_Connection();
-		MongoDatabase db = conn.getConnection();
-		String Response = am.getResponse(db,RegRequest);
+		String Response = am.getResponse(RegRequest);
 		log.info("The Response is :" + Response);
 		response.setContentType("application/json; charset=UTF-8");
 		PrintWriter writer = response.getWriter();
