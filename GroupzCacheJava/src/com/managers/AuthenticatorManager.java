@@ -21,8 +21,8 @@ import com.utils.RestUtils;
 
 
 public class AuthenticatorManager {
-	Mongo_Connection conn = new Mongo_Connection();
-	MongoDatabase db = conn.getConnection();
+//	Mongo_Connection conn = new Mongo_Connection();
+//	MongoDatabase db = conn.getConnection();
 	int groupzid = 0;
 	int memberid = 0;
 	int manageusers = 0;
@@ -30,7 +30,7 @@ public class AuthenticatorManager {
 	String groupzCode ="";
 	String groupzUpdatedTime="";
 	String memberUpdatedTime="";
-	public String getResponse(String regRequest) {
+	public String getResponse(MongoDatabase db,String regRequest) {
 		System.out.println("Insde AuthenticatorManager getResponse!");
 		String response = "";
 		String servicetype = "";
@@ -58,7 +58,7 @@ public class AuthenticatorManager {
 				return response;
 			}
 			
-			String out = getServicetypeAndFunctiontypefromDB(servicetype, functiontype);
+			String out = getServicetypeAndFunctiontypefromDB(db,servicetype, functiontype);
 			if (out == null){
 				System.out.println("==================");
 				response = RestUtils.processError(PropertiesUtil.getProperty("invalidServiceOrFunctionType_code"), PropertiesUtil.getProperty("invalidServiceOrFunctionType_message"));
@@ -78,12 +78,12 @@ public class AuthenticatorManager {
 				JSONArray dataArray = new JSONArray();
 				if (data instanceof JSONArray) {
 					dataArray = request.getJSONArray("data");
-					response = getDeatilsAndBackendResponse(sessionId,out,groupzCode,dataArray);
+					response = getDeatilsAndBackendResponse(db,sessionId,out,groupzCode,dataArray);
 				}
 				JSONObject dataObj = new JSONObject();
 				if (data instanceof JSONObject) {
 					dataObj = request.getJSONObject("data");
-					response = getDeatilsAndBackendResponse(sessionId,out,groupzCode,dataObj);
+					response = getDeatilsAndBackendResponse(db,sessionId,out,groupzCode,dataObj);
 				}
 				
 			//	JSONObject data = request.getJSONObject("data");
@@ -178,7 +178,7 @@ public class AuthenticatorManager {
 		}
 	}
 
-	private String getServicetypeAndFunctiontypefromDB(String serviceType, String functionType){
+	private String getServicetypeAndFunctiontypefromDB(MongoDatabase db,String serviceType, String functionType){
 		String res= "";
 		try{
 			
@@ -228,7 +228,7 @@ public class AuthenticatorManager {
 	}
 
 	
-	private String getDeatilsAndBackendResponse(String sessionId, String out,String groupzCode, JSONObject data) {
+	private String getDeatilsAndBackendResponse(MongoDatabase db,String sessionId, String out,String groupzCode, JSONObject data) {
 		System.out.println("Inside getDeatilsAndBackendResponse");
 		String resp = "";
 		
@@ -335,7 +335,7 @@ public class AuthenticatorManager {
 		}
 	}
 	
-	private String getDeatilsAndBackendResponse(String sessionId, String out,String groupzCode, JSONArray data) {
+	private String getDeatilsAndBackendResponse(MongoDatabase db,String sessionId, String out,String groupzCode, JSONArray data) {
 		System.out.println("Inside getDeatilsAndBackendResponse");
 		String resp = "";
 		
