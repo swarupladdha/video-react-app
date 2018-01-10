@@ -112,25 +112,25 @@ public class AuthenticatorManager {
 							MongoDatabase db1 = conn.getConnection();
 							MongoCollection<Document> updateCollection = db1.getCollection("updategroupz");
 							if (groupzRefresh) {
-//								BasicDBObject whereQuery = new BasicDBObject();
-//								List <BasicDBObject> list = new ArrayList<BasicDBObject>(); 
-//								list.add(new BasicDBObject("groupzcode",groupzCode));
-//								list.add(new BasicDBObject("groupzbasekey",groupzbasekey));
-//								whereQuery.put("$and", list);
-//								System.out.println(whereQuery);
-//								FindIterable<Document> resultant = updateCollection.find(whereQuery);
-//								MongoCursor<Document> result = resultant.iterator();
-//								if (result.hasNext()) {
-//									System.out.println("Got Value");
-//									BasicDBObject set = new BasicDBObject();
-//									set.put("lastUpdatedTime", RestUtils.getLastSynchTime().toString());
-//									BasicDBObject updateQuery = new BasicDBObject();
-//									updateQuery.put("$set", set);
-//									updateCollection.updateOne(whereQuery, updateQuery);
-//								}
-//								else {
-//									System.out.println("----------------------------------------");
-//									System.out.println("No Values Found!");
+								BasicDBObject whereQuery = new BasicDBObject();
+								List <BasicDBObject> list = new ArrayList<BasicDBObject>(); 
+								list.add(new BasicDBObject("groupzcode",groupzCode));
+								list.add(new BasicDBObject("groupzbasekey",groupzbasekey));
+								whereQuery.put("$and", list);
+								System.out.println(whereQuery);
+								FindIterable<Document> resultant = updateCollection.find(whereQuery);
+								MongoCursor<Document> result = resultant.iterator();
+								if (result.hasNext()) {
+									System.out.println("Got Value");
+									BasicDBObject set = new BasicDBObject();
+									set.put("lastUpdatedTime", RestUtils.getLastSynchTime().toString());
+									BasicDBObject updateQuery = new BasicDBObject();
+									updateQuery.put("$set", set);
+									updateCollection.updateOne(whereQuery, updateQuery);
+								}
+								else {
+									System.out.println("----------------------------------------");
+									System.out.println("No Values Found!");
 									System.out.println("----------------------------------------");
 									System.out.println("groupzid "+groupzid);
 									System.out.println("memberid "+memberid);
@@ -143,7 +143,7 @@ public class AuthenticatorManager {
 									insertQuery.append("lastUpdatedTime", RestUtils.getLastSynchTime().toString());
 									insertQuery.append("proccessedTime", null);
 									updateCollection.insertOne(insertQuery);
-//								}
+								}
 							}
 							
 							
