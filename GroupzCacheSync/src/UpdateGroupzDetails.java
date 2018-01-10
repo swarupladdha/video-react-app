@@ -108,6 +108,12 @@ public class UpdateGroupzDetails extends RIJDBBaseThread{
 						System.out.println("--------------------------------------------");
 						System.out.println("successfully updated!");
 					}
+					else {
+						BasicDBObject setQuery = new BasicDBObject();
+						setQuery.put("$set", new BasicDBObject("proccessedTime",RestUtil.getLastSynchTime().toString()));
+						updateCollection.updateOne(whereQuery, setQuery);
+						System.out.println("successfully updated! last updated time");
+					}
 				}
 				else {
 					BasicDBObject setQuery = new BasicDBObject();
