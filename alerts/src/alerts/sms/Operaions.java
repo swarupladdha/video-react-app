@@ -28,10 +28,10 @@ public class Operaions {
 	}
 
 	public int insertIntoMessageAggregation(int messageId, String accountId,
-			String subAccountId) {
+			String subAccountId, float cost) {
 		int rowsAffected = 0;
 		PreparedStatement preparedStatement = null;
-		String insertQuery = "Insert into MessageAggregation (MsgId,SuccessCount,FailureCount,AccountId,SubAccountId) values(?,?,?,?,?)";
+		String insertQuery = "Insert into MessageAggregation (MsgId,SuccessCount,FailureCount,AccountId,SubAccountId,EachSMSCost) values(?,?,?,?,?,?)";
 		try {
 			logger.info("Insert into MessageAggregation Query : " + insertQuery);
 			setDBConnection();
@@ -41,6 +41,7 @@ public class Operaions {
 			preparedStatement.setInt(3, 0);
 			preparedStatement.setString(4, accountId);
 			preparedStatement.setString(5, subAccountId);
+			preparedStatement.setFloat(6, cost);
 			rowsAffected = preparedStatement.executeUpdate();
 			return rowsAffected;
 		} catch (Exception e) {
