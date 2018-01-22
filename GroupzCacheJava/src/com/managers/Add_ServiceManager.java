@@ -93,7 +93,8 @@ public class Add_ServiceManager {
 		boolean groupzRefresh = false;
 		boolean memberRefresh = false;
 		try{
-			MongoDatabase db = Mongo_Connection.getConnection();
+			Mongo_Connection conn = new Mongo_Connection();
+			MongoDatabase db = conn.getConnection();
 			MongoCollection<Document> collection = db.getCollection("authtables");
 			String serviceType = PropertiesUtil.getProperty("getSessionDetailsServicetype");
 			String functionType = data.getString("functionType");
@@ -225,7 +226,8 @@ public class Add_ServiceManager {
 				offset = data.getInt("offset");
 			}
 			JSONArray list = new JSONArray();
-			MongoDatabase db = Mongo_Connection.getConnection();
+			Mongo_Connection conn = new Mongo_Connection();
+			MongoDatabase db = conn.getConnection();
 			MongoCollection<Document> col = db.getCollection("authtables");
 			FindIterable<Document> res = null;
 			if (limit !=-1 && offset !=-1){
@@ -277,7 +279,8 @@ public class Add_ServiceManager {
 		boolean memberRefresh = false;
 		try{
 			String id = data.getString("id");
-			MongoDatabase db = Mongo_Connection.getConnection();
+			Mongo_Connection conn = new Mongo_Connection();
+			MongoDatabase db = conn.getConnection();
 			MongoCollection<Document> collection = db.getCollection("authtables");
 			
 			BasicDBObject where = new BasicDBObject();
@@ -360,7 +363,8 @@ public class Add_ServiceManager {
 	private String deleteServiceFromDb(String servicetype, String functiontype,JSONObject data) {
 		String resp = "";
 		try{
-			MongoDatabase db = Mongo_Connection.getConnection();
+			Mongo_Connection conn = new Mongo_Connection();
+			MongoDatabase db = conn.getConnection();
 			MongoCollection<Document> collection = db.getCollection("authtables");
 			String id = data.getString("id");
 			BasicDBObject query = new BasicDBObject();

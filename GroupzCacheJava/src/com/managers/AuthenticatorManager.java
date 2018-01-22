@@ -21,8 +21,8 @@ import com.utils.RestUtils;
 
 
 public class AuthenticatorManager {
-	
-	MongoDatabase db = Mongo_Connection.getConnection();
+	Mongo_Connection conn = new Mongo_Connection();
+	MongoDatabase db = conn.getConnection();
 	int groupzid = 0;
 	int memberid = 0;
 	int manageusers = 0;
@@ -73,9 +73,22 @@ public class AuthenticatorManager {
 			if ((sessionvalidation == true) && (request.containsKey("session_id")==true)){
 				System.out.println("-------------------------------------------");
 				groupzCode = request.getString("groupzCode");
-				JSONObject data = request.getJSONObject("data");
-					String sessionId =  request.getString("session_id");
-					response = getDeatilsAndBackendResponse(sessionId,out,groupzCode,data);
+				Object data = request.get("data");
+				String sessionId =  request.getString("session_id");
+				JSONArray dataArray = new JSONArray();
+				if (data instanceof JSONArray) {
+					dataArray = request.getJSONArray("data");
+					response = getDeatilsAndBackendResponse(sessionId,out,groupzCode,dataArray);
+				}
+				JSONObject dataObj = new JSONObject();
+				if (data instanceof JSONObject) {
+					dataObj = request.getJSONObject("data");
+					response = getDeatilsAndBackendResponse(sessionId,out,groupzCode,dataObj);
+				}
+				
+			//	JSONObject data = request.getJSONObject("data");
+			//		String sessionId =  request.getString("session_id");
+			//		response = getDeatilsAndBackendResponse(sessionId,out,groupzCode,data);
 					System.out.println("---"+response);
 					if (response !=null){
 
@@ -96,8 +109,8 @@ public class AuthenticatorManager {
 							bResponse.getJSONObject("json").getJSONObject("response").remove("functiontype");
 							bResponse.getJSONObject("json").getJSONObject("response").put("servicetype", servicetype);
 							bResponse.getJSONObject("json").getJSONObject("response").put("servicetype", functiontype);
-							
-							MongoCollection<Document> updateCollection = db.getCollection("updategroupz");
+							MongoDatabase db1 = conn.getConnection();
+							MongoCollection<Document> updateCollection = db1.getCollection("updategroupz");
 							if (groupzRefresh) {
 								BasicDBObject whereQuery = new BasicDBObject();
 								List <BasicDBObject> list = new ArrayList<BasicDBObject>(); 
@@ -158,6 +171,10 @@ public class AuthenticatorManager {
 			e.printStackTrace();
 			response = RestUtils.processError(PropertiesUtil.getProperty("incompleteInput_code"), PropertiesUtil.getProperty("incompleteInput_message"));
 			return response;
+		}
+		finally {
+			Mongo_Connection conn = new Mongo_Connection();
+			conn.closeConnection();
 		}
 	}
 
@@ -317,5 +334,113 @@ public class AuthenticatorManager {
 			return null;
 		}
 	}
+	
+	private String getDeatilsAndBackendResponse(String sessionId, String out,String groupzCode, JSONArray data) {
+		System.out.println("Inside getDeatilsAndBackendResponse");
+		String resp = "";
+		
+		try{
+			int len = sessionId.length();
+			MongoCollection<Document> collection = db.getCollection("memberdetails");
+			BasicDBObject query = new BasicDBObject();
+//			if (len <= 9){
+//				System.out.println("Id is String");
+//				 query.put("_id",sessionId);
+//			}
+//			else{
+				System.out.println("Id is Object");
+				query.put("_id",new ObjectId(sessionId));
+//			}
+			FindIterable<Document> values = collection.find(query);
+			System.out.println(query);
+			MongoCursor<Document> re = values.iterator();
+			
+			if(re.hasNext()){
+					Document value = re.next();
+					System.out.println(value);
+					groupzid = value.getInteger("groupzid");
+					memberid = value.getInteger("memberid");
+					manageusers = value.getInteger("manageusers");
+					memberUpdatedTime = value.getString("lastUpdatedTime");
+			}
+			else{
+				resp = RestUtils.processError(PropertiesUtil.getProperty("invalid_session_code"), PropertiesUtil.getProperty("invalid_session_message"));
+				return resp;
+			}
+			System.out.println(groupzid+"---"+memberid+manageusers);
+			MongoCollection<Document> collection1 = db.getCollection("groupzdetails");
+			BasicDBObject query1 = new BasicDBObject();
+			query1.put("groupzid",groupzid);
+			System.out.println(query1);
+			FindIterable<Document> values1 = collection1.find(query1);
+			System.out.println(query1);
+			MongoCursor<Document> re1 = values1.iterator();
+			if(re1.hasNext()){
+					Document value = re1.next();
+					groupzbasekey = value.getString("groupzbasekey");
+					groupzUpdatedTime = value.getString("lastUpdatedTime");
+			}
+//			else{
+//				return null;
+//			}
+			System.out.println("---------------------");
+			System.out.println(groupzbasekey);
+			System.out.println("---------------------");
+			String roleoffset ="";
+			JSONArray requestArray = new JSONArray();
+			requestArray = JSONArray.fromObject(out);
+			System.out.println(requestArray.size());
+			if (requestArray.size() >= 1){
+				JSONObject req = requestArray.getJSONObject(0);
+				System.out.println(req);
+				String url = req.getString("url");
+				roleoffset = req.getString("roleoffset");
+				JSONObject request = new JSONObject();
+				request.put("servicetype", req.getString("servicetype"));
+				request.put("functiontype", req.getString("functiontype"));
+				request.put("groupzCode", groupzCode);
+				request.put("data",data);
+				
+//				System.out.println("---"+roleoffset+"---"+manageusers);
+				
+				if (!roleoffset.equalsIgnoreCase("*") ){
+					
+					if (manageusers == 0){
+						resp = RestUtils.processError(PropertiesUtil.getProperty("permissionError_code"), PropertiesUtil.getProperty("permissionError_message"));
+						return resp;
+					}
+				}
+				if (memberid !=0){
+					request.put("memberid", memberid);	
+				}
+				if (RestUtils.isEmpty(groupzbasekey)==true){
+					request.put("groupzbasekey", groupzbasekey);
+				}
+				JSONObject json = new JSONObject();
+				json.put("request", request);
+				JSONObject js = new JSONObject();
+				js.put("json", json);
+				//System.out.println(url+"?request="+RestUtils.encode(js.toString()));
+				String reqs = js.toString();
+//				java.net.URLEncoder.encode(reqs,"UTF-8");
+				ConnectionUtils cu = new ConnectionUtils();
+				resp = cu.ConnectandRecieve(url+"?request=",reqs);
+				if (resp == null){
+					resp = RestUtils.processError(PropertiesUtil.getProperty("technical_issue_code"), PropertiesUtil.getProperty("technical_issue_message"));
+					return resp;
+				}
+				return resp;
+			}
+			else{
+				return null;
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("Exception -- getDeatilsAndBackendResponse");
+			return null;
+		}
+	}
+
 
 }

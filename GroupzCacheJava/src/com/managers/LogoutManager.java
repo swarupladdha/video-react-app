@@ -63,7 +63,8 @@ public class LogoutManager {
 	private String deletefromMemberDetails(String servicetype,String functiontype, JSONObject data) {
 		String resp = "";
 		try{
-			MongoDatabase db = Mongo_Connection.getConnection();
+			Mongo_Connection conn = new Mongo_Connection();
+			MongoDatabase db = conn.getConnection();
 			MongoCollection<Document> collection = db.getCollection("memberdetails");
 			String sessionId = data.getString("session_id");
 			int len = sessionId.length();

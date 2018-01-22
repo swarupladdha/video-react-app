@@ -10,18 +10,17 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-
 public class ConnectionUtils {
 
-	public String ConnectandRecieve(String urls, String urlRequest) {
+	public synchronized String ConnectandRecieve(String urls, String urlRequest) {
 		String connectRecieveResponse = "";
 		StringBuffer output = new StringBuffer("");
 		try {
-			//System.out.println("URL FINAL22 : " + urlString);
-System.out.println("-");
+			// System.out.println("URL FINAL22 : " + urlString);
+			System.out.println("-");
 			InputStream stream = null;
 			String urlString = URLEncoder.encode(urlRequest, "UTF-8");
-			URL url = new URL(urls+urlString);
+			URL url = new URL(urls + urlString);
 			System.out.println("URL FINAL : " + url);
 			URLConnection connection = url.openConnection();
 			HttpURLConnection httpConnection = (HttpURLConnection) connection;
@@ -29,7 +28,7 @@ System.out.println("-");
 			httpConnection.setDoOutput(true);
 			httpConnection.setConnectTimeout(50000);
 			httpConnection.setReadTimeout(50000);
-			httpConnection.setRequestProperty("Content-Type","application/json");
+			httpConnection.setRequestProperty("Content-Type", "application/json");
 			// httpConnection.setRequestProperty("Accept", "application/json");
 			httpConnection.connect();
 			if (httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
@@ -40,20 +39,22 @@ System.out.println("-");
 					output.append(s);
 				}
 				buffer.close();
-				
+
 				connectRecieveResponse = output.toString();
 				System.out.println(connectRecieveResponse);
-				if (RestUtils.isEmpty(connectRecieveResponse)== false){
+				if (RestUtils.isEmpty(connectRecieveResponse) == false) {
 					connectRecieveResponse = null;
 				}
-//				if ((connectRecieveResponse.contains("json") || connectRecieveResponse.contains("userdata") || connectRecieveResponse.contains("userList")) == false) {
-//					connectRecieveResponse = null;
-//				}
+				// if ((connectRecieveResponse.contains("json") ||
+				// connectRecieveResponse.contains("userdata") ||
+				// connectRecieveResponse.contains("userList")) == false) {
+				// connectRecieveResponse = null;
+				// }
 			}
-		} catch (SocketTimeoutException e){
+		} catch (SocketTimeoutException e) {
 			e.printStackTrace();
 			return null;
-		}catch (IOException e1) {
+		} catch (IOException e1) {
 			e1.printStackTrace();
 			return output.toString();
 
