@@ -161,11 +161,21 @@ public class MessagesInTableProbe implements Runnable { // Thread Runnable
 					String accountId = rs1.getString("AccountId");
 					String subAccountId = rs1.getString("SubAccountId");
 					String msgIdString = "" + msgid;
+					float cost = rs1.getFloat("Cost");
 					boolean bodyType;
+					/*
+					 * String xmlMessage = new StringBuffer("<message>")
+					 * .append(rs1.getString(3)).append(rs1.getString(4))
+					 * .append(rs1.getString(5)).append(rs1.getString(6))
+					 * .append("</message>").toString();
+					 */
 					String xmlMessage = new StringBuffer("<message>")
-							.append(rs1.getString(3)).append(rs1.getString(4))
-							.append(rs1.getString(5)).append(rs1.getString(6))
+							.append(rs1.getString("Version"))
+							.append(rs1.getString("Address"))
+							.append(rs1.getString("Message"))
+							.append(rs1.getString("Provider"))
 							.append("</message>").toString();
+
 					logger.debug("XML Text : " + xmlMessage);
 
 					VinrMessageParser parser = new VinrMessageParser();
@@ -225,7 +235,7 @@ public class MessagesInTableProbe implements Runnable { // Thread Runnable
 						if (email.equalsIgnoreCase(Constants.ERROR_STRING)) {
 							mesgInTable.touchMessage(msgid, 3600);
 						}
-					//	Thread.sleep(150000);
+						// Thread.sleep(150000);
 					}
 
 					if (msgtype == Constants.SMS_CODE) {
@@ -255,7 +265,7 @@ public class MessagesInTableProbe implements Runnable { // Thread Runnable
 								.equalsIgnoreCase(Constants.SUCCESS_STRING)) {
 							mesgInTable.deleteMessage(msgid);
 							op.insertIntoMessageAggregation(msgid, accountId,
-									subAccountId);
+									subAccountId,cost);
 							// is_Insert_Success =
 							// messagesSentTable.insertDataIntoTable(msgid,
 							// msgtype,

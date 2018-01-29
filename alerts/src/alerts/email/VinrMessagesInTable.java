@@ -49,7 +49,7 @@ public class VinrMessagesInTable {
 			stmt = connection.createStatement();
 
 			String QueryString = new StringBuffer(
-					"select MsgId, MsgType, Address, Message, Version, Provider, Attachment, Date, CustomData,AccountId,SubAccountId from MessagesInTable where (")
+					"select MsgId, MsgType, Address, Message, Version, Provider, Attachment, Date, CustomData,AccountId,SubAccountId,Cost from MessagesInTable where (")
 					.append("Date <= sysdate() and ((").append("MsgId % ")
 					.append(THREAD_POOL_SIZE).append(")").append(" = ")
 					.append(threadId).append("))").toString();

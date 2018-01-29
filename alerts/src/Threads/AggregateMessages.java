@@ -56,7 +56,7 @@ public class AggregateMessages extends BaseThread {
 							|| deliveryReport.equalsIgnoreCase(Variables.Sent)
 							|| deliveryReport
 									.equalsIgnoreCase(Variables.Pending)) {
-						updateQuery = "Update MessageAggregation set SuccessCount=SuccessCount+1 where MsgId="
+						updateQuery = "Update MessageAggregation set SuccessCount=SuccessCount+1,TotalSMSCost=TotalSMSCost+EachSMSCost where MsgId="
 								+ msgId;
 					} else {
 						updateQuery = "Update MessageAggregation set FailureCount=FailureCount+1 where MsgId="
