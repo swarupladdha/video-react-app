@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 
@@ -178,7 +179,7 @@ public class SmsMSG91 implements SMSProvider {
 			conn.setDoOutput(true);
 			conn.connect();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					conn.getInputStream()));
+					conn.getInputStream(),Charset.forName("UTF-8")));
 			String response;
 
 			while ((response = reader.readLine()) != null) {
