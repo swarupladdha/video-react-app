@@ -19,271 +19,361 @@ import com.utils.ConnectionUtils;
 import com.utils.PropertiesUtil;
 import com.utils.RestUtils;
 
-
 public class AuthenticatorManager {
 	Mongo_Connection conn = new Mongo_Connection();
 	MongoDatabase db = conn.getConnection();
 	int groupzid = 0;
 	int memberid = 0;
 	int manageusers = 0;
-	String groupzbasekey ="";
-	String groupzCode ="";
-	String groupzUpdatedTime="";
-	String memberUpdatedTime="";
+	String groupzbasekey = "";
+	String groupzCode = "";
+	String groupzUpdatedTime = "";
+	String memberUpdatedTime = "";
+
 	public String getResponse(String regRequest) {
 		System.out.println("Insde AuthenticatorManager getResponse!");
 		String response = "";
 		String servicetype = "";
 		String functiontype = "";
 		System.out.println(regRequest);
-		try{
-			if(RestUtils.isJSONValid(regRequest) == false){
-				response = RestUtils.processError(PropertiesUtil.getProperty("invalidJson_code"), PropertiesUtil.getProperty("invalidJson_message"));
+		try {
+			if (RestUtils.isJSONValid(regRequest) == false) {
+				response = RestUtils.processError(
+						PropertiesUtil.getProperty("invalidJson_code"),
+						PropertiesUtil.getProperty("invalidJson_message"));
 				return response;
 			}
 			JSONObject json = new JSONObject();
 			json = JSONObject.fromObject(regRequest);
-			JSONObject request = json.getJSONObject("json").getJSONObject("request");
-			
-			
+			JSONObject request = json.getJSONObject("json").getJSONObject(
+					"request");
+
 			servicetype = request.getString("servicetype");
-			if(RestUtils.isEmpty(servicetype) == false ){
-				response = RestUtils.processError(PropertiesUtil.getProperty("invalidServicetype_code"), PropertiesUtil.getProperty("invalidServicetype_message"));
+			if (RestUtils.isEmpty(servicetype) == false) {
+				response = RestUtils.processError(PropertiesUtil
+						.getProperty("invalidServicetype_code"), PropertiesUtil
+						.getProperty("invalidServicetype_message"));
 				return response;
 			}
-			
+
 			functiontype = request.getString("functiontype");
-			if (RestUtils.isEmpty(functiontype)== false){
-				response = RestUtils.processError(PropertiesUtil.getProperty("invalidFunctiontype_code"), PropertiesUtil.getProperty("invalidFunctiontype_message"));
+			if (RestUtils.isEmpty(functiontype) == false) {
+				response = RestUtils.processError(PropertiesUtil
+						.getProperty("invalidFunctiontype_code"),
+						PropertiesUtil
+								.getProperty("invalidFunctiontype_message"));
 				return response;
 			}
-			
-			String out = getServicetypeAndFunctiontypefromDB(servicetype, functiontype);
-			if (out == null){
+
+			String out = getServicetypeAndFunctiontypefromDB(servicetype,
+					functiontype);
+			if (out == null) {
 				System.out.println("==================");
-				response = RestUtils.processError(PropertiesUtil.getProperty("invalidServiceOrFunctionType_code"), PropertiesUtil.getProperty("invalidServiceOrFunctionType_message"));
+				response = RestUtils
+						.processError(
+								PropertiesUtil
+										.getProperty("invalidServiceOrFunctionType_code"),
+								PropertiesUtil
+										.getProperty("invalidServiceOrFunctionType_message"));
 				return response;
 			}
-			
+
 			JSONArray jArray = JSONArray.fromObject(out);
 			JSONObject jObj = jArray.getJSONObject(0);
 			boolean sessionvalidation = jObj.getBoolean("sessionvalidation");
 			boolean groupzRefresh = jObj.getBoolean("groupzRefresh");
 			boolean memberRefresh = jObj.getBoolean("memberRefresh");
-			if ((sessionvalidation == true) && (request.containsKey("session_id")==true)){
-				System.out.println("-------------------------------------------");
+			if ((sessionvalidation == true)
+					&& (request.containsKey("session_id") == true)) {
+				System.out
+						.println("-------------------------------------------");
 				groupzCode = request.getString("groupzCode");
 				Object data = request.get("data");
-				String sessionId =  request.getString("session_id");
+				String sessionId = request.getString("session_id");
 				JSONArray dataArray = new JSONArray();
 				if (data instanceof JSONArray) {
 					dataArray = request.getJSONArray("data");
-					response = getDeatilsAndBackendResponse(sessionId,out,groupzCode,dataArray);
+					response = getDeatilsAndBackendResponse(sessionId, out,
+							groupzCode, dataArray);
 				}
 				JSONObject dataObj = new JSONObject();
 				if (data instanceof JSONObject) {
 					dataObj = request.getJSONObject("data");
-					response = getDeatilsAndBackendResponse(sessionId,out,groupzCode,dataObj);
+					response = getDeatilsAndBackendResponse(sessionId, out,
+							groupzCode, dataObj);
 				}
-				
-			//	JSONObject data = request.getJSONObject("data");
-			//		String sessionId =  request.getString("session_id");
-			//		response = getDeatilsAndBackendResponse(sessionId,out,groupzCode,data);
-					System.out.println("---"+response);
-					if (response !=null){
 
-						JSONObject bResponse = JSONObject.fromObject(response);
-						if (bResponse.getJSONObject("json").getJSONObject("response").getString("statuscode").equals(PropertiesUtil.getProperty("permissionError_code"))){
-							response = RestUtils.processError(PropertiesUtil.getProperty("permissionError_code"), PropertiesUtil.getProperty("permissionError_message"));
-							return response;
-						}
-						else if (bResponse.getJSONObject("json").getJSONObject("response").getString("statuscode").equals(PropertiesUtil.getProperty("invalid_session_code"))){
-							return response;
-						}
-						else if (bResponse.getJSONObject("json").getJSONObject("response").getString("statuscode").equals(PropertiesUtil.getProperty("technical_issue_code"))){
-							response = RestUtils.processError(PropertiesUtil.getProperty("technical_issue_code"), PropertiesUtil.getProperty("technical_issue_message"));
-							return response;
-						}
-						if (bResponse.getJSONObject("json").getJSONObject("response").getString("statuscode").equals(PropertiesUtil.getProperty("statuscodesuccessvalue"))){
-							bResponse.getJSONObject("json").getJSONObject("response").remove("servicetype");
-							bResponse.getJSONObject("json").getJSONObject("response").remove("functiontype");
-							bResponse.getJSONObject("json").getJSONObject("response").put("servicetype", servicetype);
-							bResponse.getJSONObject("json").getJSONObject("response").put("servicetype", functiontype);
-							MongoDatabase db1 = conn.getConnection();
-							MongoCollection<Document> updateCollection = db1.getCollection("updategroupz");
-							if (groupzRefresh) {
-								BasicDBObject whereQuery = new BasicDBObject();
-								List <BasicDBObject> list = new ArrayList<BasicDBObject>(); 
-								list.add(new BasicDBObject("groupzcode",groupzCode));
-								list.add(new BasicDBObject("groupzbasekey",groupzbasekey));
-								whereQuery.put("$and", list);
-								System.out.println(whereQuery);
-								FindIterable<Document> resultant = updateCollection.find(whereQuery);
-								MongoCursor<Document> result = resultant.iterator();
-								if (result.hasNext()) {
-									System.out.println("Got Value");
-									BasicDBObject set = new BasicDBObject();
-									set.put("lastUpdatedTime", RestUtils.getLastSynchTime().toString());
-									BasicDBObject updateQuery = new BasicDBObject();
-									updateQuery.put("$set", set);
-									updateCollection.updateOne(whereQuery, updateQuery);
-								}
-								else {
-									System.out.println("----------------------------------------");
-									System.out.println("No Values Found!");
-									System.out.println("----------------------------------------");
-									System.out.println("groupzid "+groupzid);
-									System.out.println("memberid "+memberid);
-									System.out.println("groupz "+groupzUpdatedTime);
-									System.out.println("member "+memberUpdatedTime);
-									Document insertQuery = new Document();
-									insertQuery.append("groupzcode", groupzCode);
-									insertQuery.append("groupzbasekey", groupzbasekey);
-									insertQuery.append("memberid", memberid);
-									insertQuery.append("lastUpdatedTime", RestUtils.getLastSynchTime().toString());
-									insertQuery.append("proccessedTime", null);
-									updateCollection.insertOne(insertQuery);
-								}
-							}
-							
-							
-							return bResponse.toString();	
-						}
-						else{
-							return response;
-						}
-						
-						
-					}
-					else{
-						response = RestUtils.processError(PropertiesUtil.getProperty("invalidServiceOrFunctionType_code"), PropertiesUtil.getProperty("invalidServiceOrFunctionType_message"));
+				// JSONObject data = request.getJSONObject("data");
+				// String sessionId = request.getString("session_id");
+				// response =
+				// getDeatilsAndBackendResponse(sessionId,out,groupzCode,data);
+				System.out.println("---" + response);
+				if (response != null) {
+
+					JSONObject bResponse = JSONObject.fromObject(response);
+					if (bResponse
+							.getJSONObject("json")
+							.getJSONObject("response")
+							.getString("statuscode")
+							.equals(PropertiesUtil
+									.getProperty("permissionError_code"))) {
+						response = RestUtils
+								.processError(
+										PropertiesUtil
+												.getProperty("permissionError_code"),
+										PropertiesUtil
+												.getProperty("permissionError_message"));
+						return response;
+					} else if (bResponse
+							.getJSONObject("json")
+							.getJSONObject("response")
+							.getString("statuscode")
+							.equals(PropertiesUtil
+									.getProperty("invalid_session_code"))) {
+						return response;
+					} else if (bResponse
+							.getJSONObject("json")
+							.getJSONObject("response")
+							.getString("statuscode")
+							.equals(PropertiesUtil
+									.getProperty("technical_issue_code"))) {
+						response = RestUtils
+								.processError(
+										PropertiesUtil
+												.getProperty("technical_issue_code"),
+										PropertiesUtil
+												.getProperty("technical_issue_message"));
 						return response;
 					}
-				}
+					if (bResponse
+							.getJSONObject("json")
+							.getJSONObject("response")
+							.getString("statuscode")
+							.equals(PropertiesUtil
+									.getProperty("statuscodesuccessvalue"))) {
+						bResponse.getJSONObject("json")
+								.getJSONObject("response")
+								.remove("servicetype");
+						bResponse.getJSONObject("json")
+								.getJSONObject("response")
+								.remove("functiontype");
+						bResponse.getJSONObject("json")
+								.getJSONObject("response")
+								.put("servicetype", servicetype);
+						bResponse.getJSONObject("json")
+								.getJSONObject("response")
+								.put("servicetype", functiontype);
+						MongoDatabase db1 = conn.getConnection();
+						MongoCollection<Document> updateCollection = db1
+								.getCollection("updategroupz");
+						if (groupzRefresh) {
+							BasicDBObject whereQuery = new BasicDBObject();
+							List<BasicDBObject> list = new ArrayList<BasicDBObject>();
+							list.add(new BasicDBObject("groupzcode", groupzCode));
+							list.add(new BasicDBObject("groupzbasekey",
+									groupzbasekey));
+							whereQuery.put("$and", list);
+							System.out.println(whereQuery);
+							FindIterable<Document> resultant = updateCollection
+									.find(whereQuery);
+							MongoCursor<Document> result = resultant.iterator();
+							if (result.hasNext()) {
+								System.out.println("Got Value");
+								BasicDBObject set = new BasicDBObject();
+								set.put("lastUpdatedTime", RestUtils
+										.getLastSynchTime().toString());
+								BasicDBObject updateQuery = new BasicDBObject();
+								updateQuery.put("$set", set);
+								updateCollection.updateOne(whereQuery,
+										updateQuery);
+							} else {
+								System.out
+										.println("----------------------------------------");
+								System.out.println("No Values Found!");
+								System.out
+										.println("----------------------------------------");
+								System.out.println("groupzid " + groupzid);
+								System.out.println("memberid " + memberid);
+								System.out.println("groupz "
+										+ groupzUpdatedTime);
+								System.out.println("member "
+										+ memberUpdatedTime);
+								Document insertQuery = new Document();
+								insertQuery.append("groupzcode", groupzCode);
+								insertQuery.append("groupzbasekey",
+										groupzbasekey);
+								insertQuery.append("memberid", memberid);
+								insertQuery.append("lastUpdatedTime", RestUtils
+										.getLastSynchTime().toString());
+								insertQuery.append("proccessedTime", null);
+								updateCollection.insertOne(insertQuery);
+							}
+						}
 
-			else{
-				response = RestUtils.processError(PropertiesUtil.getProperty("invalidServiceOrFunctionType_code"), PropertiesUtil.getProperty("invalidServiceOrFunctionType_message"));
+						return bResponse.toString();
+					} else {
+						return response;
+					}
+
+				} else {
+					response = RestUtils
+							.processError(
+									PropertiesUtil
+											.getProperty("invalidServiceOrFunctionType_code"),
+									PropertiesUtil
+											.getProperty("invalidServiceOrFunctionType_message"));
+					return response;
+				}
+			}
+
+			else {
+				response = RestUtils
+						.processError(
+								PropertiesUtil
+										.getProperty("invalidServiceOrFunctionType_code"),
+								PropertiesUtil
+										.getProperty("invalidServiceOrFunctionType_message"));
 				return response;
 			}
-			
-			
-		}catch (Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
-			response = RestUtils.processError(PropertiesUtil.getProperty("incompleteInput_code"), PropertiesUtil.getProperty("incompleteInput_message"));
+			response = RestUtils.processError(
+					PropertiesUtil.getProperty("incompleteInput_code"),
+					PropertiesUtil.getProperty("incompleteInput_message"));
 			return response;
-		}
-		finally {
+		} finally {
 			Mongo_Connection conn = new Mongo_Connection();
 			conn.closeConnection();
 		}
 	}
 
-	private String getServicetypeAndFunctiontypefromDB(String serviceType, String functionType){
-		String res= "";
-		try{
-			
-			MongoCollection<Document> collection = db.getCollection("authtables");
-			
+	private String getServicetypeAndFunctiontypefromDB(String serviceType,
+			String functionType) {
+		String res = "";
+		try {
+
+			MongoCollection<Document> collection = db
+					.getCollection("authtables");
+
 			BasicDBObject whereQuery = new BasicDBObject();
-			List <BasicDBObject> list = new ArrayList<BasicDBObject>(); 
-			list.add(new BasicDBObject("servicetype",Integer.parseInt(serviceType)));
-			list.add(new BasicDBObject("functiontype", Integer.parseInt(functionType)));
+			List<BasicDBObject> list = new ArrayList<BasicDBObject>();
+			list.add(new BasicDBObject("servicetype", Integer
+					.parseInt(serviceType)));
+			list.add(new BasicDBObject("functiontype", Integer
+					.parseInt(functionType)));
 			whereQuery.put("$and", list);
-			
+
 			System.out.println(whereQuery.toString());
-			
+
 			FindIterable<Document> result = collection.find(whereQuery);
-			
-			MongoCursor<Document> re = result.iterator();
-			JSONArray datas = new JSONArray();
-			System.out.println(re.toString() + re.hasNext());
-			if(re.hasNext()){
-				while(re.hasNext()){
-					JSONObject val = new JSONObject();
-					Document value = re.next();
-					val.put("servicetype", value.getInteger("contentservicetype"));
-					val.put("functiontype",value.getInteger("contentfunctiontype"));
-					val.put("roleoffset", value.getString("roleoffset"));
-					val.put("url", value.getString("uri"));
-					val.put("groupzmodulename", value.getString("groupzmodulename"));
-					val.put("sessionvalidation", value.getBoolean("sessionvalidation"));
-					val.put("groupzRefresh", value.getBoolean("groupzRefresh"));
-					val.put("memberRefresh", value.getBoolean("memberRefresh"));
-					datas.add(val);
+			MongoCursor<Document> re = null;
+			try {
+				re = result.iterator();
+				JSONArray datas = new JSONArray();
+				System.out.println(re.toString() + re.hasNext());
+				if (re.hasNext()) {
+					while (re.hasNext()) {
+						JSONObject val = new JSONObject();
+						Document value = re.next();
+						val.put("servicetype",
+								value.getInteger("contentservicetype"));
+						val.put("functiontype",
+								value.getInteger("contentfunctiontype"));
+						val.put("roleoffset", value.getString("roleoffset"));
+						val.put("url", value.getString("uri"));
+						val.put("groupzmodulename",
+								value.getString("groupzmodulename"));
+						val.put("sessionvalidation",
+								value.getBoolean("sessionvalidation"));
+						val.put("groupzRefresh",
+								value.getBoolean("groupzRefresh"));
+						val.put("memberRefresh",
+								value.getBoolean("memberRefresh"));
+						datas.add(val);
+					}
+					res = datas.toString();
+					System.out.println("Vale from session ");
+					System.out.println(datas.toString());
+					return res;
+				} else {
+					System.out.println("No Data Found!");
+					return null;
 				}
-				res = datas.toString();
-				System.out.println("Vale from session ");
-				System.out.println(datas.toString());
-				return res;
+			} catch (Exception e) {
+				// TODO: handle exception
+			} finally {
+				re.close();
 			}
-			else{	
-				System.out.println("No Data Found!");
-				return null;
-			}
-		}catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Exception in getServicetypeAndFunctiontypefromDB");
+			System.out
+					.println("Exception in getServicetypeAndFunctiontypefromDB");
 			return null;
 		}
+		return res;
 	}
 
-	
-	private String getDeatilsAndBackendResponse(String sessionId, String out,String groupzCode, JSONObject data) {
+	private String getDeatilsAndBackendResponse(String sessionId, String out,
+			String groupzCode, JSONObject data) {
 		System.out.println("Inside getDeatilsAndBackendResponse");
 		String resp = "";
-		
-		try{
+
+		try {
 			int len = sessionId.length();
-			MongoCollection<Document> collection = db.getCollection("memberdetails");
+			MongoCollection<Document> collection = db
+					.getCollection("memberdetails");
 			BasicDBObject query = new BasicDBObject();
-//			if (len <= 9){
-//				System.out.println("Id is String");
-//				 query.put("_id",sessionId);
-//			}
-//			else{
-				System.out.println("Id is Object");
-				query.put("_id",new ObjectId(sessionId));
-//			}
+			// if (len <= 9){
+			// System.out.println("Id is String");
+			// query.put("_id",sessionId);
+			// }
+			// else{
+			System.out.println("Id is Object");
+			query.put("_id", new ObjectId(sessionId));
+			// }
 			FindIterable<Document> values = collection.find(query);
 			System.out.println(query);
 			MongoCursor<Document> re = values.iterator();
-			
-			if(re.hasNext()){
-					Document value = re.next();
-					System.out.println(value);
-					groupzid = value.getInteger("groupzid");
-					memberid = value.getInteger("memberid");
-					manageusers = value.getInteger("manageusers");
-					memberUpdatedTime = value.getString("lastUpdatedTime");
-			}
-			else{
-				resp = RestUtils.processError(PropertiesUtil.getProperty("invalid_session_code"), PropertiesUtil.getProperty("invalid_session_message"));
+
+			if (re.hasNext()) {
+				Document value = re.next();
+				System.out.println(value);
+				groupzid = value.getInteger("groupzid");
+				memberid = value.getInteger("memberid");
+				manageusers = value.getInteger("manageusers");
+				memberUpdatedTime = value.getString("lastUpdatedTime");
+			} else {
+				resp = RestUtils.processError(
+						PropertiesUtil.getProperty("invalid_session_code"),
+						PropertiesUtil.getProperty("invalid_session_message"));
 				return resp;
 			}
-			System.out.println(groupzid+"---"+memberid+manageusers);
-			MongoCollection<Document> collection1 = db.getCollection("groupzdetails");
+			System.out.println(groupzid + "---" + memberid + manageusers);
+			MongoCollection<Document> collection1 = db
+					.getCollection("groupzdetails");
 			BasicDBObject query1 = new BasicDBObject();
-			query1.put("groupzid",groupzid);
+			query1.put("groupzid", groupzid);
 			System.out.println(query1);
 			FindIterable<Document> values1 = collection1.find(query1);
 			System.out.println(query1);
 			MongoCursor<Document> re1 = values1.iterator();
-			if(re1.hasNext()){
-					Document value = re1.next();
-					groupzbasekey = value.getString("groupzbasekey");
-					groupzUpdatedTime = value.getString("lastUpdatedTime");
+			if (re1.hasNext()) {
+				Document value = re1.next();
+				groupzbasekey = value.getString("groupzbasekey");
+				groupzUpdatedTime = value.getString("lastUpdatedTime");
 			}
-//			else{
-//				return null;
-//			}
+			// else{
+			// return null;
+			// }
 			System.out.println("---------------------");
 			System.out.println(groupzbasekey);
 			System.out.println("---------------------");
-			String roleoffset ="";
+			String roleoffset = "";
 			JSONArray requestArray = new JSONArray();
 			requestArray = JSONArray.fromObject(out);
 			System.out.println(requestArray.size());
-			if (requestArray.size() >= 1){
+			if (requestArray.size() >= 1) {
 				JSONObject req = requestArray.getJSONObject(0);
 				System.out.println(req);
 				String url = req.getString("url");
@@ -292,105 +382,116 @@ public class AuthenticatorManager {
 				request.put("servicetype", req.getString("servicetype"));
 				request.put("functiontype", req.getString("functiontype"));
 				request.put("groupzCode", groupzCode);
-				request.put("data",data);
-				
-//				System.out.println("---"+roleoffset+"---"+manageusers);
-				
-				if (!roleoffset.equalsIgnoreCase("*") ){
-					
-					if (manageusers == 0){
-						resp = RestUtils.processError(PropertiesUtil.getProperty("permissionError_code"), PropertiesUtil.getProperty("permissionError_message"));
+				request.put("data", data);
+
+				// System.out.println("---"+roleoffset+"---"+manageusers);
+
+				if (!roleoffset.equalsIgnoreCase("*")) {
+
+					if (manageusers == 0) {
+						resp = RestUtils
+								.processError(
+										PropertiesUtil
+												.getProperty("permissionError_code"),
+										PropertiesUtil
+												.getProperty("permissionError_message"));
 						return resp;
 					}
 				}
-				if (memberid !=0){
-					request.put("memberid", memberid);	
+				if (memberid != 0) {
+					request.put("memberid", memberid);
 				}
-				if (RestUtils.isEmpty(groupzbasekey)==true){
+				if (RestUtils.isEmpty(groupzbasekey) == true) {
 					request.put("groupzbasekey", groupzbasekey);
 				}
 				JSONObject json = new JSONObject();
 				json.put("request", request);
 				JSONObject js = new JSONObject();
 				js.put("json", json);
-				//System.out.println(url+"?request="+RestUtils.encode(js.toString()));
+				// System.out.println(url+"?request="+RestUtils.encode(js.toString()));
 				String reqs = js.toString();
-//				java.net.URLEncoder.encode(reqs,"UTF-8");
+				// java.net.URLEncoder.encode(reqs,"UTF-8");
 				ConnectionUtils cu = new ConnectionUtils();
-				resp = cu.ConnectandRecieve(url+"?request=",reqs);
-				if (resp == null){
-					resp = RestUtils.processError(PropertiesUtil.getProperty("technical_issue_code"), PropertiesUtil.getProperty("technical_issue_message"));
+				resp = cu.ConnectandRecieve(url + "?request=", reqs);
+				if (resp == null) {
+					resp = RestUtils.processError(PropertiesUtil
+							.getProperty("technical_issue_code"),
+							PropertiesUtil
+									.getProperty("technical_issue_message"));
 					return resp;
 				}
 				return resp;
-			}
-			else{
+			} else {
 				return null;
 			}
 
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Exception -- getDeatilsAndBackendResponse");
 			return null;
 		}
 	}
-	
-	private String getDeatilsAndBackendResponse(String sessionId, String out,String groupzCode, JSONArray data) {
+
+	private String getDeatilsAndBackendResponse(String sessionId, String out,
+			String groupzCode, JSONArray data) {
 		System.out.println("Inside getDeatilsAndBackendResponse");
 		String resp = "";
-		
-		try{
+
+		try {
 			int len = sessionId.length();
-			MongoCollection<Document> collection = db.getCollection("memberdetails");
+			MongoCollection<Document> collection = db
+					.getCollection("memberdetails");
 			BasicDBObject query = new BasicDBObject();
-//			if (len <= 9){
-//				System.out.println("Id is String");
-//				 query.put("_id",sessionId);
-//			}
-//			else{
-				System.out.println("Id is Object");
-				query.put("_id",new ObjectId(sessionId));
-//			}
+			// if (len <= 9){
+			// System.out.println("Id is String");
+			// query.put("_id",sessionId);
+			// }
+			// else{
+			System.out.println("Id is Object");
+			query.put("_id", new ObjectId(sessionId));
+			// }
 			FindIterable<Document> values = collection.find(query);
 			System.out.println(query);
 			MongoCursor<Document> re = values.iterator();
-			
-			if(re.hasNext()){
-					Document value = re.next();
-					System.out.println(value);
-					groupzid = value.getInteger("groupzid");
-					memberid = value.getInteger("memberid");
-					manageusers = value.getInteger("manageusers");
-					memberUpdatedTime = value.getString("lastUpdatedTime");
-			}
-			else{
-				resp = RestUtils.processError(PropertiesUtil.getProperty("invalid_session_code"), PropertiesUtil.getProperty("invalid_session_message"));
+
+			if (re.hasNext()) {
+				Document value = re.next();
+				System.out.println(value);
+				groupzid = value.getInteger("groupzid");
+				memberid = value.getInteger("memberid");
+				manageusers = value.getInteger("manageusers");
+				memberUpdatedTime = value.getString("lastUpdatedTime");
+			} else {
+				resp = RestUtils.processError(
+						PropertiesUtil.getProperty("invalid_session_code"),
+						PropertiesUtil.getProperty("invalid_session_message"));
 				return resp;
 			}
-			System.out.println(groupzid+"---"+memberid+manageusers);
-			MongoCollection<Document> collection1 = db.getCollection("groupzdetails");
+			System.out.println(groupzid + "---" + memberid + manageusers);
+			MongoCollection<Document> collection1 = db
+					.getCollection("groupzdetails");
 			BasicDBObject query1 = new BasicDBObject();
-			query1.put("groupzid",groupzid);
+			query1.put("groupzid", groupzid);
 			System.out.println(query1);
 			FindIterable<Document> values1 = collection1.find(query1);
 			System.out.println(query1);
 			MongoCursor<Document> re1 = values1.iterator();
-			if(re1.hasNext()){
-					Document value = re1.next();
-					groupzbasekey = value.getString("groupzbasekey");
-					groupzUpdatedTime = value.getString("lastUpdatedTime");
+			if (re1.hasNext()) {
+				Document value = re1.next();
+				groupzbasekey = value.getString("groupzbasekey");
+				groupzUpdatedTime = value.getString("lastUpdatedTime");
 			}
-//			else{
-//				return null;
-//			}
+			// else{
+			// return null;
+			// }
 			System.out.println("---------------------");
 			System.out.println(groupzbasekey);
 			System.out.println("---------------------");
-			String roleoffset ="";
+			String roleoffset = "";
 			JSONArray requestArray = new JSONArray();
 			requestArray = JSONArray.fromObject(out);
 			System.out.println(requestArray.size());
-			if (requestArray.size() >= 1){
+			if (requestArray.size() >= 1) {
 				JSONObject req = requestArray.getJSONObject(0);
 				System.out.println(req);
 				String url = req.getString("url");
@@ -399,48 +500,54 @@ public class AuthenticatorManager {
 				request.put("servicetype", req.getString("servicetype"));
 				request.put("functiontype", req.getString("functiontype"));
 				request.put("groupzCode", groupzCode);
-				request.put("data",data);
-				
-//				System.out.println("---"+roleoffset+"---"+manageusers);
-				
-				if (!roleoffset.equalsIgnoreCase("*") ){
-					
-					if (manageusers == 0){
-						resp = RestUtils.processError(PropertiesUtil.getProperty("permissionError_code"), PropertiesUtil.getProperty("permissionError_message"));
+				request.put("data", data);
+
+				// System.out.println("---"+roleoffset+"---"+manageusers);
+
+				if (!roleoffset.equalsIgnoreCase("*")) {
+
+					if (manageusers == 0) {
+						resp = RestUtils
+								.processError(
+										PropertiesUtil
+												.getProperty("permissionError_code"),
+										PropertiesUtil
+												.getProperty("permissionError_message"));
 						return resp;
 					}
 				}
-				if (memberid !=0){
-					request.put("memberid", memberid);	
+				if (memberid != 0) {
+					request.put("memberid", memberid);
 				}
-				if (RestUtils.isEmpty(groupzbasekey)==true){
+				if (RestUtils.isEmpty(groupzbasekey) == true) {
 					request.put("groupzbasekey", groupzbasekey);
 				}
 				JSONObject json = new JSONObject();
 				json.put("request", request);
 				JSONObject js = new JSONObject();
 				js.put("json", json);
-				//System.out.println(url+"?request="+RestUtils.encode(js.toString()));
+				// System.out.println(url+"?request="+RestUtils.encode(js.toString()));
 				String reqs = js.toString();
-//				java.net.URLEncoder.encode(reqs,"UTF-8");
+				// java.net.URLEncoder.encode(reqs,"UTF-8");
 				ConnectionUtils cu = new ConnectionUtils();
-				resp = cu.ConnectandRecieve(url+"?request=",reqs);
-				if (resp == null){
-					resp = RestUtils.processError(PropertiesUtil.getProperty("technical_issue_code"), PropertiesUtil.getProperty("technical_issue_message"));
+				resp = cu.ConnectandRecieve(url + "?request=", reqs);
+				if (resp == null) {
+					resp = RestUtils.processError(PropertiesUtil
+							.getProperty("technical_issue_code"),
+							PropertiesUtil
+									.getProperty("technical_issue_message"));
 					return resp;
 				}
 				return resp;
-			}
-			else{
+			} else {
 				return null;
 			}
 
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Exception -- getDeatilsAndBackendResponse");
 			return null;
 		}
 	}
-
 
 }
