@@ -82,8 +82,18 @@ public class AuthenticatorManager {
 			JSONArray jArray = JSONArray.fromObject(out);
 			JSONObject jObj = jArray.getJSONObject(0);
 			boolean sessionvalidation = jObj.getBoolean("sessionvalidation");
-			boolean groupzRefresh = jObj.getBoolean("groupzRefresh");
-			boolean memberRefresh = jObj.getBoolean("memberRefresh");
+			boolean groupzRefresh = false;
+			boolean memberRefresh = false;
+			if (jObj.containsKey(GlobalTags.GROUPZ_REFRESH_TAG)) {
+				groupzRefresh = jObj.getBoolean(GlobalTags.GROUPZ_REFRESH_TAG);
+			} else if (jObj.containsKey("groupzRefresh")) {
+				groupzRefresh = jObj.getBoolean("groupzRefresh");
+			}
+			if (jObj.containsKey(GlobalTags.MEM_REFRESH_TAG)) {
+				memberRefresh = jObj.getBoolean(GlobalTags.MEM_REFRESH_TAG);
+			} else if (jObj.containsKey("memberRefresh")) {
+				memberRefresh = jObj.getBoolean("memberRefresh");
+			}
 			if ((sessionvalidation == true)
 					&& (request.containsKey("session_id") == true)) {
 				System.out
