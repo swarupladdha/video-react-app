@@ -31,7 +31,7 @@ public class AuthenticatorManager {
 	String memberUpdatedTime = "";
 
 	public String getResponse(String regRequest) {
-		System.out.println("Insde AuthenticatorManager getResponse!");
+		System.out.println("Inside AuthenticatorManager getResponse");
 		String response = "";
 		String servicetype = "";
 		String functiontype = "";
@@ -162,7 +162,7 @@ public class AuthenticatorManager {
 								.put("servicetype", servicetype);
 						bResponse.getJSONObject("json")
 								.getJSONObject("response")
-								.put("servicetype", functiontype);
+								.put("functiontype", functiontype);
 						MongoDatabase db1 = conn.getConnection();
 						MongoCollection<Document> updateCollection = db1
 								.getCollection("updategroupz");
