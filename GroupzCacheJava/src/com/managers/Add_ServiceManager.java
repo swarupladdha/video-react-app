@@ -107,7 +107,8 @@ public class Add_ServiceManager {
 			String serviceType = PropertiesUtil
 					.getProperty("getSessionDetailsServicetype");
 			String functionType = data.getString(GlobalTags.FUNCTION_TYPE_TAG);
-			String contentServiceType = data.getString(GlobalTags.CONTENT_ST_TYPE_TAG);
+			String contentServiceType = data
+					.getString(GlobalTags.CONTENT_ST_TYPE_TAG);
 			String contentFunctionServiceType = data
 					.getString(GlobalTags.CONTENT_FST_TYPE_TAG);
 			String uri = data.getString(GlobalTags.URI_TAG);
@@ -295,24 +296,33 @@ public class Add_ServiceManager {
 				String id = doc.get("_id") + "";
 				doc.remove("_id");
 				doc.put("id", id);
-				list.add(doc);
+				if (doc.containsKey("groupzRefresh")) {
+					boolean GroupzRefresh = doc.getBoolean("groupzRefresh");
+					doc.remove("groupzRefresh");
+					doc.put(GlobalTags.GROUPZ_REFRESH_TAG, GroupzRefresh);
+					if (doc.containsKey("memberRefresh")) {
+						boolean memberRefresh = doc.getBoolean("memberRefresh");
+						doc.remove("memberRefresh");
+						doc.put(GlobalTags.MEM_REFRESH_TAG, memberRefresh);
+					}
+					list.add(doc);
+				}
+				JSONObject j = new JSONObject();
+				JSONObject json = new JSONObject();
+				JSONObject res1 = new JSONObject();
+				// JSONObject datas = new JSONObject();
+				res1.put(GlobalTags.STATUS_CODE_TAG, Integer
+						.parseInt(PropertiesUtil
+								.getProperty("statuscodesuccessvalue")));
+				res1.put(GlobalTags.STATUS_MSG_TAG,
+						PropertiesUtil.getProperty("statusmessagesuccessvalue"));
+				res1.put(GlobalTags.SERVICE_TYPE_TAG, servicetype);
+				res1.put(GlobalTags.FUNCTION_TYPE_TAG, functiontype);
+				res1.put(GlobalTags.JSON_DATA_TAG, list);
+				json.put(GlobalTags.RESPONSE_TAG, res1);
+				j.put(GlobalTags.JSON_TAG, json);
+				resp = j.toString();
 			}
-			JSONObject j = new JSONObject();
-			JSONObject json = new JSONObject();
-			JSONObject res1 = new JSONObject();
-			// JSONObject datas = new JSONObject();
-			res1.put(GlobalTags.STATUS_CODE_TAG, Integer
-					.parseInt(PropertiesUtil
-							.getProperty("statuscodesuccessvalue")));
-			res1.put(GlobalTags.STATUS_MSG_TAG,
-					PropertiesUtil.getProperty("statusmessagesuccessvalue"));
-			res1.put(GlobalTags.SERVICE_TYPE_TAG, servicetype);
-			res1.put(GlobalTags.FUNCTION_TYPE_TAG, functiontype);
-			res1.put(GlobalTags.JSON_DATA_TAG, list);
-			json.put(GlobalTags.RESPONSE_TAG, res1);
-			j.put(GlobalTags.JSON_TAG, json);
-			resp = j.toString();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			resp = RestUtils.processError(
