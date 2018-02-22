@@ -13,15 +13,15 @@ public class GlobalTags {
 	public static String FUNCTION_TYPE_TAG = "functiontype";
 	public static String JSON_DATA_TAG = "data";
 	public static String CONTENT_ST_TYPE_TAG = "contentservicetype";
-	public static String CONTENT_FST_TYPE_TAG = "contentFunctionServiceType";
+	public static String CONTENT_FST_TYPE_TAG = "contentfunctiontervicetype";
 	public static String $SET_TAG = "$set";
 
 	public static String URI_TAG = "uri";
 	public static String GROUPZ_MODULENAME_TAG = "groupzmodulename";
 	public static String ROLE_OFFSET_TAG = "roleoffset";
 	public static String SESSION__VALIDATE_TAG = "sessionvalidation";
-	public static String GROUPZ_REFRESH_TAG = "groupzRefresh";
-	public static String MEM_REFRESH_TAG = "memberRefresh";
+	public static String GROUPZ_REFRESH_TAG = "groupzrefresh";
+	public static String MEM_REFRESH_TAG = "memberrefresh";
 	public static String CONTENT_FT_TAG = "contentfunctiontype";
 	public static String ID_UND_TAG = "_id";
 	public static String ID_TAG = "id";
@@ -42,9 +42,9 @@ public class GlobalTags {
 	public static String SHORT_NAME_TAG = "shortname";
 	public static String PROFILEURL_TAG = "profileurl";
 	public static String GROUPZBASEKEY_CODE_TAG = "groupzbasekey";
-	public static String LAST_UPDATED_TIME_TAG = "lastUpdatedTime";
+	public static String LAST_UPDATED_TIME_TAG = "lastupdatedtime";
 	public static String MEMBER_ID_TAG = "memberid";
-	public static String PROCESSED_TIME_TAG = "proccessedTime";
+	public static String PROCESSED_TIME_TAG = "proccessedtime";
 	public static String MANAGE_USRS_TAG = "manageusers";
 	public static String GROUPZ_ID_TAG = "groupzid";
 	public static String GROUPZ_DETAILS_TAG = "groupzdetails";

@@ -16,6 +16,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.utils.ConnectionUtils;
+import com.utils.GlobalTags;
 import com.utils.PropertiesUtil;
 import com.utils.RestUtils;
 
@@ -282,18 +283,30 @@ public class AuthenticatorManager {
 								value.getInteger("contentfunctiontype"));
 						val.put("roleoffset", value.getString("roleoffset"));
 						val.put("url", value.getString("uri"));
-						val.put("groupzmodulename",
-								value.getString("groupzmodulename"));
-						val.put("sessionvalidation",
-								value.getBoolean("sessionvalidation"));
-						val.put("groupzRefresh",
-								value.getBoolean("groupzRefresh"));
-						val.put("memberRefresh",
-								value.getBoolean("memberRefresh"));
+						val.put(GlobalTags.GROUPZ_MODULENAME_TAG, value
+								.getString(GlobalTags.GROUPZ_MODULENAME_TAG));
+						val.put(GlobalTags.SESSION__VALIDATE_TAG, value
+								.getBoolean(GlobalTags.SESSION__VALIDATE_TAG));
+						// Handling for older conflicts of camel case letters
+						if (value.containsKey(GlobalTags.GROUPZ_REFRESH_TAG)) {
+							val.put(GlobalTags.GROUPZ_REFRESH_TAG, value
+									.getBoolean(GlobalTags.GROUPZ_REFRESH_TAG));
+						} else if (value.containsKey("groupzRefresh")) {
+							val.put(GlobalTags.GROUPZ_REFRESH_TAG,
+									value.getBoolean("groupzRefresh"));
+						}
+						if (value.containsKey(GlobalTags.MEM_REFRESH_TAG)) {
+							val.put(GlobalTags.MEM_REFRESH_TAG, value
+									.getBoolean(GlobalTags.MEM_REFRESH_TAG));
+						} else if (value.containsKey("memberRefresh")) {
+							val.put(GlobalTags.MEM_REFRESH_TAG,
+									value.getBoolean("memberRefresh"));
+						}
+
 						datas.add(val);
 					}
 					res = datas.toString();
-					System.out.println("Vale from session ");
+					System.out.println("Value from session ");
 					System.out.println(datas.toString());
 					return res;
 				} else {

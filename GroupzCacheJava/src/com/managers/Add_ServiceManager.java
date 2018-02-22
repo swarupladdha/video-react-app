@@ -1,11 +1,5 @@
 package com.managers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.jar.JarOutputStream;
-
-import javax.xml.bind.annotation.XmlElementDecl.GLOBAL;
-
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -14,10 +8,6 @@ import net.sf.json.JSONObject;
 
 import com.connection.Mongo_Connection;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.ServerAddress;
-import com.mongodb.ServerCursor;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -195,8 +185,7 @@ public class Add_ServiceManager {
 						.getProperty("roleOffset_missing_message"));
 				return resp;
 			}
-
-			JSONArray a = new JSONArray();
+			// JSONArray a = new JSONArray();
 			BasicDBObject searchQuery = new BasicDBObject();
 			searchQuery.put(GlobalTags.FUNCTION_TYPE_TAG,
 					Integer.parseInt(functionType));
