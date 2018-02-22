@@ -73,8 +73,14 @@ public class AuthenticationManager {
 			JSONArray jArray = JSONArray.fromObject(out);
 
 			JSONObject jObj = jArray.getJSONObject(0);
-			boolean sessionvalidation = jObj
-					.getBoolean(GlobalTags.SESSION__VALIDATE_TAG);
+			boolean sessionvalidation = false;
+			if (jObj.containsKey(GlobalTags.SESSION__VALIDATE_TAG)) {
+				sessionvalidation = jObj
+						.getBoolean(GlobalTags.SESSION__VALIDATE_TAG);
+			} else if (jObj.containsKey("sessionvalidation")) {
+				sessionvalidation = jObj.getBoolean("sessionvalidation");
+			}
+
 			if (sessionvalidation == true) {
 				response = RestUtils.processError(
 						PropertiesUtil.getProperty("permissionError_code"),
