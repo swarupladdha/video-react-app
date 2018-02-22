@@ -13,7 +13,7 @@ public class GlobalTags {
 	public static String FUNCTION_TYPE_TAG = "functiontype";
 	public static String JSON_DATA_TAG = "data";
 	public static String CONTENT_ST_TYPE_TAG = "contentservicetype";
-	public static String CONTENT_FST_TYPE_TAG = "contentfunctiontervicetype";
+	public static String CONTENT_FST_TYPE_TAG = "contentfunctionservicetype";
 	public static String $SET_TAG = "$set";
 
 	public static String URI_TAG = "uri";

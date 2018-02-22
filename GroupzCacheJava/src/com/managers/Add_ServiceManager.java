@@ -106,10 +106,10 @@ public class Add_ServiceManager {
 					.getCollection("authtables");
 			String serviceType = PropertiesUtil
 					.getProperty("getSessionDetailsServicetype");
-			String functionType = data.getString("functionType");
-			String contentServiceType = data.getString("contentServiceType");
+			String functionType = data.getString(GlobalTags.FUNCTION_TYPE_TAG);
+			String contentServiceType = data.getString(GlobalTags.CONTENT_ST_TYPE_TAG);
 			String contentFunctionServiceType = data
-					.getString("contentFunctionServiceType");
+					.getString(GlobalTags.CONTENT_FST_TYPE_TAG);
 			String uri = data.getString(GlobalTags.URI_TAG);
 			String groupzmodulename = data
 					.getString(GlobalTags.GROUPZ_MODULENAME_TAG);
