@@ -216,7 +216,7 @@ public class AuthenticatorManager {
 								insertQuery.append("memberid", memberid);
 								insertQuery.append(GlobalTags.LAST_UPDATED_TIME_TAG, RestUtils
 										.getLastSynchTime().toString());
-								insertQuery.append("proccessedTime", null);
+								insertQuery.append(GlobalTags.PROCESSED_TIME_TAG, null);
 								updateCollection.insertOne(insertQuery);
 							}
 						}
