@@ -191,7 +191,7 @@ public class AuthenticatorManager {
 							if (result.hasNext()) {
 								System.out.println("Got Value");
 								BasicDBObject set = new BasicDBObject();
-								set.put("lastUpdatedTime", RestUtils
+								set.put(GlobalTags.LAST_UPDATED_TIME_TAG, RestUtils
 										.getLastSynchTime().toString());
 								BasicDBObject updateQuery = new BasicDBObject();
 								updateQuery.put("$set", set);
@@ -214,7 +214,7 @@ public class AuthenticatorManager {
 								insertQuery.append("groupzbasekey",
 										groupzbasekey);
 								insertQuery.append("memberid", memberid);
-								insertQuery.append("lastUpdatedTime", RestUtils
+								insertQuery.append(GlobalTags.LAST_UPDATED_TIME_TAG, RestUtils
 										.getLastSynchTime().toString());
 								insertQuery.append("proccessedTime", null);
 								updateCollection.insertOne(insertQuery);
@@ -365,7 +365,7 @@ public class AuthenticatorManager {
 				groupzid = value.getInteger("groupzid");
 				memberid = value.getInteger("memberid");
 				manageusers = value.getInteger("manageusers");
-				memberUpdatedTime = value.getString("lastUpdatedTime");
+				memberUpdatedTime = value.getString(GlobalTags.LAST_UPDATED_TIME_TAG);
 			} else {
 				resp = RestUtils.processError(
 						PropertiesUtil.getProperty("invalid_session_code"),
@@ -384,7 +384,7 @@ public class AuthenticatorManager {
 			if (re1.hasNext()) {
 				Document value = re1.next();
 				groupzbasekey = value.getString("groupzbasekey");
-				groupzUpdatedTime = value.getString("lastUpdatedTime");
+				groupzUpdatedTime = value.getString(GlobalTags.LAST_UPDATED_TIME_TAG);
 			}
 			// else{
 			// return null;
@@ -483,7 +483,7 @@ public class AuthenticatorManager {
 				groupzid = value.getInteger("groupzid");
 				memberid = value.getInteger("memberid");
 				manageusers = value.getInteger("manageusers");
-				memberUpdatedTime = value.getString("lastUpdatedTime");
+				memberUpdatedTime = value.getString(GlobalTags.LAST_UPDATED_TIME_TAG);
 			} else {
 				resp = RestUtils.processError(
 						PropertiesUtil.getProperty("invalid_session_code"),
@@ -502,7 +502,8 @@ public class AuthenticatorManager {
 			if (re1.hasNext()) {
 				Document value = re1.next();
 				groupzbasekey = value.getString("groupzbasekey");
-				groupzUpdatedTime = value.getString("lastUpdatedTime");
+				groupzUpdatedTime = value
+						.getString(GlobalTags.LAST_UPDATED_TIME_TAG);
 			}
 			// else{
 			// return null;

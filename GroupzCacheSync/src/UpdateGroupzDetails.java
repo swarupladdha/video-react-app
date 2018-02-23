@@ -30,8 +30,8 @@ public class UpdateGroupzDetails extends RIJDBBaseThread{
 			MongoCollection<Document> updateCollection = session.getCollection("updategroupz");
 			BasicDBObject whereQuery = new BasicDBObject();
 			List<BasicDBObject> list = new ArrayList<BasicDBObject>();
-			list.add(new BasicDBObject("proccessedTime",new BasicDBObject("$lte", "lastUpdatedTime")));
-			list.add(new BasicDBObject("proccessedTime",null));
+			list.add(new BasicDBObject("proccessedtime",new BasicDBObject("$lte", "lastupdatedtime")));
+			list.add(new BasicDBObject("proccessedtime",null));
 			whereQuery.put("$or", list);
 			System.out.println(whereQuery);
 			FindIterable<Document> resultant = updateCollection.find(whereQuery);
@@ -45,8 +45,8 @@ public class UpdateGroupzDetails extends RIJDBBaseThread{
 				System.out.println(groupzcode);
 				System.out.println(groupzbasekey);
 				System.out.println(memberid);
-				System.out.println(res.get("lastUpdatedTime"));
-				System.out.println(res.get("proccessedTime"));
+				System.out.println(res.get("lastupdatedtime"));
+				System.out.println(res.get("proccessedtime"));
 				System.out.println("-------------------------------");
 				String url = PropertiesUtil.getProperty("update_groupz_details_url");
 				JSONObject jObj = new JSONObject();

@@ -623,8 +623,8 @@ public class AuthenticationManager {
 								"issueflowrulelist", issueflowrulelist1);
 					}
 
-					groupzDetails.put("lastUpdatedTime", RestUtils
-							.getLastSynchTime().toString());
+					groupzDetails.put(GlobalTags.LAST_UPDATED_TIME_TAG,
+							RestUtils.getLastSynchTime().toString());
 					System.out
 							.println("--------------------------------------------");
 					System.out.println(groupzDetails);
@@ -795,7 +795,7 @@ public class AuthenticationManager {
 				MongoCollection<Document> collection1 = db
 						.getCollection("memberdetails");
 				// collection1.insertOne(doc1);
-				memberDetails.put("lastUpdatedTime", RestUtils
+				memberDetails.put(GlobalTags.LAST_UPDATED_TIME_TAG, RestUtils
 						.getLastSynchTime().toString());
 				Document member = new Document(memberDetails);
 				collection1.insertOne(member);
