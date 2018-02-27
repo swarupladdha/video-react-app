@@ -265,7 +265,6 @@ public class RestUtils {
 
 	}
 
-	
 	public String processSuccessOnly(String serviceType, String functionType) {
 		JSONObject sucessJSON = new JSONObject();
 		JSONObject sucessRespJSON = new JSONObject();
@@ -281,7 +280,7 @@ public class RestUtils {
 		return sucessJSON.toString();
 	}
 
-	@SuppressWarnings("unused")
+	// @SuppressWarnings("unused")
 	public static boolean isJSONValid(String jsonString) {
 		boolean valid = true;
 		JSONObject obj = new JSONObject();

@@ -190,7 +190,7 @@ public class Add_ServiceManager {
 			BasicDBObject searchQuery = new BasicDBObject();
 			searchQuery.put(GlobalTags.FUNCTION_TYPE_TAG,
 					Integer.parseInt(functionType));
-			System.out.println(searchQuery);
+			System.out.println("searchQuery : " + searchQuery);
 			FindIterable<Document> res = collection.find(searchQuery);
 			MongoCursor<Document> cursor = res.iterator();
 			while (cursor.hasNext()) {
@@ -288,6 +288,7 @@ public class Add_ServiceManager {
 			} else if (limit != -1) {
 				res = col.find().skip(offset);
 			} else {
+				System.out.println("");
 				res = col.find();
 			}
 			MongoCursor<Document> cursor = res.iterator();
@@ -296,15 +297,29 @@ public class Add_ServiceManager {
 				String id = doc.get("_id") + "";
 				doc.remove("_id");
 				doc.put("id", id);
-				if (doc.containsKey("groupzRefresh")) {
-					boolean GroupzRefresh = doc.getBoolean("groupzRefresh");
-					doc.remove("groupzRefresh");
-					doc.put(GlobalTags.GROUPZ_REFRESH_TAG, GroupzRefresh);
-					if (doc.containsKey("memberRefresh")) {
-						boolean memberRefresh = doc.getBoolean("memberRefresh");
-						doc.remove("memberRefresh");
-						doc.put(GlobalTags.MEM_REFRESH_TAG, memberRefresh);
+				if (doc.containsKey("groupzRefresh")
+						|| doc.containsKey(GlobalTags.GROUPZ_REFRESH_TAG)) {
+					boolean GroupzRefresh = false;
+					if (doc.containsKey("groupzRefresh")) {
+						GroupzRefresh = doc.getBoolean("groupzRefresh");
+						doc.remove("groupzRefresh");
+						doc.put(GlobalTags.GROUPZ_REFRESH_TAG, GroupzRefresh);
+					} /*else if (doc.containsKey(GlobalTags.GROUPZ_REFRESH_TAG)) {
+						GroupzRefresh = doc
+								.getBoolean(GlobalTags.GROUPZ_REFRESH_TAG);
+					}*/
+
+					
+					if (doc.containsKey("memberRefresh")
+							|| doc.containsKey(GlobalTags.MEM_REFRESH_TAG)) {
+						if (doc.containsKey("memberRefresh")) {
+							boolean memberRefresh = doc
+									.getBoolean("memberRefresh");
+							doc.remove("memberRefresh");
+							doc.put(GlobalTags.MEM_REFRESH_TAG, memberRefresh);
+						}
 					}
+
 					list.add(doc);
 				}
 				JSONObject j = new JSONObject();
