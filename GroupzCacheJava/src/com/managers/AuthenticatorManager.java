@@ -187,7 +187,7 @@ public class AuthenticatorManager {
 							list.add(new BasicDBObject("groupzbasekey",
 									groupzbasekey));
 							whereQuery.put("$and", list);
-							System.out.println(whereQuery);
+							System.out.println("whereQuery : " + whereQuery);
 							FindIterable<Document> resultant = updateCollection
 									.find(whereQuery);
 							MongoCursor<Document> result = resultant.iterator();
