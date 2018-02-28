@@ -94,6 +94,8 @@ public class AuthenticatorManager {
 			} else if (jObj.containsKey("memberRefresh")) {
 				memberRefresh = jObj.getBoolean("memberRefresh");
 			}
+			System.out.println("GROUPZREFRESH : " + groupzRefresh
+					+ "MEMBERREFRESH : " + memberRefresh);
 			if ((sessionvalidation == true)
 					&& (request.containsKey("session_id") == true)) {
 				System.out
@@ -178,6 +180,7 @@ public class AuthenticatorManager {
 						MongoCollection<Document> updateCollection = db1
 								.getCollection("updategroupz");
 						if (groupzRefresh) {
+							System.out.println("Updating For GroupzRefresh");
 							BasicDBObject whereQuery = new BasicDBObject();
 							List<BasicDBObject> list = new ArrayList<BasicDBObject>();
 							list.add(new BasicDBObject("groupzcode", groupzCode));
@@ -191,8 +194,8 @@ public class AuthenticatorManager {
 							if (result.hasNext()) {
 								System.out.println("Got Value");
 								BasicDBObject set = new BasicDBObject();
-								set.put(GlobalTags.LAST_UPDATED_TIME_TAG, RestUtils
-										.getLastSynchTime().toString());
+								set.put(GlobalTags.LAST_UPDATED_TIME_TAG,
+										RestUtils.getLastSynchTime().toString());
 								BasicDBObject updateQuery = new BasicDBObject();
 								updateQuery.put("$set", set);
 								updateCollection.updateOne(whereQuery,
@@ -214,11 +217,16 @@ public class AuthenticatorManager {
 								insertQuery.append("groupzbasekey",
 										groupzbasekey);
 								insertQuery.append("memberid", memberid);
-								insertQuery.append(GlobalTags.LAST_UPDATED_TIME_TAG, RestUtils
-										.getLastSynchTime().toString());
-								insertQuery.append(GlobalTags.PROCESSED_TIME_TAG, null);
+								insertQuery
+										.append(GlobalTags.LAST_UPDATED_TIME_TAG,
+												RestUtils.getLastSynchTime()
+														.toString());
+								insertQuery.append(
+										GlobalTags.PROCESSED_TIME_TAG, null);
 								updateCollection.insertOne(insertQuery);
 							}
+						} else {
+							System.out.println("groupzRefresh Disabled");
 						}
 
 						return bResponse.toString();
@@ -312,7 +320,6 @@ public class AuthenticatorManager {
 							val.put(GlobalTags.MEM_REFRESH_TAG,
 									value.getBoolean("memberRefresh"));
 						}
-
 						datas.add(val);
 					}
 					res = datas.toString();
@@ -324,9 +331,11 @@ public class AuthenticatorManager {
 					return null;
 				}
 			} catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			} finally {
-				re.close();
+				if (re != null) {
+					re.close();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -365,7 +374,8 @@ public class AuthenticatorManager {
 				groupzid = value.getInteger("groupzid");
 				memberid = value.getInteger("memberid");
 				manageusers = value.getInteger("manageusers");
-				memberUpdatedTime = value.getString(GlobalTags.LAST_UPDATED_TIME_TAG);
+				memberUpdatedTime = value
+						.getString(GlobalTags.LAST_UPDATED_TIME_TAG);
 			} else {
 				resp = RestUtils.processError(
 						PropertiesUtil.getProperty("invalid_session_code"),
@@ -384,7 +394,8 @@ public class AuthenticatorManager {
 			if (re1.hasNext()) {
 				Document value = re1.next();
 				groupzbasekey = value.getString("groupzbasekey");
-				groupzUpdatedTime = value.getString(GlobalTags.LAST_UPDATED_TIME_TAG);
+				groupzUpdatedTime = value
+						.getString(GlobalTags.LAST_UPDATED_TIME_TAG);
 			}
 			// else{
 			// return null;
@@ -483,7 +494,8 @@ public class AuthenticatorManager {
 				groupzid = value.getInteger("groupzid");
 				memberid = value.getInteger("memberid");
 				manageusers = value.getInteger("manageusers");
-				memberUpdatedTime = value.getString(GlobalTags.LAST_UPDATED_TIME_TAG);
+				memberUpdatedTime = value
+						.getString(GlobalTags.LAST_UPDATED_TIME_TAG);
 			} else {
 				resp = RestUtils.processError(
 						PropertiesUtil.getProperty("invalid_session_code"),
