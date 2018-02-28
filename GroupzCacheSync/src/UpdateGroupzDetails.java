@@ -106,7 +106,7 @@ public class UpdateGroupzDetails extends RIJDBBaseThread {
 								"issueflowrulelist", issueflowrulelist1);
 					}
 
-					groupzData.put("lastUpdatedTime", RestUtil
+					groupzData.put("lastupdatedtime", RestUtil
 							.getLastSynchTime().toString());
 					System.out
 							.println("--------------------------------------------");
@@ -133,7 +133,7 @@ public class UpdateGroupzDetails extends RIJDBBaseThread {
 					} else {
 						BasicDBObject setQuery = new BasicDBObject();
 						setQuery.put("$set", new BasicDBObject(
-								"proccessedTime", RestUtil.getLastSynchTime()
+								"proccessedtime", RestUtil.getLastSynchTime()
 										.toString()));
 						updateCollection.updateOne(whereQuery, setQuery);
 						System.out
