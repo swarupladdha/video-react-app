@@ -142,7 +142,7 @@ public class UpdateGroupzDetails extends RIJDBBaseThread {
 				} else {
 					System.out.println("Updating Time For Failure");
 					BasicDBObject setQuery = new BasicDBObject();
-					setQuery.put("$set", new BasicDBObject("proccessedTime",
+					setQuery.put("$set", new BasicDBObject("proccessedtime",
 							RestUtil.getLastSynchTime().toString()));
 					System.out.println("whereQuery : " + whereQuery
 							+ " setQuery : " + setQuery);
