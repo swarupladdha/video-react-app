@@ -31,7 +31,7 @@ public class UpdateGroupzDetails extends RIJDBBaseThread {
 			BasicDBObject whereQuery = new BasicDBObject();
 			List<BasicDBObject> list = new ArrayList<BasicDBObject>();
 			list.add(new BasicDBObject("proccessedtime", new BasicDBObject(
-					"$lte", "lastupdatedtime")));
+					"$gte", "lastupdatedtime")));
 			list.add(new BasicDBObject("proccessedtime", null));
 			whereQuery.put("$or", list);
 			System.out.println(whereQuery);
