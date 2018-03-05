@@ -15,6 +15,8 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import sun.awt.GlobalCursorManager;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
@@ -23,7 +25,8 @@ public class RestUtils {
 
 	// checking null
 	public static boolean isEmpty(String test) {
-		if (test == null || test.trim().isEmpty() == true|| test.equalsIgnoreCase("[]") || test == "") {
+		if (test == null || test.trim().isEmpty() == true
+				|| test.equalsIgnoreCase("[]") || test == "") {
 			return false;
 		}
 		return true;
@@ -95,16 +98,15 @@ public class RestUtils {
 		System.out.println("Date :" + lastSynch);
 		return lastSynch;
 	}
-	
-/*	public static Date getDate() {
-		SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
-		f.setTimeZone(TimeZone.getTimeZone("UTC"));
-		String utcTime = f.format(new Date());
-		System.out.println("String date:" + utcTime);
-		Date lastSynch = StringToDate(utcTime);
-		System.out.println("Date :" + lastSynch);
-		return lastSynch;
-	}*/
+
+	/*
+	 * public static Date getDate() { SimpleDateFormat f = new
+	 * SimpleDateFormat("dd-MM-yyyy");
+	 * f.setTimeZone(TimeZone.getTimeZone("UTC")); String utcTime = f.format(new
+	 * Date()); System.out.println("String date:" + utcTime); Date lastSynch =
+	 * StringToDate(utcTime); System.out.println("Date :" + lastSynch); return
+	 * lastSynch; }
+	 */
 
 	public static Date StringDateToDate(String StrDate) {
 		String DATEFORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -118,19 +120,16 @@ public class RestUtils {
 
 		return dateToReturn;
 	}
-	
-/*	public static Date StringToDate(String StrDate) {
-		String DATEFORMAT = "dd-MM-yyyy";
-		Date dateToReturn = null;
-		SimpleDateFormat dateFormat = new SimpleDateFormat(DATEFORMAT);
-		try {
-			dateToReturn = (Date) dateFormat.parse(StrDate);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 
-		return dateToReturn;
-	}*/
+	/*
+	 * public static Date StringToDate(String StrDate) { String DATEFORMAT =
+	 * "dd-MM-yyyy"; Date dateToReturn = null; SimpleDateFormat dateFormat = new
+	 * SimpleDateFormat(DATEFORMAT); try { dateToReturn = (Date)
+	 * dateFormat.parse(StrDate); } catch (ParseException e) {
+	 * e.printStackTrace(); }
+	 * 
+	 * return dateToReturn; }
+	 */
 
 	protected void SimpleOTPGenerator() {
 	}
@@ -235,8 +234,10 @@ public class RestUtils {
 		JSONObject contentJSON = new JSONObject();
 		contentJSON.put("servicetype", serviceType);
 		contentJSON.put("functiontype", functionType);
-		contentJSON.put("statuscode",PropertiesUtil.getProperty("statuscodesuccessvalue"));
-		contentJSON.put("statusmessage",PropertiesUtil.getProperty("statusmessagesuccessvalue"));
+		contentJSON.put("statuscode",
+				PropertiesUtil.getProperty("statuscodesuccessvalue"));
+		contentJSON.put("statusmessage",
+				PropertiesUtil.getProperty("statusmessagesuccessvalue"));
 		if (dataArray != null && dataArray.size() > 0) {
 			contentJSON.put(dataText, dataArray);
 		}
@@ -253,8 +254,10 @@ public class RestUtils {
 		JSONObject contentJSON = new JSONObject();
 		contentJSON.put("servicetype", serviceType);
 		contentJSON.put("functiontype", functionType);
-		contentJSON.put("statuscode",PropertiesUtil.getProperty("statuscodesuccessvalue"));
-		contentJSON.put("statusmessage",PropertiesUtil.getProperty("statusmessagesuccessvalue"));
+		contentJSON.put("statuscode",
+				PropertiesUtil.getProperty("statuscodesuccessvalue"));
+		contentJSON.put("statusmessage",
+				PropertiesUtil.getProperty("statusmessagesuccessvalue"));
 		contentJSON.put("data", obj);
 		sucessRespJSON.put("response", contentJSON);
 		sucessJSON.put("json", sucessRespJSON);
@@ -268,14 +271,16 @@ public class RestUtils {
 		JSONObject contentJSON = new JSONObject();
 		contentJSON.put("servicetype", serviceType);
 		contentJSON.put("functiontype", functionType);
-		contentJSON.put("statuscode",PropertiesUtil.getProperty("statuscodesuccessvalue"));
-		contentJSON.put("statusmessage",PropertiesUtil.getProperty("statusmessagesuccessvalue"));
+		contentJSON.put("statuscode",
+				PropertiesUtil.getProperty("statuscodesuccessvalue"));
+		contentJSON.put("statusmessage",
+				PropertiesUtil.getProperty("statusmessagesuccessvalue"));
 		sucessRespJSON.put("response", contentJSON);
 		sucessJSON.put("json", sucessRespJSON);
 		return sucessJSON.toString();
 	}
 
-	@SuppressWarnings("unused")
+	// @SuppressWarnings("unused")
 	public static boolean isJSONValid(String jsonString) {
 		boolean valid = true;
 		JSONObject obj = new JSONObject();
@@ -293,8 +298,10 @@ public class RestUtils {
 		JSONObject sucessJSON = new JSONObject();
 		JSONObject sucessRespJSON = new JSONObject();
 		JSONObject contentJSON = new JSONObject();
-		contentJSON.put("statuscode",PropertiesUtil.getProperty("statuscodesuccessvalue"));
-		contentJSON.put("statusmessage",PropertiesUtil.getProperty("statusmessagesuccessvalue"));
+		contentJSON.put("statuscode",
+				PropertiesUtil.getProperty("statuscodesuccessvalue"));
+		contentJSON.put("statusmessage",
+				PropertiesUtil.getProperty("statusmessagesuccessvalue"));
 		if (Obj instanceof JSONArray) {
 			contentJSON.put(dataPartStr, Obj);
 		} else if (Obj instanceof JSONObject) {
@@ -426,97 +433,93 @@ public class RestUtils {
 		return obj;
 
 	}
-	
+
 	public static String getConcatenatedJSONids(JSONArray array) {
 		String concatenatedString = "";
-		if (array.size()==1){	
-			concatenatedString =   "'"+array.get(0)+"'";
-			System.out.println("-------"+array.get(0));
+		if (array.size() == 1) {
+			concatenatedString = "'" + array.get(0) + "'";
+			System.out.println("-------" + array.get(0));
 			return concatenatedString;
 		}
-			for(Object rol:array){
-				concatenatedString +=   "'"+rol+"',";
-			}
-			return concatenatedString.substring(0,concatenatedString.length()-1);
-	
+		for (Object rol : array) {
+			concatenatedString += "'" + rol + "',";
+		}
+		return concatenatedString.substring(0, concatenatedString.length() - 1);
+
 	}
+
 	@SuppressWarnings("rawtypes")
 	public static String getConcatenatedInt(List array) {
 		String concatenatedString = "";
-		if (array.size()==1){
-			concatenatedString =   ""+array.get(0);
+		if (array.size() == 1) {
+			concatenatedString = "" + array.get(0);
 			return concatenatedString;
 		}
-		
-			for(Object rol:array){
-				concatenatedString +=   rol+",";
-			}
-			
-			return concatenatedString.substring(0,concatenatedString.length()-1);
-		
-		
+
+		for (Object rol : array) {
+			concatenatedString += rol + ",";
+		}
+
+		return concatenatedString.substring(0, concatenatedString.length() - 1);
+
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public static String getConcatenatedString(List array) {
 		String concatenatedString = "";
-		if (array.size()==1){
-			concatenatedString =   "'"+array.get(0)+"'";
+		if (array.size() == 1) {
+			concatenatedString = "'" + array.get(0) + "'";
 			return concatenatedString;
 		}
-		
-			for(Object rol:array){
-				concatenatedString +=   "'"+rol+"',";
-			}
-			
-			return concatenatedString.substring(0,concatenatedString.length()-1);	
-		
-		
+
+		for (Object rol : array) {
+			concatenatedString += "'" + rol + "',";
+		}
+
+		return concatenatedString.substring(0, concatenatedString.length() - 1);
+
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public static int getMonthsDifference(String yoj, String yor) {
 		try {
-		DateFormat formatter = new SimpleDateFormat("MMM-yyyy");
-		DateFormat formatter1 = new SimpleDateFormat("MMM -yyyy");
-		Date yoJoi = (Date)formatter.parse(yoj);
-		Date yoRel = (Date)formatter1.parse(yor);
-		int m1 = yoJoi.getYear() * 12 + yoJoi.getMonth();
-		int m2 = yoRel.getYear() * 12 + yoRel.getMonth();
-	    return m2 - m1 ;
+			DateFormat formatter = new SimpleDateFormat("MMM-yyyy");
+			DateFormat formatter1 = new SimpleDateFormat("MMM -yyyy");
+			Date yoJoi = (Date) formatter.parse(yoj);
+			Date yoRel = (Date) formatter1.parse(yor);
+			int m1 = yoJoi.getYear() * 12 + yoJoi.getMonth();
+			int m2 = yoRel.getYear() * 12 + yoRel.getMonth();
+			return m2 - m1;
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return 0;
 		}
 	}
-	
-	public static String getExperience(int experience){
-		int year = experience/12;
-		int month = experience%12;
+
+	public static String getExperience(int experience) {
+		int year = experience / 12;
+		int month = experience % 12;
 		String actualExperience = "";
-		String yearsEx="";
-		String monthsEx="";
-		if(year>0){
-			if (year >1 ){
-				yearsEx = year +" Years";
-			}
-			else{
-				yearsEx = year +" Year";
-			}
-		}
-		
-		if (month>0){
-			if (month >1 ){
-				monthsEx = month +" Months";
-			}
-			else{
-				monthsEx = month +" Months";
+		String yearsEx = "";
+		String monthsEx = "";
+		if (year > 0) {
+			if (year > 1) {
+				yearsEx = year + " Years";
+			} else {
+				yearsEx = year + " Year";
 			}
 		}
-		
-		actualExperience = yearsEx+" "+monthsEx;
+
+		if (month > 0) {
+			if (month > 1) {
+				monthsEx = month + " Months";
+			} else {
+				monthsEx = month + " Months";
+			}
+		}
+
+		actualExperience = yearsEx + " " + monthsEx;
 		return actualExperience;
 	}
 
-	
 }
