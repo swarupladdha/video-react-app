@@ -7,16 +7,16 @@ import java.util.List;
 
 import net.sf.json.JSONObject;
 import operations.DBOperations;
-import utils.DBConnection;
 import utils.PropertiesUtil;
 import utils.RestUtils;
 
 public class OTPManager {
 	RestUtils utils = new RestUtils();
 	DBOperations dbo = new DBOperations();
-	DBConnection dbc = new DBConnection();
-	Connection con = dbc.getConnection();
 	SmsManager sms = new SmsManager();
+
+	Connection dbConnection = null;
+	ConnectionPooling connectionPooling = ConnectionPooling.getInstance();
 
 	public String generateOtp(String otpRequest) {
 		String generateOtpResponse = "";
@@ -105,6 +105,7 @@ public class OTPManager {
 
 			if (countryCode.equalsIgnoreCase("91") == true
 					|| countryCode.equalsIgnoreCase("1") == true) {
+				dbConnection = connectionPooling.getConnection();
 				String currentTime = utils.getFormattedDateStr(utils
 						.getLastSynchTime());
 				if (newOtp == true) {
@@ -113,14 +114,14 @@ public class OTPManager {
 							encryptedCountryCode, currentTime);
 					System.out.println(" Mobile Exist Query :"
 							+ checkMobileExistQuery);
-					List<Integer> otpEntryList = dbo.getIntegerList(con,
-							checkMobileExistQuery);
+					List<Integer> otpEntryList = dbo.getIntegerList(
+							dbConnection, checkMobileExistQuery);
 					if (otpEntryList != null && otpEntryList.size() > 0) {
 						for (int j = 0; j < otpEntryList.size(); j++) {
 							String updateOtpEntry = updateDuplicateEntrySQL
 									.format(updateDuplicateEntrySQL,
 											otpEntryList.get(j));
-							dbo.executeUpdate(updateOtpEntry, con);
+							dbo.executeUpdate(updateOtpEntry, dbConnection);
 						}
 
 					}
@@ -139,14 +140,14 @@ public class OTPManager {
 							encryptedCountryCode, currentTime, lapseTime,
 							encryptedOtp, otp);
 					System.out.println(insertIntoOtpQuery);
-					dbo.executeUpdate(insertIntoOtpQuery, con);
+					dbo.executeUpdate(insertIntoOtpQuery, dbConnection);
 				} else {
 					String query = "Select OriginalOtp from Otp where Mobile='"
 							+ encryptedMobile + "' and CountryCode='"
 							+ encryptedCountryCode + "' and LapseTime>='"
 							+ currentTime + "' ORDER BY id DESC LIMIT 1";
 					System.out.println("Query for getting old otp :" + query);
-					otp = dbo.getOldOTP(query, con);
+					otp = dbo.getOldOTP(query, dbConnection);
 					if (otp == null) {
 						otp = utils.generateOTP();
 
@@ -165,7 +166,7 @@ public class OTPManager {
 										encryptedCountryCode, currentTime,
 										lapseTime, encryptedOtp, otp);
 						System.out.println(insertIntoOtpQuery);
-						dbo.executeUpdate(insertIntoOtpQuery, con);
+						dbo.executeUpdate(insertIntoOtpQuery, dbConnection);
 
 					}
 
@@ -179,7 +180,7 @@ public class OTPManager {
 						sms_text,
 						mobileWithCountryCode,
 						PropertiesUtil.getProperty("from_number_for_sms_alert"),
-						con);
+						dbConnection);
 
 				generateOtpResponse = utils.processSuccess();
 				return generateOtpResponse;
@@ -192,6 +193,13 @@ public class OTPManager {
 					PropertiesUtil.getProperty("common_error_code"),
 					PropertiesUtil.getProperty("common_error_message"));
 			return generateOtpResponse;
+		} finally {
+			try {
+				if (dbConnection != null)
+					connectionPooling.close(dbConnection);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return generateOtpResponse;
 
@@ -287,6 +295,8 @@ public class OTPManager {
 			if (countryCode.equalsIgnoreCase("91") == true
 					|| countryCode.equalsIgnoreCase("1") == true) {
 
+				dbConnection = connectionPooling.getConnection();
+
 				String mobileEncrypted = utils.encrypt(mobile);
 				String countryCodeEnrypted = utils.encrypt(countryCode);
 
@@ -297,7 +307,7 @@ public class OTPManager {
 						mobileEncrypted, countryCodeEnrypted, encryptedOtp,
 						CurrentTime);
 
-				List<Integer> validateOtp = dbo.getIntegerList(con,
+				List<Integer> validateOtp = dbo.getIntegerList(dbConnection,
 						validateOtpQuery);
 
 				if (validateOtp == null || validateOtp.size() == 0) {
@@ -327,6 +337,13 @@ public class OTPManager {
 					PropertiesUtil.getProperty("common_error_code"),
 					PropertiesUtil.getProperty("common_error_message"));
 			return validateOtpResponse;
+		} finally {
+			try {
+				if (dbConnection != null)
+					connectionPooling.close(dbConnection);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
