@@ -10,7 +10,6 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import com.connection.Mongo_Connection;
-import com.google.gson.JsonArray;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -125,7 +124,7 @@ public class AuthenticatorManager {
 				JSONObject bResponse = null;
 				if (response != null) {
 					Object obj = response;
-					if (obj instanceof JsonArray) {
+					if (obj instanceof JSONArray) {
 						bResponse = JSONArray.fromObject(response)
 								.getJSONObject(0);
 					} else {
