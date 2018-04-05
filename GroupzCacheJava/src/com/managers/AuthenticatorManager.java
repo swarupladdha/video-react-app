@@ -121,16 +121,9 @@ public class AuthenticatorManager {
 				// response =
 				// getDeatilsAndBackendResponse(sessionId,out,groupzCode,data);
 				System.out.println("---" + response);
-				JSONObject bResponse = null;
 				if (response != null) {
-					Object obj = response;
-					if (obj instanceof JSONArray) {
-						bResponse = JSONArray.fromObject(response)
-								.getJSONObject(0);
-					} else {
-						bResponse = JSONObject.fromObject(response);
-					}
-					// JSONArray ar = JSONArray.fromObject(response);
+
+					JSONObject bResponse = JSONObject.fromObject(response);
 					if (bResponse
 							.getJSONObject("json")
 							.getJSONObject("response")
