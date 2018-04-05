@@ -10,6 +10,7 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import com.connection.Mongo_Connection;
+import com.google.gson.JsonArray;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -121,9 +122,16 @@ public class AuthenticatorManager {
 				// response =
 				// getDeatilsAndBackendResponse(sessionId,out,groupzCode,data);
 				System.out.println("---" + response);
+				JSONObject bResponse = null;
 				if (response != null) {
-
-					JSONObject bResponse = JSONObject.fromObject(response);
+					Object obj = response;
+					if (obj instanceof JsonArray) {
+						bResponse = JSONArray.fromObject(response)
+								.getJSONObject(0);
+					} else {
+						bResponse = JSONObject.fromObject(response);
+					}
+					// JSONArray ar = JSONArray.fromObject(response);
 					if (bResponse
 							.getJSONObject("json")
 							.getJSONObject("response")
