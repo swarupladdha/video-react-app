@@ -36,7 +36,7 @@ public class AuthenticatorManager {
 		String response = "";
 		String servicetype = "";
 		String functiontype = "";
-		System.out.println(regRequest);
+		System.out.println("Mongo Request Is : " + regRequest);
 		try {
 			if (RestUtils.isJSONValid(regRequest) == false) {
 				response = RestUtils.processError(
