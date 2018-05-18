@@ -1,6 +1,5 @@
 package src.followupconfig;
 
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,10 +14,11 @@ public class PropertiesUtil {
 	static {
 		props = new Properties();
 		try {
-			
+
 			PropertiesUtil util = new PropertiesUtil();
-			props = util.getPropertiesFromClasspath("./src/followupconfig/followup.properties");
-				
+			props = util
+					.getPropertiesFromClasspath("src/followupconfig/followup.properties");
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -38,10 +38,10 @@ public class PropertiesUtil {
 		return props.keySet();
 	}
 
-	public  Properties getPropertiesFromClasspath(String propFileName)
+	public Properties getPropertiesFromClasspath(String propFileName)
 			throws IOException {
 		Properties props = new Properties();
-
+		System.out.println("ClassPath : " + propFileName);
 		InputStream inputStream = this.getClass().getClassLoader()
 				.getResourceAsStream(propFileName);
 

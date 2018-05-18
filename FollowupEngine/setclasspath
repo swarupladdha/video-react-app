@@ -1,5 +1,4 @@
-export JAVA_HOME=/usr/lib/jvm/jdk1.6.0_24
-export FE_BASE=/home/sunil/newdev/Interfaces/FollowupEngine
+export FE_BASE=/home/dinesh/development/Interfaces/FollowupEngine
 export LOG_PROPERTIES_FILE=$FE_BASE/conf/log4j.properties 
 export FE_CONFIG_FILE=$FE_BASE/conf/db.properties 
 CLASSPATH="."
