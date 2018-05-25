@@ -23,7 +23,7 @@ public class ServiceRequestAggregationOperations {
 	String addServiceAggregationQuery = "INSERT INTO escalationaggregation "
 			+ " (openescalations,closedescalations,totalescalations,groupzid,category,month,year) "
 			+ " VALUES( %s, %s, %s, %s, '%s', %s, %s)";
-	String insertIssueAggregationQry = " insert into issueaggregation (totalissues,openissues,closedIssues,escalatedissues,apartmentid,builderid,updateddate) values(%d,%d,%d,%d,%d,%d,'%s');";
+	String insertIssueAggregationQry = " insert into issueaggregation (totalissues,openissues,closedIssues,escalatedissues,apartmentid,builderid,updateddate,month,year) values(%d,%d,%d,%d,%d,%d,'%s','%s','%s');";
 
 	public void deleteServiceAggregation(Connection connection, int groupzId) {
 		Statement stmt = null;
@@ -51,13 +51,14 @@ public class ServiceRequestAggregationOperations {
 			String aptFinalSrState = getAptDetails(groupzId, connection, false);
 			int finalStateIntValue = getValueForState(aptFinalSrState,
 					groupzId, connection);
-			String getSRQuery = "select count(issue.id)totalissues, sum(case   when ClosedTime  is null and InvalidIssue = 0 and issuestate!="
+			String getSRQuery = "select month(issue.fileddate)month,year(issue.fileddate)year,count(issue.id)totalissues, sum(case   when ClosedTime  is null and InvalidIssue = 0 and issuestate!="
 					+ finalStateIntValue
-					+ " then 1 else 0 end) as openSR,sum(case   when ClosedTime  is not null and InvalidIssue = 0 and issuestate="
+					// ClosedTime is not null for closed SR's
+					+ " then 1 else 0 end) as openSR,sum(case   when InvalidIssue = 0 and issuestate="
 					+ finalStateIntValue
 					+ " then 1 else 0 end) as closedSR ,apt.id apartmentid ,apt.builderid builderid from issue ,apartment apt where  ApartmentId = "
 					+ groupzId
-					+ "  and apt.id=issue.apartmentid and isenquiry=0;";
+					+ "  and apt.id=issue.apartmentid and isenquiry=0 group by Month(issue.fileddate),year(issue.fileddate)";
 			System.out.println("Get Sr Details Of Groupz Is : " + getSRQuery);
 			int escalationCount = getEscalatedIssuesForGroupz(connection,
 					groupzId);
@@ -69,9 +70,11 @@ public class ServiceRequestAggregationOperations {
 				int totalIssues = rs.getInt("totalissues");
 				int apartmentid = rs.getInt("apartmentid");
 				int builderId = rs.getInt("builderid");
+				String month = rs.getString("month");
+				String year = rs.getString("year");
 				String addSRAggSet = String.format(insertIssueAggregationQry,
 						totalIssues, openSR, closedSR, escalationCount,
-						apartmentid, builderId, updatedDate);
+						apartmentid, builderId, updatedDate, month, year);
 				System.out.println("Save IssueAggregation Qry is : "
 						+ addSRAggSet);
 				insertIssueAggregation(connection, addSRAggSet);
