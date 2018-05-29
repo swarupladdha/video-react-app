@@ -34,7 +34,7 @@ public class FeeAggregationOperations {
 	String addFeeAggregationQuery = "insert into feeaggregation "
 			+ "(amount,apartmentId,division,month,paymentStatus,paymentType,subDivision,year)"
 			+ "values(%s,%s,%s,%s,'%s','%s','%s',%s)";
-	String paymentInsertQry = "insert into feeaggregation(month,year,totalpaid,apartmentid) values('%s','%s',%f,%d);";
+	String paymentInsertQry = "insert into feeaggregation(month,year,totalpaid,apartmentid) values('%s','%s',%f,%d)";
 
 	String feeAggregationInsertQry = "insert into feeaggregation (totalincome,totalbalance,totaldiscount,totalexpense,apartmentId,Builderid,updateddate,month,year) values(%f,%f,%f,%f,%d,%d,'%s','%s','%s')";
 

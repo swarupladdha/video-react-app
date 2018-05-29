@@ -24,6 +24,7 @@ public class ServiceRequestAggregationOperations {
 			+ " (openescalations,closedescalations,totalescalations,groupzid,category,month,year) "
 			+ " VALUES( %s, %s, %s, %s, '%s', %s, %s)";
 	String insertIssueAggregationQry = " insert into issueaggregation (totalissues,openissues,closedIssues,escalatedissues,apartmentid,builderid,updateddate,month,year) values(%d,%d,%d,%d,%d,%d,'%s','%s','%s');";
+	String paymentInsertQry = "insert into issueaggregation(month,year,escalatedissues,apartmentid,updateddate) values('%s','%s',%d,%d,'%s')";
 
 	public void deleteServiceAggregation(Connection connection, int groupzId) {
 		Statement stmt = null;
@@ -60,8 +61,8 @@ public class ServiceRequestAggregationOperations {
 					+ groupzId
 					+ "  and apt.id=issue.apartmentid and isenquiry=0 group by Month(issue.fileddate),year(issue.fileddate)";
 			System.out.println("Get Sr Details Of Groupz Is : " + getSRQuery);
-			int escalationCount = getEscalatedIssuesForGroupz(connection,
-					groupzId);
+			JSONArray escalationCountArr = getEscalatedIssuesForGroupz(
+					connection, groupzId);
 			stmt = connection.createStatement();
 			rs = stmt.executeQuery(getSRQuery);
 			while (rs.next()) {
@@ -73,11 +74,32 @@ public class ServiceRequestAggregationOperations {
 				String month = rs.getString("month");
 				String year = rs.getString("year");
 				String addSRAggSet = String.format(insertIssueAggregationQry,
-						totalIssues, openSR, closedSR, escalationCount,
-						apartmentid, builderId, updatedDate, month, year);
+						totalIssues, openSR, closedSR, 0, apartmentid,
+						builderId, updatedDate, month, year);
 				System.out.println("Save IssueAggregation Qry is : "
 						+ addSRAggSet);
 				insertIssueAggregation(connection, addSRAggSet);
+			}
+			if (escalationCountArr != null && escalationCountArr.size() > 0) {
+				for (int i = 0; i < escalationCountArr.size(); i++) {
+					JSONObject escObj = escalationCountArr.getJSONObject(i);
+					String month = escObj.getString("month");
+					String year = escObj.getString("year");
+					int noOfEscalations = escObj.getInt("totalescalations");
+					if (checkColumnExistForMonthAndYear(
+							escObj.getString("month"),
+							escObj.getString("year"), groupzId, connection)) {
+						System.out
+								.println("Updating For Existing Month And Year");
+						updateForEscalationsOnMonthAndYear(noOfEscalations,
+								month, year, groupzId, updatedDate, connection);
+					} else {
+						System.out
+								.println("Inserting For Existing Month And Year");
+						insertForEscalationsOnMonthAndYear(noOfEscalations,
+								month, year, groupzId, updatedDate, connection);
+					}
+				}
 			}
 			ConnectionUtils.close(stmt);
 		} catch (SQLException e) {
@@ -102,23 +124,23 @@ public class ServiceRequestAggregationOperations {
 
 	}
 
-	private int getEscalatedIssuesForGroupz(Connection con, int groupzId) {
-		int escalatedCount = 0;
+	private JSONArray getEscalatedIssuesForGroupz(Connection con, int groupzId) {
+		JSONArray escalationList = new JSONArray();
 		Statement stmt = null;
 		ResultSet rs = null;
-		String countEscalationQuery = "select count( distinct i.id) totalescalations from issue i,issueescalations ie where i.id=ie.modulereferenceid and i.apartmentid="
+		String countEscalationQuery = "select month(createddate)month,year(createddate)year, count( distinct i.id) totalescalations from issue i,issueescalations ie where i.id=ie.modulereferenceid and i.apartmentid="
 				+ groupzId
-				+ " and ie.levelofescalation>0 and ie.istriggered=1;	";
+				+ " and  ie.levelofescalation>0 and ie.istriggered=1 group by month(createddate),year(createddate)";
 		try {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(countEscalationQuery);
 			while (rs.next()) {
-				if (rs.getInt("totalescalations") > 0) {
-					return rs.getInt("totalescalations");
-				} else {
-					System.out.println("No Escalations Found For Groupz Id : ");
-					return 0;
-				}
+				JSONObject escalationObj = new JSONObject();
+				escalationObj.put("month", rs.getInt("month"));
+				escalationObj.put("year", rs.getInt("year"));
+				escalationObj.put("totalescalations",
+						rs.getInt("totalescalations"));
+				escalationList.add(escalationObj);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -138,7 +160,7 @@ public class ServiceRequestAggregationOperations {
 				}
 			}
 		}
-		return escalatedCount;
+		return escalationList;
 	}
 
 	private String getAptDetails(int apartmentId, Connection con,
@@ -229,6 +251,62 @@ public class ServiceRequestAggregationOperations {
 					e.printStackTrace();
 				}
 			}
+		}
+	}
+
+	private boolean checkColumnExistForMonthAndYear(String month, String year,
+			int groupzId, Connection con) {
+		boolean doesColumnExist = false;
+		Statement stmt = null;
+		try {
+			stmt = con.createStatement();
+			String query = "select * from issueaggregation where month='"
+					+ month + "'" + " and year='" + year + "'"
+					+ " and apartmentid=" + groupzId;
+			System.out.println("Column Exist Check Query Is : " + query);
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return doesColumnExist;
+	}
+
+	private void updateForEscalationsOnMonthAndYear(int noOfEScalations,
+			String month, String year, int groupzId, String updatedDate,
+			Connection con) {
+		Statement stmt = null;
+		try {
+			stmt = con.createStatement();
+			String query = "update issueaggregation set escalatedissues="
+					+ noOfEScalations + ",updateddate='" + updatedDate
+					+ "' where month='" + month + "'" + " and year='" + year
+					+ "'" + " and apartmentid=" + groupzId;
+			System.out
+					.println("Update Issue For Month And Year For Groupz Id : "
+							+ groupzId + " Is :" + query);
+			stmt.executeUpdate(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void insertForEscalationsOnMonthAndYear(int noOfEscalations,
+			String month, String year, int groupzId, String updatedDate,
+			Connection con) {
+		Statement stmt = null;
+		try {
+			stmt = con.createStatement();
+			String query = String.format(paymentInsertQry, month, year,
+					noOfEscalations, groupzId, updatedDate);
+			System.out.println("Payment Insert To Month And Year Query Is : "
+					+ query);
+			stmt.executeUpdate(query);
+			ConnectionUtils.close(stmt);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
