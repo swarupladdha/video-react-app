@@ -13,6 +13,8 @@ import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 
+import com.apartment.database.operations.DBOperations;
+import com.apartment.database.tables.RoleDefinition;
 import com.groupz.followup.utils.ConnectionUtils;
 
 public class HeadCountByLocation {
@@ -25,8 +27,8 @@ public class HeadCountByLocation {
 			+ "location_id,RoleId,Division,subdiv)"
 			+ "	  values (%s,%s,%s,'%s',%s,%s,'%s','%s')";
 
-	String saveHeadCountnNew = "insert  into headcount_by_location (groupzbaseid,groupzid,roleid,division,subdiv,month,year,totalcount,usercount,contactcount,enabledcount,disabledcount,location_id)"
-			+ "	  values (%d,%d,%d,'%s','%s','%s','%s',%d,%d,%d,%d,%d,%d)";
+	String saveHeadCountnNew = "insert  into headcount_by_location (groupzbaseid,groupzid,roleid,division,subdiv,month,year,totalcount,usercount,contactcount,enabledcount,disabledcount,location_id,isstaff)"
+			+ "	  values (%d,%d,%d,'%s','%s','%s','%s',%d,%d,%d,%d,%d,%d,%b)";
 
 	// String getHeadCount="select * from headcount where groupzId=%s";
 
@@ -72,15 +74,22 @@ public class HeadCountByLocation {
 		try {
 			String Query = " select f.apartmentid,apt.builderid ,month(f.createddate)month,year(f.createddate) year,ufm.roleid roleid ,f.Block_StreetDetails division,f.subdivision ,sum(ufm.enabled)enabledcount,count(f.id)-sum(ufm.enabled)disabledcount,sum(f.contact)contactcount,count(f.id)-sum(f.contact)usercount,count(f.id)total from flat f ,user u ,userflatmapping ufm ,person  p,apartment apt where ufm.flatid=f.id and f.registeredpersonid=p.id and ufm.userid=u.id and f.apartmentid=apt.id and f.apartmentid in("
 					+ groupzId
-					+ ") group by month(f.createddate),year(f.createddate),ufm.roleid,f.Block_StreetDetails,f.subdivision";
+					+ ") group by month(f.createddate),year(f.createddate),ufm.roleid,f.Block_StreetDetails,f.subdivision order by year,month asc;";
 			System.out.println("Final select Query Is : " + Query);
 			stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(Query);
 			while (rs.next()) {
+				boolean isStaff = false;
 				int location_id = 0;
 				int groupzBaseId = rs.getInt("builderid");
 				int aptId = rs.getInt("apartmentid");
 				int roleId = rs.getInt("roleid");
+				RoleDefinition roleDef = DBOperations.getRoleForId(roleId);
+				if (roleDef != null) {
+					if (roleDef.isStaff()) {
+						isStaff = true;
+					}
+				}
 				int total = rs.getInt("total");
 				int usersCount = rs.getInt("usercount");
 				int contactCount = rs.getInt("contactcount");
@@ -93,7 +102,7 @@ public class HeadCountByLocation {
 				formInsertAndSave(connection, groupzBaseId, aptId, roleId,
 						total, usersCount, contactCount, enabledCount,
 						disabledCount, division, subDiv, month, year,
-						location_id);
+						location_id,isStaff);
 			}
 			ConnectionUtils.close(stmt);
 		} catch (Exception e) {
@@ -108,7 +117,8 @@ public class HeadCountByLocation {
 	public void formInsertAndSave(Connection con, int groupzBaseId, int aptId,
 			int roleId, int total, int usersCount, int contactCount,
 			int enabledCount, int disabledCount, String division,
-			String subDiv, String month, String year, int location_id) {
+			String subDiv, String month, String year, int location_id,
+			boolean isstaff) {
 		Statement stmt = null;
 		try {
 			System.out.println("Inside Inserting New Record For member");
@@ -116,7 +126,7 @@ public class HeadCountByLocation {
 			String finalInsertQry = String.format(saveHeadCountnNew,
 					groupzBaseId, aptId, roleId, division, subDiv, month, year,
 					total, usersCount, contactCount, enabledCount,
-					disabledCount, location_id);
+					disabledCount, location_id,isstaff);
 			System.out.println("Final Insert Query Is : " + finalInsertQry);
 			stmt.executeUpdate(finalInsertQry);
 		} catch (Exception e) {

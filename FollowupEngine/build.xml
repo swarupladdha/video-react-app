@@ -22,8 +22,39 @@
 		<pathelement path="libs/commons-logging-1.0.2.jar" />
 		<pathelement path="libs/commons-logging-1.1.1.jar" />
 		<pathelement path="libs/log4j-1.2.16.jar" />
-		<pathelement path="libs/c3p0-0.9.5.2.jar"/>
+		<pathelement path="libs/c3p0-0.9.5.2.jar" />
 		<pathelement path="libs/mchange-commons-java-0.2.12.jar" />
+		<pathelement path="libs/groupzcoredb.jar" />
+		<pathelement path="libs/hibernate/antlr-2.7.6.jar" />
+		<pathelement path="libs/hibernate/asm-attrs.jar" />
+
+		<pathelement path="libs/hibernate/asm.jar" />
+		<pathelement path="libs/hibernate/c3p0-0.9.1.jar" />
+		<pathelement path="libs/hibernate/cglib-2.1.3.jar" />
+		<pathelement path="libs/hibernate/commons-beanutils-1.7.jar" />
+		<pathelement path="libs/hibernate/commons-collections-2.1.1.jar" />
+		<pathelement path="libs/hibernate/commons-collections-2.1.jar" />
+		<pathelement path="libs/hibernate/commons-collections-3.1.jar" />
+		<pathelement path="libs/hibernate/commons-collections-3.2.jar" />
+		<pathelement path="libs/hibernate/commons-digester-1.7.jar" />
+		<pathelement path="libs/hibernate/commons-logging-1.0.2.jar" />
+
+
+		<pathelement path="libs/hibernate/dom4j-1.6.1.jar" />
+		<pathelement path="libs/hibernate/ehcache-1.2.3.jar" />
+		<pathelement path="libs/hibernate/ejb3-persistence.jar" />
+		<pathelement path="libs/hibernate/hibernate3.jar" />
+		<pathelement path="libs/hibernate/hibernate-annotations.jar" />
+		<pathelement path="libs/hibernate/hibernate-commons-annotations.jar" />
+		<pathelement path="libs/hibernate/hibernate-entitymanager.jar" />
+		<pathelement path="libs/hibernate/hibernate-tools.jar" />
+		<pathelement path="libs/hibernate/javassist.jar" />
+		<pathelement path="libs/hibernate/jdbc2_0-stdext.jar" />
+		<pathelement path="libs/hibernate/jta.jar" />
+		<pathelement path="libs/hibernate/org-apache-commons-logging.jar" />
+		<pathelement path="libs/hibernate/oscache-2.1.jar" />
+		<pathelement path="libs/hibernate/standard.jar" />
+
 	</path>
 
 	<target name="init">
@@ -59,7 +90,7 @@
 			<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
 
 			<manifest>
-				<attribute name="Main-Class" value="com.groupz.followup.database.ConnectDatabase"/>
+				<attribute name="Main-Class" value="com.groupz.followup.database.ConnectDatabase" />
 				<attribute name="Class-path" value="${libs}/commons-beanutils-1.7.jar
 			${libs}/commons-collections.jar ${libs}/commons-lang.jar
 			${libs}/commons-logging-1.1.1.jar ${libs}/ezmorph.jar 
