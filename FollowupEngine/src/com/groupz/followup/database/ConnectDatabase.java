@@ -2,6 +2,7 @@ package com.groupz.followup.database;
 
 import java.beans.PropertyVetoException;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
@@ -19,7 +20,7 @@ public class ConnectDatabase {
 
 	static final Logger logger = Logger.getLogger(ConnectDatabase.class);
 
-	ComboPooledDataSource getConnectionPool(Properties p) {
+	ComboPooledDataSource getConnectionPool(Properties p) throws IOException, SQLException, PropertyVetoException,Exception {
 		ComboPooledDataSource cpds = null;
 		try {
 			if (p != null) {
@@ -52,8 +53,7 @@ public class ConnectDatabase {
 		return null;
 	}
 
-	public static void main(String args[]) throws InterruptedException,
-			SQLException, PropertyVetoException {
+	public static void main(String args[]) throws IOException, Exception {
 		ConnectDatabase cd = new ConnectDatabase();
 		String fileName = null;
 		Properties p = null;
