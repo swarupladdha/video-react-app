@@ -21,25 +21,30 @@ public class ConnectDatabase {
 
 	static final Logger logger = Logger.getLogger(ConnectDatabase.class);
 
-	ComboPooledDataSource getConnectionPool(Properties p)
-			throws PropertyVetoException {
-		ComboPooledDataSource cpds = new ComboPooledDataSource();
-		System.out.println("inside cpds");
-		System.out.println(p.getProperty("url"));
-		cpds.setJdbcUrl(p.getProperty("url"));
-		cpds.setDriverClass(p.getProperty("driver"));
-		cpds.setUser(p.getProperty("userName"));
-		cpds.setPassword(p.getProperty("password"));
-		System.out.println(cpds.getUser() + "" + cpds.getPassword() + ""
-				+ cpds.getJdbcUrl() + "" + cpds.getDriverClass());
-		// Optional Settings
-		/*
-		 * cpds.setMaxPoolSize(50); cpds.setAcquireIncrement(1);
-		 * cpds.setMaxIdleTimeExcessConnections(100);
-		 * cpds.setUnreturnedConnectionTimeout(100);
-		 * cpds.setDebugUnreturnedConnectionStackTraces(true);
-		 */
-		return cpds;
+	ComboPooledDataSource getConnectionPool(Properties p) {
+		try {
+			ComboPooledDataSource cpds = new ComboPooledDataSource();
+			System.out.println("inside cpds");
+			System.out.println(p.getProperty("url"));
+			cpds.setJdbcUrl(p.getProperty("url"));
+			cpds.setDriverClass(p.getProperty("driver"));
+			cpds.setUser(p.getProperty("userName"));
+			cpds.setPassword(p.getProperty("password"));
+			System.out.println(cpds.getUser() + "" + cpds.getPassword() + ""
+					+ cpds.getJdbcUrl() + "" + cpds.getDriverClass());
+			// Optional Settings
+			/*
+			 * cpds.setMaxPoolSize(50); cpds.setAcquireIncrement(1);
+			 * cpds.setMaxIdleTimeExcessConnections(100);
+			 * cpds.setUnreturnedConnectionTimeout(100);
+			 * cpds.setDebugUnreturnedConnectionStackTraces(true);
+			 */
+			return cpds;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	public static void main(String args[]) throws InterruptedException,
