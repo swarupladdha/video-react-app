@@ -96,6 +96,12 @@ public class ConnectDatabase {
 		// feeAggregation , head count and head count By location analytics
 		ExecutorService aggregationExecSvc = Executors
 				.newFixedThreadPool(AGGREGATION_POOL_SIZE);
+		if (connectionPool != null && connectionPool.getThreadPoolSize() > 0) {
+			System.out.println("Conn Pool Size Is : "
+					+ connectionPool.getThreadPoolSize());
+		} else {
+			System.out.println("Conn Pool is null or empty");
+		}
 		for (int i = 0; i < AGGREGATION_POOL_SIZE; i++) {
 			aggregationExecSvc.execute(new AggregationThread(i, connectionPool,
 					aggregationTimeout));
