@@ -29,7 +29,7 @@
 		<pathelement path="libs/hibernate/asm-attrs.jar" />
 
 		<pathelement path="libs/hibernate/asm.jar" />
-		<pathelement path="libs/hibernate/c3p0-0.9.1.jar" />
+		
 		<pathelement path="libs/hibernate/cglib-2.1.3.jar" />
 		<pathelement path="libs/hibernate/commons-beanutils-1.7.jar" />
 		<pathelement path="libs/hibernate/commons-collections-2.1.1.jar" />
