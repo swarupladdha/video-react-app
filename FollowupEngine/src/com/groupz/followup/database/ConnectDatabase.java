@@ -12,9 +12,7 @@ import org.apache.log4j.Logger;
 import src.followupconfig.PropertiesUtil;
 
 import com.groupz.followup.manager.AggregationThread;
-import com.groupz.followup.threads.CacheUpdateThread;
 import com.groupz.followup.threads.FollowUpThread;
-import com.groupz.followup.threads.serviceRequestThread;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class ConnectDatabase {
@@ -22,8 +20,15 @@ public class ConnectDatabase {
 	static final Logger logger = Logger.getLogger(ConnectDatabase.class);
 
 	ComboPooledDataSource getConnectionPool(Properties p) {
+		ComboPooledDataSource cpds = null;
 		try {
-			ComboPooledDataSource cpds = new ComboPooledDataSource();
+			if (p != null) {
+				System.out.println("P IS Not NULL");
+			} else {
+				System.out.println("P IS NULL");
+			}
+			System.out.println("Inside getConnectionPool");
+			cpds = new ComboPooledDataSource();
 			System.out.println("inside cpds");
 			System.out.println(p.getProperty("url"));
 			cpds.setJdbcUrl(p.getProperty("url"));
