@@ -260,12 +260,16 @@ public class MessagesInTableProbe implements Runnable { // Thread Runnable
 																		// call
 																		// to
 																		// sendSMS()
+						System.out.println("Response From Alerts SMS : "
+								+ sms_response);
 
 						if (sms_response
 								.equalsIgnoreCase(Constants.SUCCESS_STRING)) {
+							System.out.println("Deleting Entry From MSGsInTable");
 							mesgInTable.deleteMessage(msgid);
+							System.out.println("Creating SUccess Entry In MessageAggregation");
 							op.insertIntoMessageAggregation(msgid, accountId,
-									subAccountId,cost);
+									subAccountId, cost);
 							// is_Insert_Success =
 							// messagesSentTable.insertDataIntoTable(msgid,
 							// msgtype,
