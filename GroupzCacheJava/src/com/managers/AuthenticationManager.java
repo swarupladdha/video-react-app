@@ -112,8 +112,11 @@ public class AuthenticationManager {
 					try {
 						JSONArray array = JSONArray.fromObject(success);
 						// Admin Login Response
-						if (isAdminLogin(success) == true) {
-							return success;
+						if (isAdminLogin(success)) {
+							System.out.println("isAdminLogin(success) : "
+									+ isAdminLogin(success));
+							response = success;
+							return response;
 						}
 						if (array.size() == 0) {
 							response = RestUtils
@@ -849,9 +852,11 @@ public class AuthenticationManager {
 	private boolean isAdminLogin(String response) {
 		boolean isAdmin = false;
 		try {
+			System.out.println("Inside Validating");
 			if (response != null) {
-				Object object = response;
+				Object object = JSONObject.fromObject(response);
 				if (object instanceof JSONObject) {
+					System.out.println("JSON Object");
 					JSONObject resObj = JSONObject.fromObject(response);
 					if (resObj.containsKey("json")) {
 						if (resObj.getJSONObject("json")
@@ -870,10 +875,12 @@ public class AuthenticationManager {
 						}
 					}
 				} else {
+					System.out.println("Not instanceof");
 					return isAdmin;
 				}
 			}
 		} catch (Exception e) {
+			System.out.println("Exception Occured");
 			return isAdmin;
 		}
 
