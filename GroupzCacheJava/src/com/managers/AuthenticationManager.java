@@ -3,6 +3,8 @@ package com.managers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
+
 import org.bson.Document;
 
 import com.connection.Mongo_Connection;
@@ -109,6 +111,10 @@ public class AuthenticationManager {
 					System.out.println("-------Success : " + success);
 					try {
 						JSONArray array = JSONArray.fromObject(success);
+						// Admin Login Response
+						if (isAdminLogin(success) == true) {
+							return success;
+						}
 						if (array.size() == 0) {
 							response = RestUtils
 									.processError(
@@ -838,5 +844,39 @@ public class AuthenticationManager {
 					PropertiesUtil.getProperty("insertError_message"));
 			return resp;
 		}
+	}
+
+	private boolean isAdminLogin(String response) {
+		boolean isAdmin = false;
+		try {
+			if (response != null) {
+				Object object = response;
+				if (object instanceof JSONObject) {
+					JSONObject resObj = JSONObject.fromObject(response);
+					if (resObj.containsKey("json")) {
+						if (resObj.getJSONObject("json")
+								.containsKey("response")) {
+							if (resObj.getJSONObject("json")
+									.getJSONObject("response")
+									.containsKey("data")) {
+								if (resObj.getJSONObject("json")
+										.getJSONObject("response")
+										.getJSONObject("data")
+										.containsKey("admindetails")) {
+									isAdmin = true;
+									return isAdmin;
+								}
+							}
+						}
+					}
+				} else {
+					return isAdmin;
+				}
+			}
+		} catch (Exception e) {
+			return isAdmin;
+		}
+
+		return isAdmin;
 	}
 }

@@ -15,8 +15,6 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import sun.awt.GlobalCursorManager;
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
@@ -293,6 +291,25 @@ public class RestUtils {
 		return valid;
 	}
 
+	public boolean isJSONValidDup(String test) {
+		try {
+			JSONObject obj = JSONObject.fromObject(test);
+		} catch (Exception ex) {
+			// edited, to include @Arthur's comment
+			// e.g. in case JSONArray is valid as well...
+			System.out.println("Caught exception here and Thread Id 1 : "
+					+ Thread.currentThread().getId());
+			try {
+				JSONArray arr = JSONArray.fromObject(test);
+			} catch (Exception ex1) {
+				System.out.println("Caught exception here and Thread Id  2: "
+						+ Thread.currentThread().getId());
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public String getCategoriesSuccess(String dataPartStr, Object Obj,
 			String lastTimeSynch) {
 		JSONObject sucessJSON = new JSONObject();
@@ -522,4 +539,11 @@ public class RestUtils {
 		return actualExperience;
 	}
 
+	/*
+	 * public boolean validate(String str) { boolean valid = true; try {
+	 * JSONParser p = new JSONParser(); p.parse(str); } catch (Exception jse) {
+	 * valid = false; System.out.println("Not a valid Json String:" +
+	 * jse.getMessage()); } System.out.println("Is Json Valid : " + valid);
+	 * return valid; }
+	 */
 }
