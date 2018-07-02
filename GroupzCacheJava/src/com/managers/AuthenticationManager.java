@@ -110,7 +110,6 @@ public class AuthenticationManager {
 					String success = insertValuesInToTables(response);
 					System.out.println("-------Success : " + success);
 					try {
-						JSONArray array = JSONArray.fromObject(success);
 						// Admin Login Response
 						System.out.println("validate For Admin");
 						if (isAdminLogin(success)) {
@@ -119,6 +118,7 @@ public class AuthenticationManager {
 							response = success;
 							return response;
 						}
+						JSONArray array = JSONArray.fromObject(success);
 						if (array.size() == 0) {
 							response = RestUtils
 									.processError(
