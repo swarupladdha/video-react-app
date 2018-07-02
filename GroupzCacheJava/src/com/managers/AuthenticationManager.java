@@ -112,6 +112,7 @@ public class AuthenticationManager {
 					try {
 						JSONArray array = JSONArray.fromObject(success);
 						// Admin Login Response
+						System.out.println("validate For Admin");
 						if (isAdminLogin(success)) {
 							System.out.println("isAdminLogin(success) : "
 									+ isAdminLogin(success));
