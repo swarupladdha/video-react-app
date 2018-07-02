@@ -279,6 +279,13 @@ public class AuthenticationManager {
 				resp = res.toString();
 				return resp;
 			}
+			// Admin Login Response
+			if (res.containsKey(GlobalTags.JSON_DATA_TAG)) {
+				if (res.getJSONObject(GlobalTags.JSON_DATA_TAG).containsKey(
+						"admindetails")) {
+					return response;
+				}
+			}
 			JSONArray user = res.getJSONArray("user");
 			JSONArray userRes = new JSONArray();
 			if (user.size() <= 0) {

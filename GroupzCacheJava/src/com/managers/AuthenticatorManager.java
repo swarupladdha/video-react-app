@@ -1,5 +1,8 @@
 package com.managers;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +26,7 @@ import com.utils.RestUtils;
 public class AuthenticatorManager {
 	Mongo_Connection conn = new Mongo_Connection();
 	MongoDatabase db = conn.getConnection();
+	RestUtils utils = new RestUtils();
 	int groupzid = 0;
 	int memberid = 0;
 	int manageusers = 0;
@@ -38,6 +42,11 @@ public class AuthenticatorManager {
 		String functiontype = "";
 		System.out.println("Mongo Request Is : " + regRequest);
 		try {
+			/*
+			 * JSONObject reqObj = JSONObject.fromObject(regRequest); JSONObject
+			 * dataObjEn = reqObj.getJSONObject("json")
+			 * .getJSONObject("request").getJSONObject("data");
+			 */
 			if (RestUtils.isJSONValid(regRequest) == false) {
 				response = RestUtils.processError(
 						PropertiesUtil.getProperty("invalidJson_code"),
@@ -586,4 +595,30 @@ public class AuthenticatorManager {
 		}
 	}
 
+	public String decode(String url) {
+		try {
+			System.out.println("Decoding");
+			String prevURL = "";
+			String decodeURL = url;
+			while (!prevURL.equals(decodeURL)) {
+				prevURL = decodeURL;
+				decodeURL = URLDecoder.decode(decodeURL, "UTF-8");
+			}
+			System.out.println("Decoded URL : " + decodeURL);
+			return decodeURL;
+		} catch (UnsupportedEncodingException e) {
+			return "Issue while decoding" + e.getMessage();
+		}
+	}
+
+	public static String encode(String url) {
+		try {
+			System.out.println("Encoding");
+			String encodeURL = URLEncoder.encode(url, "UTF-8");
+			System.out.println("Encoded URL : " + encodeURL);
+			return encodeURL;
+		} catch (UnsupportedEncodingException e) {
+			return "Issue while encoding" + e.getMessage();
+		}
+	}
 }
