@@ -68,8 +68,15 @@ public class GetSessionInfoManager {
 					if (response.contains("adminid") == false) {
 						response = formResponse(servicetype, functiontype,
 								response);
-					}else{
-						JSONObject resObj=JSONObject.fromObject(response).getJSONObject("json").getJSONObject("response")
+					} else {
+						JSONObject resObj = (JSONObject) JSONObject
+								.fromObject(response).getJSONObject("json")
+								.getJSONObject("response").put("statuscode", 0);
+						resObj = (JSONObject) JSONObject.fromObject(response)
+								.getJSONObject("json")
+								.getJSONObject("response")
+								.put("statusmessage", "success");
+						return resObj.toString();
 					}
 				}
 				return response;
