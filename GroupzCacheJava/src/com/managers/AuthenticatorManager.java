@@ -360,7 +360,7 @@ public class AuthenticatorManager {
 
 	private String getDeatilsAndBackendResponse(String sessionId, String out,
 			String groupzCode, JSONObject data) {
-		System.out.println("Inside getDeatilsAndBackendResponse");
+		System.out.println("Inside getDeatilsAndBackendResponse on Object");
 		String resp = "";
 
 		try {
@@ -492,7 +492,7 @@ public class AuthenticatorManager {
 
 	private String getDeatilsAndBackendResponse(String sessionId, String out,
 			String groupzCode, JSONArray data) {
-		System.out.println("Inside getDeatilsAndBackendResponse");
+		System.out.println("Inside getDeatilsAndBackendResponse On Array");
 		String resp = "";
 		try {
 			int len = sessionId.length();
