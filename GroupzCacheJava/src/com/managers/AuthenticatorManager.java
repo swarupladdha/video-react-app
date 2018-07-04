@@ -389,8 +389,8 @@ public class AuthenticatorManager {
 				if (value.containsKey("groupzid")) {
 					groupzid = value.getInteger("groupzid");
 				}
-				if (value.containsKey("manageusers")) {
-					memberid = value.getInteger("manageusers");
+				if (value.containsKey("memberid")) {
+					memberid = value.getInteger("memberid");
 				}
 				if (value.containsKey("manageusers")) {
 					manageusers = value.getInteger("manageusers");
