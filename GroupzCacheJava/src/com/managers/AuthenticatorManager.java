@@ -29,6 +29,7 @@ public class AuthenticatorManager {
 	RestUtils utils = new RestUtils();
 	int groupzid = 0;
 	int memberid = 0;
+	int adminId = 0;
 	int manageusers = 0;
 	String groupzbasekey = "";
 	String groupzCode = "";
@@ -109,7 +110,9 @@ public class AuthenticatorManager {
 					&& (request.containsKey("session_id") == true)) {
 				System.out
 						.println("-------------------------------------------");
-				groupzCode = request.getString("groupzCode");
+				if (request.containsKey("groupzCode")) {
+					groupzCode = request.getString("groupzCode");
+				}
 				Object data = request.get("data");
 				String sessionId = request.getString("session_id");
 				JSONArray dataArray = new JSONArray();
@@ -280,7 +283,7 @@ public class AuthenticatorManager {
 			String functionType) {
 		String res = "";
 		try {
-
+			System.out.println("ST : " + serviceType + " FT : " + functionType);
 			MongoCollection<Document> collection = db
 					.getCollection("authtables");
 
@@ -376,13 +379,22 @@ public class AuthenticatorManager {
 			FindIterable<Document> values = collection.find(query);
 			System.out.println(query);
 			MongoCursor<Document> re = values.iterator();
-
 			if (re.hasNext()) {
 				Document value = re.next();
 				System.out.println(value);
-				groupzid = value.getInteger("groupzid");
-				memberid = value.getInteger("memberid");
-				manageusers = value.getInteger("manageusers");
+				if (value.containsKey("adminid")) {
+					System.out.println("admin request");
+					adminId = value.getInteger("adminid");
+				}
+				if (value.containsKey("groupzid")) {
+					groupzid = value.getInteger("groupzid");
+				}
+				if (value.containsKey("manageusers")) {
+					memberid = value.getInteger("manageusers");
+				}
+				if (value.containsKey("manageusers")) {
+					manageusers = value.getInteger("manageusers");
+				}
 				memberUpdatedTime = value
 						.getString(GlobalTags.LAST_UPDATED_TIME_TAG);
 			} else {
@@ -430,19 +442,22 @@ public class AuthenticatorManager {
 				// System.out.println("---"+roleoffset+"---"+manageusers);
 
 				if (!roleoffset.equalsIgnoreCase("*")) {
-
 					if (manageusers == 0) {
+						System.out.println("No Manage Users Permission");
 						resp = RestUtils
 								.processError(
 										PropertiesUtil
 												.getProperty("permissionError_code"),
 										PropertiesUtil
 												.getProperty("permissionError_message"));
-						return resp;
+						// return resp;
 					}
 				}
 				if (memberid != 0) {
 					request.put("memberid", memberid);
+				}
+				if (adminId != 0) {
+					request.put("adminid", adminId);
 				}
 				if (RestUtils.isEmpty(groupzbasekey) == true) {
 					request.put("groupzbasekey", groupzbasekey);
@@ -479,24 +494,17 @@ public class AuthenticatorManager {
 			String groupzCode, JSONArray data) {
 		System.out.println("Inside getDeatilsAndBackendResponse");
 		String resp = "";
-
 		try {
 			int len = sessionId.length();
 			MongoCollection<Document> collection = db
 					.getCollection("memberdetails");
 			BasicDBObject query = new BasicDBObject();
-			// if (len <= 9){
-			// System.out.println("Id is String");
-			// query.put("_id",sessionId);
-			// }
-			// else{
 			System.out.println("Id is Object");
 			query.put("_id", new ObjectId(sessionId));
-			// }
 			FindIterable<Document> values = collection.find(query);
 			System.out.println(query);
 			MongoCursor<Document> re = values.iterator();
-
+			System.out.println("re : " + re.toString());
 			if (re.hasNext()) {
 				Document value = re.next();
 				System.out.println(value);
@@ -526,9 +534,6 @@ public class AuthenticatorManager {
 				groupzUpdatedTime = value
 						.getString(GlobalTags.LAST_UPDATED_TIME_TAG);
 			}
-			// else{
-			// return null;
-			// }
 			System.out.println("---------------------");
 			System.out.println(groupzbasekey);
 			System.out.println("---------------------");
@@ -546,9 +551,6 @@ public class AuthenticatorManager {
 				request.put("functiontype", req.getString("functiontype"));
 				request.put("groupzCode", groupzCode);
 				request.put("data", data);
-
-				// System.out.println("---"+roleoffset+"---"+manageusers);
-
 				if (!roleoffset.equalsIgnoreCase("*")) {
 
 					if (manageusers == 0) {
