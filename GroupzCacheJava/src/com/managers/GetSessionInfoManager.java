@@ -65,7 +65,10 @@ public class GetSessionInfoManager {
 							return response;
 						}
 					}
-					response = formResponse(servicetype, functiontype, response);
+					if (response.contains("adminid") == false) {
+						response = formResponse(servicetype, functiontype,
+								response);
+					}
 				}
 				return response;
 			} else {
