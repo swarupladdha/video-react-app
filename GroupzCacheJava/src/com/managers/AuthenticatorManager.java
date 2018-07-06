@@ -33,6 +33,7 @@ public class AuthenticatorManager {
 	int manageusers = 0;
 	String groupzbasekey = "";
 	String groupzCode = "";
+	String groupzBaseKey = "";
 	String groupzUpdatedTime = "";
 	String memberUpdatedTime = "";
 
@@ -43,11 +44,6 @@ public class AuthenticatorManager {
 		String functiontype = "";
 		System.out.println("Mongo Request Is : " + regRequest);
 		try {
-			/*
-			 * JSONObject reqObj = JSONObject.fromObject(regRequest); JSONObject
-			 * dataObjEn = reqObj.getJSONObject("json")
-			 * .getJSONObject("request").getJSONObject("data");
-			 */
 			if (RestUtils.isJSONValid(regRequest) == false) {
 				response = RestUtils.processError(
 						PropertiesUtil.getProperty("invalidJson_code"),
@@ -113,6 +109,9 @@ public class AuthenticatorManager {
 				if (request.containsKey("groupzCode")) {
 					groupzCode = request.getString("groupzCode");
 				}
+				if (request.containsKey("groupzbasekey")) {
+					groupzBaseKey = request.getString("groupzbasekey");
+				}
 				Object data = request.get("data");
 				String sessionId = request.getString("session_id");
 				JSONArray dataArray = new JSONArray();
@@ -125,7 +124,7 @@ public class AuthenticatorManager {
 				if (data instanceof JSONObject) {
 					dataObj = request.getJSONObject("data");
 					response = getDeatilsAndBackendResponse(sessionId, out,
-							groupzCode, dataObj);
+							groupzCode, groupzBaseKey, dataObj);
 				}
 
 				// JSONObject data = request.getJSONObject("data");
@@ -258,6 +257,7 @@ public class AuthenticatorManager {
 			}
 
 			else {
+				System.out.println("No Session Id Or Session Validation");
 				response = RestUtils
 						.processError(
 								PropertiesUtil
@@ -359,7 +359,7 @@ public class AuthenticatorManager {
 	}
 
 	private String getDeatilsAndBackendResponse(String sessionId, String out,
-			String groupzCode, JSONObject data) {
+			String groupzCode, String baseKey, JSONObject data) {
 		System.out.println("Inside getDeatilsAndBackendResponse on Object");
 		String resp = "";
 
@@ -437,6 +437,7 @@ public class AuthenticatorManager {
 				request.put("servicetype", req.getString("servicetype"));
 				request.put("functiontype", req.getString("functiontype"));
 				request.put("groupzCode", groupzCode);
+				request.put("groupzbasekey", baseKey);
 				request.put("data", data);
 
 				// System.out.println("---"+roleoffset+"---"+manageusers);
