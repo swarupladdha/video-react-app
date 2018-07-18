@@ -79,8 +79,10 @@ public class VinrEmailNotification {
 		 */
 		for (int i = 0; i < THREAD_POOL_SIZE; i++) {
 			messagesInTableTPExecSvc.execute(new MessagesInTableProbe(i));
+			System.out.println("Calling Delivery Report");
 			messagesInTableTPExecSvc.execute(new Threads.UpdateDeliveryStatus(
 					i, dburl, dbusername, dbpassword));
+			System.out.println("Delivery Report Finished");
 			messagesInTableTPExecSvc.execute(new Threads.AggregateMessages(i,
 					dburl, dbusername, dbpassword));
 			// messagesInTableTPExecSvc.execute(new DeliveryReport());
