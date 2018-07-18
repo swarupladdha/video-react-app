@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 import org.apache.log4j.Logger;
 
-import alerts.email.ConnectionPoolProvider;
+//import alerts.email.ConnectionPoolProvider;
 import alerts.sms.Operaions;
 import alerts.utils.PropertiesUtils;
 import alerts.utils.Utils;
@@ -18,8 +18,10 @@ public class UpdateDeliveryStatus extends BaseThread {
 	int thread_sleep_time = Integer.parseInt(PropertiesUtils
 			.getProperty("thread_sleep_time"));
 
-	int THREAD_POOL_SIZE = ConnectionPoolProvider.getInstance()
-			.getThreadPoolSize();
+	int THREAD_POOL_SIZE = 5;/*
+							 * ConnectionPoolProvider.getInstance()
+							 * .getThreadPoolSize();
+							 */
 
 	String readNewDeliveryReportSQL = "Select * from DeliveryReport where S_no %% %d=%d";
 

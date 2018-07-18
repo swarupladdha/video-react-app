@@ -15,7 +15,7 @@ import org.apache.log4j.PropertyConfigurator;
  * probing the MessagesInTable, messages_sent_table and the retrytable and uses
  * the Java 5 Executor service to run all the threads in the pool as parallel
  * tasks
- *
+ * 
  * @author Sunil Tuppale
  * @date July-19-2010
  * @version 1.0
@@ -50,7 +50,6 @@ public class VinrEmailNotification {
 			p.load(propFile);
 
 			Class c = Class.forName(p.getProperty("driver"));
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,7 +64,7 @@ public class VinrEmailNotification {
 		String dburl = p.getProperty("url");
 		String jdbcDriver = p.getProperty("driver");
 
-		int noOfModules = 1;
+		int noOfModules = 3;
 		int THREAD_POOL_SIZE = ConnectionPoolProvider.getInstance()
 				.getThreadPoolSize();
 		ExecutorService messagesInTableTPExecSvc = Executors
@@ -80,14 +79,16 @@ public class VinrEmailNotification {
 		 */
 		for (int i = 0; i < THREAD_POOL_SIZE; i++) {
 			messagesInTableTPExecSvc.execute(new MessagesInTableProbe(i));
-			/*messagesInTableTPExecSvc.execute(new Threads.UpdateDeliveryStatus(
+			messagesInTableTPExecSvc.execute(new Threads.UpdateDeliveryStatus(
 					i, dburl, dbusername, dbpassword));
 			messagesInTableTPExecSvc.execute(new Threads.AggregateMessages(i,
-					dburl, dbusername, dbpassword));*/
+					dburl, dbusername, dbpassword));
 			// messagesInTableTPExecSvc.execute(new DeliveryReport());
-			// messagesSentTableTPExecSvc.execute(new
-			// MessagesSentTableProbe(i));
-			// retryTableTPExecSvc.execute(new RetryTableProbe(i));
+			/*
+			 * messagesSentTableTPExecSvc.execute(new
+			 * MessagesSentTableProbe(i)); retryTableTPExecSvc.execute(new
+			 * RetryTableProbe(i));
+			 */
 		}
 
 		/*
