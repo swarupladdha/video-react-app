@@ -40,6 +40,7 @@ public class UpdateDeliveryStatus extends BaseThread {
 	@SuppressWarnings("static-access")
 	@Override
 	void process(Connection connection) {
+		System.out.println("Inside Process");
 		ResultSet rs = null;
 		Statement stmt = null;
 
@@ -50,6 +51,8 @@ public class UpdateDeliveryStatus extends BaseThread {
 				String readNewDeliveryReportQuery = readNewDeliveryReportSQL
 						.format(readNewDeliveryReportSQL, THREAD_POOL_SIZE,
 								threadid);
+				System.out.println("readNewDeliveryReportQuery : "
+						+ readNewDeliveryReportQuery);
 				logger.info("Read new delivery report Query : "
 						+ readNewDeliveryReportQuery);
 				stmt = connection.createStatement();
@@ -65,13 +68,14 @@ public class UpdateDeliveryStatus extends BaseThread {
 					String updateMOTQuery = updateMessegesOutTableSQL.format(
 							updateMessegesOutTableSQL, status, currentTime,
 							mobile_number, req_id);
-					logger.info("Updating MOT Query : " + updateMOTQuery);
+					System.out
+							.println("Updating MOT Query : " + updateMOTQuery);
 					op.performAction(updateMOTQuery, connection);
 
 					String deleteDRQuery = deleteDeliveryReportEntrySQL.format(
 							deleteDeliveryReportEntrySQL, s_no);
 					logger.info("Delete DR Query : " + deleteDRQuery);
-					op.performAction(deleteDRQuery, connection);
+					// op.performAction(deleteDRQuery, connection);
 				}
 				Thread.sleep(thread_sleep_time);
 			}

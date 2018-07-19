@@ -82,7 +82,7 @@ public class VinrEmailNotification {
 			System.out.println("Calling Delivery Report");
 			messagesInTableTPExecSvc.execute(new Threads.UpdateDeliveryStatus(
 					i, dburl, dbusername, dbpassword));
-			System.out.println("Delivery Report Finished");
+			System.out.println("Delivery Report Finished yes");
 			messagesInTableTPExecSvc.execute(new Threads.AggregateMessages(i,
 					dburl, dbusername, dbpassword));
 			// messagesInTableTPExecSvc.execute(new DeliveryReport());
