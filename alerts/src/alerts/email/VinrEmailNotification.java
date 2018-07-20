@@ -83,6 +83,7 @@ public class VinrEmailNotification {
 			messagesInTableTPExecSvc.execute(new Threads.UpdateDeliveryStatus(
 					i, dburl, dbusername, dbpassword));
 			System.out.println("Delivery Report Finished yes");
+			System.out.println("Calling MessageAggregation");
 			messagesInTableTPExecSvc.execute(new Threads.AggregateMessages(i,
 					dburl, dbusername, dbpassword));
 			// messagesInTableTPExecSvc.execute(new DeliveryReport());

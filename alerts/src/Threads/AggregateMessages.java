@@ -31,6 +31,7 @@ public class AggregateMessages extends BaseThread {
 	@SuppressWarnings("static-access")
 	@Override
 	void process(Connection connection) {
+		System.out.println("THREAD_POOL_SIZE : " + THREAD_POOL_SIZE);
 		ResultSet rs = null;
 		Statement stmt = null;
 
@@ -42,7 +43,11 @@ public class AggregateMessages extends BaseThread {
 				String readUpdatedMessagesQuery = readUpdatedMessagesSQL
 						.format(readUpdatedMessagesSQL, THREAD_POOL_SIZE,
 								threadId);
-				logger.info("Read updated messages Query  : "
+				/*
+				 * logger.info("Read updated messages Query  : " +
+				 * readUpdatedMessagesQuery);
+				 */
+				System.out.println("Read updated messages Query  : "
 						+ readUpdatedMessagesQuery);
 				stmt = connection.createStatement();
 				rs = stmt.executeQuery(readUpdatedMessagesQuery);
@@ -62,7 +67,7 @@ public class AggregateMessages extends BaseThread {
 						updateQuery = "Update MessageAggregation set FailureCount=FailureCount+1 where MsgId="
 								+ msgId;
 					}
-					logger.info("Update Message aggregation Query : "
+					System.out.println("Update Message aggregation Query : "
 							+ updateQuery);
 					op.performAction(updateQuery, connection);
 

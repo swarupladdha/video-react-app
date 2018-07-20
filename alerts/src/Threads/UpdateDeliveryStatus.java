@@ -75,7 +75,7 @@ public class UpdateDeliveryStatus extends BaseThread {
 					String deleteDRQuery = deleteDeliveryReportEntrySQL.format(
 							deleteDeliveryReportEntrySQL, s_no);
 					logger.info("Delete DR Query : " + deleteDRQuery);
-					// op.performAction(deleteDRQuery, connection);
+					op.performAction(deleteDRQuery, connection);
 				}
 				Thread.sleep(thread_sleep_time);
 			}
