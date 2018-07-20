@@ -14,8 +14,8 @@ public class AggregateMessages extends BaseThread {
 
 	int thread_sleep_time = Integer.parseInt(PropertiesUtils
 			.getProperty("thread_sleep_time"));
-	int THREAD_POOL_SIZE = ConnectionPoolProvider.getInstance()
-			.getThreadPoolSize();
+	int THREAD_POOL_SIZE = 5;/*ConnectionPoolProvider.getInstance()
+			.getThreadPoolSize()*/;
 
 	String readUpdatedMessagesSQL = "Select * from MessagesOutTable where Id %% %d=%d and Processed=false";
 
