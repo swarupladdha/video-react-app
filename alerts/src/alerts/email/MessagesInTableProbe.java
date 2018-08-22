@@ -3,9 +3,6 @@ package alerts.email;
 import java.io.FileInputStream;
 import java.sql.ResultSet;
 import java.sql.Blob;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.Iterator;
@@ -268,13 +265,11 @@ public class MessagesInTableProbe implements Runnable { // Thread Runnable
 
 						if (sms_response
 								.equalsIgnoreCase(Constants.SUCCESS_STRING)) {
-							System.out
-									.println("Deleting Entry From MSGsInTable");
+							System.out.println("Deleting Entry From MSGsInTable");
 							mesgInTable.deleteMessage(msgid);
-							System.out
-									.println("Creating Success Entry From MSGsInTable");
+							System.out.println("Creating Success Entry From MSGsInTable");
 							op.insertIntoMessageAggregation(msgid, accountId,
-									subAccountId, cost, StringDateToDate(date));
+									subAccountId, cost);
 							// is_Insert_Success =
 							// messagesSentTable.insertDataIntoTable(msgid,
 							// msgtype,
@@ -311,19 +306,6 @@ public class MessagesInTableProbe implements Runnable { // Thread Runnable
 
 			Thread.yield();
 		}
-	}
-
-	public static java.sql.Date StringDateToDate(String StrDate) {
-		String DATEFORMAT = "yyyy-MM-dd HH:mm:ss";
-		java.sql.Date dateToReturn = null;
-		SimpleDateFormat dateFormat = new SimpleDateFormat(DATEFORMAT);
-		try {
-			dateToReturn = (java.sql.Date) dateFormat.parse(StrDate);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		return dateToReturn;
 	}
 }
 

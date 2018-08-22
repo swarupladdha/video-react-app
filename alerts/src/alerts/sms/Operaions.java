@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -29,10 +28,10 @@ public class Operaions {
 	}
 
 	public int insertIntoMessageAggregation(int messageId, String accountId,
-			String subAccountId, float cost, java.sql.Date sentDate) {
+			String subAccountId, float cost) {
 		int rowsAffected = 0;
 		PreparedStatement preparedStatement = null;
-		String insertQuery = "Insert into MessageAggregation (MsgId,SuccessCount,FailureCount,AccountId,SubAccountId,EachSMSCost,sentdate) values(?,?,?,?,?,?,?)";
+		String insertQuery = "Insert into MessageAggregation (MsgId,SuccessCount,FailureCount,AccountId,SubAccountId,EachSMSCost) values(?,?,?,?,?,?)";
 		try {
 			logger.info("Insert into MessageAggregation Query : " + insertQuery);
 			setDBConnection();
@@ -43,7 +42,6 @@ public class Operaions {
 			preparedStatement.setString(4, accountId);
 			preparedStatement.setString(5, subAccountId);
 			preparedStatement.setFloat(6, cost);
-			preparedStatement.setDate(7,sentDate);
 			rowsAffected = preparedStatement.executeUpdate();
 			return rowsAffected;
 		} catch (Exception e) {
