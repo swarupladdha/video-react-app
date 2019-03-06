@@ -28,8 +28,8 @@ public class AuthenticationManager {
 
 	public String getResponse(String regRequest) {
 		System.out.println("Insde AuthenticationManager getResponse!");
-		 //DomainModifier d = new DomainModifier();
-		 //d.changeDomain();
+		 DomainModifier d = new DomainModifier();
+		 d.changeDomain();
 		String response = "";
 		String servicetype = "";
 		String functiontype = "";

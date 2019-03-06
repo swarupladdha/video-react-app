@@ -28,27 +28,29 @@ public class DomainModifier {
 			query.put("groupzmodulename", doc.getString("groupzmodulename"));
 			System.out.println(uri);
 			String[] parts = uri.split("/");
-			for(int i=0; i<parts.length; i++){
-				System.out.println(parts[i]);
-			}
-			parts[2]="localhost:8080";
-			String s="";
-			for(int i=0; i<parts.length; i++){
-				System.out.println(parts[i]);
-			}
-			for(int i=0; i<parts.length; i++){
-				s+=parts[i]+"/";
-			}
-			s = s.substring(0, s.length()-1);
-			System.out.println(s);
-			BasicDBObject setVal = new BasicDBObject("uri",s);
-			BasicDBObject setQuery = new BasicDBObject();
-			setQuery.put("$set", setVal);
-			col.updateOne(query, setQuery);
-			FindIterable<Document> res1 = col.find(query);
-			MongoCursor<Document> cursor1 = res1.iterator();
-			if(cursor1.hasNext()){
-				System.out.println(cursor1.next());
+			if(parts.length>=2) {
+				for(int i=0; i<parts.length; i++){
+					System.out.println(parts[i]);
+				}
+				parts[2]="localhost:8080";
+				String s="";
+				for(int i=0; i<parts.length; i++){
+					System.out.println(parts[i]);
+				}
+				for(int i=0; i<parts.length; i++){
+					s+=parts[i]+"/";
+				}
+				s = s.substring(0, s.length()-1);
+				System.out.println(s);
+				BasicDBObject setVal = new BasicDBObject("uri",s);
+				BasicDBObject setQuery = new BasicDBObject();
+				setQuery.put("$set", setVal);
+				col.updateOne(query, setQuery);
+				FindIterable<Document> res1 = col.find(query);
+				MongoCursor<Document> cursor1 = res1.iterator();
+				if(cursor1.hasNext()){
+					System.out.println(cursor1.next());
+				}
 			}
 		}
 		
