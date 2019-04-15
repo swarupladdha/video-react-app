@@ -1,82 +1,55 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- WARNING: Eclipse auto-generated file.
-              Any modifications will be overwritten.
-              To include a user specific buildfile here, simply create one in the same
-              directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="GroupzConferenceServices">
-    <property environment="env"/>
-    <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="10"/>
-    <property name="source" value="10"/>
-    <path id="GroupzConferenceServices.classpath">
-        <pathelement location="bin"/>
-        <pathelement location="libs/commons-beanutils-1.7.jar"/>
-        <pathelement location="libs/commons-collections.jar"/>
-        <pathelement location="libs/commons-lang.jar"/>
-        <pathelement location="libs/commons-logging-1.1.1.jar"/>
-        <pathelement location="libs/ezmorph.jar"/>
-        <pathelement location="libs/json-lib-2.2.2-jdk15.jar"/>
-        <pathelement location="libs/json-smart-1.0.8.jar"/>
-        <pathelement location="libs/log4j-1.2.16.jar"/>
-        <pathelement location="libs/mysql-connector-java-3.0.17-ga-bin.jar"/>
-        <pathelement location="libs/org-apache-commons-codec.jar"/>
-    </path>
-    <path id="run.GroupzConferenceServices.classpath">
-        <path refid="GroupzConferenceServices.classpath"/>
-        <pathelement location="libs/commons-beanutils-1.7.jar"/>
-        <pathelement location="libs/commons-collections.jar"/>
-        <pathelement location="libs/commons-lang.jar"/>
-        <pathelement location="libs/commons-logging-1.1.1.jar"/>
-        <pathelement location="libs/ezmorph.jar"/>
-        <pathelement location="libs/json-lib-2.2.2-jdk15.jar"/>
-        <pathelement location="libs/json-smart-1.0.8.jar"/>
-        <pathelement location="libs/log4j-1.2.16.jar"/>
-        <pathelement location="libs/mysql-connector-java-3.0.17-ga-bin.jar"/>
-        <pathelement location="libs/org-apache-commons-codec.jar"/>
-    </path>
-    <target name="init">
-        <mkdir dir="bin"/>
-        <copy includeemptydirs="false" todir="bin">
-            <fileset dir="src">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-    <target name="clean">
-        <delete dir="bin"/>
-    </target>
-    <target depends="clean" name="cleanall"/>
-    <target depends="build-subprojects,build-project" name="build"/>
-    <target name="build-subprojects"/>
-    <target depends="init" name="build-project">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
-            <src path="src"/>
-            <classpath refid="GroupzConferenceServices.classpath"/>
-        </javac>
-    </target>
-    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-        <copy todir="${ant.library.dir}">
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </copy>
-        <unzip dest="${ant.library.dir}">
-            <patternset includes="jdtCompilerAdapter.jar"/>
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </unzip>
-    </target>
-    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
-        <antcall target="build"/>
-    </target>
-    <target name="GroupzConferenceServices">
-        <java classname="GroupzConferenceServices" failonerror="true" fork="yes">
-            <classpath refid="run.GroupzConferenceServices.classpath"/>
-        </java>
-    </target>
-     <target depends="build" name="jar">
-         <jar destfile="dist/GroupzConferenceServices.jar" basedir="bin">
-           </jar>
-        </target>
+<project name="GroupzConferenceServices" default="dist" basedir=".">
+	<description>GroupzConferenceServices build file</description>
+	<!-- set global properties for this build -->
+	<property environment="env" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.5" />
+	<property name="source" value="1.5" />
+	<path id="GroupzConferenceServices.classpath">
+		<pathelement path="libs/commons-beanutils-1.7.jar" />
+		<pathelement path="libs/commons-collections.jar" />
+		<pathelement path="libs/commons-lang.jar" />
+		<pathelement path="libs/commons-logging-1.1.1.jar" />
+		<pathelement path="libs/ezmorph.jar" />
+		<pathelement path="libs/json-lib-2.2.2-jdk15.jar" />
+		<pathelement path="libs/mysql-connector-java-3.0.17-ga-bin.jar" />
+		<pathelement path="libs/org-apache-commons-codec.jar" />
+		<pathelement path="libs/json-smart-1.0.8.jar"/>
+		<pathelement path="libs/log4j-1.2.16.jar"/>
+	</path>
+	<target name="init">
+		<mkdir dir="build/web" />
+		<mkdir dir="build/classes" />
+		<mkdir dir="build/classes/META-INF" />
+		<mkdir dir="dist" />
+		<copy includeemptydirs="false" todir="build/classes">
+			<fileset dir="src" includes="**/*.properties,**/*.xml" />
+		</copy>
+		<copy includeemptydirs="false" todir="build/classes/META-INF">
+			<fileset dir="src" includes="**/*.xml,**/*.MF" />
+		</copy>
+	</target>
+	<target name="clean">
+		<delete dir="build/" />
+		<delete dir="dist/" />
+	</target>
+	<target depends="clean" name="cleanall" />
+	<target depends="init" name="build">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac target="${target}" debug="true" destdir="build/classes"
+			debuglevel="${debuglevel}" source="${source}" includeAntRuntime="false">
+			<src path="src" />
+			<classpath refid="GroupzConferenceServices.classpath" />
+		</javac>
+	</target>
+	<target depends="build" name="jar">
+		<jar destfile="dist/GroupzConferenceServices.jar" basedir="build/classes">
+			<manifest>
+				<attribute name="Main-Class" value="RIJBDThreadPool" />
+				<attribute name="Class-path"
+					value="${lib}/mysql-connector-java-3.0.17-ga-bin.jar ${lib}/json-lib-2.2.2-jdk15.jar ${lib}/commons-beanutils-1.7.jar ${lib}/commons-collections.jar ${lib}/commons-lang.jar ${lib}/commons-logging-1.1.1.jar ${lib}/ezmorph.jar" />
+			</manifest>
+		</jar>
+	</target>
 </project>
+		
