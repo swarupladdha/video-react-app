@@ -1,4 +1,4 @@
-export BG_BASE=/home/swayam/devlopmnt/Interfaces/VideoConference/GroupzConferenceServices
+export BG_BASE=usr/local/repository/Interfaces/VideoConference/GroupzConferenceServices
 export LOG_PROPERTIES_FILE=$BG_BASE/log4j.properties
 for i in `find $BG_BASE -name *.jar`
 do
