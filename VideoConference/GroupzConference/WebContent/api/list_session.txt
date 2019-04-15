@@ -1,0 +1,62 @@
+
+url : http://localhost:8080/GroupzConference/session?request=
+------------------------------------------------------
+request:
+------------------------------------------------------
+{
+  "request": {
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1002"
+    },
+    "data":{
+    	"id":[1,2,3]
+    }
+  }
+}
+--------------------------------------------------------
+response:
+--------------------------------------------------------
+{
+  "response": {
+    "status": {
+      "statuscode": "0",
+      "statusmessage": "Success"
+    },
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1002"
+    },
+    "data": {
+      "list": [
+        {
+          "id": "1",
+          "sessionid": "1_MX40NTk2MzM5Mn5-MTUxODYyMTUxMTE4NX4vNUM4L2tHMjNHcGRCenFXa0FyaGx2eE9-QX4",
+          "tokenid": "T1==cGFydG5lcl9pZD00NTk2MzM5MiZzaWc9MDZlNmM4MzFiNjRkODNmMjBjNDdiOWU0ODEzODU2ZWZmYjcwOTc3YzpzZXNzaW9uX2lkPTFfTVg0ME5UazJNek01TW41LU1UVXhPRFl5TVRVeE1URTROWDR2TlVNNEwydEhNak5IY0dSQ2VuRlhhMEZ5YUd4MmVFOS1RWDQmY3JlYXRlX3RpbWU9MTUxODYyMTUxMSZub25jZT0xODIwOTIyODA0JnJvbGU9bW9kZXJhdG9yJmV4cGlyZV90aW1lPTE1MTg2MjUxMTEmY29ubmVjdGlvbl9kYXRhPW5hbWUlM0RUZXN0",
+          "duration": 0,
+          "size": 0,
+          "videoid": 0,
+          "createddate": "2018-02-14 20:48:32"
+        },
+        {
+          "id": "2",
+          "sessionid": "2_MX40NTk2MzM5Mn5-MTUxODYyMTU2MDMyM35nclNyT3FOcWliWWllRGZBSXh3bDFLWEl-QX4",
+          "tokenid": "T1==cGFydG5lcl9pZD00NTk2MzM5MiZzaWc9NDEzNDJhYjM1ZDVmMDdiZmNhM2M1YWRjYzg3M2IyOThkODhjM2ExNTpzZXNzaW9uX2lkPTJfTVg0ME5UazJNek01TW41LU1UVXhPRFl5TVRVMk1ETXlNMzVuY2xOeVQzRk9jV2xpV1dsbFJHWkJTWGgzYkRGTFdFbC1RWDQmY3JlYXRlX3RpbWU9MTUxODYyMTU2MCZub25jZT0tMTc2OTE3MDIwMCZyb2xlPW1vZGVyYXRvciZleHBpcmVfdGltZT0xNTE4NjI1MTYwJmNvbm5lY3Rpb25fZGF0YT1uYW1lJTNEVGVzdA==",
+          "duration": 0,
+          "size": 0,
+          "videoid": 0,
+          "createddate": "2018-02-14 20:49:20"
+        },
+        {
+          "id": "3",
+          "sessionid": "2_MX40NTk2MzM5Mn5-MTUxODYyNTY1NTA1Mn5oM3FlS1AycitWUEswa053RktOSkV1eUd-QX4",
+          "tokenid": "T1==cGFydG5lcl9pZD00NTk2MzM5MiZzaWc9NzEzNWIzZWI4YWE5NmY3ODhlNzBjZjAyMzMwOTQ0ZTI1ZmU2OTFiNDpzZXNzaW9uX2lkPTJfTVg0ME5UazJNek01TW41LU1UVXhPRFl5TlRZMU5UQTFNbjVvTTNGbFMxQXljaXRXVUVzd2EwNTNSa3RPU2tWMWVVZC1RWDQmY3JlYXRlX3RpbWU9MTUxODYyNTY1NSZub25jZT0xMjUzMjA3NjQzJnJvbGU9bW9kZXJhdG9yJmV4cGlyZV90aW1lPTE1MTg2MjkyNTUmY29ubmVjdGlvbl9kYXRhPW5hbWUlM0RUZXN0",
+          "duration": 0,
+          "size": 0,
+          "videoid": 0,
+          "createddate": "2018-02-14 21:57:35"
+        }
+      ]
+    }
+  }
+}

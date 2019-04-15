@@ -1,0 +1,34 @@
+
+
+url : http://localhost:8080/GroupzConference/session?request=
+------------------------------------------------------
+request:
+------------------------------------------------------
+{
+  "request": {
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1000"
+    }
+  }
+}
+--------------------------------------------------------
+response:
+--------------------------------------------------------
+{
+  "response": {
+    "status": {
+      "statuscode": "0",
+      "statusmessage": "Success"
+    },
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1000"
+    },
+    "data": {
+      "id": 1,
+      "sessionid": "2_MX40NTk2MzM5Mn5-MTUxODYyNTY1NTA1Mn5oM3FlS1AycitWUEswa053RktOSkV1eUd-QX4",
+      "tokenid": "T1==cGFydG5lcl9pZD00NTk2MzM5MiZzaWc9NzEzNWIzZWI4YWE5NmY3ODhlNzBjZjAyMzMwOTQ0ZTI1ZmU2OTFiNDpzZXNzaW9uX2lkPTJfTVg0ME5UazJNek01TW41LU1UVXhPRFl5TlRZMU5UQTFNbjVvTTNGbFMxQXljaXRXVUVzd2EwNTNSa3RPU2tWMWVVZC1RWDQmY3JlYXRlX3RpbWU9MTUxODYyNTY1NSZub25jZT0xMjUzMjA3NjQzJnJvbGU9bW9kZXJhdG9yJmV4cGlyZV90aW1lPTE1MTg2MjkyNTUmY29ubmVjdGlvbl9kYXRhPW5hbWUlM0RUZXN0"
+    }
+  }
+}

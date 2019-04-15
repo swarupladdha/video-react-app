@@ -1,0 +1,33 @@
+url : http://localhost:8080/GroupzConference/session?request=
+------------------------------------------------------
+request:
+------------------------------------------------------
+{
+  "request": {
+    "data": {
+      "session": "2_MX40NjEwNzI5Mn5-MTU0NjUwODc1OTc0OH5xd0x1ckZCQjdhUmdrK0FYbThBU1krU3B-QX4"
+    },
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1001"
+    }
+  }
+}
+--------------------------------------------------------
+response:
+--------------------------------------------------------
+{
+  "response": {
+    "status": {
+      "statuscode": "0",
+      "statusmessage": "Success"
+    },
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1003"
+    },
+    "data": {
+      "id": 19581
+    }
+  }
+}

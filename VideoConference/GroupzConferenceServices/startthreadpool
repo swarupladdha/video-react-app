@@ -1,0 +1,4 @@
+
+nohup java GroupzConferenceServices > /home/swayam/devlopmnt/Interfaces/VideoConference/GroupzConferenceServices/logs/Services.log &
+
+
