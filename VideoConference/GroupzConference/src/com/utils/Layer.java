@@ -9,7 +9,7 @@ public interface Layer {
 	int apiKey = Integer.parseInt(PropertiesUtil.getProperty("apiKey"));
 	String apiSecret = PropertiesUtil.getProperty("apiSecret");
 	
-	String createSession (Connection connection,String serviceType,String functionType);
+	String createSession (Connection connection,String serviceType,String functionType,JSONObject data);
 	
 	String retrieveSession (Connection connection,String serviceType,String functionType,JSONObject data);
 	

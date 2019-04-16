@@ -34,14 +34,39 @@ public class TokBox implements Layer {
 	TokBoxDAO edu = new TokBoxDAO();
 //	static int apiKey = Integer.parseInt(PropertiesUtil.getProperty("apiKey"));
 	@Override
-	public String createSession(Connection con, String serviceType,String functionType) {
+	public String createSession(Connection con, String serviceType,String functionType, JSONObject data) {
 		String eduResponse="";
+		boolean autoArchive = true;
 		try{
 			
+			OpenTok opentok = new OpenTok(apiKey, apiSecret);
+			
+			if(data != null && !data.isEmpty()) {
+				if (data.containsKey(TokBoxInterfaceKeys.type)) {
+					String type = data.getString(TokBoxInterfaceKeys.type);
+					if(type.equalsIgnoreCase(PropertiesUtil.getProperty("manualArchiveType"))) {
+						autoArchive=false;
+					}
+				}
+			}
+			Session session=null;
+			if(autoArchive) {
+				session = opentok.createSession(new SessionProperties.Builder()
+						  .mediaMode(MediaMode.ROUTED)
+						  .archiveMode(ArchiveMode.ALWAYS)
+						  .build());
+			}
+			else {
+				session = opentok.createSession(new SessionProperties.Builder()
+						  .mediaMode(MediaMode.ROUTED)
+						  .archiveMode(ArchiveMode.MANUAL)
+						  .build());
+			}
+			String sessionId = session.getSessionId();
 			// inside a class or method...
 //			apiKey = Integer.parseInt(PropertiesUtil.getProperty("apiKey")); // YOUR API KEY
 //			String apiSecret = PropertiesUtil.getProperty("apiSecret");
-			OpenTok opentok = new OpenTok(apiKey, apiSecret);
+//			OpenTok opentok = new OpenTok(apiKey, apiSecret);
 			
 			/*// A session that attempts to stream media directly between clients:
 			Session session = opentok.createSession();*/
@@ -52,11 +77,11 @@ public class TokBox implements Layer {
 			  .build());
 			String sessionId = session.getSessionId();*/
 			
-			Session session = opentok.createSession(new SessionProperties.Builder()
-					  .mediaMode(MediaMode.ROUTED)
-					  .archiveMode(ArchiveMode.ALWAYS)
-					  .build());
-					String sessionId = session.getSessionId();
+			/*
+			 * Session session = opentok.createSession(new SessionProperties.Builder()
+			 * .mediaMode(MediaMode.ROUTED) .archiveMode(ArchiveMode.ALWAYS) .build());
+			 * String sessionId = session.getSessionId();
+			 */
 			
 			/*// A session that uses the OpenTok Media Router (which is required for archiving):
 			Session session = opentok.createSession(new SessionProperties.Builder()

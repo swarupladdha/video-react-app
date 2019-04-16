@@ -47,11 +47,14 @@ public class TokBoxManager {
 
 			Layer edu = new TokBox();
 			
-			JSONObject data = json.getJSONObject(TokBoxInterfaceKeys.request).getJSONObject(TokBoxInterfaceKeys.data);
+			JSONObject data=null;
+			if(json.getJSONObject(TokBoxInterfaceKeys.request).containsKey(TokBoxInterfaceKeys.data)) {
+				data = json.getJSONObject(TokBoxInterfaceKeys.request).getJSONObject(TokBoxInterfaceKeys.data);
+			}
 			if(functionType.equalsIgnoreCase(PropertiesUtil.getProperty(TokBoxInterfaceKeys.getsessionedu_ft))){
 				logger.info("inside create session");
 				
-				response = edu.createSession(connection,serviceType,functionType);
+				response = edu.createSession(connection,serviceType,functionType,data);
 				return response;
 			}
 			
