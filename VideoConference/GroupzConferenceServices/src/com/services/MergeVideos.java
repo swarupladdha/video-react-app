@@ -33,11 +33,11 @@ static final Logger logger = Logger.getLogger(MergeVideos.class);
 			String query1 = "select id,videoid,previousid,joinvideoid from session where previousid>0 and videoid>0 and joinvideoid=0"
 					+" and ((id % "+Integer.parseInt( PropertiesUtil.getProperty("max_threads"))+") = "+threadid+") order by id desc limit 1 ";
 
-			System.out.println(query1);
+			
 			stmt1 = dbConn.createStatement();
 			res1 = stmt1.executeQuery(query1);
-			if (res1.next()) {
-				
+			while (res1.next()) {
+				System.out.println(query1);
 				int id = res1.getInt("id");
 				int previousid = res1.getInt("previousid");
 				int videoid1 = res1.getInt("videoid");
@@ -88,9 +88,6 @@ static final Logger logger = Logger.getLogger(MergeVideos.class);
 						fcmObject.put("statusmessage", PropertiesUtil.getProperty("video_prepared_message"));
 					}
 				}
-			}
-			else {
-				System.out.println("something went wrong!");
 			}
 			Thread.sleep(5000);
 		}
