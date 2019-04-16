@@ -520,5 +520,31 @@ public class TokBox implements Layer {
 		}
 		return eduResponse;
 	}
+	
+// For getting Video
+	@Override
+	public String getVideo(Connection connection, String serviceType, String functionType, JSONObject data)
+	{
+		String eduResponse="";
+		int id = data.getInt(TokBoxInterfaceKeys.id);
+		if (id == 0 || id == -1) {
+			eduResponse = RestUtils.processError(PropertiesUtil.getProperty("id_empty_code"), PropertiesUtil.getProperty("id_empty_message"));
+			return eduResponse;
+		}
+		TokBoxDAO edu = new TokBoxDAO();
+		int videoid = edu.getVideo(connection, id);
+		if(videoid !=0) {
+			JSONObject responsedata = new JSONObject();
+			String url =PropertiesUtil.getProperty("base_url");
+			responsedata.put("url", url+videoid);
+			eduResponse = RestUtils.processSucess(serviceType,functionType,responsedata);
+			return eduResponse;
+		}
+		else {
+			eduResponse = RestUtils.processError(PropertiesUtil.getProperty("video_preparing_code"),PropertiesUtil.getProperty("video_preparing_message"));
+			return eduResponse;
+
+		}
+	}
 
 }

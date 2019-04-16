@@ -303,6 +303,36 @@ public class TokBoxDAO {
 		}
 		return 0;
 	}
+	//for getting video
+
+	public int getVideo(Connection connection, int id) {
+		
+		PreparedStatement stmt = null;
+		ResultSet res = null;
+		final String getSqlQuery ="select id,videoid,previousid,joinvideoid from session where id=?";
+		try {
+		stmt=connection.prepareStatement(getSqlQuery.toString());
+		stmt.setInt(1, id);
+		res = stmt.executeQuery();
+		if (res.next())
+		{
+			int joinvideoid = res.getInt("joinvideoid");
+			if(joinvideoid>0) {
+				return res.getInt("joinvideoid");
+			}
+			else {
+				return res.getInt("videoid");
+			}
+		}
+		}catch (Exception e) {
+			logger.error("Exception",e);
+		}
+		finally{
+			closePreparedStatement(stmt);
+		}
+		return 0;
+	}
+	
 
 }
 

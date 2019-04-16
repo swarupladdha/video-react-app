@@ -24,5 +24,7 @@ public interface Layer {
 	void callBack(String request);
 
 	String reconnectSession(Connection connection, String serviceType, String functionType, JSONObject data);
+
+	String getVideo(Connection connection, String serviceType, String functionType, JSONObject data);
 	
 }

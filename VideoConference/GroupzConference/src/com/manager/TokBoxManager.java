@@ -88,6 +88,12 @@ public class TokBoxManager {
 				response = edu.reconnectSession(connection,serviceType,functionType,data);
 				return response;
 			}
+			if(functionType.equalsIgnoreCase(PropertiesUtil.getProperty(TokBoxInterfaceKeys.getVideo))){
+				logger.info("inside getVideo session");
+				
+				response = edu.getVideo(connection,serviceType,functionType,data);
+				return response;
+			}
 			else{
 				response = RestUtils.processError(PropertiesUtil.getProperty(TokBoxInterfaceKeys.invalid_functiontype_length_code),PropertiesUtil.getProperty(TokBoxInterfaceKeys.invalid_functiontype_length_message));
 				return response;
