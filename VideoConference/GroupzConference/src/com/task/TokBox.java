@@ -50,6 +50,7 @@ public class TokBox implements Layer {
 				}
 			}
 			Session session=null;
+			logger.info("archive type is "+autoArchive );
 			if(autoArchive) {
 				session = opentok.createSession(new SessionProperties.Builder()
 						  .mediaMode(MediaMode.ROUTED)
