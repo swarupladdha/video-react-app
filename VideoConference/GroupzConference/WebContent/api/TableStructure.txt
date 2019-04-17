@@ -12,6 +12,7 @@ size int(11) DEFAULT 0,
 videoid int(11) DEFAULT 0,
 previousid int(11) DEFAULT 0,
 joinvideoid int(11) DEFAULT 0,
+autoarchive boolean DEFAULT true,
 createddate datetime DEFAULT NULL,
 updateddate datetime DEFAULT NULL,
 PRIMARY KEY (id))

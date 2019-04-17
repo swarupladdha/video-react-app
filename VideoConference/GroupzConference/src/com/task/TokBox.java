@@ -129,7 +129,7 @@ public class TokBox implements Layer {
 			logger.info(token);
 			logger.info("--------------------------------------------");
 			TokBoxDAO edu = new TokBoxDAO();
-			int id = edu.saveSession(con,sessionId,token);
+			int id = edu.saveSession(con,sessionId,token,autoArchive);
 			
 			if(id !=0) {
 				JSONObject responsedata = new JSONObject();
@@ -491,6 +491,7 @@ public class TokBox implements Layer {
 	public String reconnectSession(Connection connection, String serviceType, String functionType, JSONObject data)
 	{
 		String eduResponse="";
+		boolean autoArchive = true;
 		int id = data.getInt(TokBoxInterfaceKeys.id);
 		if (id == 0 || id == -1) {
 			eduResponse = RestUtils.processError(PropertiesUtil.getProperty("id_empty_code"), PropertiesUtil.getProperty("id_empty_message"));
@@ -502,11 +503,34 @@ public class TokBox implements Layer {
 		{
 			try {
 			OpenTok opentok = new OpenTok(apiKey, apiSecret);
-			Session session = opentok.createSession(new SessionProperties.Builder()
-					  .mediaMode(MediaMode.ROUTED)
-					  .archiveMode(ArchiveMode.ALWAYS)
-					  .build());
-					String sessionId = session.getSessionId();
+//			Session session = opentok.createSession(new SessionProperties.Builder()
+//					  .mediaMode(MediaMode.ROUTED)
+//					  .archiveMode(ArchiveMode.ALWAYS)
+//					  .build());
+//					String sessionId = session.getSessionId();
+			if(data != null && !data.isEmpty()) {
+				if (data.containsKey(TokBoxInterfaceKeys.type)) {
+					String type = data.getString(TokBoxInterfaceKeys.type);
+					if(type.equalsIgnoreCase(PropertiesUtil.getProperty("manualArchiveType"))) {
+						autoArchive=false;
+					}
+				}
+			}
+			Session session=null;
+			logger.info("archive type is "+autoArchive );
+			if(autoArchive) {
+				session = opentok.createSession(new SessionProperties.Builder()
+						  .mediaMode(MediaMode.ROUTED)
+						  .archiveMode(ArchiveMode.ALWAYS)
+						  .build());
+			}
+			else {
+				session = opentok.createSession(new SessionProperties.Builder()
+						  .mediaMode(MediaMode.ROUTED)
+						  .archiveMode(ArchiveMode.MANUAL)
+						  .build());
+			}
+			String sessionId = session.getSessionId();
 					String token = session.generateToken(new TokenOptions.Builder()
 							  .role(Role.MODERATOR)
 							  .expireTime((System.currentTimeMillis() / 1000L) + ( 60 * 60)) // in one hour
@@ -518,7 +542,7 @@ public class TokBox implements Layer {
 							logger.info(sessionId);
 							logger.info(token);
 							logger.info("--------------------------------------------");
-							int id1 = edu.saveSessionRec(connection,sessionId,token,id);
+							int id1 = edu.saveSessionRec(connection,sessionId,token,id,autoArchive);
 							
 							if(id1 !=0) {
 								JSONObject responsedata = new JSONObject();
@@ -559,11 +583,17 @@ public class TokBox implements Layer {
 		}
 		TokBoxDAO edu = new TokBoxDAO();
 		int videoid = edu.getVideo(connection, id);
-		if(videoid !=0) {
+		logger.info("videoid is "+videoid);
+		if(videoid >0) {
 			JSONObject responsedata = new JSONObject();
 			String url =PropertiesUtil.getProperty("base_url");
 			responsedata.put("url", url+videoid);
 			eduResponse = RestUtils.processSucess(serviceType,functionType,responsedata);
+			return eduResponse;
+		}
+		else if(videoid == -1)
+		{
+			eduResponse = RestUtils.processError(PropertiesUtil.getProperty("no_video_code"),PropertiesUtil.getProperty("no_video_message"));
 			return eduResponse;
 		}
 		else {

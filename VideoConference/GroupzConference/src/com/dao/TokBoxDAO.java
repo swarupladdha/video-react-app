@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 import org.apache.log4j.Logger;
 
+import com.utils.PropertiesUtil;
 import com.utils.RestUtils;
 import com.utils.TokBoxInterfaceKeys;
 
@@ -52,14 +53,16 @@ public class TokBoxDAO {
 		}
 	}
 
-	public int saveSession(Connection con, String sessionId, String token) {
+	public int saveSession(Connection con, String sessionId, String token, boolean autoArchive) {
 		PreparedStatement stmt = null;
-		final String updateStorySQL = "insert into session (sessionid,token,createddate) "
-									+ "values (?,?,'"+new java.sql.Timestamp( (new java.util.Date()).getTime())+"')";
+		
+		final String updateStorySQL = "insert into session (sessionid,token,autoarchive,createddate) "
+					+ "values (?,?,?,'"+new java.sql.Timestamp( (new java.util.Date()).getTime())+"')";
 		try {
 			stmt=con.prepareStatement(updateStorySQL.toString());
 			stmt.setString(1, sessionId);
 			stmt.setString(2, token);
+			stmt.setBoolean(3,autoArchive);
 			int id = stmt.executeUpdate();
 			
 			ResultSet generatedKeys = stmt.getGeneratedKeys(); 
@@ -263,7 +266,7 @@ public class TokBoxDAO {
 		return null;
 	}
 // For Reconnecting Session
-	public int saveSessionRec(Connection con, String sessionId, String token,int id) {
+	public int saveSessionRec(Connection con, String sessionId, String token,int id,boolean autoArchive) {
 		PreparedStatement stmt = null;
 		Statement stmt1 = null;
 		ResultSet res = null;
@@ -276,13 +279,14 @@ public class TokBoxDAO {
 				previousid = res.getInt("previousid");
 			}
 			if(previousid!=id) {
-		 final String updateStorySQL = "insert into session (sessionid,token,previousid,createddate) "
-									+ "values (?,?,?,'"+new java.sql.Timestamp( (new java.util.Date()).getTime())+"')";
+		 final String updateStorySQL = "insert into session (sessionid,token,previousid,autoarchive,createddate) "
+									+ "values (?,?,?,?,'"+new java.sql.Timestamp( (new java.util.Date()).getTime())+"')";
 			
 		    stmt=con.prepareStatement(updateStorySQL.toString());
 			stmt.setString(1, sessionId);
 			stmt.setString(2, token);
 			stmt.setInt(3, id);
+			stmt.setBoolean(4,autoArchive);
 			int id1 = stmt.executeUpdate();
 			
 			ResultSet generatedKeys = stmt.getGeneratedKeys(); 
@@ -309,21 +313,28 @@ public class TokBoxDAO {
 		
 		PreparedStatement stmt = null;
 		ResultSet res = null;
-		final String getSqlQuery ="select id,videoid,previousid,joinvideoid from session where id=?";
+		final String getSqlQuery ="select id,videoid,previousid,joinvideoid,autoarchive from session where id=?";
 		try {
 		stmt=connection.prepareStatement(getSqlQuery.toString());
 		stmt.setInt(1, id);
 		res = stmt.executeQuery();
 		if (res.next())
 		{
+			boolean autoArchive = res.getBoolean("autoarchive");
+			if(autoArchive) {
 			int joinvideoid = res.getInt("joinvideoid");
 			if(joinvideoid>0) {
-				return res.getInt("joinvideoid");
+				return joinvideoid;
 			}
 			else {
 				return res.getInt("videoid");
 			}
 		}
+			else {
+				return -1;
+			}
+		}
+		
 		}catch (Exception e) {
 			logger.error("Exception",e);
 		}

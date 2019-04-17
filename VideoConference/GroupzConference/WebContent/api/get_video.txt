@@ -1,0 +1,47 @@
+
+url : http://localhost:8080/GroupzConference/session?request=
+
+request:
+-------------------------
+{
+  "request": {
+    "data": {
+      "id": 4
+    },
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1006"
+    }
+  }
+}
+
+response
+------------------------
+{
+  "response": {
+    "status": {
+      "statuscode": "0",
+      "statusmessage": "Success"
+    },
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1006"
+    },
+    "data": {
+      "url": "http://qa1.jobztop.com:8080/GroupzFS/downloadvideo?id=23230"
+    }
+  }
+}
+-------------------
+if call is of manual type 
+------------------------
+response
+----------------
+{
+  "response": {
+    "status": {
+      "code": "10007",
+      "message": "Video was not recorded"
+    }
+  }
+}
