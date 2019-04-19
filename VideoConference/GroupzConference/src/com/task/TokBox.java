@@ -136,6 +136,7 @@ public class TokBox implements Layer {
 				responsedata.put(TokBoxInterfaceKeys.id, id);
 				responsedata.put(TokBoxInterfaceKeys.sessionid, sessionId);
 				responsedata.put(TokBoxInterfaceKeys.tokenid, token);
+				responsedata.put(TokBoxInterfaceKeys.autoArchive,autoArchive);
 				responsedata.put(TokBoxInterfaceKeys.apiKey, apiKey);
 				eduResponse = RestUtils.processSucess(serviceType,functionType,responsedata);
 				return eduResponse;
@@ -549,6 +550,7 @@ public class TokBox implements Layer {
 								responsedata.put(TokBoxInterfaceKeys.id, id1);
 								responsedata.put(TokBoxInterfaceKeys.sessionid, sessionId);
 								responsedata.put(TokBoxInterfaceKeys.tokenid, token);
+								responsedata.put(TokBoxInterfaceKeys.autoArchive,autoArchive);
 								responsedata.put(TokBoxInterfaceKeys.apiKey, apiKey);
 								eduResponse = RestUtils.processSucess(serviceType,functionType,responsedata);
 								return eduResponse;

@@ -32,3 +32,24 @@ response:
     }
   }
 }
+
+---------------------------------------------
+for manual
+------------
+
+url : http://localhost:8080/GroupzConference/session?request=
+
+request
+--------------------------
+
+{
+  "request": {
+    "data": {
+      "type": "manual"
+    },
+    "service": {
+      "servicetype": "1",
+      "functiontype": "1000"
+    }
+  }
+}

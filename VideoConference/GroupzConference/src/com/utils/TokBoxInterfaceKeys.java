@@ -523,6 +523,7 @@ public interface TokBoxInterfaceKeys {
 	
 	
 	 String sessionId = "sessionId";
+	 String autoArchive = "autoArchive";
 	 String callid = "callid";
 	 String service="service";
 	 String getSessionList = "getSessionList";
