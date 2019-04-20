@@ -16,3 +16,11 @@ autoarchive boolean DEFAULT true,
 createddate datetime DEFAULT NULL,
 updateddate datetime DEFAULT NULL,
 PRIMARY KEY (id))
+
+
+
+New Columns
+----------------------
+alter table session add column previousid int(11) DEFAULT 0,
+add column joinvideoid int(11) DEFAULT 0,
+add column autoarchive boolean DEFAULT true ;

@@ -28,7 +28,7 @@ response
       "functiontype": "1006"
     },
     "data": {
-      "url": "http://qa1.jobztop.com:8080/GroupzFS/downloadvideo?id=23230"
+      "url": "http://localhost:8080/GroupzFS/downloadvideo?id=23230"
     }
   }
 }
