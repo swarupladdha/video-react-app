@@ -36,6 +36,7 @@ public class TokBox implements Layer {
 	@Override
 	public String createSession(Connection con, String serviceType,String functionType, JSONObject data) {
 		String eduResponse="";
+		logger.info("create session function");
 		boolean autoArchive = true;
 		try{
 			
