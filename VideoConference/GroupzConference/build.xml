@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="all" name="GroupzConference">
     <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="/home/swayam/eclipse/jee-2018-12/eclipse"/>
+    <property name="ECLIPSE_HOME" value="../../../eclipse/jee-oxygen/eclipse/"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
@@ -29,7 +29,7 @@
         <pathelement location="WebContent/WEB-INF/lib/log4j-1.2.16.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/mchange-commons-java-0.2.12.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/mysql-connector-java-3.0.17-ga-bin.jar"/>
-        <pathelement location="WebContent/WEB-INF/lib/opentok-server-sdk-4.3.1.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/opentok-server-sdk-3.0.0-beta.2.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/rt.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/servlet-api.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/slf4j-api-1.7.25.jar"/>
