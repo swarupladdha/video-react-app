@@ -29,7 +29,7 @@
         <pathelement location="WebContent/WEB-INF/lib/log4j-1.2.16.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/mchange-commons-java-0.2.12.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/mysql-connector-java-3.0.17-ga-bin.jar"/>
-        <pathelement location="WebContent/WEB-INF/lib/opentok-server-sdk-4.3.1.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/opentok-server-sdk-4.3.0.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/rt.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/servlet-api.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/slf4j-api-1.7.25.jar"/>
