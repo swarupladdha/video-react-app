@@ -8,7 +8,7 @@
     <path id="Web App Libraries.libraryclasspath">
         <pathelement location="WebContent/WEB-INF/lib/async-http-client-1.9.0-BETA20.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/c3p0-0.9.5.2.jar"/>
-        <pathelement location="WebContent/WEB-INF/lib/com.fasterxml.jackson.databind.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/jackson-databind-2.9.8.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/commons-beanutils-1.7.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/commons-codec-1.7.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/commons-collections.jar"/>
