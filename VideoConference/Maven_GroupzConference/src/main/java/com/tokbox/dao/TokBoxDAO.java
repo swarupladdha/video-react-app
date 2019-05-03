@@ -281,7 +281,7 @@ public class TokBoxDAO {
 		 final String updateStorySQL = "insert into session (sessionid,token,previousid,autoarchive,createddate) "
 									+ "values (?,?,?,?,'"+new java.sql.Timestamp( (new java.util.Date()).getTime())+"')";
 			
-		    stmt=con.prepareStatement(updateStorySQL.toString());
+		    stmt=con.prepareStatement(updateStorySQL.toString(),Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, sessionId);
 			stmt.setString(2, token);
 			stmt.setInt(3, id);
