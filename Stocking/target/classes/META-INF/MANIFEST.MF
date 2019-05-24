@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Built-By: backend
+Class-Path: dependency-jars/mysql-connector-java-5.1.47.jar dependency
+ -jars/c3p0-0.9.1.2.jar dependency-jars/json-lib-2.4-jdk15.jar depende
+ ncy-jars/commons-beanutils-1.8.0.jar dependency-jars/commons-collecti
+ ons-3.2.1.jar dependency-jars/commons-lang-2.5.jar dependency-jars/co
+ mmons-logging-1.1.1.jar dependency-jars/ezmorph-1.0.6.jar dependency-
+ jars/log4j-1.2.17.jar dependency-jars/commons-csv-1.5.jar
+Build-Jdk: 1.8.0_201
+Created-By: Maven Integration for Eclipse
+Main-Class: MainClass
+

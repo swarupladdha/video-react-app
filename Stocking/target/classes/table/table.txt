@@ -1,0 +1,24 @@
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(55) DEFAULT NULL,
+  `lastname` varchar(55) DEFAULT NULL,
+  `username` varchar(55) DEFAULT NULL,
+  `password` varchar(55) DEFAULT NULL,
+  `email` varchar(55) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) 
+
+
+
+CREATE TABLE `records` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ticker` varchar(55) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `open` varchar(55) DEFAULT NULL,
+  `close` varchar(55) DEFAULT NULL,
+  `high` varchar(55) DEFAULT NULL,
+  `low` varchar(55) DEFAULT NULL,
+  `adjustclose` varchar(55) DEFAULT NULL,
+  `volume` varchar(55) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
