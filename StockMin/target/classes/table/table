@@ -1,0 +1,50 @@
+
+CREATE TABLE `oneminute` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `ticker` VARCHAR(55) DEFAULT NULL,
+    `date` DATE DEFAULT NULL,
+    `time` TIME DEFAULT NULL,
+    `open` DOUBLE DEFAULT NULL,
+    `high` DOUBLE DEFAULT NULL,
+    `low` DOUBLE DEFAULT NULL,
+    `close` DOUBLE DEFAULT NULL,
+    `volume` BIGINT DEFAULT NULL,
+    `RSI` DOUBLE DEFAULT NULL,
+    `Normalised_RSI` DOUBLE DEFAULT NULL,
+    `MACD` DOUBLE DEFAULT NULL,
+    `Normalised_MACD` DOUBLE DEFAULT NULL,
+    `Exp` DOUBLE DEFAULT NULL,
+    `MACD_Histogram` DOUBLE DEFAULT NULL,
+    `willium` DOUBLE DEFAULT NULL,
+    `Normalised_willium` DOUBLE DEFAULT NULL,
+    `Boillinger_UpperBand` DOUBLE DEFAULT NULL,
+    `Normalised_Boillinger_UpperBand` DOUBLE DEFAULT NULL,
+    `Middle_Band` DOUBLE DEFAULT NULL,
+    `Normalised_Boillinger_MiddleBand` DOUBLE DEFAULT NULL,
+    `Lower_Band` DOUBLE DEFAULT NULL,
+    `Normalised_Boillinger_LowerBand` DOUBLE DEFAULT NULL,
+    `Normalised_Boillinger_Band` DOUBLE DEFAULT NULL,
+    `Stocastic_slow_k` DOUBLE DEFAULT NULL,
+    `Normalised_Stocastic_slow_k` DOUBLE DEFAULT NULL,
+    `Slow_D` DOUBLE DEFAULT NULL,
+    `Normalised_Stocastic_slow_D` DOUBLE DEFAULT NULL,
+    `Normalised_Stocastic` DOUBLE DEFAULT NULL,
+    `ADX` DOUBLE DEFAULT NULL,
+    `Normalised_ADX` DOUBLE DEFAULT NULL,
+    `Total_Contribution` DOUBLE DEFAULT NULL,
+    PRIMARY KEY (`id`)
+);
+
+CREATE TABLE fiftyfive (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    date DATE DEFAULT NULL,
+    time TIME DEFAULT NULL,
+    open DOUBLE DEFAULT NULL,
+    high DOUBLE DEFAULT NULL,
+    low DOUBLE DEFAULT NULL,
+    close DOUBLE DEFAULT NULL,
+    PRIMARY KEY (`id`));
+
+ALTER TABLE oneminute add column fiveminute int(11) default null;
+ALTER TABLE oneminute add column rem int(11) default null;
+

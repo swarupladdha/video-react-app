@@ -1,0 +1,5 @@
+com/stock/utils/PropertiesUtil.class
+MainClass.class
+com/stock/utils/ConnectionManager.class
+com/stock/csvreader/MyCSVReader.class
+com/stock/dao/RecordsDao.class
