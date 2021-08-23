@@ -2,8 +2,8 @@
 <project basedir="." default="all" name="GroupzOTP">
 	<property environment="env" />
 	<property name="debuglevel" value="source,lines,vars" />
-	<property name="target" value="1.5" />
-	<property name="source" value="1.5" />
+	<property name="target" value="1.6" />
+	<property name="source" value="1.6" />
 	<path id="JobzTop.classpath">
 		<pathelement path="lib/mysql/mysql-connector-java-5.1.38-bin.jar" />
 		<pathelement path="lib/antlr-2.7.6.jar" />
@@ -46,7 +46,8 @@
 
 
 	</path>
-
+	<target depends="war" name="all">
+	</target>
 	<target name="init">
 		<mkdir dir="build/web" />
 		<mkdir dir="build/web/WEB-INF/classes" />
@@ -60,6 +61,7 @@
 			<fileset dir="src" includes="**/*.xml,**/*.MF" />
 		</copy>
 	</target>
+
 	<target name="clean">
 		<delete dir="build/web" />
 	</target>
@@ -79,7 +81,7 @@
 			<lib dir="lib/" includes="**/*.jar" />
 			<classes dir="build/web/WEB-INF/classes" />
 
-			<fileset dir="web" />
+			<fileset dir="build/web" />
 		</war>
 	</target>
 
