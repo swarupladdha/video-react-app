@@ -45,8 +45,8 @@ public class OtpManager {
 					otpActions.setMobile(utils.encrypt(mobile));
 					// otpActions.setMobile(mobile);
 
-					if (countrycode.equalsIgnoreCase("91") == true
-							|| countrycode.equalsIgnoreCase("1") == true) {
+//					if (countrycode.equalsIgnoreCase("91") == true
+//							|| countrycode.equalsIgnoreCase("1") == true) {
 						otpActions.setCountrycode(utils.encrypt(countrycode));
 						// otpActions.setCountrycode(countrycode);
 						String genOtp = utils.generateOTP();
@@ -88,12 +88,12 @@ public class OtpManager {
 							.getProperty("mobile_invalid_message"));
 					return response;
 				}
-			} else {
-				response = utils.processError(
-						PropertiesUtil.getProperty("mobile_invalid_code"),
-						PropertiesUtil.getProperty("mobile_invalid_message"));
-				return response;
-			}
+//			} else {
+//				response = utils.processError(
+//						PropertiesUtil.getProperty("mobile_invalid_code"),
+//						PropertiesUtil.getProperty("mobile_invalid_message"));
+//				return response;
+//			}
 		} catch (Exception e)
 
 		{

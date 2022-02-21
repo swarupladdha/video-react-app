@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="all" name="GroupzOTP">
-	<property environment="env"/>
-	<property name="debuglevel" value="source,lines,vars"/>
-	<property name="target" value="1.5"/>
-	<property name="source" value="1.5"/>
+	<property environment="env" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.5" />
+	<property name="source" value="1.5" />
 	<path id="JobzTop.classpath">
-		<pathelement path="libs/mysql/mysql-connector-java-3.0.17-ga-bin.jar"/>
-		<pathelement path="libs/antlr-2.7.6.jar"/>
-		<pathelement path="libs/antlr-2.7.6.jar"/>
-		<pathelement path="libs/asm-attrs.jar"/>
-		<pathelement path="libs/c3p0-0.9.1.jar"/>
-		<pathelement path="libs/cglib-2.1.3.jar"/>
-		<pathelement path="libs/commons-beanutils-1.7.jar"/>
-		<pathelement path="libs/commons-collections-2.1.1.jar"/>
-		<pathelement path="libs/commons-collections-2.1.jar"/>
-		<pathelement path="libs/commons-collections-3.1.jar"/>
-		<pathelement path="libs/commons-collections-3.2.jar"/>
-		<pathelement path="libs/commons-digester-1.7.jar"/>
-		<pathelement path="libs/commons-logging-1.0.2.jar"/>
-		<pathelement path="libs/dom4j-1.6.1.jar"/>
-		<pathelement path="libs/ehcache-1.2.3.jar"/>
-		<pathelement path="libs/ejb3-persistence.jar"/>
-		<pathelement path="libs/hibernate3.jar"/>
-		<pathelement path="libs/hibernate-annotations.jar"/>
-		<pathelement path="libs/hibernate-commons-annotations.jar"/>
-		<pathelement path="libs/hibernate-tools.jar"/>
-		<pathelement path="libs/hibernate-tools.jar"/>
-		<pathelement path="libs/jdbc2_0-stdext.jar"/>
-		<pathelement path="libs/jta.jar"/>
-		<pathelement path="libs/org-apache-commons-logging.jar"/>
-		<pathelement path="libs/oscache-2.1.jar"/>
-		<pathelement path="libs/standard.jar"/>
-		<pathelement path="libs/JobzTop.jar"/>
-		
-		<pathelement path="libs/groupzbasedb.jar"/>
-		<pathelement path="libs/javax.servlet-api.jar"/>
-		<pathelement path="libs/commons-fileupload-1.3.jar"/>
-		<pathelement path="libs/commons-io-1.4.jar"/>
-		<pathelement path="libs/javabase64-1.3.1.jar"/>
-		<pathelement path="libs/groupzcoredb.jar"/>	
-		<pathelement path="libs/commons-beanutils-1.7.jar"/>
-		<pathelement path="libs/commons-collections.jar"/>
-		<pathelement path="libs/commons-lang.jar"/>
-		<pathelement path="libs/commons-logging-1.1.1.jar"/>
+		<pathelement path="libs/mysql/mysql-connector-java-3.0.17-ga-bin.jar" />
+		<pathelement path="libs/antlr-2.7.6.jar" />
+		<pathelement path="libs/antlr-2.7.6.jar" />
+		<pathelement path="libs/asm-attrs.jar" />
+		<pathelement path="libs/c3p0-0.9.1.jar" />
+		<pathelement path="libs/cglib-2.1.3.jar" />
+		<pathelement path="libs/commons-beanutils-1.7.jar" />
+		<pathelement path="libs/commons-collections-2.1.1.jar" />
+		<pathelement path="libs/commons-collections-2.1.jar" />
+		<pathelement path="libs/commons-collections-3.1.jar" />
+		<pathelement path="libs/commons-collections-3.2.jar" />
+		<pathelement path="libs/commons-digester-1.7.jar" />
+		<pathelement path="libs/commons-logging-1.0.2.jar" />
+		<pathelement path="libs/dom4j-1.6.1.jar" />
+		<pathelement path="libs/ehcache-1.2.3.jar" />
+		<pathelement path="libs/ejb3-persistence.jar" />
+		<pathelement path="libs/hibernate3.jar" />
+		<pathelement path="libs/hibernate-annotations.jar" />
+		<pathelement path="libs/hibernate-commons-annotations.jar" />
+		<pathelement path="libs/hibernate-tools.jar" />
+		<pathelement path="libs/hibernate-tools.jar" />
+		<pathelement path="libs/jdbc2_0-stdext.jar" />
+		<pathelement path="libs/jta.jar" />
+		<pathelement path="libs/org-apache-commons-logging.jar" />
+		<pathelement path="libs/oscache-2.1.jar" />
+		<pathelement path="libs/standard.jar" />
+		<pathelement path="libs/JobzTop.jar" />
+
+		<pathelement path="libs/groupzbasedb.jar" />
+		<pathelement path="libs/javax.servlet-api.jar" />
+		<pathelement path="libs/commons-fileupload-1.3.jar" />
+		<pathelement path="libs/commons-io-1.4.jar" />
+		<pathelement path="libs/javabase64-1.3.1.jar" />
+		<pathelement path="libs/groupzcoredb.jar" />
+		<pathelement path="libs/commons-beanutils-1.7.jar" />
+		<pathelement path="libs/commons-collections.jar" />
+		<pathelement path="libs/commons-lang.jar" />
+		<pathelement path="libs/commons-logging-1.1.1.jar" />
 		<pathelement path="libs/ezmorph.jar" />
 		<pathelement path="libs/json-lib-2.2.2-jdk15.jar" />
 		<pathelement path="libs/json-smart-1.0.8.jar" />
 		<pathelement path="libs/xom-1.2.10.jar" />
-		
+
 
 	</path>
 
@@ -61,35 +61,38 @@
 			<fileset dir="src" includes="**/*.properties,**/*.xml" />
 		</copy>
 		<copy includeemptydirs="false" todir="build/web/WEB-INF/classes/META-INF">
-			<fileset dir="src" includes="**/*.xml,**/*.MF"/>
+			<fileset dir="src" includes="**/*.xml,**/*.MF" />
 		</copy>
 	</target>
+
 	<target name="clean">
-		<delete dir="build/web"/>
+		<delete dir="build/web" />
 	</target>
-	<target depends="clean" name="cleanall"/>
+	<target depends="clean" name="cleanall" />
 	<target depends="init" name="build">
-		<echo message="${ant.project.name}: ${ant.file}"/>
+		<echo message="${ant.project.name}: ${ant.file}" />
 		<javac target="${target}" debug="true" destdir="build/web/WEB-INF/classes" debuglevel="${debuglevel}" source="${source}" includeAntRuntime="false">
-			<src path="src"/>
-			<classpath refid="JobzTop.classpath"/>
+			<src path="src" />
+			<classpath refid="JobzTop.classpath" />
 		</javac>
 
+	</target>
+	<target depends="war" name="all">
 	</target>
 
 	<target depends="build" name="war">
 		<war destfile="dist/GroupzOTP.war" webxml="web/WEB-INF/web.xml">
-			<fileset dir="libs"/>
-			<lib dir="libs/" includes="**/*.jar"/>
-			<classes dir="build/web/WEB-INF/classes"/>
+			<fileset dir="libs" />
+			<lib dir="libs/" includes="**/*.jar" />
+			<classes dir="build/web/WEB-INF/classes" />
 
-			<fileset dir="web"/>
+			<fileset dir="web" />
 		</war>
 	</target>
 
 
-	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-	<property name="build.home" value="build"/>
-	<property name="build.classes.home" value="build/web"/>
+	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" />
+	<property name="build.home" value="build" />
+	<property name="build.classes.home" value="build/web" />
 
 </project>
