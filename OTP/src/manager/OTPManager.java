@@ -261,14 +261,14 @@ public class OTPManager {
 
 			}
 
-			if (count < 10) {
+			if (count < 8 || count > 10) {
 				validateOtpResponse = utils.processError(PropertiesUtil.getProperty("mobile_invalid_code"),
 						PropertiesUtil.getProperty("mobile_invalid_message"));
 				return validateOtpResponse;
 
 			}
 
-			if (countryCode.equalsIgnoreCase("91") == true || countryCode.equalsIgnoreCase("1") == true) {
+		//	if (countryCode.equalsIgnoreCase("91") == true || countryCode.equalsIgnoreCase("1") == true) {
 
 				dbConnection = connectionPooling.getConnection();
 
@@ -292,13 +292,13 @@ public class OTPManager {
 				validateOtpResponse = utils.processSuccess();
 				return validateOtpResponse;
 
-			} else {
-
-				validateOtpResponse = utils.processError(PropertiesUtil.getProperty("invalid_countrycode_code"),
-						PropertiesUtil.getProperty("invalid_countrycode_message"));
-				return validateOtpResponse;
-
-			}
+//			} else {
+//
+//				validateOtpResponse = utils.processError(PropertiesUtil.getProperty("invalid_countrycode_code"),
+//						PropertiesUtil.getProperty("invalid_countrycode_message"));
+//				return validateOtpResponse;
+//
+//			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
