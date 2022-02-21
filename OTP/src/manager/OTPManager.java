@@ -94,7 +94,7 @@ public class OTPManager {
 
 			}
 
-			if (count < 10) {
+			if (count < 8 || count > 10) {
 				generateOtpResponse = utils.processError(PropertiesUtil.getProperty("mobile_invalid_code"),
 						PropertiesUtil.getProperty("mobile_invalid_message"));
 				return generateOtpResponse;
