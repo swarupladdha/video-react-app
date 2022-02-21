@@ -80,10 +80,10 @@ public class OTPManager {
 			// code added from here
 			if (mobileObject.containsKey("autoreadcode")) {
 				autoReadCode = mobileObject.getString("autoreadcode");
-			System.out.println("reading  auto read code"+autoReadCode);
+				System.out.println("reading  auto read code" + autoReadCode);
 			} else {
 				autoReadCode = "";
-				System.out.println("Not reading  auto read code"+autoReadCode);
+				System.out.println("Not reading  auto read code" + autoReadCode);
 			}
 			// to here
 			int count = 0;
@@ -105,22 +105,44 @@ public class OTPManager {
 				newOtp = mobileObject.getBoolean("newotp");
 			}
 
-			if (countryCode.equalsIgnoreCase("91") == true || countryCode.equalsIgnoreCase("1") == true) {
-				dbConnection = connectionPooling.getConnection();
-				String currentTime = utils.getFormattedDateStr(utils.getLastSynchTime());
-				if (newOtp == true) {
-					String checkMobileExistQuery = checkMobileExist.format(checkMobileExist, encryptedMobile,
-							encryptedCountryCode, currentTime);
-					System.out.println(" Mobile Exist Query :" + checkMobileExistQuery);
-					List<Integer> otpEntryList = dbo.getIntegerList(dbConnection, checkMobileExistQuery);
-					if (otpEntryList != null && otpEntryList.size() > 0) {
-						for (int j = 0; j < otpEntryList.size(); j++) {
-							String updateOtpEntry = updateDuplicateEntrySQL.format(updateDuplicateEntrySQL,
-									otpEntryList.get(j));
-							dbo.executeUpdate(updateOtpEntry, dbConnection);
-						}
-
+			// if (countryCode.equalsIgnoreCase("91") == true ||
+			// countryCode.equalsIgnoreCase("1") == true) {
+			dbConnection = connectionPooling.getConnection();
+			String currentTime = utils.getFormattedDateStr(utils.getLastSynchTime());
+			if (newOtp == true) {
+				String checkMobileExistQuery = checkMobileExist.format(checkMobileExist, encryptedMobile,
+						encryptedCountryCode, currentTime);
+				System.out.println(" Mobile Exist Query :" + checkMobileExistQuery);
+				List<Integer> otpEntryList = dbo.getIntegerList(dbConnection, checkMobileExistQuery);
+				if (otpEntryList != null && otpEntryList.size() > 0) {
+					for (int j = 0; j < otpEntryList.size(); j++) {
+						String updateOtpEntry = updateDuplicateEntrySQL.format(updateDuplicateEntrySQL,
+								otpEntryList.get(j));
+						dbo.executeUpdate(updateOtpEntry, dbConnection);
 					}
+
+				}
+
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(utils.getLastSynchTime());
+				cal.add(Calendar.MINUTE, 30);
+				Date lapse_time = cal.getTime();
+				String lapseTime = utils.getFormattedDateStr(lapse_time);
+
+				otp = utils.generateOTP();
+				String encryptedOtp = utils.encrypt(otp);
+
+				String insertIntoOtpQuery = insertIntoOtpTableSQL.format(insertIntoOtpTableSQL, encryptedMobile,
+						encryptedCountryCode, currentTime, lapseTime, encryptedOtp, otp);
+				System.out.println(insertIntoOtpQuery);
+				dbo.executeUpdate(insertIntoOtpQuery, dbConnection);
+			} else {
+				String query = "Select OriginalOtp from Otp where Mobile='" + encryptedMobile + "' and CountryCode='"
+						+ encryptedCountryCode + "' and LapseTime>='" + currentTime + "' ORDER BY id DESC LIMIT 1";
+				System.out.println("Query for getting old otp :" + query);
+				otp = dbo.getOldOTP(query, dbConnection);
+				if (otp == null) {
+					otp = utils.generateOTP();
 
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(utils.getLastSynchTime());
@@ -135,45 +157,25 @@ public class OTPManager {
 							encryptedCountryCode, currentTime, lapseTime, encryptedOtp, otp);
 					System.out.println(insertIntoOtpQuery);
 					dbo.executeUpdate(insertIntoOtpQuery, dbConnection);
-				} else {
-					String query = "Select OriginalOtp from Otp where Mobile='" + encryptedMobile
-							+ "' and CountryCode='" + encryptedCountryCode + "' and LapseTime>='" + currentTime
-							+ "' ORDER BY id DESC LIMIT 1";
-					System.out.println("Query for getting old otp :" + query);
-					otp = dbo.getOldOTP(query, dbConnection);
-					if (otp == null) {
-						otp = utils.generateOTP();
-
-						Calendar cal = Calendar.getInstance();
-						cal.setTime(utils.getLastSynchTime());
-						cal.add(Calendar.MINUTE, 30);
-						Date lapse_time = cal.getTime();
-						String lapseTime = utils.getFormattedDateStr(lapse_time);
-
-						otp = utils.generateOTP();
-						String encryptedOtp = utils.encrypt(otp);
-
-						String insertIntoOtpQuery = insertIntoOtpTableSQL.format(insertIntoOtpTableSQL, encryptedMobile,
-								encryptedCountryCode, currentTime, lapseTime, encryptedOtp, otp);
-						System.out.println(insertIntoOtpQuery);
-						dbo.executeUpdate(insertIntoOtpQuery, dbConnection);
-
-					}
 
 				}
 
-				String sms_text = PropertiesUtil.getProperty("otp_sms_text") + " " + otp + " " + autoReadCode;
-				System.out.println("sms text :" + sms_text);
-
-				sms.sendSms(sms_text, mobileWithCountryCode, PropertiesUtil.getProperty("from_number_for_sms_alert"),
-						dbConnection);
-
-				generateOtpResponse = utils.processSuccess();
-				return generateOtpResponse;
-
 			}
 
-		} catch (Exception e) {
+			String sms_text = PropertiesUtil.getProperty("otp_sms_text") + " " + otp + " " + autoReadCode;
+			System.out.println("sms text :" + sms_text);
+
+			sms.sendSms(sms_text, mobileWithCountryCode, PropertiesUtil.getProperty("from_number_for_sms_alert"),
+					dbConnection);
+
+			generateOtpResponse = utils.processSuccess();
+			return generateOtpResponse;
+
+			// }
+
+		} catch (
+
+		Exception e) {
 			e.printStackTrace();
 			generateOtpResponse = utils.processError(PropertiesUtil.getProperty("common_error_code"),
 					PropertiesUtil.getProperty("common_error_message"));
@@ -186,7 +188,7 @@ public class OTPManager {
 				e.printStackTrace();
 			}
 		}
-		return generateOtpResponse;
+		// return generateOtpResponse;
 
 	}
 
