@@ -46,19 +46,63 @@ public class CallService {
 		String callid = null;
 
 		if (dataObj != null) {
-			fromNumber = dataObj.getString(AllKeys.FROM_NUMBER);
-			toNumber = dataObj.getString(AllKeys.TO_NUMBER);
-			timeLimit = dataObj.getString(AllKeys.TIME_LIMIT);
-			callbackURL = dataObj.getString(AllKeys.CALLBACK_URL);
-			callid = dataObj.getString(AllKeys.CALLID);
+			if (dataObj.has(AllKeys.FROM_NUMBER)) {
+				fromNumber = dataObj.getString(AllKeys.FROM_NUMBER);
+				if (utils.isEmpty(fromNumber)) {
+					response = utils.errorMessage("From Number is Empty!");
+					return response;
+				}
+			} else {
+				response = utils.errorMessage("From Number is Missing!");
+				return response;
+			}
+			if (dataObj.has(AllKeys.TO_NUMBER)) {
+				toNumber = dataObj.getString(AllKeys.TO_NUMBER);
+				if (utils.isEmpty(fromNumber)) {
+					response = utils.errorMessage("To Number is Empty!");
+					return response;
+				}
+			} else {
+				response = utils.errorMessage("To Number is Missing!");
+				return response;
+			}
+			if (dataObj.has(AllKeys.TIME_LIMIT)) {
+				timeLimit = dataObj.getString(AllKeys.TIME_LIMIT);
 
-			response = cd.insertCallDetails(fromNumber, toNumber, AllKeys.INITIATED, timeLimit, callbackURL, callid,
-					dbCon);
+			}
+			if (dataObj.containsKey(AllKeys.CALLBACK_URL)) {
+				callbackURL = dataObj.getString(AllKeys.CALLBACK_URL);
+				if (utils.isEmpty(fromNumber)) {
+					response = utils.errorMessage("CallBack URL is Empty!");
+					return response;
+				}
+			} else {
+				response = utils.errorMessage("CallBack URL is Missing!");
+				return response;
+			}
+			if (dataObj.has(AllKeys.CALLID)) {
+
+				callid = dataObj.getString(AllKeys.CALLID);
+				if (utils.isEmpty(fromNumber)) {
+					response = utils.errorMessage("CallID is Empty!");
+					return response;
+
+				}
+			} else {
+				response = utils.errorMessage("CallID is Missing!");
+				return response;
+			}
+			if (!utils.isEmpty(fromNumber) && !utils.isEmpty(toNumber)) {
+				response = cd.insertCallDetails(fromNumber, toNumber, AllKeys.INITIATED, timeLimit, callbackURL, callid,
+						dbCon);
+
+			}
 		} else {
 			response = utils.invalidJsonError();
+			return response;
 		}
-
 		return response;
+
 	}
 
 	public void initiateCall(Connection con) {
@@ -85,15 +129,23 @@ public class CallService {
 					}
 					if (obj.has(AllKeys.TIME_LIMIT)) {
 						timeLimit = obj.getString(AllKeys.TIME_LIMIT);
+						if (utils.isEmpty(timeLimit)) {
+
+							timeLimit = callLimit;
+							logger.info("default time limit is " + timeLimit + "seconds");
+
+						}
 
 					} else {
+						logger.info("default time limit is " + callLimit);
 						timeLimit = callLimit;
+						logger.info("time limit is " + timeLimit);
 					}
 
 					if (obj.has(AllKeys.TRIAL_COUNT)) {
 						trialCount = obj.getInt(AllKeys.TRIAL_COUNT);
 					}
-					if (!fromNumber.isEmpty() && !toNumber.isEmpty()) {
+					if (!utils.isEmpty(fromNumber) && !utils.isEmpty(toNumber)) {
 
 						String response = vi.connectToAgent(fromNumber, toNumber, timeLimit);
 						if (utils.isJsonValid(response)) {
