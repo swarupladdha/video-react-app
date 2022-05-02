@@ -106,9 +106,9 @@ public class CallService {
 	}
 
 	public void initiateCall(Connection con) {
-		String fromNumber = "";
-		String toNumber = "";
-		String timeLimit = "0";
+		String fromNumber = null;
+		String toNumber = null;
+		String timeLimit = null;
 		int id = 0;
 		int trialCount = 0;
 		JSONArray arr = cd.getNewPhoneDetails(trialCountValue, con);
