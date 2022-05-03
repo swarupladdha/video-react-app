@@ -58,7 +58,7 @@ public class CallDao {
 		ResultSet rs = null;
 		JSONArray arr = new JSONArray();
 		try {
-			ps = con.prepareStatement(CallQueries.GET_NEW_NUMERS);
+			ps = con.prepareStatement(CallQueries.GET_NEW_NUMBERS);
 			ps.setInt(1, trialCount);
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -91,7 +91,7 @@ public class CallDao {
 		PreparedStatement ps = null;
 		try {
 
-			ps = con.prepareStatement(CallQueries.UPDATE_AGTER_CALL_INITIATE);
+			ps = con.prepareStatement(CallQueries.UPDATE_AFTER_CALL_INITIATE);
 			ps.setString(1, callStatus);
 			ps.setString(2, callSid);
 			ps.setString(3, callStartTime);
