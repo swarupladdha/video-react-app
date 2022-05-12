@@ -43,26 +43,13 @@ public class Utils {
 			JSONObject main = new JSONObject();
 			JSONObject response = new JSONObject();
 			JSONObject data = new JSONObject();
-			data.put(AllKeys.STATUS_MESSAGE, "Your call has been initiated, Please wait " + "we are connecting you !.");
+			data.put(AllKeys.STATUS_MESSAGE, "Your call has been initiated, Please wait "
+					+ "we are connecting you !.");
 			response.put(AllKeys.DATA, data);
 			main.put(AllKeys.RESPONSE, response);
 			return main.toString();
 		} catch (Exception e) {
-			return "We are connection you! Please wait!";
-		}
-	}
-
-	public String errorMessage(String msg) {
-		try {
-			JSONObject main = new JSONObject();
-			JSONObject response = new JSONObject();
-			JSONObject data = new JSONObject();
-			data.put(AllKeys.STATUS_MESSAGE, msg);
-			response.put(AllKeys.DATA, data);
-			main.put(AllKeys.RESPONSE, response);
-			return main.toString();
-		} catch (Exception e) {
-			return "We are facing issues! Please cooperate!";
+			return "We are connecting you! Please wait!";
 		}
 	}
 

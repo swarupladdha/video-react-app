@@ -38,7 +38,7 @@ public class CallService {
 
 	public String makeCall(JSONObject dataObj, Connection dbCon) {
 		String response = null;
-		logger.info("inside make call ");
+		// logger.info("inside make call ");
 		String fromNumber = null;
 		String toNumber = null;
 		String timeLimit = null;
@@ -46,69 +46,28 @@ public class CallService {
 		String callid = null;
 
 		if (dataObj != null) {
-			if (dataObj.has(AllKeys.FROM_NUMBER)) {
-				fromNumber = dataObj.getString(AllKeys.FROM_NUMBER);
-				if (utils.isEmpty(fromNumber)) {
-					response = utils.errorMessage("From Number is Empty!");
-					return response;
-				}
-			} else {
-				response = utils.errorMessage("From Number is Missing!");
-				return response;
-			}
-			if (dataObj.has(AllKeys.TO_NUMBER)) {
-				toNumber = dataObj.getString(AllKeys.TO_NUMBER);
-				if (utils.isEmpty(fromNumber)) {
-					response = utils.errorMessage("To Number is Empty!");
-					return response;
-				}
-			} else {
-				response = utils.errorMessage("To Number is Missing!");
-				return response;
-			}
-			if (dataObj.has(AllKeys.TIME_LIMIT)) {
-				timeLimit = dataObj.getString(AllKeys.TIME_LIMIT);
+			fromNumber = dataObj.getString(AllKeys.FROM_NUMBER);
+			System.out.println("from number is " + fromNumber);
+			toNumber = dataObj.getString(AllKeys.TO_NUMBER);
+			System.out.println("to number is " + toNumber);
+			timeLimit = dataObj.getString(AllKeys.TIME_LIMIT);
+			callbackURL = dataObj.getString(AllKeys.CALLBACK_URL);
+			System.out.println("call back URL is " + callbackURL);
+			callid = dataObj.getString(AllKeys.CALLID);
 
-			}
-			if (dataObj.containsKey(AllKeys.CALLBACK_URL)) {
-				callbackURL = dataObj.getString(AllKeys.CALLBACK_URL);
-				if (utils.isEmpty(fromNumber)) {
-					response = utils.errorMessage("CallBack URL is Empty!");
-					return response;
-				}
-			} else {
-				response = utils.errorMessage("CallBack URL is Missing!");
-				return response;
-			}
-			if (dataObj.has(AllKeys.CALLID)) {
-
-				callid = dataObj.getString(AllKeys.CALLID);
-				if (utils.isEmpty(fromNumber)) {
-					response = utils.errorMessage("CallID is Empty!");
-					return response;
-
-				}
-			} else {
-				response = utils.errorMessage("CallID is Missing!");
-				return response;
-			}
-			if (!utils.isEmpty(fromNumber) && !utils.isEmpty(toNumber)) {
-				response = cd.insertCallDetails(fromNumber, toNumber, AllKeys.INITIATED, timeLimit, callbackURL, callid,
-						dbCon);
-
-			}
+			response = cd.insertCallDetails(fromNumber, toNumber, AllKeys.INITIATED, timeLimit, callbackURL, callid,
+					dbCon);
 		} else {
 			response = utils.invalidJsonError();
-			return response;
 		}
-		return response;
 
+		return response;
 	}
 
 	public void initiateCall(Connection con) {
-		String fromNumber = null;
-		String toNumber = null;
-		String timeLimit = null;
+		String fromNumber = "";
+		String toNumber = "";
+		String timeLimit = "0";
 		int id = 0;
 		int trialCount = 0;
 		JSONArray arr = cd.getNewPhoneDetails(trialCountValue, con);
@@ -129,23 +88,15 @@ public class CallService {
 					}
 					if (obj.has(AllKeys.TIME_LIMIT)) {
 						timeLimit = obj.getString(AllKeys.TIME_LIMIT);
-						if (utils.isEmpty(timeLimit)) {
-
-							timeLimit = callLimit;
-							logger.info("default time limit is " + timeLimit + "seconds");
-
-						}
 
 					} else {
-						logger.info("default time limit is " + callLimit);
 						timeLimit = callLimit;
-						logger.info("time limit is " + timeLimit);
 					}
 
 					if (obj.has(AllKeys.TRIAL_COUNT)) {
 						trialCount = obj.getInt(AllKeys.TRIAL_COUNT);
 					}
-					if (!utils.isEmpty(fromNumber) && !utils.isEmpty(toNumber)) {
+					if (!fromNumber.isEmpty() && !toNumber.isEmpty()) {
 
 						String response = vi.connectToAgent(fromNumber, toNumber, timeLimit);
 						if (utils.isJsonValid(response)) {
@@ -162,8 +113,9 @@ public class CallService {
 
 							sendCallBackResponse(0, callSid, con);
 						} else {
-							cd.updateCallDetailsOnceCallInitiate(id, null, "failed", null, trialCount + 1, con);
+							cd.updateCallDetailsOnceCallInitiate(id, null, "call failed", null, trialCount + 1, con);
 							sendCallBackResponse(id, null, con);
+
 						}
 
 					}
@@ -177,6 +129,7 @@ public class CallService {
 		String callStatus = null;
 		String callStartTime = null;
 		String callEndTime = null;
+		JSONArray arr = cd.updateCallDetailsAfterCallBackResponse(callSid, callStatus, callStartTime, callEndTime, con);
 		if (obj != null) {
 			if (obj.has(AllKeys.CALL_SID)) {
 				callSid = obj.getString(AllKeys.CALL_SID);
@@ -189,6 +142,7 @@ public class CallService {
 			}
 			if (obj.has(AllKeys.CALL_END_TIME)) {
 				callEndTime = obj.getString(AllKeys.CALL_END_TIME);
+				logger.info(callEndTime);
 			}
 			if (callSid != null && callStatus != null) {
 				cd.updateCallDetailsAfterCallBackResponse(callSid, callStatus, callStartTime, callEndTime, con);
@@ -235,6 +189,59 @@ public class CallService {
 				}
 			}
 		}
+
+	}
+
+	public String callResponse2(JSONObject obj, Connection con) {
+
+		String response2 = "";
+		String callSid = "";
+		String callStatus = "";
+		JSONArray arr = cd.getNewCallDetails(con);
+		if (arr.size() > 0) {
+			for (Object ob : arr) {
+				JSONObject obj1 = (JSONObject) ob;
+				callSid = obj1.getString(AllKeys.CALLSID);
+
+			}
+		}
+		if (!utils.isEmpty(callSid)) {
+
+			logger.info("call back response result is " + response2);
+			logger.info("Sid is" + callSid);
+
+		}
+		
+
+		else {
+			response2 = utils.invalidJsonError();
+		}
+		logger.info("inside call response2");
+
+		
+		
+		response2 = vi.bringBackResponse(callSid);
+
+		if (!utils.isJsonValid(response2)) {
+
+			logger.info("invalid json");
+		}
+
+		JSONObject o = JSONObject.fromObject(response2);
+		String status = o.getJSONObject(AllKeys.CALL).getString(AllKeys.STATUS);
+		String endTime = o.getJSONObject(AllKeys.CALL).getString(AllKeys.CALL_END_TIME);
+		logger.info("status from exotel is " + status);
+
+		if (!status.equals("in-progress")) {
+
+			if (callSid != null && callStatus != null) {
+
+				cd.updateCallDetailsAfterCallBackResponse2(callSid, status, endTime, con);
+				logger.info("Sid is" + callSid);
+				logger.info("Status is" + status);
+			}
+		}
+		return response2;
 
 	}
 

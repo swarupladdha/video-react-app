@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,5 +50,21 @@ public class VoiceController {
 		}
 
 	}
+	
+	@GetMapping("/callResponse")
+	public void callResponse2(@RequestBody String request )throws SQLException {
+		
+		if (util.isJsonValid(request)) {
+			Connection con = ic.dataBaseConnection();
+			logger.info("request is " + request);
+			JSONObject dataObj = JSONObject.fromObject(request).getJSONObject("request").getJSONObject("data");
+			logger.info("data object is " + dataObj);
+			//System.out.println("hi");
+			request = cs.callResponse2(dataObj, con);
+		
+		}
+		
+	}
+	
 
 }

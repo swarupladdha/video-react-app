@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.infosoft.utils.AllKeys;
 
+import exotel.ExotelStrings;
 import net.sf.json.JSONObject;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -40,7 +41,7 @@ public class InfosoftConnection {
 				ds.setUrl(dbUrl);
 				ds.setUsername(dbUserName);
 				ds.setPassword(dbPassword);
-				ds.setInitialSize(10);
+				ds.setInitialSize(5);
 				ds.setMaxTotal(20);
 			}
 			con = ds.getConnection();
@@ -79,5 +80,44 @@ public class InfosoftConnection {
 		}
 		return null;
 	}
+	
+
+	public String sendCallBackResponse2(String callSid,String callStatus) {
+		OkHttpClient client = new OkHttpClient();
+		OkHttpClient.Builder builder = new OkHttpClient.Builder();
+		builder.connectTimeout(5, TimeUnit.MINUTES) // connect timeout
+				.writeTimeout(5, TimeUnit.MINUTES) // write timeout
+				.readTimeout(5, TimeUnit.MINUTES); // read timeout
+		client = builder.build();
+		JSONObject data = new JSONObject();
+		JSONObject rep = new JSONObject();
+		JSONObject main = new JSONObject();
+		data.put(AllKeys.CALLSID, callSid);
+		System.out.println(callSid);
+//		data.put(AllKeys.CALL_STATUS,callStatus);		
+		main.put(AllKeys.RESPONSE2, rep);
+		MediaType mediaType = MediaType.parse("application/json");
+		//RequestBody body = RequestBody.create(main.toString(), mediaType);
+		Request request = new Request.Builder().method("GET", null)
+				.addHeader("Content-Type", "application/json").build();
+		try {
+			Response response = client.newCall(request).execute();
+			logger.info(response.toString());
+			return response.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			Response response = client.newCall(request).execute();
+			logger.info(response.toString());
+			return response.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		{
+			return null;
+		}
+	}
+	
 
 }

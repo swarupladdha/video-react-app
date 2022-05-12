@@ -2,6 +2,7 @@ package com.infosoft.utils;
 
 public interface AllKeys {
 	String CONNECT_TO_AGENT_URL = "https://api.exotel.com/v1/Accounts/%s/Calls/connect.json";
+	
 
 	String ID = "id";
 	String FROM_NUMBER = "fromNumber";
@@ -16,11 +17,13 @@ public interface AllKeys {
 	String CALLBACK_URL = "callBackUrl";
 	String CALLID = "callId";
 	String CALLSID = "callSid";
-	String CALLSTATUS = "status";
+	String CALLSTATUS = "callstatus";
 	String RESPONSE = "response";
+	String RESPONSE2 = "response2"; 
 	String DATA = "data";
 	String CALL_STATUS = "callStatus";
 	String INITIATED = "initiated";
 	String TRIAL_COUNT = "trialCount";
 	String STATUS_MESSAGE = "statusmessage";
+
 }

@@ -7,25 +7,23 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.google.gson.Gson;
+import com.infosoft.utils.AllKeys;
 
 import exotel.ExotelStrings;
 import okhttp3.Credentials;
 import okhttp3.MultipartBody;
+import okhttp3.MultipartBody.Builder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 @Repository
 public class VoiceImp {
 	public static final Logger logger = Logger.getLogger(VoiceImp.class);
 
-////	public static String customerNumber = "917338237086";
-//	public static String url = "http://api.exotel.com/";
-//	public static String exotelSid = "infosoftjoin2";
-//	public static String apiid = "6672f5d29f4b8e9ca2b56f0c8d8cb98c417be685faac983c";
-//	public static String apitoken = "b3abb41bc69377a45fa5a88863b8a7749e5b80a57694ebcd";
-////	public static String agentNumber = "919790273390";
+
 
 	@Value("${url}")
 	private String url;
@@ -44,6 +42,8 @@ public class VoiceImp {
 
 	@Value("${callerId}")
 	private String callerId;
+	
+	
 
 	public String connectToAgent(String fromNumber, String toNumber, String timeLimit) {
 		System.out.println("inside connect agent");
@@ -77,5 +77,34 @@ public class VoiceImp {
 		}
 		return null;
 	}
+	
+	public String bringBackResponse(String CallSid) {
+		System.out.println("inside connect to Exotel2");
+		
+		
+		OkHttpClient client = new OkHttpClient().newBuilder().build();
+		String credentials = Credentials.basic(apiid, apitoken);
+		Request request = new Request.Builder()
+				.url("https://api.exotel.com/v1/Accounts/" + "infosoftjoin2" + "/Calls/" + CallSid + ".json")
+				.method("GET", null).addHeader("Authorization", credentials)
+				.addHeader("Content-Type", "application/json").build();
+		try {
+			Response response = client.newCall(request).execute();
+			logger.info(response);
+			String res = null;
+			try {
+				res = response.body().string();
+				logger.info(res);
+				logger.info("Status code is " + response.code());
+				return res;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }
+	

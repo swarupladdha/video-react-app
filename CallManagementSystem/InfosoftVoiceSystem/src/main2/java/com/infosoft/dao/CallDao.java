@@ -112,14 +112,17 @@ public class CallDao {
 		}
 	}
 
-	public void updateCallDetailsAfterCallBackResponse(String callSid, String callStatus, String callStartTime,
+	public JSONArray updateCallDetailsAfterCallBackResponse(String callSid, String callStatus, String callStartTime,
 			String callEndTime, Connection con) {
 		PreparedStatement ps = null;
 		try {
+			System.out.println("inside this class");
 			ps = con.prepareStatement(CallQueries.UPDATE_AFTER_CALLBACK_RESPONSE);
 			ps.setString(1, callStatus);
+			logger.info(callStatus);
 			ps.setString(2, callStartTime);
 			ps.setString(3, callEndTime);
+			logger.info(callEndTime);
 			ps.setString(4, callSid);
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -133,6 +136,7 @@ public class CallDao {
 				e.printStackTrace();
 			}
 		}
+		return null;
 
 	}
 
@@ -173,4 +177,76 @@ public class CallDao {
 
 	}
 
+	
+	public JSONArray getNewCallDetails(Connection con) {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		JSONArray arr = new JSONArray();
+			
+			try {
+		
+			ps = con.prepareStatement(CallQueries.GET_NEW_DETAILS);
+			
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				JSONObject ob = new JSONObject();
+				ob.put(AllKeys.CALLSID,rs.getString(AllKeys.CALLSID));
+				
+				
+				
+				arr.add(ob);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null) {
+					ps.close();
+
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return arr;
+
+	}
+	
+	public void updateCallDetailsAfterCallBackResponse2(String CallSid,String status,String endTime, Connection con) {
+		PreparedStatement ps = null;
+		
+		
+		try {
+			ps = con.prepareStatement(CallQueries.UPDATE_AFTER_CALLBACK_RESPONSE2);
+			ps.setString(1, status);
+			System.out.println("Status is"+status);
+			ps.setString(2, endTime);
+			logger.info(endTime);
+			ps.setString(3, CallSid);
+			logger.info(CallSid);
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	
+		
+	}
 }
+
+
+
+
+	
+
+
+
+
