@@ -219,7 +219,7 @@ public class CallService {
 		logger.info("inside call response2");
 
 		
-		
+		if (!utils.isEmpty(callSid)) {
 		response2 = vi.bringBackResponse(callSid);
 
 		if (!utils.isJsonValid(response2)) {
@@ -243,6 +243,8 @@ public class CallService {
 		}
 		return response2;
 
+	}
+		return response2;
 	}
 
 }
