@@ -192,16 +192,18 @@ public class CallService {
 
 	}
 
-	public String callResponse2(JSONObject obj, Connection con) {
-
+public String callResponse2(JSONObject obj, Connection con) {
+		
 		String response2 = "";
 		String callSid = "";
 		String callStatus = "";
 		JSONArray arr = cd.getNewCallDetails(con);
+		
 		if (arr.size() > 0) {
 			for (Object ob : arr) {
 				JSONObject obj1 = (JSONObject) ob;
 				callSid = obj1.getString(AllKeys.CALLSID);
+				
 
 			}
 		}
@@ -216,16 +218,12 @@ public class CallService {
 		else {
 			response2 = utils.invalidJsonError();
 		}
-		logger.info("inside call response2");
-
+		//logger.info("inside call response2");
 		
 		if (!utils.isEmpty(callSid)) {
+	
+	
 		response2 = vi.bringBackResponse(callSid);
-
-		if (!utils.isJsonValid(response2)) {
-
-			logger.info("invalid json");
-		}
 
 		JSONObject o = JSONObject.fromObject(response2);
 		String status = o.getJSONObject(AllKeys.CALL).getString(AllKeys.STATUS);
@@ -237,14 +235,24 @@ public class CallService {
 			if (callSid != null && callStatus != null) {
 
 				cd.updateCallDetailsAfterCallBackResponse2(callSid, status, endTime, con);
+				
 				logger.info("Sid is" + callSid);
 				logger.info("Status is" + status);
 			}
+			
+		
+			
 		}
 		return response2;
-
-	}
+	
+	
+		 }
+		
 		return response2;
 	}
+	
+	
 
 }
+
+
