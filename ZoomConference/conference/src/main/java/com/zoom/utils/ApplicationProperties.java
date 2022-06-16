@@ -15,7 +15,6 @@ public class ApplicationProperties {
 	private String jwt_Token;
 	private String oauthAccessToken;
 	
-	
 	public String getJwtApiKey() {
 		return jwtApiKey;
 	}

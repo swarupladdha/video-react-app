@@ -4,12 +4,12 @@ import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 
-import com.zoom.api.calls.CreateMeeting;
+import com.zoom.dbhelper.CreateMeeting;
 
 import net.sf.json.JSONObject;
 
 public class CreateMeetingJsonParse {
-	private CreateMeeting c = new CreateMeeting();
+	private CreateMeeting meeting = new CreateMeeting();
 	private static Logger l = Logger.getLogger(CreateMeetingJsonParse.class);
 
 	public void createMeetingJson(String json) {

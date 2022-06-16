@@ -56,7 +56,7 @@ public class ZoomApiReq {
 
 	}
 
-	public void getTokenOauth(String url) throws IOException, InterruptedException {
+	public String getTokenOauth(String url) throws IOException, InterruptedException {
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create(
@@ -67,5 +67,6 @@ public class ZoomApiReq {
 		HttpResponse<String> res = client.send(request, BodyHandlers.ofString());
 		JSONObject obj = JSONObject.fromObject(res.body());
 		this.AccessToken = String.valueOf(obj.get("access_token"));
+		return this.AccessToken;
 	}
 }
