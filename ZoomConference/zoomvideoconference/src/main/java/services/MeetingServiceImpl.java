@@ -1,4 +1,4 @@
-package com.zoom.zoomvideoconference.services;
+package services;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,12 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zoom.zoomvideoconference.dbhelper.Meeting;
-import com.zoom.zoomvideoconference.repository.MeetingRepository;
+import dbhelper.Meeting;
+import repository.MeetingRepository;
 
 @Service
-public class MeetingServiceImpl implements MeetingService{
-	
+public class MeetingServiceImpl implements MeetingService {
+
 	@Autowired
 	private MeetingRepository repo;
 
@@ -19,7 +19,7 @@ public class MeetingServiceImpl implements MeetingService{
 	public Meeting saveMeeting(Meeting me) {
 		return repo.save(me);
 	}
-	
+
 	@Override
 	public List<Meeting> getAllMeetings() {
 		return repo.findAll();
@@ -29,5 +29,5 @@ public class MeetingServiceImpl implements MeetingService{
 	public Optional<Meeting> getMeeting(Integer meetingId) {
 		return repo.findById(meetingId);
 	}
-	
+
 }

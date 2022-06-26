@@ -1,7 +1,8 @@
-package com.zoom.zoomvideoconference.services;
+package services;
 
 import java.util.*;
-import com.zoom.zoomvideoconference.dbhelper.Meeting;
+
+import dbhelper.Meeting;
 
 public interface MeetingService {
 	

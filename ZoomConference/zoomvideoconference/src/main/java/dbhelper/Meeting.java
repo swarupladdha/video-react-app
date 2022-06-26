@@ -1,4 +1,4 @@
-package com.zoom.zoomvideoconference.dbhelper;
+package dbhelper;
 
 import java.util.Date;
 
@@ -23,6 +23,9 @@ public class Meeting {
 	@Column(name = "user_email", nullable = false)
 	private String userEmail;
 
+	@Column(name = "host_id", nullable = false)
+	private String hostId;
+
 	@Column(name = "isHost", nullable = false)
 	private boolean isHost;
 
@@ -34,20 +37,27 @@ public class Meeting {
 
 	@Column(name = "meetingId", nullable = false)
 	private String meetingId;
-	
+
 	@Column(name = "mettingPass")
 	private String mettingPass;
-	
+
+	@Column(name = "meeting_body", nullable = false, columnDefinition = "MEDIUMTEXT")
+	private String meetingBody;
+
 	public Meeting() {
 	}
 
-	public Meeting(String username, String userEmail, Date startDate, Date endDate, String meetingId) {
+	public Meeting(String username, String userEmail, String hostId, Date startDate, Date endDate, String meetingId,
+			String meetingPass, String meetingBody) {
 		this.username = username;
 		this.userEmail = userEmail;
+		this.hostId = hostId;
 		this.isHost = true;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.meetingId = meetingId;
+		this.mettingPass = meetingPass;
+		this.meetingBody = meetingBody;
 	}
 
 	public String getUsername() {
@@ -97,15 +107,15 @@ public class Meeting {
 	public void setMeetingId(String meetingID) {
 		this.meetingId = meetingID;
 	}
-	
+
 	public String getMeetingId(String meetingId) {
 		return this.meetingId;
 	}
-	
+
 	public void setMeetingPass(String meetingPass) {
 		this.mettingPass = meetingPass;
 	}
-	
+
 	public String getMeetingPass() {
 		return this.mettingPass;
 	}

@@ -1,4 +1,4 @@
-package com.zoom.zoomvideoconference.authentication;
+package authentication;
 
 import java.io.IOException;
 import java.net.URI;

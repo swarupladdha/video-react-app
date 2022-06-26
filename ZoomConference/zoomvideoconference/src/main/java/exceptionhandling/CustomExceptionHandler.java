@@ -1,4 +1,4 @@
-package com.zoom.zoomvideoconference.ExceptionHandling;
+package exceptionhandling;
 
 public class CustomExceptionHandler extends RuntimeException{
 
