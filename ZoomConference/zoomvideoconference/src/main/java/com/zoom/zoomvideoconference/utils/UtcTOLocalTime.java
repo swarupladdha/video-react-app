@@ -1,4 +1,4 @@
-package utils;
+package com.zoom.zoomvideoconference.utils;
 
 import java.util.Date;
 

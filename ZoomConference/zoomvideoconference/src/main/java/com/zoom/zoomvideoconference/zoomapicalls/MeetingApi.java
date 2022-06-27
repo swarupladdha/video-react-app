@@ -1,4 +1,4 @@
-package zoomapicalls;
+package com.zoom.zoomvideoconference.zoomapicalls;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,10 +13,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import dbhelper.Meeting;
+import com.zoom.zoomvideoconference.dbhelper.Meeting;
 import net.sf.json.JSONObject;
-import services.MeetingService;
-import services.ParticipantService;
+import com.zoom.zoomvideoconference.services.MeetingService;
+import com.zoom.zoomvideoconference.services.ParticipantService;
 
 @Component
 public class MeetingApi {

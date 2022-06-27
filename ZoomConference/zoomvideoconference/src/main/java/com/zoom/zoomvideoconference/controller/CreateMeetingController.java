@@ -1,9 +1,8 @@
-package controller;
+package com.zoom.zoomvideoconference.controller;
 
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import authentication.TokenGenerator;
-import otpservice.OTPService;
-import services.MeetingService;
-import zoomapicalls.MeetingApi;
+import com.zoom.zoomvideoconference.authentication.TokenGenerator;
+import com.zoom.zoomvideoconference.otpservice.OTPService;
+import com.zoom.zoomvideoconference.services.MeetingService;
+import com.zoom.zoomvideoconference.zoomapicalls.MeetingApi;
 
 @RestController
 @RequestMapping(path = "/meeting")
@@ -33,7 +32,6 @@ public class CreateMeetingController {
 	private OTPService ser;
 	private Environment env;
 
-	@Autowired
 	public CreateMeetingController(OTPService ser, Environment env, MeetingApi m) {
 		this.ser = ser;
 		this.env = env;

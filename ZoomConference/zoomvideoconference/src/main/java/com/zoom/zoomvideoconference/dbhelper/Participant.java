@@ -1,4 +1,4 @@
-package dbhelper;
+package com.zoom.zoomvideoconference.dbhelper;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

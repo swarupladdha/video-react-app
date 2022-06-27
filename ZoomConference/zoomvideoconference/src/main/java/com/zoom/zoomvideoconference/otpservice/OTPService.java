@@ -1,12 +1,12 @@
-package otpservice;
+package com.zoom.zoomvideoconference.otpservice;
 
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import dbhelper.Meeting;
-import repository.MeetingRepository;
+import com.zoom.zoomvideoconference.dbhelper.Meeting;
+import com.zoom.zoomvideoconference.repository.MeetingRepository;
 
 @Service
 public class OTPService {

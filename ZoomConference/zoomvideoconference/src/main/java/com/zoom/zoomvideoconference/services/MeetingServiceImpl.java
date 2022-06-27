@@ -1,4 +1,4 @@
-package services;
+package com.zoom.zoomvideoconference.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dbhelper.Meeting;
-import repository.MeetingRepository;
+import com.zoom.zoomvideoconference.dbhelper.Meeting;
+import com.zoom.zoomvideoconference.repository.MeetingRepository;
 
 @Service
 public class MeetingServiceImpl implements MeetingService {

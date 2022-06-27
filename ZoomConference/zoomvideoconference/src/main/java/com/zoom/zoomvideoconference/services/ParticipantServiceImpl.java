@@ -1,10 +1,10 @@
-package services;
+package com.zoom.zoomvideoconference.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dbhelper.Participant;
-import repository.ParticipantRepository;
+import com.zoom.zoomvideoconference.dbhelper.Participant;
+import com.zoom.zoomvideoconference.repository.ParticipantRepository;
 
 @Service
 public class ParticipantServiceImpl implements ParticipantService {

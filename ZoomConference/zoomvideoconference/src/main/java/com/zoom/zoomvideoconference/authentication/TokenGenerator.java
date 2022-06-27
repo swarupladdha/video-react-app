@@ -1,4 +1,4 @@
-package authentication;
+package com.zoom.zoomvideoconference.authentication;
 
 import java.io.IOException;
 import java.net.URI;
@@ -7,23 +7,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
-import java.nio.charset.StandardCharsets;
-import java.sql.Date;
 import java.util.Base64;
-import java.util.UUID;
-
-import javax.crypto.SecretKey;
-
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import net.sf.json.JSONObject;
 
 
