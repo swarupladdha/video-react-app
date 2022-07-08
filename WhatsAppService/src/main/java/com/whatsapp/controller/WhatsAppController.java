@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,12 +34,16 @@ public class WhatsAppController {
 
 	private SendMessageScheduler ss = new SendMessageScheduler();
 
-	@GetMapping(value = "/webhooks", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/webhooks", method = { RequestMethod.GET,
+			RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> whatsAppCallBack(@RequestParam("hub.mode") String mode,
-			@RequestParam("hub.verify_token") String token, @RequestParam("hub.challenge") String challenge) {
+			@RequestParam("hub.verify_token") String token, @RequestParam("hub.challenge") String challenge,
+			@RequestBody(required = false) String request) {
+
 		// log.info("request is " + request);
 		if (mode.equals("subscribe") && token.equals("1ajSGF2294Cf0wVDt4Ln57pnhNviTBqeqspAETM3Z1I=")) {
 			log.info("insided true condition");
+			log.info("REsponse from facebook is " + request);
 			// JSONObject obj = JSONObject.fromObject(request);
 			return ResponseEntity.status(HttpStatus.OK).body(challenge);
 
