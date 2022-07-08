@@ -1,14 +1,11 @@
 package com.whatsapp.controller;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +28,7 @@ public class WhatsAppController {
 
 	private SendMessageScheduler ss = new SendMessageScheduler();
 
-	@PostMapping(value = "/webhooks", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/webhooks", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> whatsAppCallBack(@RequestParam("verify_token") String token,
 			@RequestBody String request) {
 		log.info("request is " + request);
