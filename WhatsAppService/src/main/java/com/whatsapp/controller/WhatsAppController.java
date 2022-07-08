@@ -1,8 +1,12 @@
 package com.whatsapp.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,16 +33,19 @@ public class WhatsAppController {
 	private SendMessageScheduler ss = new SendMessageScheduler();
 
 	@GetMapping(value = "/webhooks", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> whatsAppCallBack(@RequestParam("verify_token") String token,
-			@RequestBody String request) {
-		log.info("request is " + request);
-		if (!utils.isEmpty(token) && utils.isJsonValid(request)) {
+	public ResponseEntity<String> whatsAppCallBack(@RequestParam("hub.mode") String mode,
+			@RequestParam("hub.verify_token") String token, @RequestParam("hub.challenge") String challenge) {
+		// log.info("request is " + request);
+		if (mode.equals("subscribe") && token.equals("1ajSGF2294Cf0wVDt4Ln57pnhNviTBqeqspAETM3Z1I=")) {
 			log.info("insided true condition");
-			JSONObject obj = JSONObject.fromObject(request);
-			return ws.callBackResponse(token, obj);
+			// JSONObject obj = JSONObject.fromObject(request);
+			return ResponseEntity.status(HttpStatus.OK).body(challenge);
+
+			// return ws.callBackResponse(token, obj);
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
 		}
 
-		return null;
 	}
 
 	@GetMapping(value = "/stopScheduler")
