@@ -36,21 +36,29 @@ public class WhatsAppController {
 
 	@RequestMapping(value = "/webhooks", method = { RequestMethod.GET,
 			RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> whatsAppCallBack(@RequestParam("hub.mode") String mode,
-			@RequestParam("hub.verify_token") String token, @RequestParam("hub.challenge") String challenge,
+	public ResponseEntity<String> whatsAppCallBack(@RequestParam(value = "hub.mode", required = false) String mode,
+			@RequestParam(value = "hub.verify_token", required = false) String token,
+			@RequestParam(value = "hub.challenge", required = false) String challenge,
 			@RequestBody(required = false) String request) {
 
 		// log.info("request is " + request);
-		if (mode.equals("subscribe") && token.equals("1ajSGF2294Cf0wVDt4Ln57pnhNviTBqeqspAETM3Z1I=")) {
-			log.info("insided true condition");
-			log.info("REsponse from facebook is " + request);
-			// JSONObject obj = JSONObject.fromObject(request);
-			return ResponseEntity.status(HttpStatus.OK).body(challenge);
+		if (!utils.isEmpty(mode)) {
+			if (mode.equals("subscribe") && token.equals("1ajSGF2294Cf0wVDt4Ln57pnhNviTBqeqspAETM3Z1I=")) {
+				log.info("insided true condition");
+				log.info("Response from facebook is " + request);
+				// JSONObject obj = JSONObject.fromObject(request);
+				return ResponseEntity.status(HttpStatus.OK).body(challenge);
 
-			// return ws.callBackResponse(token, obj);
+				// return ws.callBackResponse(token, obj);
+			} else {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+			}
 		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+			if (token.equals("1ajSGF2294Cf0wVDt4Ln57pnhNviTBqeqspAETM3Z1I=")) {
+				log.info("Response from facebook is " + request);
+			}
 		}
+		return null;
 
 	}
 
