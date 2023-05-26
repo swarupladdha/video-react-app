@@ -133,7 +133,7 @@ public class ResourceSettingsService {
 			slotTimeId = ;
 		}*/
 		
-		rsDao.addResourceAvailabilitySettings(dataObject, dbConnection);
+		//rsDao.addResourceAvailabilitySettings(dataObject, dbConnection);
 		return response;
 	}
 }
