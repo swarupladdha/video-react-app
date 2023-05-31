@@ -35,6 +35,9 @@ public class AllKeys {
 	public static String FROMDATE_KEY = "fromDate";
 	public static String TODATE_KEY = "toDate";
 	public static String SLOTTIMEID_KEY = "slotTimeId";
-	
+	public static String WEEKDAYID_KEY = "weekdayId";
+	public static String WORKING_KEY = "working";
+	public static String RESOURCEAVAILABILITYID_KEY = "resourceAvailabiltyId";
+	public static String RESOURCEAVAILABILITY_DETAILS_KEY = "resourceAvailabiltyDetails";
 
 }

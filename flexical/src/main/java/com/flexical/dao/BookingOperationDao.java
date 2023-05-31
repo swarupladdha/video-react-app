@@ -57,7 +57,7 @@ public class BookingOperationDao {
 	public boolean checkAvailability(int clientId, String vendorId, String resourceId, String userId,
 			String startTime, String slotTime, Connection dbConnection) {
 		boolean result = false;
-		String sql = "select b.* from booking b, resourcevendor rv where b.ClientId = ? and "
+		String sql = "select b.* from booking b, vendorresource rv where b.ClientId = ? and "
 				+ "b.VendorId = ? and (b.ResourceId = rv.ResourceId or b.UserId = rv.ResourceId) and "
 				+ "(rv.ResourceId = ? or rv.ResourceId= ? ) and (? < b.EndTime) "
 				+ "AND (DATE_ADD('" + startTime + "', INTERVAL '" + slotTime 

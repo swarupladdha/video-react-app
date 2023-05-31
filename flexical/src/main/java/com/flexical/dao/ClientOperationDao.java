@@ -189,14 +189,15 @@ public class ClientOperationDao {
 
 		}
 
-		public int checkVendorExist(String vendorId, Connection dbConnection) {
+		public int checkVendorExist(String vendorId, int clientId, Connection dbConnection) {
 			// TODO Auto-generated method stub
-			String sql = "Select * from clientvendor where VendorId LIKE ?";
+			String sql = "Select * from clientvendor where VendorId = ? and ClientId = ?";
 			PreparedStatement ps = null;
 			ResultSet rs = null;
 			try {
 				ps = dbConnection.prepareStatement(sql);
 				ps.setString(1, vendorId);
+				ps.setInt(2, clientId);
 				rs = ps.executeQuery();
 				if (rs.next()) {
 					return rs.getInt("Id");
@@ -250,7 +251,7 @@ public class ClientOperationDao {
 
 		public int checkResourceExist(String resourceId, Connection dbConnection) {
 			// TODO Auto-generated method stub
-			String sql = "Select * from resourcevendor where ResourceId LIKE ?";
+			String sql = "Select * from vendorresource where ResourceId LIKE ?";
 			PreparedStatement ps = null;
 			ResultSet rs = null;
 			try {
@@ -277,7 +278,7 @@ public class ClientOperationDao {
 
 		public void addResourceVendor(int clientId, String vendorId, String resourceId, int clientVendorId,
 				Connection dbConnection) {
-			String sql = "insert into resourcevendor (ClientId, VendorId, ResourceId, clientVendorId, slotTime) values "
+			String sql = "insert into vendorresource (ClientId, VendorId, ResourceId, clientVendorId, slotTimeId) values "
 					+ "(?, ?, ?, IF("+clientVendorId+" <= 0, NULL, "+clientVendorId+"), ?)";
 			PreparedStatement ps = null;
 			boolean rs;
@@ -286,7 +287,8 @@ public class ClientOperationDao {
 				ps.setInt(1, clientId);
 				ps.setString(2, vendorId);
 				ps.setString(3, resourceId);
-				ps.setString(4, "00:30:00");
+				ps.setInt(4, 1);
+				//ps.setString(4, "00:30:00");
 				rs = ps.execute();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -301,7 +303,7 @@ public class ClientOperationDao {
 		}
 
 		public String getSlotTimeFromresourceId(String resourceId, Connection dbConnection) {
-			String query = "Select SlotTime, ResourceId from resourcevendor where ResourceId = ?";
+			String query = "Select st.SlotTime, vr.ResourceId from vendorresource vr, slottime st where vr.ResourceId = ? and vr.SlotTimeId=st.Id;";
 			ResultSet rs = null;
 			PreparedStatement ps = null;
 			try {

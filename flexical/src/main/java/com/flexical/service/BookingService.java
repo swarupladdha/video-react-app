@@ -52,7 +52,7 @@ public class BookingService {
 			if (utils.isEmpty(vendorId)) {
 				vendorId="-1";
 			}else {
-				clientVendorId = cDao.checkVendorExist(vendorId,  dbConnection);
+				clientVendorId = cDao.checkVendorExist(vendorId, clientId, dbConnection);
 				if(clientVendorId <= 0) {
 					clientVendorId = cDao.addClientVendor(clientId, vendorId, dbConnection);
 				}
@@ -175,7 +175,7 @@ public class BookingService {
 			if (utils.isEmpty(vendorId)) {
 				vendorId="-1";
 			}else {
-				clientVendorId = cDao.checkVendorExist(vendorId,  dbConnection);
+				clientVendorId = cDao.checkVendorExist(vendorId, clientId, dbConnection);
 				if(clientVendorId <= 0) {
 					clientVendorId = cDao.addClientVendor(clientId, vendorId, dbConnection);
 				}
@@ -207,6 +207,4 @@ public class BookingService {
 		response = utils.processSucessForModules("data", bookingDetails);
 		return response;
 	}
-
-
 }
