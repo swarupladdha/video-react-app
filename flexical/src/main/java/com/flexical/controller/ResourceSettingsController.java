@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -72,7 +73,7 @@ public class ResourceSettingsController {
 
 	@GetMapping(value = GetResourceAvailability)
 	public String getResourceAvailability(@Valid @RequestBody ResourceAvailabilityBean resourceAvail)
-			throws JsonProcessingException {
+			throws MethodArgumentNotValidException, JsonProcessingException {
 		String response = null;
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -80,24 +81,8 @@ public class ResourceSettingsController {
 		utils.printRequest(parentPath + GetResourceAvailability, request);
 		connectionPooling = ConnectionPooling.getInstance();
 		dbConnection = connectionPooling.getConnection();
-		System.out.println("clientkey " + resourceAvail.getClientKey() + " vendorId " + resourceAvail.getVendorId()
-				+ " resourceId " + resourceAvail.getResourceId());
-		
 
-		System.out.println("request "+request);
-		/*
-		 * try { if(utils.isJsonValid(request)) { JSONObject jsonRequest =
-		 * JSONObject.fromObject(request); JSONObject dataObject =
-		 * jsonRequest.getJSONObject(AllKeys.JSON_KEY).getJSONObject(AllKeys.
-		 * REQUEST_KEY) .getJSONObject(AllKeys.DATA_KEY);
-		 * 
-		 * response = rsService.getResourceAvailability(dataObject, dbConnection);
-		 * 
-		 * } } catch(Exception e) { logger.error("Exception in getTalkToAstroList",e);
-		 * response = utils.genericError(); } finally { try { if (dbConnection != null)
-		 * connectionPooling.close(dbConnection); } catch (Exception e) {
-		 * e.printStackTrace(); } }
-		 */
+		System.out.println("request " + request);
 
 		response = rsService.getResourceAvailability(resourceAvail, dbConnection);
 		System.out.println("response: " + response);

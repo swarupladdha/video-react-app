@@ -69,7 +69,7 @@ public class ClientController {
 			}
 		}
 		
-		System.out.println("response: " + response);
+		logger.info("response: " + response);
 		return response;
 	}
 	
