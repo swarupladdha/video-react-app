@@ -49,7 +49,7 @@ public class RestUtils {
 	}
 
 	public boolean isDateTimeValid(String strDate) {
-		if (strDate.matches("\\d{4}:\\d{2}:\\d{2} \\d{2}:\\d{2}:\\d{2}")) {
+		if (strDate.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")) {
 			return true;
 		}
 		return false;

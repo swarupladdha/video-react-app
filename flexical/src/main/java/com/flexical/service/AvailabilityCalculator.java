@@ -106,7 +106,6 @@ public class AvailabilityCalculator {
 
     public static JSONArray availabilityCalculator(JSONArray jsonArray) {
         // Sample data for available time slots
-    	System.out.println("jsonArray "+jsonArray);
     	JSONArray resultArray = new JSONArray();
         List<TimeSlot> availableTimeSlots = new ArrayList<>();
         List<TimeSlot> bookedTimeSlots = new ArrayList<>();
@@ -122,14 +121,8 @@ public class AvailabilityCalculator {
         // Reduce the available time slots based on booked time slots
         List<TimeSlot> reducedTimeSlots = reduceAvailableTime(availableTimeSlots, bookedTimeSlots);
 
-        System.out.println("reducedTimeSlots "+reducedTimeSlots);
         // Print the reduced time slots
         for (TimeSlot timeSlot : reducedTimeSlots) {
-        	System.out.println("timeSlot "+timeSlot);
-            System.out.println("Weekday ID: " + timeSlot.getWeekdayId()+", Client ID: " + timeSlot.getClientId()+", Vendor ID: " + timeSlot.getVendorId()+", Resource ID: " + timeSlot.getResourceId()+
-            		", Available Start Time: " + timeSlot.getStartTime()+", Available End Time: " + timeSlot.getEndTime());
-            System.out.println("-----------------------------------------");
-            
             JSONObject resultObj = new JSONObject();
             resultObj.put("clientId", timeSlot.getClientId());
             resultObj.put("vendorId", timeSlot.getVendorId());
@@ -139,7 +132,6 @@ public class AvailabilityCalculator {
             resultObj.put("availableEndTime", timeSlot.getEndTime().toString());
             resultArray.add(resultObj);
         }
-        System.out.println("resultArray "+resultArray);
 		return resultArray;
     }
 }

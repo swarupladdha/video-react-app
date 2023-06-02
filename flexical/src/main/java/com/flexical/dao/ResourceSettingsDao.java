@@ -124,39 +124,28 @@ public class ResourceSettingsDao {
 
 	}
 
-	public JSONArray getResourceAvailabilitySettings(int clientId, String vendorId, String resourceId,
+	public JSONArray getResourceAvailabilitySettings(int clientId, String vendorId, String resourceId, int weekday,
 			Connection dbConnection) {
 		JSONObject jsonObject = new JSONObject();
-		// String query = "select ClientId, VendorId, ResourceId,
-		// JSON_OBJECT('weekdayId', weekdayId, 'startTime', startTime, 'endTime',
-		// endTime) AS json_object, 'availabile' as status from
-		// resourcegeneralavailability where ClientId = "+clientId+" and ResourceId =
-		// '"+resourceId+"' and VendorId = '"+vendorId+"' and working=1 union "
-		// + "select ClientId, VendorId, CASE WHEN ResourceId = '"+resourceId+"' THEN
-		// ResourceId ELSE UserId END AS ResourceId, JSON_OBJECT('weekdayId',
-		// DAYOFWEEK(StartTime),'startTime', TIME(StartTime), 'endTime', TIME(endTime)),
-		// 'booked' as status from booking where ClientId = "+clientId+" and ResourceId
-		// = '"+resourceId+"' and VendorId = '"+vendorId+"'";
-		String query = "select * from week";
-
-		// String query = "select a.ClientId, a.VendorId, a.ResourceId, a.weekdayId,
-		// a.startTime as availableStartTime, a.endTime as availableEndTime,
-		// time(b.StartTime) as bookedStartTime, time(b.EndTime) as bookedEndTime from
-		// resourcegeneralavailability a left join booking b on a.weekdayId =
-		// (DAYOFWEEK(b.StartTime) + 5) % 7 + 2 where a.ClientId = "+clientId+" and
-		// a.ResourceId = '"+resourceId+"' and a.VendorId = '"+vendorId+"'";
+		//String query = "select * from week";
 		PreparedStatement ps = null, ps1 = null;
 		ResultSet rs = null, rs1 = null;
 		ArrayList objectList = new ArrayList<>();
 		JSONObject obj = new JSONObject();
 		JSONArray jsonArray = new JSONArray();
 		try {
-			System.out.println("query " + query);
-			ps = dbConnection.prepareStatement(query);
-			rs = ps.executeQuery();
+			//ps = dbConnection.prepareStatement(query);
+			//rs = ps.executeQuery();
 
-			while (rs.next()) {
-				int weekId = rs.getInt("Id");
+			//while (rs.next()) {
+			for(int i=0; i<7; i++) {
+				int weekId;
+				if(weekday==0) {
+					weekId = i+1;
+				}else {
+					weekId = weekday;
+					i = 8;
+				}
 				String query1 = "select Id, ClientId, VendorId, ResourceId, weekdayId, startTime as startTime, endTime as endTime, 'available' as status from resourcegeneralavailability where ClientId = "
 						+ clientId + " and ResourceId = '" + resourceId + "'and VendorId = '" + vendorId
 						+ "' and weekdayId = " + weekId + " union "
@@ -164,6 +153,7 @@ public class ResourceSettingsDao {
 						+ "' then b.UserId else b.ResourceId end as ResourceId, (DAYOFWEEK(b.StartTime) + 5) % 7 + 2 as weekdayId, time(b.StartTime) as startTime, time(b.EndTime) as endTime, 'booked' as status from booking b left join week w on (DAYOFWEEK(b.StartTime) + 5) % 7 + 2 = w.Id where w.Id = "
 						+ weekId + " and b.ClientId = " + clientId + " and b.ResourceId = '" + resourceId
 						+ "' or UserId = '" + resourceId + "' and b.VendorId = '" + vendorId + "'";
+				System.out.println("query1 "+query1);
 				ps1 = dbConnection.prepareStatement(query1);
 				rs1 = ps1.executeQuery();
 				while (rs1.next()) {

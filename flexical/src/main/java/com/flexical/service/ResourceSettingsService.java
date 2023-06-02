@@ -183,8 +183,8 @@ public class ResourceSettingsService {
 
 	public String getResourceAvailability(ResourceAvailabilityBean dataObject, Connection dbConnection) {
 		String response = null;
-		String clientKey = "", vendorId = "", resourceId = "", startTime = "", endTime = "", timeZone="Asia/Kolkota";
-		int clientId, clientVendorId, weekdayId, working, resourceVendorId, slotTimeId;
+		String clientKey = "", vendorId = "", resourceId = "";
+		int clientId, weekday;
 		
 		System.out.println("clientKey "+dataObject.getClientKey());
 		
@@ -202,11 +202,14 @@ public class ResourceSettingsService {
 			logger.info("Response is :" + response);
 			return response;
 		}
-		System.out.println("clientId "+clientId);
+		if(dataObject.getDate() == null) {
+			weekday = 0;
+		}else {
+			weekday = dataObject.getDate().getDay()+1;
+		}
 		JSONObject obj = new JSONObject();
 		
-		JSONArray jsonArray = rsDao.getResourceAvailabilitySettings(clientId, vendorId, resourceId, dbConnection);
-		//obj = jsonArray. 
+		JSONArray jsonArray = rsDao.getResourceAvailabilitySettings(clientId, vendorId, resourceId, weekday, dbConnection);
 		JSONArray resultArray = ac.availabilityCalculator(jsonArray);
 		response = utils.processSucessForModules("data", resultArray);
 		return response;
