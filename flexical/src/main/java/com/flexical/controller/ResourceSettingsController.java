@@ -56,7 +56,7 @@ public class ResourceSettingsController {
 
 			}
 		} catch (Exception e) {
-			logger.error("Exception in getTalkToAstroList", e);
+			logger.error("Exception in addResourceAvailabilty", e);
 			response = utils.genericError();
 		} finally {
 			try {

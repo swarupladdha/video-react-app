@@ -57,11 +57,20 @@ public class BookingOperationDao {
 	public boolean checkAvailability(int clientId, String vendorId, String resourceId, String userId,
 			String startTime, String slotTime, Connection dbConnection) {
 		boolean result = false;
-		String sql = "select b.* from booking b, vendorresource rv where b.ClientId = ? and "
+		/*String sql = "select b.* from booking b, vendorresource rv where b.ClientId = ? and "
 				+ "b.VendorId = ? and (b.ResourceId = rv.ResourceId or b.UserId = rv.ResourceId) and "
 				+ "(rv.ResourceId = ? or rv.ResourceId= ? ) and (? < b.EndTime) "
 				+ "AND (DATE_ADD('" + startTime + "', INTERVAL '" + slotTime 
-				+ "' HOUR_SECOND) > b.StartTime) group by b.Id";
+				+ "' HOUR_SECOND) > b.StartTime) group by b.Id";*/
+		String sql = "SELECT distinct b.*, rga.working "
+		+ "FROM vendorresource rv, booking b "
+		+ "LEFT JOIN resourcegeneralavailability rga ON b.ClientId = rga.ClientId "
+		+ "AND b.VendorId = rga.VendorId AND b.ResourceId = rga.ResourceId or b.UserId = rga.ResourceId "
+		+ "AND rga.weekdayId = (DAYOFWEEK('"+startTime+"') + 5) % 7 + 2 "
+		+ "AND rga.startTime >= TIME('"+startTime+"') "
+		+ "WHERE b.ClientId = ? AND b.VendorId = ? AND (rv.ResourceId = ? OR rv.ResourceId = ?) "
+		+ "AND (? < b.EndTime) AND (DATE_ADD('"+startTime+"', INTERVAL ? HOUR_SECOND) > b.StartTime) "
+		+ "GROUP BY b.Id, rga.Id";
 		PreparedStatement ps = null;
 		ResultSet rs;
 		try {
@@ -71,6 +80,7 @@ public class BookingOperationDao {
 			ps.setString(3, resourceId);
 			ps.setString(4, userId);
 			ps.setString(5, startTime);
+			ps.setString(6, slotTime);
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				result = true;
@@ -102,7 +112,7 @@ public class BookingOperationDao {
 			ps.setString(3, userId);
 			ps.setString(4, userId);
 			rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				obj.put(AllKeys.CLIENTID_KEY, rs.getInt(AllKeys.CLIENTID_KEY));
 				obj.put(AllKeys.VENDORID_KEY, rs.getString(AllKeys.VENDORID_KEY));
 				obj.put(AllKeys.RESOURCEID_KEY, rs.getString(AllKeys.RESOURCEID_KEY));

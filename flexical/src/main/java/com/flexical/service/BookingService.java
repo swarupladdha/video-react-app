@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.flexical.dao.BookingOperationDao;
 import com.flexical.dao.ClientOperationDao;
+import com.flexical.dao.ResourceSettingsDao;
 import com.flexical.util.AllKeys;
 import com.flexical.util.PropertiesUtil;
 import com.flexical.util.RestUtils;
@@ -19,7 +20,8 @@ public class BookingService {
 	RestUtils utils = new RestUtils();
 	ClientOperationDao cDao = new ClientOperationDao();
 	BookingOperationDao bDao =new BookingOperationDao();
-	
+	ResourceSettingsDao rsDao = new ResourceSettingsDao();
+
 	public String addSchedule(JSONObject dataObject, Connection dbConnection) {
 		String response = null;
 		String clientKey = "", vendorId = "", resourceId = "", userId = "",startTime = "", slotTime = "";
@@ -129,6 +131,7 @@ public class BookingService {
 			return response;
 		}
 
+		//boolean resourceavailable = rsDao.checkResourceAvailabiliy(clientId, vendorId, resourceId, userId, startTime, slotTime);
 		boolean result = bDao.checkAvailability(clientId, vendorId, resourceId, userId, startTime, slotTime, dbConnection);
 		if(result) {
 			response = utils.processError(PropertiesUtil.getProperty("no_slots_available_code"),
