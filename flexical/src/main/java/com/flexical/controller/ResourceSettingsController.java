@@ -85,6 +85,8 @@ public class ResourceSettingsController {
 		System.out.println("request " + request);
 
 		response = rsService.getResourceAvailability(resourceAvail, dbConnection);
+		if (dbConnection != null)
+			connectionPooling.close(dbConnection);
 		System.out.println("response: " + response);
 		return response;
 	}

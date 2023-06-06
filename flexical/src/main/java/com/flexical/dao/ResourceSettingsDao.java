@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
+
+import org.apache.log4j.Logger;
 
 import com.flexical.model.ResourceAvailabilityBean;
 import com.flexical.util.AllKeys;
@@ -15,6 +18,7 @@ import net.sf.json.JSONObject;
 
 public class ResourceSettingsDao {
 
+	public static final Logger logger = Logger.getLogger(ResourceSettingsDao.class);
 	public int checkResourceExist(String resourceId, String vendorId, int clientId, Connection dbConnection) {
 		String sql = "Select * from vendorresource where ClientId = ? and VendorId = ? and ResourceId = ?";
 		PreparedStatement ps = null;
@@ -104,6 +108,66 @@ public class ResourceSettingsDao {
 			if (affectedRows == 0) {
 				throw new SQLException("Could not insert into resourcegeneralavailability");
 			}
+			rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				return (int) rs.getLong(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1;
+
+	}
+	public int addResourceAvailabilitySettingsbySlotTime(int clientId, String vendorId, int clientVendorId, String resourceId,
+			int resourceVendorId, int weekdayId, String startTime, String endTime, String slotTime, int working,
+			Connection dbConnection) {
+		String sql = "insert into resourcegeneralavailability (ClientId, VendorId, ClientVendorId, ResourceId, VendorResourceId, CreatedDate, UpdatedDate, weekdayId, startTime, endTime, working)"
+				+ " values (?, ?, ?, ?, ?, NOW(), NOW(), ?, ?, ?, ?)";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		 Time currentTime = Time.valueOf(startTime);
+	     long slotTimeMillis = Time.valueOf(slotTime).getTime();
+
+		try {
+
+	         logger.info("startTime "+startTime+" currentTime "+currentTime+" endTime "+endTime+" slotTime "+Time.valueOf(slotTime));
+			
+		     if (currentTime.before(Time.valueOf(endTime))) {
+		    	 logger.info("inside while");
+		         long currentTimeMillis = currentTime.getTime();
+		         logger.info("currentTimeMillis "+currentTimeMillis+" slotTimeMillis "+slotTimeMillis);
+		         logger.info("slottime form millis "+new Time(slotTimeMillis));
+		         long aaa=currentTimeMillis + slotTimeMillis;
+		         logger.info("aaa111 "+aaa);
+		         logger.info("aaa "+currentTimeMillis + slotTimeMillis);
+		         logger.info("new aaa "+new Time(aaa));
+		         currentTime = new Time(currentTimeMillis + slotTimeMillis);
+
+					/*
+					 * ps = dbConnection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+					 * ps.setInt(1, clientId); ps.setString(2, vendorId); ps.setInt(3,
+					 * clientVendorId); ps.setString(4, resourceId); ps.setInt(5, resourceVendorId);
+					 * ps.setInt(6, weekdayId); ps.setString(7, startTime); ps.setString(8,
+					 * currentTime.toString()); ps.setInt(9, working); int affectedRows =
+					 * ps.executeUpdate();
+					 * 
+					 * startTime = currentTime.toString(); if (affectedRows == 0) { throw new
+					 * SQLException("Could not insert into resourcegeneralavailability"); }
+					 */
+		         logger.info("startTime "+startTime+" currentTime "+currentTime+" endTime "+endTime);
+
+		         startTime = currentTime.toString();
+		     }
+
 			rs = ps.getGeneratedKeys();
 			if (rs.next()) {
 				return (int) rs.getLong(1);

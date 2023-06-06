@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 
-import net.sf.json.JSONObject;
-
 public class ClientOperationDao {
 		public int checkClientExist(String orgName, String address, String contact, Connection dbConnection) {
 			// TODO Auto-generated method stub
@@ -147,34 +145,18 @@ public class ClientOperationDao {
 
 		}
 
-		public void addClientSettings(JSONObject dataObject, Connection dbConnection) {
-			String sql = "insert into clientsettings (clientId, eventId, createdDate, description, slotTime_mins, fromDate, toDate, fromTime, toTime) values "
-					+ "(?, ?, NOW(), ?, ?, ?, ?, ?, ?)";
+		/*public void addClientSettings(int clientId, ClientSettingsBean dataObject, Connection dbConnection) {
+			String sql = "insert into clientdefaultavailability (clientId, weekdayId, startTime, endTime, working) values "
+					+ "(?, ?, ?, ?, ?)";
 			PreparedStatement ps = null;
 			boolean rs;
 			try {
 				ps = dbConnection.prepareStatement(sql);
-				ps.setInt(1, dataObject.getInt("clientId"));
-				ps.setInt(2, dataObject.getInt("eventId"));
-				ps.setString(3, dataObject.getString("description"));
-				ps.setInt(4, dataObject.getInt("timeSlot"));
-				int i = 5;
-				if (!dataObject.getString("fromDate").isEmpty()) {
-					ps.setString(i, dataObject.getString("fromDate"));
-					i++;
-				}
-				if (!dataObject.getString("toDate").isEmpty()) {
-					ps.setString(i, dataObject.getString("toDate"));
-					i++;
-				}
-				if (!dataObject.getString("fromTime").isEmpty()) {
-					ps.setString(i, dataObject.getString("fromTime"));
-					i++;
-				}
-				if (!dataObject.getString("toTime").isEmpty()) {
-					ps.setString(i, dataObject.getString("toTime"));
-					i++;
-				}
+				ps.setInt(1, clientId);
+				ps.setInt(2, dataObject.getWeekdayId());
+				ps.setString(3, dataObject.getStartTime().toString());
+				ps.setString(4, dataObject.getEndTime().toString());
+				ps.setInt(5, dataObject.getWorking());
 				rs = ps.execute();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -187,7 +169,7 @@ public class ClientOperationDao {
 				}
 			}
 
-		}
+		}*/
 
 		public int checkVendorExist(String vendorId, int clientId, Connection dbConnection) {
 			// TODO Auto-generated method stub

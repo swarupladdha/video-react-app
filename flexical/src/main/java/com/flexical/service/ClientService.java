@@ -95,78 +95,20 @@ public class ClientService {
 		return response;
 	}
 
-	public String addBusinessSettings(JSONObject dataObject, Connection dbConnection) {
+	/*public String addBusinessSettings(ClientSettingsBean dataObject, Connection dbConnection) {
 		String response = null;
-		int clientId = 0, eventId = 0, timeSlot = 0;
-		String description = "";
-		if (dataObject.containsKey(AllKeys.CLIENTID_KEY)) {
-			clientId = dataObject.getInt(AllKeys.CLIENTID_KEY);
-			//if (utils.isEmpty(clientId)) {
-			if(clientId <= 0) {
-				response = utils.processError(PropertiesUtil.getProperty("empty_clientid_code"),
-						PropertiesUtil.getProperty("empty_clientid_message"));
-				logger.info("Response is :" + response);
-				return response;
-			}
-		} else {
-			response = utils.processError(PropertiesUtil.getProperty("missing_clientid_key_code"),
-					PropertiesUtil.getProperty("missing_clientid_key_message"));
-			logger.info("Response is :" + response);
-			return response;
-		}
-
-		if (dataObject.containsKey(AllKeys.EVENTID_KEY)) {
-			eventId = dataObject.getInt(AllKeys.EVENTID_KEY);
-			//if (utils.isEmpty(clientId)) {
-			if(eventId <= 0) {
-				System.out.println("ifffff");
-				response = utils.processError(PropertiesUtil.getProperty("empty_eventid_code"),
-						PropertiesUtil.getProperty("empty_eventid_message"));
-				logger.info("Response is :" + response);
-				return response;
-			}
-		} else {
-			response = utils.processError(PropertiesUtil.getProperty("missing_eventid_key_code"),
-					PropertiesUtil.getProperty("missing_eventid_key_message"));
-			logger.info("Response is :" + response);
-			return response;
-		}
-
-		if (dataObject.containsKey(AllKeys.DESCRIPTION_KEY)) {
-			description = dataObject.getString(AllKeys.DESCRIPTION_KEY);
-			//if (utils.isEmpty(clientId)) {
-			if(utils.isEmpty(description)) {
-				System.out.println("ifffff");
-				response = utils.processError(PropertiesUtil.getProperty("empty_description_code"),
-						PropertiesUtil.getProperty("empty_description_code"));
-				logger.info("Response is :" + response);
-				return response;
-			}
-		} else {
-			response = utils.processError(PropertiesUtil.getProperty("missing_description_key_code"),
-					PropertiesUtil.getProperty("missing_description_key_message"));
-			logger.info("Response is :" + response);
-			return response;
-		}
-
-		if (dataObject.containsKey(AllKeys.TIMESLOT_KEY)) {
-			timeSlot = dataObject.getInt(AllKeys.TIMESLOT_KEY);
-			//if (utils.isEmpty(clientId)) {
-			if(timeSlot <= 0) {
-				response = utils.processError(PropertiesUtil.getProperty("empty_timeslot_code"),
-						PropertiesUtil.getProperty("empty_timeslot_message"));
-				logger.info("Response is :" + response);
-				return response;
-			}
-		} else {
-			response = utils.processError(PropertiesUtil.getProperty("missing_timeslot_key_code"),
-					PropertiesUtil.getProperty("missing_timeslot_key_message"));
-			logger.info("Response is :" + response);
-			return response;
-		}
-
+		int clientId = 0, weekdayId = 0, timeSlot = 0;
+		String clientKey, description = "";
 		JSONObject obj = new JSONObject();
-		cDao.addClientSettings(dataObject, dbConnection);
+
+		clientId = cDao.getClientId(dataObject.getClientKey(), dbConnection);
+		if (clientId <= 0) {
+			response = utils.processError(PropertiesUtil.getProperty("invalid_clientkey_code"),
+					PropertiesUtil.getProperty("invalid_clientkey_message"));
+			logger.info("Response is :" + response);
+			return response;
+		}
+		cDao.addClientSettings(clientId, dataObject, dbConnection);
 		/*int clientId = cDao.checkClientExist(orgName, address, contact,  dbConnection);
 		String key = null;
 		if(clientId <= 0) {
@@ -178,9 +120,9 @@ public class ClientService {
 			obj.put(AllKeys.MESSAGE_KEY, "This Client already exists");
 		}
 		obj.put(AllKeys.CLIENTID_KEY, clientId);
-		obj.put(AllKeys.CLIENT_KEY, key);*/
+		obj.put(AllKeys.CLIENT_KEY, key);
 		response = utils.processSucessForModules("data", obj);
 		return response;
-	}
+	}*/
 
 }

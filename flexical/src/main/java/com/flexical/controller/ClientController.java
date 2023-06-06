@@ -17,102 +17,69 @@ import com.flexical.util.RestUtils;
 import net.sf.json.JSONObject;
 
 @RestController
-@CrossOrigin(origins = "*",maxAge=3600,allowCredentials= "false",allowedHeaders = "*")
+@CrossOrigin(origins = "*", maxAge = 3600, allowCredentials = "false", allowedHeaders = "*")
 @RequestMapping(value = "/clientList", produces = "application/json")
 public class ClientController {
 	private static final String parentPath = "/clientList";
 	private static final String GenerateClientKey = "/GenerateClientKey";
-	private static final String AddBusinessSettings = "/AddBusinessSettings";
-	//private static final String RegenerateClientKey = "/RegenerateClientKey";
-	
+	private static final String AddClientDefaultSettings = "/AddClientDefaultSettings";
+	// private static final String RegenerateClientKey = "/RegenerateClientKey";
+
 	ClientService cService = new ClientService();
 	ConnectionPooling connectionPooling = null;
 	Connection dbConnection = null;
-	
+
 	public static final Logger logger = Logger.getLogger(ClientController.class);
 	RestUtils utils = new RestUtils();
-	
+
 	@GetMapping(value = GenerateClientKey)
-	public String getGenerateClientKey(@RequestBody String request){
+	public String getGenerateClientKey(@RequestBody String request) {
 		String response = null;
-		
-		utils.printRequest(parentPath+GenerateClientKey, request);
+
+		utils.printRequest(parentPath + GenerateClientKey, request);
 		connectionPooling = ConnectionPooling.getInstance();
 		dbConnection = connectionPooling.getConnection();
-		try
-		{
-			if(utils.isJsonValid(request)) 
-			{
+		try {
+			if (utils.isJsonValid(request)) {
 				JSONObject jsonRequest = JSONObject.fromObject(request);
 				JSONObject dataObject = jsonRequest.getJSONObject(AllKeys.JSON_KEY).getJSONObject(AllKeys.REQUEST_KEY)
 						.getJSONObject(AllKeys.DATA_KEY);
 
 				response = cService.generateClientKey(dataObject, dbConnection);
-				
+
 			}
-		}
-		catch(Exception e)
-		{
-			logger.error("Exception in getTalkToAstroList",e);
+		} catch (Exception e) {
+			logger.error("Exception in getTalkToAstroList", e);
 			response = utils.genericError();
-		}
-		finally
-		{
-			try 
-			{
+		} finally {
+			try {
 				if (dbConnection != null)
 					connectionPooling.close(dbConnection);
-			} 
-			catch (Exception e) 
-			{
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		logger.info("response: " + response);
 		return response;
 	}
-	
-	@GetMapping(value = AddBusinessSettings)
-	public String addBusinessSettings(@RequestBody String request){
+
+	/*@GetMapping(value = AddClientDefaultSettings)
+	public String addBusinessSettings(@Valid @RequestBody ClientSettingsBean clientSettings)
+			throws MethodArgumentNotValidException, JsonProcessingException {
 		String response = null;
-		
-		utils.printRequest(parentPath+AddBusinessSettings, request);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String request = mapper.writeValueAsString(clientSettings);
+		utils.printRequest(parentPath + AddClientDefaultSettings, request);
 		connectionPooling = ConnectionPooling.getInstance();
 		dbConnection = connectionPooling.getConnection();
-		try
-		{
-			if(utils.isJsonValid(request)) 
-			{
-				JSONObject jsonRequest = JSONObject.fromObject(request);
-				JSONObject dataObject = jsonRequest.getJSONObject(AllKeys.JSON_KEY).getJSONObject(AllKeys.REQUEST_KEY)
-						.getJSONObject(AllKeys.DATA_KEY);
+		response = cService.addBusinessSettings(clientSettings, dbConnection);
 
-				response = cService.addBusinessSettings(dataObject, dbConnection);
-				
-			}
-		}
-		catch(Exception e)
-		{
-			logger.error("Exception in getTalkToAstroList",e);
-			response = utils.genericError();
-		}
-		finally
-		{
-			try 
-			{
-				if (dbConnection != null)
-					connectionPooling.close(dbConnection);
-			} 
-			catch (Exception e) 
-			{
-				e.printStackTrace();
-			}
-		}
-		
+		if (dbConnection != null)
+			connectionPooling.close(dbConnection);
 		System.out.println("response: " + response);
 		return response;
-	}
-
+	}*/
 
 }

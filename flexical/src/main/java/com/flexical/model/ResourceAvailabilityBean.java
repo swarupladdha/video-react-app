@@ -2,18 +2,18 @@ package com.flexical.model;
 
 import java.util.Date;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class ResourceAvailabilityBean {
 	
-	@NotNull(message = "clientKey is mandatory")
+	@NotBlank(message = "clientKey is mandatory")
 	private String clientKey;
 	
 	private String vendorId;
 
-	@NotNull(message = "resourceId is mandatory")
-	@Size(min = 2, message = "resourceId can't be empty")
+	@NotBlank(message = "resourceId is mandatory")
 	private String resourceId;
 	
 	private Date date;
