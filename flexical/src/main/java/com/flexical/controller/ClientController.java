@@ -1,24 +1,39 @@
 package com.flexical.controller;
 
 import java.sql.Connection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flexical.model.ClientDetailsBean;
+import com.flexical.model.ClientSettingsBean;
 import com.flexical.service.ClientService;
 import com.flexical.util.AllKeys;
 import com.flexical.util.ConnectionPooling;
 import com.flexical.util.RestUtils;
 
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import net.sf.json.JSONObject;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600, allowCredentials = "false", allowedHeaders = "*")
 @RequestMapping(value = "/clientList", produces = "application/json")
+@Validated
 public class ClientController {
 	private static final String parentPath = "/clientList";
 	private static final String GenerateClientKey = "/GenerateClientKey";
@@ -33,53 +48,51 @@ public class ClientController {
 	RestUtils utils = new RestUtils();
 
 	@GetMapping(value = GenerateClientKey)
-	public String getGenerateClientKey(@RequestBody String request) {
-		String response = null;
+	// public String getGenerateClientKey(@RequestBody String request) {
+	public JSONObject getGenerateClientKey(@Valid @RequestBody ClientDetailsBean clienDetails)
+			throws JsonProcessingException {
+		JSONObject response = null;
 
+		ObjectMapper mapper = new ObjectMapper();
+		String request = mapper.writeValueAsString(clienDetails);
 		utils.printRequest(parentPath + GenerateClientKey, request);
 		connectionPooling = ConnectionPooling.getInstance();
 		dbConnection = connectionPooling.getConnection();
-		try {
-			if (utils.isJsonValid(request)) {
-				JSONObject jsonRequest = JSONObject.fromObject(request);
-				JSONObject dataObject = jsonRequest.getJSONObject(AllKeys.JSON_KEY).getJSONObject(AllKeys.REQUEST_KEY)
-						.getJSONObject(AllKeys.DATA_KEY);
-
-				response = cService.generateClientKey(dataObject, dbConnection);
-
-			}
-		} catch (Exception e) {
-			logger.error("Exception in getTalkToAstroList", e);
-			response = utils.genericError();
-		} finally {
-			try {
-				if (dbConnection != null)
-					connectionPooling.close(dbConnection);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
+		//response = cService.generateClientKey(dataObject, dbConnection);
+		response = cService.generateClientKey(clienDetails, dbConnection);
+		if (dbConnection != null)
+			connectionPooling.close(dbConnection);
 		logger.info("response: " + response);
 		return response;
 	}
 
-	/*@GetMapping(value = AddClientDefaultSettings)
-	public String addBusinessSettings(@Valid @RequestBody ClientSettingsBean clientSettings)
-			throws MethodArgumentNotValidException, JsonProcessingException {
+	@PostMapping(value = AddClientDefaultSettings)
+	public ResponseEntity<List<String>> addClientAvailabilitySettings(
+			@Valid @RequestBody ClientSettingsBean clientSettings, BindingResult bindingResult)
+			throws JsonProcessingException
+	// public String addClientAvailabilitySettings(@RequestBody JSONObject
+	// clientSettings)
+	{
 		String response = null;
 
 		ObjectMapper mapper = new ObjectMapper();
+		// String request = clientSettings.toString();
 		String request = mapper.writeValueAsString(clientSettings);
 		utils.printRequest(parentPath + AddClientDefaultSettings, request);
 		connectionPooling = ConnectionPooling.getInstance();
 		dbConnection = connectionPooling.getConnection();
-		response = cService.addBusinessSettings(clientSettings, dbConnection);
+		response = cService.addClientAvailabilitySettings(clientSettings, dbConnection);
 
 		if (dbConnection != null)
 			connectionPooling.close(dbConnection);
-		System.out.println("response: " + response);
-		return response;
-	}*/
+		List<String> errors = bindingResult.getAllErrors().stream()
+				.map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList());
+
+		ResponseEntity<List<String>> result = ResponseEntity.badRequest().body(errors);
+		logger.info("result " + result);
+		return result;
+		// System.out.println("response: " + response);
+		// return response;
+	}
 
 }

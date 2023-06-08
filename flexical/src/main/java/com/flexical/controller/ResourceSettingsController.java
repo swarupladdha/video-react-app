@@ -2,8 +2,6 @@ package com.flexical.controller;
 
 import java.sql.Connection;
 
-import jakarta.validation.Valid;
-
 import org.apache.log4j.Logger;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,6 +20,7 @@ import com.flexical.util.AllKeys;
 import com.flexical.util.ConnectionPooling;
 import com.flexical.util.RestUtils;
 
+import jakarta.validation.Valid;
 import net.sf.json.JSONObject;
 
 @RestController

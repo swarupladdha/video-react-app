@@ -1,5 +1,9 @@
 package com.flexical.util;
 
+import java.util.List;
+
+import com.flexical.model.Availability;
+
 public class AllKeys {
 
 	public static String JSON_KEY = "json";

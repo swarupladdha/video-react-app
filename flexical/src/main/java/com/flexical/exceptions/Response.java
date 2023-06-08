@@ -1,19 +1,22 @@
 package com.flexical.exceptions;
 
+import org.springframework.http.HttpStatus;
+
 public class Response {
-    private String statuscode;
+    private HttpStatus statuscode;
     private String statusmessage;
 
-    public Response(String statuscode, String statusmessage) {
-        this.statuscode = statuscode;
+    public Response(HttpStatus badRequest, String statusmessage) {
+    	System.out.println("badRequest "+badRequest);
+        this.statuscode = HttpStatus.BAD_REQUEST;
         this.statusmessage = statusmessage;
     }
 
-    public String getStatuscode() {
+    public HttpStatus getStatuscode() {
         return statuscode;
     }
 
-    public void setStatuscode(String statuscode) {
+    public void setStatuscode(HttpStatus statuscode) {
         this.statuscode = statuscode;
     }
 
