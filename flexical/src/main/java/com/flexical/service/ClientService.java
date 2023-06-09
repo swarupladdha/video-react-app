@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,8 +61,8 @@ public class ClientService {
 		clientId = cDao.getClientId(dataObject.getClientKey(), dbConnection);
 		//clientId = cDao.getClientId(dataObject.getString("clientKey"), dbConnection);
 		if (clientId <= 0) {
-			response = utils.processError(PropertiesUtil.getProperty("invalid_clientkey_code"),
-					PropertiesUtil.getProperty("invalid_clientkey_message"));
+			response = utils.processError(HttpStatus.OK, PropertiesUtil.getProperty("invalid_clientkey_message"));
+			//response = utils.processError(PropertiesUtil.getProperty("invalid_clientkey_code"), PropertiesUtil.getProperty("invalid_clientkey_message"));
 			logger.info("Response is :" + response);
 			return response;
 		}

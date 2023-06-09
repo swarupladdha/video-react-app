@@ -25,8 +25,7 @@ public class ResourceSettingsService {
 		if (dataObject.containsKey(AllKeys.CLIENT_KEY)) {
 			clientKey = dataObject.getString(AllKeys.CLIENT_KEY);
 			if (utils.isEmpty(clientKey)) {
-				response = utils.processError(PropertiesUtil.getProperty("empty_clientkey_code"),
-						PropertiesUtil.getProperty("empty_clientkey_message"));
+				response = utils.processError(PropertiesUtil.getProperty("empty_clientkey_code"), PropertiesUtil.getProperty("empty_clientkey_message"));
 				logger.info("Response is :" + response);
 				return response;
 			} else {
@@ -155,8 +154,8 @@ public class ResourceSettingsService {
 		}
 		String slotTime = cDao.getSlotTimeFromresourceId(resourceId, dbConnection);
 		JSONObject obj = new JSONObject();
-		//int resourceAvailabiltyId = rsDao.addResourceAvailabilitySettings(clientId, vendorId, clientVendorId, resourceId, resourceVendorId, weekdayId, startTime, endTime, working, dbConnection);
-		int resourceAvailabiltyId = rsDao.addResourceAvailabilitySettingsbySlotTime(clientId, vendorId, clientVendorId, resourceId, resourceVendorId, weekdayId, startTime, endTime, slotTime, working, dbConnection);
+		int resourceAvailabiltyId = rsDao.addResourceAvailabilitySettings(clientId, vendorId, clientVendorId, resourceId, resourceVendorId, weekdayId, startTime, endTime, working, dbConnection);
+		//int resourceAvailabiltyId = rsDao.addResourceAvailabilitySettingsbySlotTime(clientId, vendorId, clientVendorId, resourceId, resourceVendorId, weekdayId, startTime, endTime, slotTime, working, dbConnection);
 		obj.put(AllKeys.RESOURCEAVAILABILITYID_KEY, resourceAvailabiltyId);
 		response = utils.processSucessForModules("data", obj);
 		return response;

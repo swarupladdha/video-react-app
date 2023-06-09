@@ -1,6 +1,7 @@
 package com.flexical.util;
 
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpStatus;
 
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
@@ -35,16 +36,21 @@ public class RestUtils {
 		return false;
 	}
 
-	public String processError(String statusCode, String message) {
+	public String processError(HttpStatus statusCode, String message) {
 		String errorJSONString = new String();
-		JSONObject errorJSON = new JSONObject();
-		JSONObject errorRespJSON = new JSONObject();
 		JSONObject statusJSON = new JSONObject();
 		statusJSON.put(AllKeys.STATUS_CODE, statusCode);
 		statusJSON.put(AllKeys.STATUS_MESSAGE, message);
-		errorRespJSON.put(AllKeys.RESPONSE, statusJSON);
-		errorJSON.put(AllKeys.JSON_KEY, errorRespJSON);
-		errorJSONString = errorJSON.toString();
+		errorJSONString = statusJSON.toString();
+		return errorJSONString;
+	}
+	
+	public String processError(String statusCode, String message) {
+		String errorJSONString = new String();
+		JSONObject statusJSON = new JSONObject();
+		statusJSON.put(AllKeys.STATUS_CODE, statusCode);
+		statusJSON.put(AllKeys.STATUS_MESSAGE, message);
+		errorJSONString = statusJSON.toString();
 		return errorJSONString;
 	}
 
@@ -96,16 +102,7 @@ public class RestUtils {
 	
 	public String processSucessForModules(String dataText, Object Obj) {
 		JSONObject sucessJSON = new JSONObject();
-		JSONObject sucessRespJSON = new JSONObject();
-		JSONObject contentJSON = new JSONObject();
-		contentJSON.put(AllKeys.STATUS_CODE, PropertiesUtil.getProperty("statuscodesuccessvalue"));
-
-		contentJSON.put(AllKeys.STATUS_MESSAGE, PropertiesUtil.getProperty("statusmessagesuccessvalue"));
-
-		contentJSON.put(dataText, Obj);
-
-		sucessRespJSON.put(AllKeys.RESPONSE, contentJSON);
-		sucessJSON.put(AllKeys.JSON_KEY, sucessRespJSON);
+		sucessJSON.put(dataText, Obj);
 		return sucessJSON.toString();
 	}
 
