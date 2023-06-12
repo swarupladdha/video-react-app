@@ -16,7 +16,6 @@ public class ResourceSettingsService {
 	RestUtils utils = new RestUtils();
 	ClientOperationDao cDao = new ClientOperationDao();
 	ResourceSettingsDao rsDao = new ResourceSettingsDao();
-	AvailabilityCalculator ac = new AvailabilityCalculator();
 
 	public String addResourceSettings(JSONObject dataObject, Connection dbConnection) {
 		String response = null;
@@ -184,10 +183,10 @@ public class ResourceSettingsService {
 		} else {
 			weekday = dataObject.getDate().getDay() + 1;
 		}
-		JSONObject obj = new JSONObject();
+		//JSONObject obj = new JSONObject();
 		JSONArray jsonArray = rsDao.getResourceAvailabilitySettings(clientId, vendorId, resourceId, weekday, dbConnection);
-		JSONArray resultArray = ac.availabilityCalculator(jsonArray);
-		response = utils.processSucessForModules("data", resultArray);
+		//JSONArray resultArray = ac.availabilityCalculator(jsonArray);
+		response = utils.processSucessForModules("data", jsonArray);
 		return response;
 	}
 }

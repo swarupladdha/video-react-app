@@ -190,6 +190,50 @@ public class ResourceSettingsDao {
 
 	public JSONArray getResourceAvailabilitySettings(int clientId, String vendorId, String resourceId, int weekday,
 			Connection dbConnection) {
+		JSONArray result = new JSONArray();
+		JSONObject obj = new JSONObject();
+		String sql = "select rga.ClientId, rga.VendorId, rga.ResourceId, rga.weekdayId, s.StartTime, s.EndTime, "
+				+ "case when b.Id != '' then 'booked' "
+				+ " when rga.working = 1 then 'available' else 'not available' end  as status "
+				+ "from resourcegeneralavailability rga "
+				+ "left join week w on w.Id = rga.weekdayId "
+				+ "left join slot s on s.Id = rga.slotId "
+				+ "left join booking b on b.slotId = s.Id and w.Id = (dayofweek(b.StartTime) + 5) % 7 + 2 "
+				+ "where rga.ClientId = ? and rga.VendorId = ? and rga.ResourceId = ?";
+		PreparedStatement ps = null;
+		ResultSet rs;
+		try {
+			ps = dbConnection.prepareStatement(sql);
+			ps.setInt(1, clientId);
+			ps.setString(2, vendorId);
+			ps.setString(3, resourceId);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				obj.put(AllKeys.CLIENTID_KEY, rs.getInt(AllKeys.CLIENTID_KEY));
+				obj.put(AllKeys.VENDORID_KEY, rs.getString(AllKeys.VENDORID_KEY));
+				obj.put(AllKeys.RESOURCEID_KEY, rs.getString(AllKeys.RESOURCEID_KEY));
+				obj.put(AllKeys.WEEKDAYID_KEY, rs.getString(AllKeys.WEEKDAYID_KEY));
+				obj.put(AllKeys.STARTTIME_KEY, rs.getString(AllKeys.STARTTIME_KEY));
+				obj.put(AllKeys.ENDTIME_KEY, rs.getString(AllKeys.ENDTIME_KEY));
+				obj.put(AllKeys.STATUS_KEY, rs.getString(AllKeys.STATUS_KEY));
+				result.add(obj);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;
+
+	}
+	/*public JSONArray getResourceAvailabilitySettings(int clientId, String vendorId, String resourceId, int weekday,
+			Connection dbConnection) {
 		JSONObject jsonObject = new JSONObject();
 		//String query = "select * from week";
 		PreparedStatement ps = null, ps1 = null;
@@ -252,5 +296,5 @@ public class ResourceSettingsDao {
 		}
 
 		return jsonArray;
-	}
+	}*/
 }
